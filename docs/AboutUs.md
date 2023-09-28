@@ -19,15 +19,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Nguyen Cao Duy
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ncduy0303.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/ncduy0303)]
+[[portfolio](team/ncduy0303.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
+* Responsibilities: Full Stack
 
 ### Johnny Doe
 
