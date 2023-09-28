@@ -9,25 +9,23 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Jed
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jedkohjk.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/jedkohjk)]
 
-* Role: Project Advisor
+* Role: Developer
 
-### Jane Doe
+### Nguyen Cao Duy
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ncduy0303.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/ncduy0303)]
+[[portfolio](team/ncduy0303.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
+* Responsibilities: Full Stack
 
 ### Johnny Doe
 
