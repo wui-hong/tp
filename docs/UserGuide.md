@@ -1,6 +1,8 @@
 # Spend n Split
 ## Description
-Spend n Split (SnS) is a **desktop app for managing expense from contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SnS can get your contact expense management tasks done faster than traditional GUI apps.
+Spend n Split (SnS) is a **desktop app for managing expense from contacts, optimized for use via a Command Line 
+Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SnS can 
+get your contact expense management tasks done faster than traditional GUI apps.
 
 ## Setup
 
@@ -10,11 +12,13 @@ Spend n Split (SnS) is a **desktop app for managing expense from contacts, optim
 
 3. Copy the file to the folder you want to use as the _home folder_ for your Spend N Split.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar spendnsplit.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar spendnsplit.jar` 
+command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will 
+open the help window.<br>
    Some example commands you can try:
 
     * `list` : Lists all expenses.
@@ -48,13 +52,14 @@ $ add n/Ryan d/Sourdough bread
 
 Error. Expense cost was not provided with a c/ flag.
 ```
-![addExpense success](https://hackmd.io/_uploads/Skyr0m2J6.jpg)
+![addExpense success](images/user-guide/addExpense1.jpg)
 
-![addExpense error](https://hackmd.io/_uploads/Bk1jqmn1a.jpg)
+![addExpense error](images/user-guide/addExpense2.jpg)
 
 
 ### Editing an expense: `editExpense`
-Edits the expense for the person at the specified `INDEX`. The index refers to the index number when viewing a specific person's expenses. The index **must be a positive integer** 1, 2, 3, …​
+Edits the expense for the person at the specified `INDEX`. The index refers to the index number when viewing a 
+specific person's expenses. The index **must be a positive integer** 1, 2, 3, …​
 Format: `editExpense n/NAME i/INDEX [c/COST] [d/DETAILS]​`
 
 Examples:
@@ -80,10 +85,10 @@ $ editExpense n/Bob 3 d/Potato
 
 Error! There is no such expense for Bob at that index.
 ```
-![editExpense success](https://hackmd.io/_uploads/H1pIQE3JT.jpg)
+![editExpense success](images/user-guide/editExpense1.jpg)
 
 
-![editExpense error](https://hackmd.io/_uploads/S1hK7Vn16.jpg)
+![editExpense error](images/user-guide/editExpense2.jpg)
 
 
 
@@ -103,11 +108,11 @@ Examples:
 * `deleteExpense i/1`
     * Deletes the first expense in the list
 
-![](https://hackmd.io/_uploads/BygI0m2kT.png)
+![](images/user-guide/deleteExpense1.png)
 
-![](https://hackmd.io/_uploads/BkNekE3J6.png)
+![](images/user-guide/deleteExpense2.png)
 
-![](https://hackmd.io/_uploads/Bk5UkEnJ6.png)
+![](images/user-guide/deleteExpense3.png)
 
 ### Viewing my log with a person: `log`
 
@@ -125,13 +130,13 @@ Examples:
 * `log p/Alice`
     * Shows log with Alice
 
-![log success](https://hackmd.io/_uploads/HJrQRm3ka.png)
+![log success](images/user-guide/log1.png)
 
-![](https://hackmd.io/_uploads/B1SmgNhk6.png)
+![](images/user-guide/log2.png)
 
-![](https://hackmd.io/_uploads/SyA7e4hyT.png)
+![](images/user-guide/log3.png)
 
-![](https://hackmd.io/_uploads/HkBkWEnyp.png)
+![](images/user-guide/log4.png)
 
 
 ### Settling expenses: `settle`
@@ -168,11 +173,11 @@ Confirm settle expense with Mary? [Y/N]
 $ N
 ```
 
-![settle error](https://hackmd.io/_uploads/Bkc_0XnJT.jpg)
+![settle error](images/user-guide/settle1.jpg)
 
-![settle prompt confirm](https://hackmd.io/_uploads/B1U5Amn1p.jpg)
+![settle prompt confirm](images/user-guide/settle2.jpg)
 
-![settle success](https://hackmd.io/_uploads/B1ieJVny6.jpg)
+![settle success](images/user-guide/settle3.jpg)
 
 
 ### Listing balances of all persons : `list`
@@ -193,23 +198,28 @@ $ list
 |  2  | John | 82347185 |  -$14   |
 
 ```
-![list success](https://hackmd.io/_uploads/BJPHRXh1a.jpg)
+![list success](images/user-guide/list1.png)
 
 
 ### Sorting people by balance: `sortBalance`
 
-Sorts the list of people in your address book based on their outstanding balances in either ascending or descending order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you own them money.
+Sorts the list of people in your address book based on their outstanding balances in either ascending or descending 
+order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you 
+own them money.
 
 Format: `sortBalance o/ORDER`
 
 Parameters:
-- `o/ORDER`: Specifies the order in which to sort the balances. Use `asc` for ascending order and `desc` for descending order. Raise error for missing or unknown parameters.
+- `o/ORDER`: Specifies the order in which to sort the balances. Use `asc` for ascending order and `desc` for 
+descending order. Raise error for missing or unknown parameters.
 
 Examples:
 * `sortBalance o/asc`
-    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed by others in increasing order of their outstanding balances.
+    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
+        by others in increasing order of their outstanding balances.
 * `sortBalance o/desc`
-    * This command will rearrange the list to show the person with the highest outstanding balance at the top, followed by others in decreasing order of their outstanding balances.
+    * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
+        followed by others in decreasing order of their outstanding balances.
 
 Sample execution:
 
@@ -220,7 +230,7 @@ All contacts balance in ascending order. Negative balance means you own them mon
 2. Bernice Yu, -$12
 3. Charlotte Oliveiro, $23
 ```
-![sortBalance success](https://hackmd.io/_uploads/BkHZcXh1p.png)
+![sortBalance success](images/user-guide/sortBalance1.png)
 
 ```
 $ sortBalance
@@ -229,7 +239,7 @@ Invalid sorting order, must be `o/asc` or `o/desc`
 $ sortBalance o/increasing
 Invalid sorting order, must be `o/asc` or `o/desc`
 ```
-![sortBalance error](https://hackmd.io/_uploads/BJH-qX21T.png)
+![sortBalance error](images/user-guide/sortBalance2.png)
 
 ### Creating shared expenses: `createGroupExpense`
 Creates an expense for multiple people with customised split ratios.
@@ -242,11 +252,12 @@ Format: `createGroupExpense c/COST d/DETAILS [n/NAME w/WEIGHT]...`
 - At least one pair of name and weight must be provided.
 - Weight must be an integer.
 - The cost for each person is calculated as follows:
-    - $\text{Individual Cost} = \text{Total Cost} \times \frac{\text{Individual Weight}}{\text{Total Weight}}$
+    - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
 Examples:
 * `createGroupExpense c/100 d/Dinner n/John w/2 n/Mary w/2 n/Alice w/1`
-    * creates 3 expenses: two expenses of $40 for John and Mary (2/5 of $100 each), and one expense of $20 for Alice (1/5 of $100)
+    * creates 3 expenses: two expenses of $40 for John and Mary (2/5 of $100 each), and one expense of $20 for 
+        Alice (1/5 of $100)
 * `createGroupExpense c/600 d/Rent n/Self w/1 n/John w/1 n/Mary /w1`
     * creates 2 expenses: $200 each for John and Mary (since you incurred 1/3 of the cost, which is $200)
 
@@ -259,7 +270,7 @@ Successfully created 3 expenses totalling $100:
     Mary owes you $40
     Alice owes you $20
 ```
-![createGroupExpense success](https://hackmd.io/_uploads/SJsey4nyp.png)
+![createGroupExpense success](images/user-guide/createGroupExpense1.png)
 
 
 ```
@@ -271,7 +282,7 @@ For example,
 c/30 d/Lunch n/John w/1 n/Mary w/1
 ```
 
-![createGroupExpense error](https://hackmd.io/_uploads/Sk4vC721T.png)
+![createGroupExpense error](images/user-guide/createGroupExpense2.png)
 
 
 ### __v1.1__
@@ -291,7 +302,7 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
-![list](https://hackmd.io/_uploads/r1zAkN3yp.jpg)
+![list](images/user-guide/listOld.png)
 
 
 ### Editing a person : `edit`
@@ -300,7 +311,8 @@ Edits an existing person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
+    The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -309,7 +321,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com`
-    *  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+    *  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` 
+        respectively.
 *  `edit 2 n/Betsy Crower t/`
     *  Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
@@ -329,7 +342,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`
-  ![find success](https://hackmd.io/_uploads/ryxBeV2JT.jpg)
+  ![find success](images/user-guide/find1.png)
 
 
 ### Deleting a person : `delete`
@@ -346,7 +359,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-![](https://hackmd.io/_uploads/BkfbfV31T.jpg)
+![](images/user-guide/delete1.png)
 
 
 ### Clearing all entries : `clear`
@@ -354,7 +367,7 @@ Examples:
 Clears all entries from the address book.
 
 Format: `clear`
-![](https://hackmd.io/_uploads/HJdg-N31p.jpg)
+![](images/user-guide/clear1.png)
 
 
 ### Exiting the program : `exit`
@@ -362,18 +375,21 @@ Format: `clear`
 Exits the program.
 
 Format: `exit`
-![](https://hackmd.io/_uploads/B115x42k6.jpg)
+![](images/user-guide/exit1.png)
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need 
+to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users 
+are welcome to update data directly by editing that data file.
 ## FAQ
 ### Why do the expenses in the log not add up exactly to the balance?
-The expenses displayed are rounded to a fixed number of decimal places. This means there may be fractional differences between the actual expenses and what is displayed.
+The expenses displayed are rounded to a fixed number of decimal places. This means there may be fractional differences 
+between the actual expenses and what is displayed.
 
 Example:
 ```
