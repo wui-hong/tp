@@ -279,8 +279,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user | find a person by name | locate details of persons without having to go through the entire list |
 | `* * *` | user | add expenses under a specific person | |
 | `* * *` | user | add group expenses | easily add expenses that are split among a group |
+| `* *` | user | edit expenses | change incorrectly added entries |
 | `* * *` | user | delete expenses | remove incorrectly added entries |
 | `* * *` | user | view balance with each person | know how much they owe me |
+| `* *` | user | settle balances | simulate clearing of debt |
 | `* * *` | user | list all my expenses with a specific person | remind myself of why a specific person's balance is the way it is |
 | `* *` | user with many persons in the address book | sort persons by balance | know from whom I should collect money |
 | `*` | user | hide private contact details | minimise chance of someone else seeing them by accident |
