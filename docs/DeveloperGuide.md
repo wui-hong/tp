@@ -255,29 +255,37 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+**Target User Profile**: University students who live in hall
+* Needs to manage a significant number of contacts
+* Often splits expenses with other hallmates (for groceries, meals etc.)
+* Have friend groups with whom they hang out more frequently
+* Often has their laptop on hand and prefer desktop apps
+* Used to typing fast on their laptop
+* Is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value Proposition**: The app will allow users to seamlessly keep track of the money they owe/are owed, with regards to borrowers/lenders and their expenses. It is CLI-based and manages contacts faster than a typical mouse/GUI driven app.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
+| Priority | As a …​ | I want to …​ | So that I can…​ |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the app |
+| `* * *` | user | add a new person | |
+| `* * *`  | user | delete a person | remove entries that I no longer need |
+| `* * *`  | user | find a person by name | locate details of persons without having to go through the entire list |
+| `* * *` | user | add expenses under a specific person | |
+| `* * *` | user | add group expenses | easily add expenses that are split among a group |
+| `* *` | user | edit expenses | change incorrectly added entries |
+| `* * *` | user | delete expenses | remove incorrectly added entries |
+| `* * *` | user | view balance with each person | know how much they owe me |
+| `* *` | user | settle balances | simulate clearing of debt |
+| `* * *` | user | list all my expenses with a specific person | remind myself of why a specific person's balance is the way it is |
+| `* *` | user with many persons in the address book | sort persons by balance | know from whom I should collect money |
+| `*` | user | hide private contact details | minimise chance of someone else seeing them by accident |
 
 *{More to be added}*
 
