@@ -285,7 +285,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `SpendNSplit` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case 1: Listing all people in the contact list, sorted by balance**
+**Use case 1: Listing all persons in the contact list, sorted by balance**
 
 **MSS**
 
@@ -370,7 +370,7 @@ Preconditions: Persons exist in the contact list.
 2. SpendNSplit shows a list of contacts.
 3. User enters the command to create a group expense.
 4. SpendNSplit informs the user that the group expense has been created.
-5. SpendNSplit shows the expense list for that group of people.
+5. SpendNSplit shows the expense list for that group of persons.
 
 Use case ends.
 
@@ -383,7 +383,7 @@ Extensions:
   * 3b1. SpendNSplit informs the user that the command is invalid, and shows the user what required flags are missing.
   * 3b2. Use case resumes at step 2.
 
-** Use case 6: Settle expenses with a person**
+**Use case 6: Settle expenses with a person**
 
 Preconditions: Person exists in the contact list.
 
