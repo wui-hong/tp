@@ -285,6 +285,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `SpendNSplit` and the **Actor** is the `user`, unless specified otherwise)
 
+---
+
 **Use case 1: Listing all persons in the contact list, sorted by balance**
 
 **MSS**
@@ -295,6 +297,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. SpendNSplit shows the list of contacts now sorted by balance.
 
 Use case ends.
+
+---
 
 **Use case 2: Listing all expenses of a particular person**
 
@@ -313,6 +317,8 @@ Extensions:
 * 3a. If the person does not exist in the contact list, SpendNSplit throws an error.
   * 3a1. SpendNSplit informs the user that the person does not exist in the contact list.
   * 3a2. Use case resumes at step 2.
+
+---
 
 **Use case 3: Add a new Expense**
 
@@ -337,6 +343,8 @@ Extensions:
   * 3b1. SpendNSplit informs the user that the command is invalid, and shows the user what required flags are missing.
   * 3b2. Use case resumes at step 2.
 
+---
+
 **Use case 4: Edit an Expense**
 
 Preconditions: Expense exists in the expense list of the person.
@@ -359,6 +367,8 @@ Extensions:
 * 4b. If the user enters an invalid command without required flags, SpendNSplit throws an error.
   * 4b1. SpendNSplit informs the user that the command is invalid, and shows the user what required flags are missing.
   * 4b2. Use case resumes at step 2.
+
+---
 
 **Use case 5: Create Group Expense**
 
@@ -383,6 +393,8 @@ Extensions:
   * 3b1. SpendNSplit informs the user that the command is invalid, and shows the user what required flags are missing.
   * 3b2. Use case resumes at step 2.
 
+---
+
 **Use case 6: Settle expenses with a person**
 
 Preconditions: Person exists in the contact list.
@@ -402,6 +414,7 @@ Extensions:
   * 3a1. SpendNSplit informs the user that the person does not exist in the contact list.
   * 3a2. Use case resumes at step 2.
 
+---
 
 **Use case 7: Delete an Expense**
 
@@ -422,6 +435,8 @@ Extensions:
   * 3a1. SpendNSplit informs the user that the expense does not exist in the expense list.
   * 3a2. Use case resumes at step 2.
 
+---
+
 **Use case 8: View logs with a person**
 
 Preconditions: Person exists in the contact list.
@@ -440,7 +455,7 @@ Extensions:
   * 3a1. SpendNSplit informs the user that the person does not exist in the contact list.
   * 3a2. Use case resumes at step 2.
 
-
+---
 
 ### Non-Functional Requirements
 
