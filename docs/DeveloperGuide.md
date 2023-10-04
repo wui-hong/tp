@@ -320,16 +320,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+1.  The application should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2.  The application should be able to hold up to 1000 people without a noticeable sluggishness in performance for typical usage.
+3.  A user with above average typing speed for regular English text (i.e, not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  The application should work without internet access.
+5.  The application should not take more than 50MB of space.
+6.  The user interface should be intuitive to new users. From the interface, users should easily find out how to write input, view output, and find the help guide.
+7.  The application should be accurate when calculating expenses, being able to handle the division of costs with precision.
+8.  The application should store data to the hard disk consistently so that loading the data on a different device leads to the same application state.
+9.  The GUI should organise and present data clearly so that users are able to read application details easily.
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
+**Expenses Tracker**
+
+* **Contact**: A person stored in your application with additional information.
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Expense**: A monetary transaction that records costs involving you and another contact.
+* **Group Expense**: A monetary transaction that records costs involving you are more than one contact, which can be divided into individual expenses.
+* **Balance**: The amount of money either owed to you or owed by you to another person in your contacts.
+  * **Positive Balance**: Indicates that the contact owes you money.
+  * **Negative Balance**: Indicates that you owe the contact money.
+* **Outstanding Balance**: The amount of unsettled money between you and your contact.
+* **Settle**: The action of clearing any outstanding balance between you and another contact via a new expense.
+
+**General**
+* **Mainstream OS**: Windows, Linux, Unix, OS-X.
+* **Command**: A text input from the user which tells the application to run a specific action.
 
 --------------------------------------------------------------------------------------------------------------------
 
