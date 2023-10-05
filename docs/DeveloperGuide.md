@@ -295,16 +295,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case 1: Listing all persons in the contact list, sorted by balance**
+**Use case 1: Listing all persons in the contact list**
 
 **MSS**
 
 1. User requests to view all contacts in the contact list.
 2. Spend n Split shows a list of contacts.
-3. User enters the command to sort the list by balance.
-4. Spend n Split shows the list of contacts now sorted by balance.
 
 Use case ends.
+
+Extensions:
+* 1a. The user can include a flag to sort the list by name.
+  * 1a1. Spend n Split shows the list of contacts now sorted by name.
+  * 1a2. Use case resumes at step 4.
 
 ---
 
@@ -319,7 +322,7 @@ Preconditions: Person exists in the contact list.
 3. User enters the command to view the expense list of a person.
 4. Spend n Split shows the list of expenses with that person.
 
-Use case ends:
+Use case ends.
 
 Extensions:
 * 3a. If the person does not exist in the contact list, Spend n Split throws an error.
