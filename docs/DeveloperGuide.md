@@ -295,7 +295,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case 1: Listing all persons in the contact list**
+**Use Case: UC1 - Listing all Persons**
 
 **MSS**
 
@@ -311,123 +311,120 @@ Extensions:
 
 ---
 
-**Use case 2: Listing all expenses of a particular person**
-
-Preconditions: Person exists in the contact list.
+**Use Case: UC2 - Adding a New Person**
 
 **MSS**
 
-1. User requests to view all contacts in the contact list.
-2. Spend n Split shows a list of contacts.
-3. User enters the command to view the expense list of a person.
-4. Spend n Split shows the list of expenses with that person.
+1. User requests to add a new person.
+2. Spend n Split informs the user that the new person has been added.
+3. Spend n Split shows the updated contact list.
 
 Use case ends.
 
 Extensions:
-* 3a. If the person does not exist in the contact list, Spend n Split throws an error.
-  * 3a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 3a2. Use case resumes at step 2.
+* 1a. Spend n Split detects that the person already exists in the contact list.
+  * 1a1. Spend n Split informs the user that the person already exists in the contact list.
+  * 1a2. Use case resumes at step 1.
+* 1b. Spend n Split detects an error in the entered data for the new person.
+  * 1b1. Spend n Split informs the user that the data entered is invalid.
+  * 1b2. Use case resumes at step 1.
 
 ---
 
-**Use case 3: Add a new Expense**
-
-Preconditions: Person exists in the contact list.
+**Use Case: UC3 - Editing a Person**
 
 **MSS**
 
-1. User requests to view all contacts in the contact list.
-2. Spend n Split shows a list of contacts.
-3. User enters the command to add a new expense.
-4. Spend n Split informs the user that the new expense has been added.
-5. Spend n Split shows the updated expense list with that person.
+1. User requests to edit a person.
+2. Spend n Split informs the user that the person has been edited.
+3. Spend n Split shows the updated contact list.
 
 Use case ends.
 
 Extensions:
-* 3a. If the person does not exist in the contact list, Spend n Split throws an error.
-  * 3a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 3a2. Use case resumes at step 2.
-
-* 3b. If the user enters an invalid command without required flags, Spend n Split throws an error.
-  * 3b1. Spend n Split informs the user that the command is invalid, and shows the user what required flags are missing.
-  * 3b2. Use case resumes at step 2.
+* 1a. Spend n Split detects that the person does not exist in the contact list.
+  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+  * 1a2. Use case resumes at step 1.
+* 1b. Spend n Split detects an error in the entered data for the person.
+  * 1b1. Spend n Split informs the user that the data entered is invalid.
+  * 1b2. Use case resumes at step 1.
 
 ---
 
-**Use case 4: Edit an Expense**
+**Use Case: UC4 - Deleting a Person**
 
-Preconditions: Expense exists in the expense list of the person.
+**MSS**
+
+1. User requests to delete a person.
+2. Spend n Split informs the user that the person has been deleted.
+3. Spend n Split shows the updated contact list.
+
+Use case ends.
+
+Extensions:
+* 1a. Spend n Split detects that the person does not exist in the contact list.
+  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+  * 1a2. Use case resumes at step 1.
+
+---
+
+**Use Case: UC5 - Finding a Person**
+
+**MSS**
+
+1. User requests to find a person.
+2. Spend n Split shows the list of persons that match the search query.
+
+Use case ends.
+
+**Use Case: UC# - Clear All Persons**
+
+TODO: Internal note: let's remove / amend this feature, this command is too powerful and destructive.
+
+---
+
+**Use Case: UC6 - Listing all Expenses with a Person**
+
+Preconditions: Person exists in the contact list.
 
 **MSS**
 
 1. User requests to view the expense list of a person.
-3. Spend n Split shows a list of expenses.
-4. User enters the command to edit an expense.
-5. Spend n Split informs the user that the expense has been edited.
-6. Spend n Split shows the updated expense list with that person.
+2. Spend n Split shows the list of expenses with that person.
 
 Use case ends.
 
 Extensions:
-* 4a. If the expense does not exist in the expense list, Spend n Split throws an error.
-  * 4a1. Spend n Split informs the user that the expense does not exist in the expense list.
-  * 4a2. Use case resumes at step 2.
-  
-* 4b. If the user enters an invalid command without required flags, Spend n Split throws an error.
-  * 4b1. Spend n Split informs the user that the command is invalid, and shows the user what required flags are missing.
-  * 4b2. Use case resumes at step 2.
+* 1a. Person does not exist in the contact list.
+  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+  * 1a2. Use case resumes at step 1.
 
 ---
 
-**Use case 5: Create Group Expense**
-
-Preconditions: Persons exist in the contact list.
-
-**MSS**
-
-1. User requests to view all contacts in the contact list.
-2. Spend n Split shows a list of contacts.
-3. User enters the command to create a group expense.
-4. Spend n Split informs the user that the group expense has been created.
-5. Spend n Split shows the expense list for that group of persons.
-
-Use case ends.
-
-Extensions:
-* 3a. If the person(s) does not exist in the contact list, Spend n Split throws an error.
-  * 3a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 3a2. Use case resumes at step 2.
-
-* 3b. If the user enters an invalid command without required flags, Spend n Split throws an error.
-  * 3b1. Spend n Split informs the user that the command is invalid, and shows the user what required flags are missing.
-  * 3b2. Use case resumes at step 2.
-
----
-
-**Use case 6: Settle expenses with a person**
+**Use Case: UC7 - Add a New Expense**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to view all contacts in the contact list.
-2. Spend n Split shows a list of contacts.
-3. User enters the command to settle expenses with a person.
-4. Spend n Split informs the user that the expenses have been settled.
-5. Spend n Split shows the list of contacts.
+1. User requests to add a new expense.
+2. Spend n Split informs the user that the new expense has been added.
+3. Spend n Split shows the updated expense list with that person.
 
 Use case ends.
 
 Extensions:
-* 3a. If the person does not exist in the contact list, Spend n Split throws an error.
-  * 3a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 3a2. Use case resumes at step 2.
+* 1a. Person does not exist in the contact list.
+  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+  * 1a2. Use case resumes at step 1.
+
+* 1b. Spend n Split detects an error in the request for the new person.
+  * 1b1. Spend n Split informs the user that the request is invalid.
+  * 1b2. Use case resumes at step 1.
 
 ---
 
-**Use case 7: Delete an Expense**
+**Use Case: UC8 - Edit an Expense**
 
 Preconditions: Expense exists in the expense list of the person.
 
@@ -435,36 +432,97 @@ Preconditions: Expense exists in the expense list of the person.
 
 1. User requests to view the expense list of a person.
 2. Spend n Split shows a list of expenses.
-3. User enters the command to delete an expense.
+3. User requests to edit an expense.
+4. Spend n Split informs the user that the expense has been edited. 
+5. Spend n Split shows the updated expense list with that person.
+
+Use case ends.
+
+Extensions:
+* 4a. Expense does not exist in the expense list.
+  * 4a1. Spend n Split informs the user that the expense does not exist in the expense list.
+  * 4a2. Use case resumes at step 3.
+  
+* 4b. Spend n Split detects an error in the request for the new person.
+  * 4b1. Spend n Split informs the user that request is invalid.
+  * 4b2. Use case resumes at step 3.
+
+---
+
+**Use Case: UC9 - Create Group Expense**
+
+Preconditions: Persons exist in the contact list.
+
+**MSS**
+
+1. User requests to create a group expense.
+2. Spend n Split informs the user that the group expense has been created.
+3. Spend n Split shows the expense list for that group of persons.
+
+Use case ends.
+
+Extensions:
+* 1a. If the person(s) does not exist in the contact list, Spend n Split throws an error.
+  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+  * 1a2. Use case resumes at step 1.
+
+---
+
+**Use Case: UC10 - Settle expenses with a person**
+
+Preconditions: Person exists in the contact list.
+
+**MSS**
+
+1. User requests to settle expenses with a person. 
+2. Spend n Split informs the user that the expenses have been settled. 
+3. Spend n Split shows the list of contacts.
+
+Use case ends.
+
+Extensions:
+* 1a. Person does not exist in the contact list.
+  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+  * 1a2. Use case resumes at step 2.
+
+---
+
+**Use Case: UC11 - Delete an Expense**
+
+Preconditions: Expense exists in the expense list of the person.
+
+**MSS**
+
+1. User requests to view the expense list of a person.
+2. Spend n Split shows a list of expenses.
+3. User requests to delete an expense.
 4. Spend n Split informs the user that the expense has been deleted.
 5. Spend n Split shows the updated expense list with that person.
 
 Use case ends.
 
 Extensions:
-* 3a. If the expense does not exist in the expense list, Spend n Split throws an error.
-  * 3a1. Spend n Split informs the user that the expense does not exist in the expense list.
-  * 3a2. Use case resumes at step 2.
+* 1a. Person does not exist in the contact list.
+    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+    * 1a2. Use case resumes at step 2.
 
 ---
 
-**Use case 8: View logs with a person**
+**Use Case: UC12 - View Logs with a Person**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to view all contacts in the contact list.
-2. Spend n Split shows a list of contacts.
-3. User enters the command to view the logs with a person.
-4. Spend n Split shows the logs with that person.
+1. User requests to view the logs with a person. 
+2. Spend n Split shows the logs with that person.
 
 Use case ends.
 
 Extensions:
-* 3a. If the person does not exist in the contact list, Spend n Split throws an error.
-  * 3a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 3a2. Use case resumes at step 2.
+* 1a. Person does not exist in the contact list.
+    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+    * 1a2. Use case resumes at step 2.
 
 ---
 
