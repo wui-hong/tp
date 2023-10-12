@@ -8,6 +8,6 @@ public class Transaction {
      * Dummy method to support TransactionList.
      */
     public boolean isSameTransaction(Transaction otherTransaction) {
-        return false;
+        return (otherTransaction == this);
     }
 }
