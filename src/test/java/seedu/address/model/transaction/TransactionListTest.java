@@ -7,10 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
+import seedu.address.model.transaction.expense.Expense;
+import seedu.address.testutil.TypicalPersons;
 
 class TransactionListTest {
 
@@ -138,6 +142,14 @@ class TransactionListTest {
 
     private static class TransactionStub extends Transaction {
 
+        private static final Amount amount = new Amount("0");
+        private static final String description = "Stub";
+        private static final Person payee = TypicalPersons.ALICE;
+        private static final Set<Expense> expenses = Collections.emptySet();
+
+        public TransactionStub() {
+            super(amount, description, payee, expenses);
+        }
     }
 
 }
