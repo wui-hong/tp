@@ -1,6 +1,7 @@
 package seedu.address.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -112,6 +113,22 @@ class TransactionListTest {
     void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> transactionList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    void testEquals_notTransactionList_returnsFalse() {
+        Object notATransactionList = new Object();
+        assertFalse(transactionList.equals(notATransactionList));
+    }
+
+    @Test
+    void testEquals_sameObject_returnsTrue() {
+        assertTrue(transactionList.equals(transactionList));
+    }
+
+    @Test
+    void testHashCode() {
+        assertEquals(transactionList.hashCode(), transactionList.hashCode());
     }
 
     @Test
