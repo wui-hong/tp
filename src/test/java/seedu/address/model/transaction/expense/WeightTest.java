@@ -45,6 +45,14 @@ class WeightTest {
     }
 
     @Test
+    public void hashcode() {
+        Weight weight = new Weight("21.50");
+        Weight otherWeight = new Weight("21.50");
+
+        assertEquals(weight, otherWeight);
+    }
+
+    @Test
     public void equals() {
         Weight weight = new Weight("21.50");
 
