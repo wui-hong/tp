@@ -1,7 +1,7 @@
 package seedu.address.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,10 +16,10 @@ import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 import seedu.address.model.transaction.expense.Expense;
 import seedu.address.testutil.TypicalPersons;
 
-class TransactionListTest {
+class UniqueTransactionListTest {
 
     // ==================== Unit Tests ====================
-    private final TransactionList transactionList = new TransactionList();
+    private final UniqueTransactionList transactionList = new UniqueTransactionList();
 
     private final TransactionStub transactionStubOne = new TransactionStub();
 
@@ -57,7 +57,7 @@ class TransactionListTest {
     public void setTransaction_editedTransactionIsSameTransaction_success() {
         transactionList.add(transactionStubOne);
         transactionList.setTransaction(transactionStubOne, transactionStubOne);
-        TransactionList expectedTransactionList = new TransactionList();
+        UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         expectedTransactionList.add(transactionStubOne);
         assertEquals(expectedTransactionList, transactionList);
     }
@@ -66,7 +66,7 @@ class TransactionListTest {
     public void setTransaction_editedTransactionIsDifferentTransaction_success() {
         transactionList.add(transactionStubOne);
         transactionList.setTransaction(transactionStubOne, transactionStubTwo);
-        TransactionList expectedTransactionList = new TransactionList();
+        UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         expectedTransactionList.add(transactionStubTwo);
         assertEquals(expectedTransactionList, transactionList);
     }
@@ -85,19 +85,19 @@ class TransactionListTest {
     public void remove_existingTransaction_removesTransaction() {
         transactionList.add(transactionStubOne);
         transactionList.remove(transactionStubOne);
-        TransactionList expectedTransactionList = new TransactionList();
+        UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransactions_nullTransactionList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> transactionList.setTransactions((TransactionList) null));
+        assertThrows(NullPointerException.class, () -> transactionList.setTransactions((UniqueTransactionList) null));
     }
 
     @Test
     public void setTransactions_transactionList_replacesOwnListWithProvidedTransactionList() {
         transactionList.add(transactionStubOne);
-        TransactionList expectedTransactionList = new TransactionList();
+        UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         expectedTransactionList.add(transactionStubTwo);
         transactionList.setTransactions(expectedTransactionList);
         assertEquals(expectedTransactionList, transactionList);
@@ -108,7 +108,7 @@ class TransactionListTest {
         transactionList.add(transactionStubOne);
         List<Transaction> transactionCollectionsList = Collections.singletonList(transactionStubTwo);
         transactionList.setTransactions(transactionCollectionsList);
-        TransactionList expectedTransactionList = new TransactionList();
+        UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         expectedTransactionList.add(transactionStubTwo);
         assertEquals(expectedTransactionList, transactionList);
     }
@@ -122,12 +122,12 @@ class TransactionListTest {
     @Test
     void testEquals_notTransactionList_returnsFalse() {
         Object notATransactionList = new Object();
-        assertFalse(transactionList.equals(notATransactionList));
+        assertNotEquals(transactionList, notATransactionList);
     }
 
     @Test
     void testEquals_sameObject_returnsTrue() {
-        assertTrue(transactionList.equals(transactionList));
+        assertEquals(transactionList, transactionList);
     }
 
     @Test
@@ -143,7 +143,7 @@ class TransactionListTest {
     private static class TransactionStub extends Transaction {
 
         private static final Amount amount = new Amount("0");
-        private static final String description = "Stub";
+        private static final Description description = new Description("Stub");
         private static final Person payee = TypicalPersons.ALICE;
         private static final Set<Expense> expenses = Collections.emptySet();
 

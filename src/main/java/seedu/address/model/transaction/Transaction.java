@@ -24,14 +24,14 @@ public class Transaction {
 
     // Data fields
     private final Amount amount;
-    private final String description;
+    private final Description description;
     private final Person payee;
     private final Set<Expense> expenses = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Amount amount, String description, Person payee, Set<Expense> expenses) {
+    public Transaction(Amount amount, Description description, Person payee, Set<Expense> expenses) {
         requireAllNonNull(amount, description, payee);
         this.amount = amount;
         this.description = description;
@@ -43,7 +43,7 @@ public class Transaction {
         return amount;
     }
 
-    public String getDescription() {
+    public Description getDescription() {
         return description;
     }
 

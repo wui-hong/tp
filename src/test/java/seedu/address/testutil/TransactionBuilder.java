@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 
@@ -18,7 +19,7 @@ public class TransactionBuilder {
     public static final Person DEFAULT_PAYEE = TypicalPersons.ALICE;
 
     private Amount amount;
-    private String description;
+    private Description description;
     private Person payee;
     private Set<Expense> expenses;
 
@@ -27,7 +28,7 @@ public class TransactionBuilder {
      */
     public TransactionBuilder() {
         amount = new Amount(DEFAULT_AMOUNT);
-        description = DEFAULT_DESCRIPTION;
+        description = new Description(DEFAULT_DESCRIPTION);
         payee = DEFAULT_PAYEE;
         expenses = new HashSet<>();
     }
@@ -54,7 +55,7 @@ public class TransactionBuilder {
      * Sets the {@code Description} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withDescription(String description) {
-        this.description = description;
+        this.description = new Description(description);
         return this;
     }
 

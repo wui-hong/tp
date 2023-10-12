@@ -13,7 +13,7 @@ import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 /**
  * A list of transactions.
  */
-public class TransactionList implements Iterable<Transaction> {
+public class UniqueTransactionList implements Iterable<Transaction> {
 
     private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
     private final ObservableList<Transaction> internalUnmodifiableList =
@@ -61,7 +61,7 @@ public class TransactionList implements Iterable<Transaction> {
         }
     }
 
-    public void setTransactions(TransactionList replacement) {
+    public void setTransactions(UniqueTransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -93,11 +93,11 @@ public class TransactionList implements Iterable<Transaction> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TransactionList)) {
+        if (!(other instanceof UniqueTransactionList)) {
             return false;
         }
 
-        TransactionList otherTransactionList = (TransactionList) other;
+        UniqueTransactionList otherTransactionList = (UniqueTransactionList) other;
         return internalList.equals(otherTransactionList.internalList);
     }
 
