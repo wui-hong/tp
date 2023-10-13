@@ -8,6 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
 /**

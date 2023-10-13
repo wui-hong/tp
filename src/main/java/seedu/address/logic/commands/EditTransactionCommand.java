@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 
@@ -77,13 +78,13 @@ public class EditTransactionCommand extends Command {
         assert transactionToEdit != null;
 
         Amount updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
-        String updatedDescription = editTransactionDescriptor.getDescription().orElse(transactionToEdit
+        Description updatedDescription = editTransactionDescriptor.getDescription().orElse(transactionToEdit
                 .getDescription());
-        Person updatedPayee = editTransactionDescriptor.getPayeeName().orElse(transactionToEdit.getPayee());
+        Name updatedPayeeName = editTransactionDescriptor.getPayeeName().orElse(transactionToEdit.getPayeeName());
         Set<Expense> updatedExpenses = editTransactionDescriptor.getExpenses().orElse(transactionToEdit
                 .getExpenses());
 
-        return new Transaction(updatedAmount, updatedDescription, updatedPayee, updatedExpenses);
+        return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, updatedExpenses);
     }
 
     /**
@@ -93,7 +94,7 @@ public class EditTransactionCommand extends Command {
      */
     public static class EditTransactionDescriptor {
         private Amount amount;
-        private String description;
+        private Description description;
         private Name payeeName;
         private Set<Expense> expenses = new HashSet<>();
 
@@ -125,11 +126,11 @@ public class EditTransactionCommand extends Command {
             return Optional.ofNullable(amount);
         }
 
-        public void setDescription(String description) {
+        public void setDescription(Description description) {
             this.description = description;
         }
 
-        public Optional<String> getDescription() {
+        public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
 
