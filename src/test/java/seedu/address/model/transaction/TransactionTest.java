@@ -35,9 +35,14 @@ class TransactionTest {
 
     @Test
     public void isSameTransaction() {
-        // same values but different objects -> returns true
         Transaction transaction = new TransactionBuilder().build();
-        assertTrue(transaction.isSameTransaction(new TransactionBuilder().build()));
+
+        // same values but different objects -> returns true
+        assertTrue(transaction.isSameTransaction(
+                new TransactionBuilder().withTimestamp(transaction.getTimestamp().toString()).build()));
+
+        // different timestamps -> returns false
+        assertFalse(transaction.isSameTransaction(new TransactionBuilder().build()));
 
         // same object -> returns true
         assertTrue(transaction.isSameTransaction(transaction));
@@ -61,9 +66,14 @@ class TransactionTest {
 
     @Test
     public void equals() {
-        // same values but different objects -> returns false
         Transaction transaction = new TransactionBuilder().build();
-        assertEquals(transaction, new TransactionBuilder().build());
+
+        // same values but different objects -> returns true
+        assertEquals(transaction, new TransactionBuilder().withTimestamp(
+                transaction.getTimestamp().toString()).build());
+
+        // different timestamps -> returns false
+        assertNotEquals(transaction, new TransactionBuilder().build());
 
         // same object -> returns true
         assertEquals(transaction, transaction);

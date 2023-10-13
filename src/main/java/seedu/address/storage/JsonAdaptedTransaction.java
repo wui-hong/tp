@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 
@@ -25,9 +26,11 @@ public class JsonAdaptedTransaction {
 
     private final String amount;
     private final String description;
+
     private final JsonAdaptedPerson payee;
 
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
+    private final String timestamp;
 
     /**
      * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
@@ -36,13 +39,15 @@ public class JsonAdaptedTransaction {
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount,
                                   @JsonProperty("description") String description,
                                   @JsonProperty("payee") JsonAdaptedPerson payee,
-                                  @JsonProperty("expenses") List<JsonAdaptedExpense> expenses) {
+                                  @JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
+                                  @JsonProperty("timestamp") String timestamp) {
         this.amount = amount;
         this.description = description;
         this.payee = payee;
         if (expenses != null) {
             this.expenses.addAll(expenses);
         }
+        this.timestamp = timestamp;
     }
 
     /**
@@ -55,6 +60,7 @@ public class JsonAdaptedTransaction {
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
                 .collect(Collectors.toList()));
+        timestamp = source.getTimestamp().toString();
     }
 
 
@@ -91,8 +97,18 @@ public class JsonAdaptedTransaction {
         }
         final Person modelPayee = payee.toModelType();
 
+        if (timestamp == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
+        }
+        if (!Timestamp.isValidTimestamp(timestamp)) {
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS);
+        }
+        final Timestamp modelTimestamp = new Timestamp(timestamp);
+
+
         final Set<Expense> modelExpenses = new HashSet<>(transactionExpenses);
 
-        return new Transaction(modelAmount, modelDescription, modelPayee, modelExpenses);
+        return new Transaction(modelAmount, modelDescription, modelPayee, modelExpenses, modelTimestamp);
     }
 }

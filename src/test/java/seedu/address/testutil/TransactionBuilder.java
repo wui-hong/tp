@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 
@@ -22,6 +23,7 @@ public class TransactionBuilder {
     private Description description;
     private Person payee;
     private Set<Expense> expenses;
+    private Timestamp timestamp;
 
     /**
      * Creates a {@code TransactionBuilder} with the default details.
@@ -31,6 +33,7 @@ public class TransactionBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         payee = DEFAULT_PAYEE;
         expenses = new HashSet<>();
+        timestamp = Timestamp.now();
     }
 
     /**
@@ -75,7 +78,15 @@ public class TransactionBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code LocalDateTime} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withTimestamp(String timestamp) {
+        this.timestamp = new Timestamp(timestamp);
+        return this;
+    }
+
     public Transaction build() {
-        return new Transaction(amount, description, payee, expenses);
+        return new Transaction(amount, description, payee, expenses, timestamp);
     }
 }

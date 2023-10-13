@@ -12,8 +12,10 @@ import seedu.address.model.transaction.Transaction;
  */
 public class TypicalTransactions {
     public static final Transaction LUNCH = new TransactionBuilder().withAmount("50").withDescription("Lunch")
-            .withPayee(TypicalPersons.BOB).withExpenses(Set.of(BOB_EXPENSE)).build();
+            .withPayee(TypicalPersons.BOB).withExpenses(Set.of(BOB_EXPENSE))
+            .withTimestamp("2023-10-13T12:34:56.789").build();
     public static final Transaction DINNER = new TransactionBuilder().withAmount("100").withDescription("Dinner")
-            .withPayee(TypicalPersons.ALICE).withExpenses(Set.of(ALICE_EXPENSE)).build();
+            .withPayee(TypicalPersons.ALICE).withExpenses(Set.of(ALICE_EXPENSE))
+            .withTimestamp("2023-10-13T12:34:56.789").build();
 
 }

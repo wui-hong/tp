@@ -29,14 +29,28 @@ public class Transaction {
     private final Set<Expense> expenses = new HashSet<>();
 
     /**
+     * Internal timestamp used for uniquely identifying transactions.
+     **/
+    private final Timestamp timestamp;
+
+    /**
      * Every field must be present and not null.
      */
     public Transaction(Amount amount, Description description, Person payee, Set<Expense> expenses) {
+        this(amount, description, payee, expenses, Timestamp.now());
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Transaction(Amount amount, Description description, Person payee, Set<Expense> expenses,
+                       Timestamp timestamp) {
         requireAllNonNull(amount, description, payee);
         this.amount = amount;
         this.description = description;
         this.payee = payee;
         this.expenses.addAll(expenses);
+        this.timestamp = timestamp;
     }
 
     public Amount getAmount() {
@@ -50,6 +64,11 @@ public class Transaction {
     public Person getPayee() {
         return payee;
     }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -109,7 +128,8 @@ public class Transaction {
             && otherTransaction.getAmount().equals(getAmount())
             && otherTransaction.getDescription().equals(getDescription())
             && otherTransaction.getPayee().equals(getPayee())
-            && otherTransaction.getExpenses().equals(getExpenses());
+            && otherTransaction.getExpenses().equals(getExpenses())
+                && otherTransaction.getTimestamp().equals(getTimestamp());
     }
 
     /**
@@ -131,7 +151,8 @@ public class Transaction {
         return amount.equals(otherTransaction.amount)
                 && payee.equals(otherTransaction.payee)
                 && description.equals(otherTransaction.description)
-                && expenses.equals(otherTransaction.expenses);
+                && expenses.equals(otherTransaction.expenses)
+                && timestamp.equals(otherTransaction.timestamp);
 
     }
 
