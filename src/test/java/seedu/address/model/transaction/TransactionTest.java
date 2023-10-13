@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
+import static seedu.address.testutil.TypicalExpenses.BOB_EXPENSE;
+import static seedu.address.testutil.TypicalExpenses.CARL_EXPENSE;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,10 +22,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
-import seedu.address.testutil.TypicalPersons;
 
 class TransactionTest {
 
@@ -48,10 +52,10 @@ class TransactionTest {
         assertFalse(transaction.isSameTransaction(new TransactionBuilder().withDescription("Description").build()));
 
         // different payee -> returns false
-        assertFalse(transaction.isSameTransaction(new TransactionBuilder().withPayee(TypicalPersons.BOB).build()));
+        assertFalse(transaction.isSameTransaction(new TransactionBuilder().withPayee(BOB).build()));
 
         // different expenses -> returns false
-        Set<Expense> expenses = Set.of(new Expense(new Name("Bob"), new Weight("1")));
+        Set<Expense> expenses = Set.of(BOB_EXPENSE);
         assertFalse(transaction.isSameTransaction(new TransactionBuilder().withExpenses(expenses).build()));
     }
 
@@ -77,10 +81,10 @@ class TransactionTest {
         assertNotEquals(transaction, new TransactionBuilder().withDescription("Description").build());
 
         // different payee -> returns false
-        assertNotEquals(transaction, new TransactionBuilder().withPayee(TypicalPersons.BOB).build());
+        assertNotEquals(transaction, new TransactionBuilder().withPayee(BOB).build());
 
         // different expenses -> returns false
-        Set<Expense> expenses = Set.of(new Expense(new Name("Bob"), new Weight("1")));
+        Set<Expense> expenses = Set.of(BOB_EXPENSE);
         assertNotEquals(transaction, new TransactionBuilder().withExpenses(expenses).build());
     }
 
@@ -95,25 +99,25 @@ class TransactionTest {
 
     @Test
     public void isPersonInvolved_expenseWithPersonNotInTransaction_returnsFalse() {
-        Set<Expense> expenses = Set.of(new Expense(new Name("Alice"), new Weight("1")));
+        Set<Expense> expenses = Set.of(ALICE_EXPENSE);
         Transaction transaction = new TransactionBuilder().withExpenses(expenses).build();
-        Person person = new PersonBuilder().withName("Bob").build();
+        Person person = new PersonBuilder().withName(BOB.getName().fullName).build();
         assertFalse(transaction.isPersonInvolved(person));
     }
 
     @Test
     public void isPersonInvolved_expenseWithPersonInTransaction_returnsTrue() {
-        Set<Expense> expenses = Set.of(new Expense(new Name("Alice"), new Weight("1")));
+        Set<Expense> expenses = Set.of(ALICE_EXPENSE);
         Transaction transaction = new TransactionBuilder().withExpenses(expenses).build();
-        Person person = new PersonBuilder().withName("Alice").build();
+        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build();
         assertTrue(transaction.isPersonInvolved(person));
     }
 
     @Test
     public void getPortion_singleExpense_returnsCorrectPortion() {
-        Set<Expense> expenses = Set.of(new Expense(new Name("Alice"), new Weight("1")));
+        Set<Expense> expenses = Set.of(ALICE_EXPENSE);
         Transaction transaction = new TransactionBuilder().withAmount("100").withExpenses(expenses).build();
-        Person person = new PersonBuilder().withName("Alice").build();
+        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build();
         BigFraction expectedPortion = BigFraction.of(100, 1);
         assertEquals(expectedPortion, transaction.getPortion(person));
     }
@@ -121,21 +125,24 @@ class TransactionTest {
     @Test
     public void getPortion_multipleExpenses_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(
-            new Expense(new Name("Alice"), new Weight("1")),
-            new Expense(new Name("Bob"), new Weight("2")),
-            new Expense(new Name("Charlie"), new Weight("3"))
+                ALICE_EXPENSE,
+            BOB_EXPENSE,
+            CARL_EXPENSE
         );
         Transaction transaction = new TransactionBuilder().withAmount("600").withExpenses(expenses).build();
-        assertEquals(BigFraction.of(100, 1), transaction.getPortion(new PersonBuilder().withName("Alice").build()));
-        assertEquals(BigFraction.of(200, 1), transaction.getPortion(new PersonBuilder().withName("Bob").build()));
-        assertEquals(BigFraction.of(300, 1), transaction.getPortion(new PersonBuilder().withName("Charlie").build()));
+        assertEquals(BigFraction.of(100, 1),
+                transaction.getPortion(new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build()));
+        assertEquals(BigFraction.of(200, 1),
+                transaction.getPortion(new PersonBuilder().withName(BOB.getName().fullName).build()));
+        assertEquals(BigFraction.of(300, 1),
+                transaction.getPortion(new PersonBuilder().withName(CARL.getName().fullName).build()));
     }
 
     @Test
     public void getAllPortions_singleExpense_returnsCorrectPortion() {
-        Set<Expense> expenses = Set.of(new Expense(new Name("Alice"), new Weight("1")));
+        Set<Expense> expenses = Set.of(ALICE_EXPENSE);
         Transaction transaction = new TransactionBuilder().withAmount("100").withExpenses(expenses).build();
-        Person person = new PersonBuilder().withName("Alice").build();
+        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build();
         Map<Name, BigFraction> expectedPortions = new HashMap<>();
         expectedPortions.put(person.getName(), BigFraction.of(100, 1));
         assertEquals(expectedPortions, transaction.getAllPortions());
@@ -144,15 +151,15 @@ class TransactionTest {
     @Test
     public void getAllPortions_multipleExpenses_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(
-            new Expense(new Name("Alice"), new Weight("1")),
-            new Expense(new Name("Bob"), new Weight("2")),
-            new Expense(new Name("Charlie"), new Weight("3"))
+                ALICE_EXPENSE,
+            BOB_EXPENSE,
+            CARL_EXPENSE
         );
-        Transaction transaction = new TransactionBuilder().withAmount("600").withExpenses(expenses).build();
+        Transaction transaction = new TransactionBuilder().withAmount("1200").withExpenses(expenses).build();
         Map<Name, BigFraction> expectedPortions = new HashMap<>();
-        expectedPortions.put(new Name("Alice"), BigFraction.of(100, 1));
-        expectedPortions.put(new Name("Bob"), BigFraction.of(200, 1));
-        expectedPortions.put(new Name("Charlie"), BigFraction.of(300, 1));
+        expectedPortions.put(new Name(ALICE.getName().toString()), BigFraction.of(200, 1));
+        expectedPortions.put(new Name(BOB.getName().toString()), BigFraction.of(400, 1));
+        expectedPortions.put(new Name(CARL.getName().toString()), BigFraction.of(600, 1));
         assertEquals(expectedPortions, transaction.getAllPortions());
     }
 }

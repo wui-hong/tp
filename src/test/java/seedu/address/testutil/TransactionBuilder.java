@@ -10,7 +10,7 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Transaction objects.
  */
 public class TransactionBuilder {
 
