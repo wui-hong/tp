@@ -228,13 +228,13 @@ public class ParserUtilTest {
     @Test
     public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
         String expectedDescription = new String(VALID_DESCRIPTION);
-        assertEquals(expectedDescription, ParserUtil.parseDesciption(VALID_DESCRIPTION));
+        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_DESCRIPTION));
     }
 
     @Test
     public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
         String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
         String expectedDescription = new String(VALID_DESCRIPTION);
-        assertEquals(expectedDescription, ParserUtil.parseDesciption(descriptionWithWhitespace));
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 }
