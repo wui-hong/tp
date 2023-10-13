@@ -20,6 +20,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -29,6 +30,8 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String INVALID_COST = ".20.00";
+
+    private static final String INVALID_DESCRIPTION = "";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -227,14 +230,24 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
-        String expectedDescription = new String(VALID_DESCRIPTION);
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
         assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_DESCRIPTION));
     }
 
     @Test
     public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
         String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
-        String expectedDescription = new String(VALID_DESCRIPTION);
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
         assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
+    }
+
+    @Test
+    public void parseDescription_invalidValueEmptyString_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_invalidValueNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription(null));
     }
 }
