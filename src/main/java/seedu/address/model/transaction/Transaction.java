@@ -1,6 +1,7 @@
 package seedu.address.model.transaction;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,32 +25,52 @@ public class Transaction {
 
     // Data fields
     private final Amount amount;
-    private final String description;
-    private final Person payee;
+    private final Description description;
+    private final Name payeeName;
     private final Set<Expense> expenses = new HashSet<>();
+
+    /**
+     * Internal timestamp used for uniquely identifying transactions.
+     **/
+    private final Timestamp timestamp;
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Amount amount, String description, Person payee, Set<Expense> expenses) {
-        requireAllNonNull(amount, description, payee);
+    public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses) {
+        this(amount, description, payeeName, expenses, Timestamp.now());
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses,
+                       Timestamp timestamp) {
+        requireAllNonNull(amount, description, payeeName);
+        requireNonEmptyCollection(expenses);
         this.amount = amount;
         this.description = description;
-        this.payee = payee;
+        this.payeeName = payeeName;
         this.expenses.addAll(expenses);
+        this.timestamp = timestamp;
     }
 
     public Amount getAmount() {
         return amount;
     }
 
-    public String getDescription() {
+    public Description getDescription() {
         return description;
     }
 
-    public Person getPayee() {
-        return payee;
+    public Name getPayeeName() {
+        return payeeName;
     }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -67,7 +88,7 @@ public class Transaction {
     public BigFraction getPortion(Person person) {
         BigFraction totalWeight = getTotalWeight();
         return expenses.stream()
-            .filter(expense -> expense.getName().equals(person.getName()))
+            .filter(expense -> expense.getPersonName().equals(person.getName()))
             .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
             .reduce(BigFraction.ZERO, BigFraction::add);
     }
@@ -80,7 +101,7 @@ public class Transaction {
         return expenses.stream()
             .collect(
                 Collectors.toMap(
-                    Expense::getName,
+                    Expense::getPersonName,
                     expense -> expense.getWeight().value.multiply(this.amount.amount).divide(totalWeight)
                 )
             );
@@ -93,11 +114,11 @@ public class Transaction {
      */
     public boolean isPersonInvolved(Person person) {
         return expenses.stream()
-            .anyMatch(expense -> expense.getName().equals(person.getName()));
+            .anyMatch(expense -> expense.getPersonName().equals(person.getName()));
     }
 
     /**
-     * Returns true if both transactions have the same amount, description, payee and expenses.
+     * Returns true if both transactions have the same amount, description, payeeName, expenses and transactions.
      * This defines a weaker notion of equality between two transactions.
      */
     public boolean isSameTransaction(Transaction otherTransaction) {
@@ -108,8 +129,9 @@ public class Transaction {
         return otherTransaction != null
             && otherTransaction.getAmount().equals(getAmount())
             && otherTransaction.getDescription().equals(getDescription())
-            && otherTransaction.getPayee().equals(getPayee())
-            && otherTransaction.getExpenses().equals(getExpenses());
+            && otherTransaction.getPayeeName().equals(getPayeeName())
+            && otherTransaction.getExpenses().equals(getExpenses())
+            && otherTransaction.getTimestamp().equals(getTimestamp());
     }
 
     /**
@@ -117,13 +139,29 @@ public class Transaction {
      */
     @Override
     public boolean equals(Object other) {
-        return other == this;
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Transaction)) {
+            return false;
+        }
+
+
+        Transaction otherTransaction = (Transaction) other;
+        return amount.equals(otherTransaction.amount)
+                && payeeName.equals(otherTransaction.payeeName)
+                && description.equals(otherTransaction.description)
+                && expenses.equals(otherTransaction.expenses)
+                && timestamp.equals(otherTransaction.timestamp);
+
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, payee, expenses);
+        return Objects.hash(amount, description, payeeName, expenses);
     }
 
     @Override
@@ -131,7 +169,7 @@ public class Transaction {
         return new ToStringBuilder(this)
             .add("amount", amount)
             .add("description", description)
-            .add("payee", payee)
+            .add("payeeName", payeeName)
             .add("expenses", expenses)
             .toString();
     }
