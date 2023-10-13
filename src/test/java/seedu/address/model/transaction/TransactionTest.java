@@ -42,7 +42,8 @@ class TransactionTest {
                 new TransactionBuilder().withTimestamp(transaction.getTimestamp().toString()).build()));
 
         // different timestamps -> returns false
-        assertFalse(transaction.isSameTransaction(new TransactionBuilder().build()));
+        assertFalse(transaction.isSameTransaction(
+                new TransactionBuilder().withTimestamp("2000-10-13T12:34:56.789").build()));
 
         // same object -> returns true
         assertTrue(transaction.isSameTransaction(transaction));
@@ -74,7 +75,7 @@ class TransactionTest {
                 transaction.getTimestamp().toString()).build());
 
         // different timestamps -> returns false
-        assertNotEquals(transaction, new TransactionBuilder().build());
+        assertNotEquals(transaction, new TransactionBuilder().withTimestamp("2023-10-13T12:34:56.789").build());
 
         // same object -> returns true
         assertEquals(transaction, transaction);

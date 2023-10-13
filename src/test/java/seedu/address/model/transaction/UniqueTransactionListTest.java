@@ -22,9 +22,9 @@ class UniqueTransactionListTest {
     // ==================== Unit Tests ====================
     private final UniqueTransactionList transactionList = new UniqueTransactionList();
 
-    private final TransactionStub transactionStub1 = new TransactionStub();
+    private final TransactionWithAliceStub transactionWithAliceStub = new TransactionWithAliceStub();
 
-    private final TransactionStub transactionStub2 = new TransactionStub();
+    private final TransactionWithBobStub transactionWithBobStub = new TransactionWithBobStub();
     @Test
     public void add_nullTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> transactionList.add(null));
@@ -32,43 +32,44 @@ class UniqueTransactionListTest {
 
     @Test
     public void add_validTransaction_success() {
-        transactionList.add(transactionStub1);
-        assertTrue(transactionList.contains(transactionStub1));
+        transactionList.add(transactionWithAliceStub);
+        assertTrue(transactionList.contains(transactionWithAliceStub));
     }
 
     @Test
     public void setTransaction_nullTargetTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(null, new TransactionStub()));
+        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(
+                null, new TransactionWithAliceStub()));
     }
 
     @Test
     public void setTransaction_nullEditedTransaction_throwsNullPointerException() {
-        transactionList.add(transactionStub1);
-        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(transactionStub1, null));
+        transactionList.add(transactionWithAliceStub);
+        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(transactionWithAliceStub, null));
     }
 
     @Test
     public void setTransaction_targetTransactionNotInList_throwsTransactionNotFoundException() {
-        transactionList.add(transactionStub1);
+        transactionList.add(transactionWithAliceStub);
         assertThrows(TransactionNotFoundException.class, () ->
-                transactionList.setTransaction(transactionStub2, transactionStub1));
+                transactionList.setTransaction(transactionWithBobStub, transactionWithAliceStub));
     }
 
     @Test
     public void setTransaction_editedTransactionIsSameTransaction_success() {
-        transactionList.add(transactionStub1);
-        transactionList.setTransaction(transactionStub1, transactionStub1);
+        transactionList.add(transactionWithAliceStub);
+        transactionList.setTransaction(transactionWithAliceStub, transactionWithAliceStub);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStub1);
+        expectedTransactionList.add(transactionWithAliceStub);
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransaction_editedTransactionIsDifferentTransaction_success() {
-        transactionList.add(transactionStub1);
-        transactionList.setTransaction(transactionStub1, transactionStub2);
+        transactionList.add(transactionWithAliceStub);
+        transactionList.setTransaction(transactionWithAliceStub, transactionWithBobStub);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStub2);
+        expectedTransactionList.add(transactionWithBobStub);
         assertEquals(expectedTransactionList, transactionList);
     }
 
@@ -79,13 +80,13 @@ class UniqueTransactionListTest {
 
     @Test
     public void remove_transactionDoesNotExist_throwsTransactionNotFoundException() {
-        assertThrows(TransactionNotFoundException.class, () -> transactionList.remove(transactionStub1));
+        assertThrows(TransactionNotFoundException.class, () -> transactionList.remove(transactionWithAliceStub));
     }
 
     @Test
     public void remove_existingTransaction_removesTransaction() {
-        transactionList.add(transactionStub1);
-        transactionList.remove(transactionStub1);
+        transactionList.add(transactionWithAliceStub);
+        transactionList.remove(transactionWithAliceStub);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         assertEquals(expectedTransactionList, transactionList);
     }
@@ -97,20 +98,20 @@ class UniqueTransactionListTest {
 
     @Test
     public void setTransactions_transactionList_replacesOwnListWithProvidedTransactionList() {
-        transactionList.add(transactionStub1);
+        transactionList.add(transactionWithAliceStub);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStub2);
+        expectedTransactionList.add(transactionWithBobStub);
         transactionList.setTransactions(expectedTransactionList);
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransactions_list_replacesOwnListWithProvidedList() {
-        transactionList.add(transactionStub1);
-        List<Transaction> transactionCollectionsList = Collections.singletonList(transactionStub2);
+        transactionList.add(transactionWithAliceStub);
+        List<Transaction> transactionCollectionsList = Collections.singletonList(transactionWithBobStub);
         transactionList.setTransactions(transactionCollectionsList);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStub2);
+        expectedTransactionList.add(transactionWithBobStub);
         assertEquals(expectedTransactionList, transactionList);
     }
 
@@ -141,16 +142,27 @@ class UniqueTransactionListTest {
         assertEquals(transactionList.asUnmodifiableObservableList().toString(), transactionList.toString());
     }
 
-    private static class TransactionStub extends Transaction {
+    private static class TransactionWithAliceStub extends Transaction {
 
         private static final Amount amount = new Amount("0");
         private static final Description description = new Description("Stub");
         private static final Name payeeName = TypicalPersons.ALICE.getName();
         private static final Set<Expense> expenses = Collections.emptySet();
 
-        public TransactionStub() {
+        public TransactionWithAliceStub() {
             super(amount, description, payeeName, expenses);
         }
     }
 
+    private static class TransactionWithBobStub extends Transaction {
+
+        private static final Amount amount = new Amount("0");
+        private static final Description description = new Description("Stub");
+        private static final Name payeeName = TypicalPersons.BOB.getName();
+        private static final Set<Expense> expenses = Collections.emptySet();
+
+        public TransactionWithBobStub() {
+            super(amount, description, payeeName, expenses);
+        }
+    }
 }
