@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
@@ -23,14 +22,7 @@ public class ListTransactionCommandParser implements Parser<ListTransactionComma
      */
     public ListTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
-
-        if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTransactionCommand.MESSAGE_USAGE));
-        }
-
         Set<Name> nameList = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
-
         return new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(new ArrayList<>(nameList)));
     }
 }
