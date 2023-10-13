@@ -11,19 +11,19 @@ import seedu.address.model.person.Name;
  */
 public class Expense {
     // Identity fields
-    private final Name name;
+    private final Name personName;
     private final Weight weight;
 
     /**
      * Every field must be present and not null.
      */
-    public Expense(Name name, Weight weight) {
-        this.name = name;
+    public Expense(Name personName, Weight weight) {
+        this.personName = personName;
         this.weight = weight;
     }
 
-    public Name getName() {
-        return name;
+    public Name getPersonName() {
+        return personName;
     }
 
     public Weight getWeight() {
@@ -39,7 +39,7 @@ public class Expense {
         }
 
         return otherExpense != null
-                && otherExpense.getName().equals(getName())
+                && otherExpense.getPersonName().equals(getPersonName())
                 && otherExpense.getWeight().equals(getWeight());
     }
 
@@ -58,20 +58,20 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return name.equals(otherExpense.name)
+        return personName.equals(otherExpense.personName)
                 && weight.equals(otherExpense.weight);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, weight);
+        return Objects.hash(personName, weight);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
+                .add("name", personName)
                 .add("weight", weight)
                 .toString();
     }
