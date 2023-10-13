@@ -209,7 +209,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAmount_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_COST));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount(INVALID_COST));
     }
 
     @Test
