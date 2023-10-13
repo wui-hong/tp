@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
+
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +35,7 @@ public class TransactionBuilder {
         amount = new Amount(DEFAULT_AMOUNT);
         description = new Description(DEFAULT_DESCRIPTION);
         payeeName = new Name(DEFAULT_PAYEE_NAME);
-        expenses = new HashSet<>();
+        expenses = new HashSet<>(Collections.singletonList(ALICE_EXPENSE));
         timestamp = Timestamp.now();
     }
 

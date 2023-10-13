@@ -1,6 +1,7 @@
 package seedu.address.model.transaction;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -46,6 +47,7 @@ public class Transaction {
     public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses,
                        Timestamp timestamp) {
         requireAllNonNull(amount, description, payeeName);
+        requireNonEmptyCollection(expenses);
         this.amount = amount;
         this.description = description;
         this.payeeName = payeeName;
