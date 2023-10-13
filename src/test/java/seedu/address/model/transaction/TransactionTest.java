@@ -163,7 +163,7 @@ class TransactionTest {
     @Test
     public void getAllPortions_multipleExpenses_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(
-                ALICE_EXPENSE,
+            ALICE_EXPENSE,
             BOB_EXPENSE,
             CARL_EXPENSE
         );

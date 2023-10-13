@@ -131,7 +131,7 @@ public class Transaction {
             && otherTransaction.getDescription().equals(getDescription())
             && otherTransaction.getPayeeName().equals(getPayeeName())
             && otherTransaction.getExpenses().equals(getExpenses())
-                && otherTransaction.getTimestamp().equals(getTimestamp());
+            && otherTransaction.getTimestamp().equals(getTimestamp());
     }
 
     /**
