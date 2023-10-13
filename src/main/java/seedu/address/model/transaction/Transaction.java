@@ -67,7 +67,7 @@ public class Transaction {
     public BigFraction getPortion(Person person) {
         BigFraction totalWeight = getTotalWeight();
         return expenses.stream()
-            .filter(expense -> expense.getName().equals(person.getName()))
+            .filter(expense -> expense.getPersonName().equals(person.getName()))
             .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
             .reduce(BigFraction.ZERO, BigFraction::add);
     }
@@ -80,7 +80,7 @@ public class Transaction {
         return expenses.stream()
             .collect(
                 Collectors.toMap(
-                    Expense::getName,
+                    Expense::getPersonName,
                     expense -> expense.getWeight().value.multiply(this.amount.amount).divide(totalWeight)
                 )
             );
@@ -93,7 +93,7 @@ public class Transaction {
      */
     public boolean isPersonInvolved(Person person) {
         return expenses.stream()
-            .anyMatch(expense -> expense.getName().equals(person.getName()));
+            .anyMatch(expense -> expense.getPersonName().equals(person.getName()));
     }
 
     /**

@@ -28,7 +28,7 @@ public class ExpenseBuilder {
      * Initializes the ExpenseBuilder with the data of {@code expenseToCopy}.
      */
     public ExpenseBuilder(Expense expenseToCopy) {
-        name = expenseToCopy.getName();
+        name = expenseToCopy.getPersonName();
         weight = expenseToCopy.getWeight();
     }
 

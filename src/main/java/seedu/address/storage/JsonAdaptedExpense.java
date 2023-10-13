@@ -30,7 +30,7 @@ public class JsonAdaptedExpense {
      * Converts a given {@code Expense} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
-        name = source.getName().fullName;
+        name = source.getPersonName().fullName;
         weight = source.getWeight().toString();
     }
 

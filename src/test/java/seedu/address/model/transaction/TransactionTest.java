@@ -109,7 +109,7 @@ class TransactionTest {
     public void isPersonInvolved_expenseWithPersonInTransaction_returnsTrue() {
         Set<Expense> expenses = Set.of(ALICE_EXPENSE);
         Transaction transaction = new TransactionBuilder().withExpenses(expenses).build();
-        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build();
+        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getPersonName().fullName).build();
         assertTrue(transaction.isPersonInvolved(person));
     }
 
@@ -117,7 +117,7 @@ class TransactionTest {
     public void getPortion_singleExpense_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(ALICE_EXPENSE);
         Transaction transaction = new TransactionBuilder().withAmount("100").withExpenses(expenses).build();
-        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build();
+        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getPersonName().fullName).build();
         BigFraction expectedPortion = BigFraction.of(100, 1);
         assertEquals(expectedPortion, transaction.getPortion(person));
     }
@@ -131,7 +131,7 @@ class TransactionTest {
         );
         Transaction transaction = new TransactionBuilder().withAmount("600").withExpenses(expenses).build();
         assertEquals(BigFraction.of(100, 1),
-                transaction.getPortion(new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build()));
+                transaction.getPortion(new PersonBuilder().withName(ALICE_EXPENSE.getPersonName().fullName).build()));
         assertEquals(BigFraction.of(200, 1),
                 transaction.getPortion(new PersonBuilder().withName(BOB.getName().fullName).build()));
         assertEquals(BigFraction.of(300, 1),
@@ -142,7 +142,7 @@ class TransactionTest {
     public void getAllPortions_singleExpense_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(ALICE_EXPENSE);
         Transaction transaction = new TransactionBuilder().withAmount("100").withExpenses(expenses).build();
-        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getName().fullName).build();
+        Person person = new PersonBuilder().withName(ALICE_EXPENSE.getPersonName().fullName).build();
         Map<Name, BigFraction> expectedPortions = new HashMap<>();
         expectedPortions.put(person.getName(), BigFraction.of(100, 1));
         assertEquals(expectedPortions, transaction.getAllPortions());
