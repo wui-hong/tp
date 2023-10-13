@@ -1,12 +1,15 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.expense.Weight;
 
 /**
  * A utility class to help with building Person objects.
@@ -16,6 +19,8 @@ public class TransactionBuilder {
     public static final String DEFAULT_AMOUNT = "12.34";
     public static final String DEFAULT_DESCRIPTION = "Mala Xiang Guo at Clementi Mall on 12 Oct 2023";
     public static final Person DEFAULT_PAYEE = TypicalPersons.ALICE;
+
+    public static final Set<Expense> DEFAULT_EXPENSES = new HashSet<>(List.of(new Expense(TypicalPersons.BOB.getName(), new Weight("1.0)"))));
 
     private Amount amount;
     private String description;
