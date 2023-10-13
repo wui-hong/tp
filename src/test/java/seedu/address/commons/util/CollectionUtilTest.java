@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -82,6 +83,21 @@ public class CollectionUtilTest {
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
     }
 
+    @Test
+    public void requireNonEmptyCollection() {
+        // empty list
+        assertThrows(IllegalArgumentException.class, () ->
+                CollectionUtil.requireNonEmptyCollection(Collections.emptyList()));
+        assertThrows(IllegalArgumentException.class, () ->
+                CollectionUtil.requireNonEmptyCollection(Arrays.asList()));
+
+        // empty set
+        assertThrows(IllegalArgumentException.class, () ->
+                CollectionUtil.requireNonEmptyCollection(Collections.emptySet()));
+        assertThrows(IllegalArgumentException.class, () ->
+                CollectionUtil.requireNonEmptyCollection(new HashSet<>()));
+    }
+
     /**
      * Asserts that {@code CollectionUtil#requireAllNonNull(Object...)} throw {@code NullPointerException}
      * if {@code objects} or any element of {@code objects} is null.
@@ -104,5 +120,8 @@ public class CollectionUtilTest {
 
     private void assertNullPointerExceptionNotThrown(Collection<?> collection) {
         requireAllNonNull(collection);
+    }
+    private void assertIllegalArgumentExceptionThrown(Collection<?> collection) {
+        assertThrows(IllegalArgumentException.class, () -> CollectionUtil.requireNonEmptyCollection(collection));
     }
 }
