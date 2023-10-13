@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
@@ -17,11 +17,11 @@ public class TransactionBuilder {
 
     public static final String DEFAULT_AMOUNT = "12.34";
     public static final String DEFAULT_DESCRIPTION = "Mala Xiang Guo at Clementi Mall on 12 Oct 2023";
-    public static final Person DEFAULT_PAYEE = TypicalPersons.ALICE;
+    public static final String DEFAULT_PAYEE_NAME = TypicalPersons.ALICE.getName().fullName;
 
     private Amount amount;
     private Description description;
-    private Person payee;
+    private Name payeeName;
     private Set<Expense> expenses;
     private Timestamp timestamp;
 
@@ -31,7 +31,7 @@ public class TransactionBuilder {
     public TransactionBuilder() {
         amount = new Amount(DEFAULT_AMOUNT);
         description = new Description(DEFAULT_DESCRIPTION);
-        payee = DEFAULT_PAYEE;
+        payeeName = new Name(DEFAULT_PAYEE_NAME);
         expenses = new HashSet<>();
         timestamp = Timestamp.now();
     }
@@ -42,7 +42,7 @@ public class TransactionBuilder {
     public TransactionBuilder(Transaction transactionToCopy) {
         amount = transactionToCopy.getAmount();
         description = transactionToCopy.getDescription();
-        payee = transactionToCopy.getPayee();
+        payeeName = transactionToCopy.getPayeeName();
         expenses = new HashSet<>(transactionToCopy.getExpenses());
     }
 
@@ -63,10 +63,10 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Payee} of the {@code Transaction} that we are building.
+     * Sets the {@code PayeeName} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withPayee(Person payee) {
-        this.payee = payee;
+    public TransactionBuilder withPayeeName(String payeeName) {
+        this.payeeName = new Name(payeeName);
         return this;
     }
 
@@ -87,6 +87,6 @@ public class TransactionBuilder {
     }
 
     public Transaction build() {
-        return new Transaction(amount, description, payee, expenses, timestamp);
+        return new Transaction(amount, description, payeeName, expenses, timestamp);
     }
 }

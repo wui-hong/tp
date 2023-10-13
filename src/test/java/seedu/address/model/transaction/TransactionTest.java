@@ -56,8 +56,9 @@ class TransactionTest {
         // different description -> returns false
         assertFalse(transaction.isSameTransaction(new TransactionBuilder().withDescription("Description").build()));
 
-        // different payee -> returns false
-        assertFalse(transaction.isSameTransaction(new TransactionBuilder().withPayee(BOB).build()));
+        // different payeeName -> returns false
+        assertFalse(transaction.isSameTransaction(
+                new TransactionBuilder().withPayeeName(BOB.getName().fullName).build()));
 
         // different expenses -> returns false
         Set<Expense> expenses = Set.of(BOB_EXPENSE);
@@ -91,7 +92,7 @@ class TransactionTest {
         assertNotEquals(transaction, new TransactionBuilder().withDescription("Description").build());
 
         // different payee -> returns false
-        assertNotEquals(transaction, new TransactionBuilder().withPayee(BOB).build());
+        assertNotEquals(transaction, new TransactionBuilder().withPayeeName(BOB.getName().fullName).build());
 
         // different expenses -> returns false
         Set<Expense> expenses = Set.of(BOB_EXPENSE);
@@ -102,7 +103,7 @@ class TransactionTest {
     public void toStringTest() {
         Transaction transaction = new TransactionBuilder().build();
         String expected = Transaction.class.getCanonicalName() + "{amount=" + transaction.getAmount()
-            + ", description=" + transaction.getDescription() + ", payee=" + transaction.getPayee()
+            + ", description=" + transaction.getDescription() + ", payeeName=" + transaction.getPayeeName()
             + ", expenses=" + transaction.getExpenses() + "}";
         assertEquals(expected, transaction.toString());
     }

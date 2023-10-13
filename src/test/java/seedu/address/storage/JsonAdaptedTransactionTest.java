@@ -21,7 +21,7 @@ public class JsonAdaptedTransactionTest {
 
     private static final String VALID_AMOUNT = DINNER.getAmount().toString();
     private static final String VALID_DESCRIPTION = DINNER.getDescription().toString();
-    private static final JsonAdaptedPerson VALID_PERSON = new JsonAdaptedPerson(DINNER.getPayee());
+    private static final String VALID_PAYEE_NAME = DINNER.getPayeeName().toString();
     private static final List<JsonAdaptedExpense> VALID_EXPENSES = DINNER.getExpenses().stream()
             .map(JsonAdaptedExpense::new)
             .collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class JsonAdaptedTransactionTest {
     @Test
     public void toModelType_invalidAmount_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(
-                INVALID_AMOUNT, VALID_DESCRIPTION, VALID_PERSON, VALID_EXPENSES, VALID_TIMESTAMP);
+                INVALID_AMOUNT, VALID_DESCRIPTION, VALID_PAYEE_NAME, VALID_EXPENSES, VALID_TIMESTAMP);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
@@ -46,7 +46,7 @@ public class JsonAdaptedTransactionTest {
     @Test
     public void toModelType_nullAmount_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction =
-                new JsonAdaptedTransaction(null, VALID_DESCRIPTION, VALID_PERSON, VALID_EXPENSES, VALID_TIMESTAMP);
+                new JsonAdaptedTransaction(null, VALID_DESCRIPTION, VALID_PAYEE_NAME, VALID_EXPENSES, VALID_TIMESTAMP);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
@@ -55,7 +55,7 @@ public class JsonAdaptedTransactionTest {
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction =
                 new JsonAdaptedTransaction(
-                        VALID_AMOUNT, INVALID_DESCRIPTION, VALID_PERSON, VALID_EXPENSES, VALID_TIMESTAMP);
+                        VALID_AMOUNT, INVALID_DESCRIPTION, VALID_PAYEE_NAME, VALID_EXPENSES, VALID_TIMESTAMP);
         String expectedMessage = Description.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
@@ -63,7 +63,7 @@ public class JsonAdaptedTransactionTest {
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction =
-                new JsonAdaptedTransaction(VALID_AMOUNT, null, VALID_PERSON, VALID_EXPENSES, VALID_TIMESTAMP);
+                new JsonAdaptedTransaction(VALID_AMOUNT, null, VALID_PAYEE_NAME, VALID_EXPENSES, VALID_TIMESTAMP);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }

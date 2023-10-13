@@ -25,7 +25,7 @@ public class Transaction {
     // Data fields
     private final Amount amount;
     private final Description description;
-    private final Person payee;
+    private final Name payeeName;
     private final Set<Expense> expenses = new HashSet<>();
 
     /**
@@ -36,19 +36,19 @@ public class Transaction {
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Amount amount, Description description, Person payee, Set<Expense> expenses) {
-        this(amount, description, payee, expenses, Timestamp.now());
+    public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses) {
+        this(amount, description, payeeName, expenses, Timestamp.now());
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Amount amount, Description description, Person payee, Set<Expense> expenses,
+    public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses,
                        Timestamp timestamp) {
-        requireAllNonNull(amount, description, payee);
+        requireAllNonNull(amount, description, payeeName);
         this.amount = amount;
         this.description = description;
-        this.payee = payee;
+        this.payeeName = payeeName;
         this.expenses.addAll(expenses);
         this.timestamp = timestamp;
     }
@@ -61,8 +61,8 @@ public class Transaction {
         return description;
     }
 
-    public Person getPayee() {
-        return payee;
+    public Name getPayeeName() {
+        return payeeName;
     }
 
     public Timestamp getTimestamp() {
@@ -127,7 +127,7 @@ public class Transaction {
         return otherTransaction != null
             && otherTransaction.getAmount().equals(getAmount())
             && otherTransaction.getDescription().equals(getDescription())
-            && otherTransaction.getPayee().equals(getPayee())
+            && otherTransaction.getPayeeName().equals(getPayeeName())
             && otherTransaction.getExpenses().equals(getExpenses())
                 && otherTransaction.getTimestamp().equals(getTimestamp());
     }
@@ -149,7 +149,7 @@ public class Transaction {
 
         Transaction otherTransaction = (Transaction) other;
         return amount.equals(otherTransaction.amount)
-                && payee.equals(otherTransaction.payee)
+                && payeeName.equals(otherTransaction.payeeName)
                 && description.equals(otherTransaction.description)
                 && expenses.equals(otherTransaction.expenses)
                 && timestamp.equals(otherTransaction.timestamp);
@@ -159,7 +159,7 @@ public class Transaction {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, payee, expenses);
+        return Objects.hash(amount, description, payeeName, expenses);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class Transaction {
         return new ToStringBuilder(this)
             .add("amount", amount)
             .add("description", description)
-            .add("payee", payee)
+            .add("payeeName", payeeName)
             .add("expenses", expenses)
             .toString();
     }

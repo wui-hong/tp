@@ -11,7 +11,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Name;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 import seedu.address.model.transaction.expense.Expense;
 import seedu.address.testutil.TypicalPersons;
@@ -145,11 +145,11 @@ class UniqueTransactionListTest {
 
         private static final Amount amount = new Amount("0");
         private static final Description description = new Description("Stub");
-        private static final Person payee = TypicalPersons.ALICE;
+        private static final Name payeeName = TypicalPersons.ALICE.getName();
         private static final Set<Expense> expenses = Collections.emptySet();
 
         public TransactionStub() {
-            super(amount, description, payee, expenses);
+            super(amount, description, payeeName, expenses);
         }
     }
 

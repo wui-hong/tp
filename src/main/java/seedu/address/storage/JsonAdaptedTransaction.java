@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
@@ -27,7 +28,7 @@ public class JsonAdaptedTransaction {
     private final String amount;
     private final String description;
 
-    private final JsonAdaptedPerson payee;
+    private final String payeeName;
 
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
     private final String timestamp;
@@ -38,12 +39,12 @@ public class JsonAdaptedTransaction {
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount,
                                   @JsonProperty("description") String description,
-                                  @JsonProperty("payee") JsonAdaptedPerson payee,
+                                  @JsonProperty("payeeName") String payeeName,
                                   @JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
                                   @JsonProperty("timestamp") String timestamp) {
         this.amount = amount;
         this.description = description;
-        this.payee = payee;
+        this.payeeName = payeeName;
         if (expenses != null) {
             this.expenses.addAll(expenses);
         }
@@ -56,7 +57,7 @@ public class JsonAdaptedTransaction {
     public JsonAdaptedTransaction(Transaction source) {
         amount = source.getAmount().toString();
         description = source.getDescription().value;
-        payee = new JsonAdaptedPerson(source.getPayee());
+        payeeName = source.getPayeeName().fullName;
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
                 .collect(Collectors.toList()));
@@ -92,10 +93,14 @@ public class JsonAdaptedTransaction {
         }
         final Description modelDescription = new Description(description);
 
-        if (payee == null) {
+        if (payeeName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
         }
-        final Person modelPayee = payee.toModelType();
+
+        if (!Name.isValidName(payeeName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Name modelPayeeName = new Name(payeeName);
 
         if (timestamp == null) {
             throw new IllegalValueException(
@@ -109,6 +114,6 @@ public class JsonAdaptedTransaction {
 
         final Set<Expense> modelExpenses = new HashSet<>(transactionExpenses);
 
-        return new Transaction(modelAmount, modelDescription, modelPayee, modelExpenses, modelTimestamp);
+        return new Transaction(modelAmount, modelDescription, modelPayeeName, modelExpenses, modelTimestamp);
     }
 }
