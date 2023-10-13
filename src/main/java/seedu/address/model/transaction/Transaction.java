@@ -117,7 +117,22 @@ public class Transaction {
      */
     @Override
     public boolean equals(Object other) {
-        return other == this;
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Transaction)) {
+            return false;
+        }
+
+
+        Transaction otherTransaction = (Transaction) other;
+        return amount.equals(otherTransaction.amount)
+                && payee.equals(otherTransaction.payee)
+                && description.equals(otherTransaction.description)
+                && expenses.equals(otherTransaction.expenses);
+
     }
 
     @Override

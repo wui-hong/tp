@@ -4,26 +4,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalTransactions.DINNER;
+import static seedu.address.testutil.TypicalTransactions.LUNCH;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.testutil.TypicalPersons;
+
 
 class UniqueTransactionListTest {
 
     // ==================== Unit Tests ====================
     private final UniqueTransactionList transactionList = new UniqueTransactionList();
 
-    private final TransactionStub transactionStubOne = new TransactionStub();
-
-    private final TransactionStub transactionStubTwo = new TransactionStub();
     @Test
     public void add_nullTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> transactionList.add(null));
@@ -31,43 +27,43 @@ class UniqueTransactionListTest {
 
     @Test
     public void add_validTransaction_success() {
-        transactionList.add(transactionStubOne);
-        assertTrue(transactionList.contains(transactionStubOne));
+        transactionList.add(LUNCH);
+        assertTrue(transactionList.contains(LUNCH));
     }
 
     @Test
     public void setTransaction_nullTargetTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(null, new TransactionStub()));
+        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(null, LUNCH));
     }
 
     @Test
     public void setTransaction_nullEditedTransaction_throwsNullPointerException() {
-        transactionList.add(transactionStubOne);
-        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(transactionStubOne, null));
+        transactionList.add(LUNCH);
+        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(LUNCH, null));
     }
 
     @Test
     public void setTransaction_targetTransactionNotInList_throwsTransactionNotFoundException() {
-        transactionList.add(transactionStubOne);
+        transactionList.add(LUNCH);
         assertThrows(TransactionNotFoundException.class, () ->
-                transactionList.setTransaction(transactionStubTwo, transactionStubOne));
+                transactionList.setTransaction(DINNER, LUNCH));
     }
 
     @Test
     public void setTransaction_editedTransactionIsSameTransaction_success() {
-        transactionList.add(transactionStubOne);
-        transactionList.setTransaction(transactionStubOne, transactionStubOne);
+        transactionList.add(LUNCH);
+        transactionList.setTransaction(LUNCH, LUNCH);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStubOne);
+        expectedTransactionList.add(LUNCH);
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransaction_editedTransactionIsDifferentTransaction_success() {
-        transactionList.add(transactionStubOne);
-        transactionList.setTransaction(transactionStubOne, transactionStubTwo);
+        transactionList.add(LUNCH);
+        transactionList.setTransaction(LUNCH, DINNER);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStubTwo);
+        expectedTransactionList.add(DINNER);
         assertEquals(expectedTransactionList, transactionList);
     }
 
@@ -78,13 +74,13 @@ class UniqueTransactionListTest {
 
     @Test
     public void remove_transactionDoesNotExist_throwsTransactionNotFoundException() {
-        assertThrows(TransactionNotFoundException.class, () -> transactionList.remove(transactionStubOne));
+        assertThrows(TransactionNotFoundException.class, () -> transactionList.remove(LUNCH));
     }
 
     @Test
     public void remove_existingTransaction_removesTransaction() {
-        transactionList.add(transactionStubOne);
-        transactionList.remove(transactionStubOne);
+        transactionList.add(LUNCH);
+        transactionList.remove(LUNCH);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         assertEquals(expectedTransactionList, transactionList);
     }
@@ -96,20 +92,20 @@ class UniqueTransactionListTest {
 
     @Test
     public void setTransactions_transactionList_replacesOwnListWithProvidedTransactionList() {
-        transactionList.add(transactionStubOne);
+        transactionList.add(LUNCH);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStubTwo);
+        expectedTransactionList.add(DINNER);
         transactionList.setTransactions(expectedTransactionList);
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransactions_list_replacesOwnListWithProvidedList() {
-        transactionList.add(transactionStubOne);
-        List<Transaction> transactionCollectionsList = Collections.singletonList(transactionStubTwo);
+        transactionList.add(LUNCH);
+        List<Transaction> transactionCollectionsList = Collections.singletonList(DINNER);
         transactionList.setTransactions(transactionCollectionsList);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionStubTwo);
+        expectedTransactionList.add(DINNER);
         assertEquals(expectedTransactionList, transactionList);
     }
 
@@ -131,7 +127,7 @@ class UniqueTransactionListTest {
     }
 
     @Test
-    void testHashCode() {
+    void hashcode() {
         assertEquals(transactionList.hashCode(), transactionList.hashCode());
     }
 
@@ -139,18 +135,5 @@ class UniqueTransactionListTest {
     void testToString() {
         assertEquals(transactionList.asUnmodifiableObservableList().toString(), transactionList.toString());
     }
-
-    private static class TransactionStub extends Transaction {
-
-        private static final Amount amount = new Amount("0");
-        private static final Description description = new Description("Stub");
-        private static final Person payee = TypicalPersons.ALICE;
-        private static final Set<Expense> expenses = Collections.emptySet();
-
-        public TransactionStub() {
-            super(amount, description, payee, expenses);
-        }
-    }
-
 }
 

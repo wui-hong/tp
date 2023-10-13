@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTransactions.DINNER;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -80,6 +81,21 @@ public class AddressBookTest {
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
+    @Test
+    public void hasTransaction_nullTransaction_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasTransaction(null));
+    }
+
+    @Test
+    public void hasTransaction_transactionNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasTransaction(DINNER));
+    }
+
+    @Test
+    public void hasTransaction_transactionInAddressBook_returnsTrue() {
+        addressBook.addTransaction(DINNER);
+        assertTrue(addressBook.hasTransaction(DINNER));
+    }
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));

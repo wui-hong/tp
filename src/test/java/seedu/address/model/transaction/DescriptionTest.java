@@ -38,6 +38,13 @@ public class DescriptionTest {
     }
 
     @Test
+    public void hashcode() {
+        Description description = new Description("Dinner");
+        Description otherDescription = new Description("Dinner");
+        assertEquals(description.hashCode(), otherDescription.hashCode());
+    }
+
+    @Test
     public void equals() {
         Description description = new Description("Valid Description");
 

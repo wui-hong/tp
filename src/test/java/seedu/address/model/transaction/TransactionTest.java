@@ -59,7 +59,7 @@ class TransactionTest {
     public void equals() {
         // same values but different objects -> returns false
         Transaction transaction = new TransactionBuilder().build();
-        assertNotEquals(transaction, new TransactionBuilder().build());
+        assertEquals(transaction, new TransactionBuilder().build());
 
         // same object -> returns true
         assertEquals(transaction, transaction);
