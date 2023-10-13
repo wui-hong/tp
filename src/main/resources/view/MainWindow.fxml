@@ -46,7 +46,7 @@
           <children>
             <VBox fx:id="personList" styleClass="main-pane" minWidth="170" prefWidth="170" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
               <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
+                <Insets top="10" right="0" bottom="10" left="10" />
               </padding>
               <Label fx:id="personListLabel" alignment="CENTER" prefWidth="Infinity" text="Persons" VBox.vgrow="ALWAYS" styleClass="label-header" />
               <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
@@ -54,7 +54,7 @@
 
             <VBox fx:id="transactionList" styleClass="main-pane" minWidth="170" prefWidth="170" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
               <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
+                <Insets top="10" right="10" bottom="10" left="0" />
               </padding>
               <Label fx:id="transactionListLabel" alignment="CENTER" prefWidth="Infinity" text="Transactions" VBox.vgrow="ALWAYS" styleClass="label-header" />
               <StackPane fx:id="transactionListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
@@ -64,7 +64,7 @@
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="main-pane">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets top="0" right="0" bottom="0" left="0" />
           </padding>
         </StackPane>
 
