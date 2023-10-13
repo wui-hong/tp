@@ -116,7 +116,7 @@ public class Transaction {
     }
 
     /**
-     * Returns true if both transactions have the same amount, description, payee and expenses.
+     * Returns true if both transactions have the same amount, description, payeeName, expenses and transactions.
      * This defines a weaker notion of equality between two transactions.
      */
     public boolean isSameTransaction(Transaction otherTransaction) {
