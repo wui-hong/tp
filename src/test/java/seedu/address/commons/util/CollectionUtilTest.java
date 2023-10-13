@@ -85,17 +85,24 @@ public class CollectionUtilTest {
 
     @Test
     public void requireNonEmptyCollection() {
+        // null reference
+        assertNullPointerExceptionThrown((Collection<?>) null);
+
         // empty list
-        assertThrows(IllegalArgumentException.class, () ->
-                CollectionUtil.requireNonEmptyCollection(Collections.emptyList()));
-        assertThrows(IllegalArgumentException.class, () ->
-                CollectionUtil.requireNonEmptyCollection(Arrays.asList()));
+        assertIllegalArgumentExceptionThrown(Collections.emptyList());
+        assertIllegalArgumentExceptionThrown(Arrays.asList());
 
         // empty set
-        assertThrows(IllegalArgumentException.class, () ->
-                CollectionUtil.requireNonEmptyCollection(Collections.emptySet()));
-        assertThrows(IllegalArgumentException.class, () ->
-                CollectionUtil.requireNonEmptyCollection(new HashSet<>()));
+        assertIllegalArgumentExceptionThrown(Collections.emptySet());
+        assertIllegalArgumentExceptionThrown(new HashSet<>());
+
+        // non-empty list
+        assertIllegalArgumentExceptionNotThrown(Arrays.asList(new Object()));
+        assertIllegalArgumentExceptionNotThrown(Arrays.asList(new Object(), new Object()));
+
+        // non-empty set
+        assertIllegalArgumentExceptionNotThrown(Collections.singleton(new Object()));
+        assertIllegalArgumentExceptionNotThrown(new HashSet<>(Arrays.asList(new Object(), new Object())));
     }
 
     /**
@@ -123,5 +130,8 @@ public class CollectionUtilTest {
     }
     private void assertIllegalArgumentExceptionThrown(Collection<?> collection) {
         assertThrows(IllegalArgumentException.class, () -> CollectionUtil.requireNonEmptyCollection(collection));
+    }
+    private void assertIllegalArgumentExceptionNotThrown(Collection<?> collection) {
+        CollectionUtil.requireNonEmptyCollection(collection);
     }
 }
