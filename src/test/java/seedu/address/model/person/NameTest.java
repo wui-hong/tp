@@ -57,4 +57,27 @@ public class NameTest {
         // different values -> returns false
         assertFalse(name.equals(new Name("Other Valid Name")));
     }
+
+    @Test
+    public void compareTo() {
+        Name name = new Name("Valid Name");
+
+        // same values -> =
+        assertTrue(name.compareTo(new Name("Valid Name")) == 0);
+
+        // same object -> =
+        assertTrue(name.compareTo(name) == 0);
+
+        // self -> >
+        assertTrue(name.compareTo(Name.SELF) > 0);
+
+        // others -> <
+        assertTrue(name.compareTo(Name.OTHERS) < 0);
+
+        // deleted -> <
+        assertTrue(name.compareTo(Name.DELETED) < 0);
+
+        // smaller value -> >
+        assertTrue(name.compareTo(new Name("Other Valid Name")) > 0);
+    }
 }
