@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DETAILS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -23,11 +23,11 @@ public class AddTransactionCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_COST + "COST "
-            + PREFIX_DETAILS + "DETAILS "
+            + PREFIX_DESCRIPTION + "DETAILS "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_COST + "25.00 "
-            + PREFIX_DETAILS + "bread";
+            + PREFIX_DESCRIPTION + "bread";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 

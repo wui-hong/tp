@@ -4,8 +4,9 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DETAILS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -13,6 +14,11 @@ import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.expense.Weight;
 
 
 public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
@@ -24,16 +30,24 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
      */
     public AddTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COST, PREFIX_DETAILS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COST, PREFIX_DETAILS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTransactionCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_COST, PREFIX_DETAILS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Timestamp timestamp = Timestamp.now();
+        Weight weight = new Weight("1");
+        Expense expense = new Expense(name, weight);
+        Set<Expense> expensesSet = Set.of(expense);
+        Transaction transaction = new Transaction(amount, description, name, expensesSet, timestamp);
+
+        return new AddTransactionCommand(transaction);
     }
 
     /**
