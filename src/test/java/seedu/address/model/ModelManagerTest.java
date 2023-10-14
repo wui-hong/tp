@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalTransactions.LUNCH;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,8 +79,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasTransaction_nullTransaction_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasTransaction(null));
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasTransaction_transactionNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasTransaction(LUNCH));
     }
 
     @Test
@@ -89,8 +100,20 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasTransaction_transactionInAddressBook_returnsTrue() {
+        modelManager.addTransaction(LUNCH);
+        assertTrue(modelManager.hasTransaction(LUNCH));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(
+            UnsupportedOperationException.class, () -> modelManager.getFilteredTransactionList().remove(0));
     }
 
     @Test
