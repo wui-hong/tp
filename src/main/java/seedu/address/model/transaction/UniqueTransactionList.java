@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
@@ -68,9 +69,14 @@ public class UniqueTransactionList implements Iterable<Transaction> {
 
     /**
      * Replaces the contents of this list with {@code transactions}.
+     * {@code transactions} must not contain duplicate transactions.
      */
     public void setTransactions(List<Transaction> transactions) {
         requireAllNonNull(transactions);
+        if (!transactionsAreUnique(transactions)) {
+            throw new DuplicateTransactionException();
+        }
+
         internalList.setAll(transactions);
     }
 
@@ -109,5 +115,19 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     @Override
     public String toString() {
         return internalList.toString();
+    }
+
+    /**
+     * Returns true if {@code transactions} contains only unique transactions.
+     */
+    private boolean transactionsAreUnique(List<Transaction> transactions) {
+        for (int i = 0; i < transactions.size() - 1; i++) {
+            for (int j = i + 1; j < transactions.size(); j++) {
+                if (transactions.get(i).isSameTransaction(transactions.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

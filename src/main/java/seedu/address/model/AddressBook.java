@@ -127,6 +127,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         transactions.add(t);
     }
 
+    /**
+     * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
+     * {@code target} must exist in the address book.
+     * The transaction identity of {@code editedTransaction} must not be the same as another existing transaction
+     * in the address book.
+     */
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireNonNull(editedTransaction);
+
+        transactions.setTransaction(target, editedTransaction);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTransaction(Transaction key) {
+        transactions.remove(key);
+    }
+
     //// util methods
 
     @Override

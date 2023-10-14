@@ -20,7 +20,7 @@ public class TransactionBuilder {
 
     public static final String DEFAULT_AMOUNT = "12.34";
     public static final String DEFAULT_DESCRIPTION = "Mala Xiang Guo at Clementi Mall on 12 Oct 2023";
-    public static final String DEFAULT_PAYEE_NAME = TypicalPersons.ALICE.getName().fullName;
+    public static final String DEFAULT_PAYEE_NAME = "Default Payee Name";
 
     private Amount amount;
     private Description description;
