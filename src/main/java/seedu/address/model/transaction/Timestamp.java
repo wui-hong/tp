@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
@@ -49,7 +50,7 @@ public class Timestamp {
 
     @Override
     public String toString() {
-        return value.toString();
+        return DateTimeFormatter.ofPattern("dd MMM yyyy HH:MM:SS").format(value);
     }
 
     @Override
