@@ -23,7 +23,7 @@ public class AddTransactionCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_COST + "COST "
-            + PREFIX_DESCRIPTION + "DETAILS "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_COST + "25.00 "
