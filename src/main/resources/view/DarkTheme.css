@@ -104,15 +104,15 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
+#doublePanel .list-cell:filled:even {
     -fx-background-color: #6D90B4;
 }
 
-.list-cell:filled:odd {
+#doublePanel .list-cell:filled:odd {
     -fx-background-color: #4974A1;
 }
 
-.list-cell:filled:selected {
+#doublePanel .list-cell:filled:selected {
     -fx-background-color: #F6B46D;
 }
 
@@ -124,6 +124,18 @@
 .list-cell .label {
     -fx-text-fill: white;
     -fx-word-wrap: break-word;
+}
+
+#expenseListView .list-cell:filled:even {
+    -fx-background-color: #1C538B;
+}
+
+#expenseListView .list-cell:filled:odd {
+    -fx-background-color: #396899;
+}
+
+#expenseListView .list-cell:filled:selected {
+    -fx-background-color: #EF7C00;
 }
 
 .cell_big_label {
