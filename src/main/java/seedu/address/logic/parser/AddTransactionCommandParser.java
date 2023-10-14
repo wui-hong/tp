@@ -33,7 +33,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_COST, PREFIX_DETAILS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount =
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get());
     }
 
     /**
