@@ -22,7 +22,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TransactionBuilder;
 
 public class AddressBookTest {
 
@@ -31,6 +33,7 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getTransactionList());
     }
 
     @Test
@@ -82,6 +85,23 @@ public class AddressBookTest {
     }
 
     @Test
+    public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
+        // Two transactions with the same identity fields
+        Transaction editedDinner = new TransactionBuilder(DINNER)
+            .withAmount(DINNER.getAmount().toString())
+            .withDescription(DINNER.getDescription().toString())
+            .withPayeeName(DINNER.getPayeeName().toString())
+            .withExpenses(DINNER.getExpenses())
+            .withTimestamp(DINNER.getTimestamp().toString())
+            .build();
+        List<Person> newPersons = List.of();
+        List<Transaction> newTransactions = Arrays.asList(DINNER, editedDinner);
+        AddressBookStub newData = new AddressBookStub(newPersons, newTransactions);
+
+        assertThrows(DuplicateTransactionException.class, () -> addressBook.resetData(newData));
+    }
+
+    @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasTransaction(null));
     }
@@ -96,6 +116,7 @@ public class AddressBookTest {
         addressBook.addTransaction(DINNER);
         assertTrue(addressBook.hasTransaction(DINNER));
     }
+
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
