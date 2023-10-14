@@ -60,9 +60,9 @@ public class Messages {
                 .append(transaction.getAmount())
                 .append("; Description: ")
                 .append(transaction.getDescription())
-                .append("; Expenses: ")
-                .append(transaction.getExpenses())
-                .append("; Timestamp: ")
+                .append("; Expenses: ");
+        transaction.getExpenses().forEach(builder::append);
+        builder.append("; Timestamp: ")
                 .append(transaction.getTimestamp());
         return builder.toString();
     }
