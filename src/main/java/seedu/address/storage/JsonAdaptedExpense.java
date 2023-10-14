@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
@@ -32,16 +31,6 @@ public class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         personName = source.getPersonName().fullName;
         weight = source.getWeight().toString();
-    }
-
-    @JsonValue
-    public String getPersonName() {
-        return personName;
-    }
-
-    @JsonValue
-    public String getWeight() {
-        return weight;
     }
 
     /**

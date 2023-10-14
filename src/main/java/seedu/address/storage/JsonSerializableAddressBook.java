@@ -42,6 +42,8 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        transactions.addAll(source.getTransactionList().stream()
+                .map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
     }
 
     /**
