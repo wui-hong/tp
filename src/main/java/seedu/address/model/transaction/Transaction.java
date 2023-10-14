@@ -14,7 +14,6 @@ import org.apache.commons.numbers.fraction.BigFraction;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.expense.Expense;
 
 /**
@@ -83,12 +82,12 @@ public class Transaction {
     /**
      * Returns the portion of the transaction that the person has to pay.
      *
-     * @param person the person to get the portion of
+     * @param personName the name of the person
      */
-    public BigFraction getPortion(Person person) {
+    public BigFraction getPortion(Name personName) {
         BigFraction totalWeight = getTotalWeight();
         return expenses.stream()
-            .filter(expense -> expense.getPersonName().equals(person.getName()))
+            .filter(expense -> expense.getPersonName().equals(personName))
             .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
             .reduce(BigFraction.ZERO, BigFraction::add);
     }
@@ -108,13 +107,23 @@ public class Transaction {
     }
 
     /**
-     * Returns true if the person is involved in this transaction.
+     * Returns true if the person with the given name is involved in this transaction, either as a payer or a payee.
      *
-     * @param person the person to check
+     * @param personName the name of the person
      */
-    public boolean isPersonInvolved(Person person) {
-        return expenses.stream()
-            .anyMatch(expense -> expense.getPersonName().equals(person.getName()));
+    public boolean isPersonInvolved(Name personName) {
+        return getAllInvolvedPersonNames().contains(personName);
+    }
+
+    /**
+     * Returns the names of all the persons involved in this transaction, either as a payer or a payee.
+     */
+    public Set<Name> getAllInvolvedPersonNames() {
+        Set<Name> names = expenses.stream()
+            .map(Expense::getPersonName)
+            .collect(Collectors.toSet());
+        names.add(payeeName);
+        return names;
     }
 
     /**
