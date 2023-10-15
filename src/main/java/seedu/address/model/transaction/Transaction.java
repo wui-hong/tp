@@ -88,11 +88,11 @@ public class Transaction {
         if (!(payeeName.equals(Name.SELF) || validNames.contains(payeeName))) {
             return false;
         }
-        for (Expense i : expenses) {
-            if (!(validNames.contains(i.getPersonName()) || Name.RESERVED_NAMES.contains(i.getPersonName()))) {
+        for (Expense expense : expenses) {
+            if (!(validNames.contains(expense.getPersonName()) || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
                 return false;
             }
-            if (i.getWeight().value.compareTo(BigFraction.ZERO) < 1) {
+            if (expense.getWeight().value.compareTo(BigFraction.ZERO) < 1) {
                 return false;
             }
         }
