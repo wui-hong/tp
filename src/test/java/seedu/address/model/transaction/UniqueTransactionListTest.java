@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.BOB_EXPENSE;
+import static seedu.address.testutil.TypicalExpenses.BENSON_EXPENSE;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -162,7 +162,7 @@ class UniqueTransactionListTest {
         private static final Amount amount = new Amount("0");
         private static final Description description = new Description("Stub");
         private static final Name payeeName = TypicalPersons.BOB.getName();
-        private static final Set<Expense> expenses = new HashSet<>(Collections.singletonList(BOB_EXPENSE));
+        private static final Set<Expense> expenses = new HashSet<>(Collections.singletonList(BENSON_EXPENSE));
 
         public TransactionWithBobStub() {
             super(amount, description, payeeName, expenses);
