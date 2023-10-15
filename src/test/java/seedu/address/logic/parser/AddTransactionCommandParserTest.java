@@ -31,7 +31,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.BOB_EXPENSE;
+
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalTransactions.LUNCH;
 import static seedu.address.testutil.TypicalTransactions.DINNER;
