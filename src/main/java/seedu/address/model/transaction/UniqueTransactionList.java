@@ -70,8 +70,8 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      */
     public void deletePerson(Name p, Set<Name> validNames) {
         List<Transaction> validTransactions = new ArrayList<>();
-        for (Transaction i : internalList) {
-            Transaction updatedTransaction = i.removePerson(p);
+        for (Transaction transaction : internalList) {
+            Transaction updatedTransaction = transaction.removePerson(p);
             if (updatedTransaction.isValid(validNames)) {
                 validTransactions.add(updatedTransaction);
             }
