@@ -26,6 +26,7 @@ import seedu.address.model.transaction.Transaction;
 public class TransactionCard extends UiPart<Region> {
 
     private static final String FXML = "TransactionListCard.fxml";
+    private static final int ROW_HEIGHT = 20;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -77,7 +78,7 @@ public class TransactionCard extends UiPart<Region> {
             change.setText("+" + FractionUtil.toString(subtotals.get(Name.SELF), 2));
             expenseListView.setCellFactory(listView -> new DebitListViewCell());
         }
-        expenseListView.prefHeightProperty().bind(Bindings.size(lst).multiply(20));
+        expenseListView.prefHeightProperty().bind(Bindings.size(lst).multiply(ROW_HEIGHT));
     }
 
     class NameFraction {
