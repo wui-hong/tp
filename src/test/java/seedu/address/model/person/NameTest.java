@@ -76,10 +76,6 @@ public class NameTest {
         assertTrue(name.compareTo(Name.OTHERS) < 0);
         assertTrue(Name.OTHERS.compareTo(name) > 0);
 
-        // deleted -> <
-        assertTrue(name.compareTo(Name.DELETED) < 0);
-        assertTrue(Name.DELETED.compareTo(name) > 0);
-
         // smaller value -> >
         assertTrue(name.compareTo(new Name("Other Valid Name")) > 0);
     }

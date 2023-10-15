@@ -11,13 +11,14 @@ import java.util.Set;
  */
 public class Name implements Comparable<Name> {
 
-    public static final Name SELF = new Name("SELF");
-    public static final Name DELETED = new Name("DELETED");
-    public static final Name OTHERS = new Name("OTHERS");
-    public static final Set<Name> RESERVED_NAMES = Set.of(SELF, DELETED, OTHERS);
+    public static final Name SELF = new Name("Self");
+    public static final Name OTHERS = new Name("Others");
+    public static final Set<Name> RESERVED_NAMES = Set.of(SELF, OTHERS);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+
+    public static final String RESERVED_CONSTRAINTS = "The name %s is reserved";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -45,6 +46,12 @@ public class Name implements Comparable<Name> {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given string is a reserved name.
+     */
+    public static boolean isReservedName(Name test) {
+        return RESERVED_NAMES.contains(test);
+    }
 
     @Override
     public String toString() {
@@ -63,7 +70,7 @@ public class Name implements Comparable<Name> {
         }
 
         Name otherName = (Name) other;
-        return fullName.equals(otherName.fullName);
+        return fullName.toUpperCase().equals(otherName.fullName.toUpperCase());
     }
 
     @Override
@@ -88,13 +95,7 @@ public class Name implements Comparable<Name> {
         if (other.equals(Name.OTHERS)) {
             return -1;
         }
-        if (this.equals(Name.DELETED)) {
-            return 1;
-        }
-        if (other.equals(Name.DELETED)) {
-            return -1;
-        }
-        return this.fullName.compareTo(other.fullName);
+        return this.fullName.toUpperCase().compareTo(other.fullName.toUpperCase());
     }
 
 }
