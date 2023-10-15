@@ -67,7 +67,7 @@ public class TransactionCard extends UiPart<Region> {
                 Collectors.toList())), (exp1, exp2) -> exp1.name.compareTo(exp2.name));
         id.setText(displayedIndex + ". ");
         description.setText(transaction.getDescription().toString());
-        date.setText(DateTimeFormatter.ofPattern("dd MMM yyyy HH:MM:SS").format(transaction.getTimestamp().value));
+        date.setText(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss").format(transaction.getTimestamp().value));
         payee.setText(transaction.getPayeeName().toString());
         amount.setText(transaction.getAmount().toString());
         expenseListView.setItems(lst);
