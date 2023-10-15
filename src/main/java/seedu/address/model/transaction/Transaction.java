@@ -92,7 +92,7 @@ public class Transaction {
             if (!(validNames.contains(expense.getPersonName()) || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
                 return false;
             }
-            if (expense.getWeight().value.compareTo(BigFraction.ZERO) < 1) {
+            if (expense.getWeight().value.signum() < 1) {
                 return false;
             }
         }
