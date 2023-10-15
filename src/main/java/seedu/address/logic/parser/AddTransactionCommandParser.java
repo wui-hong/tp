@@ -46,7 +46,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         Weight weight = new Weight("1");
         Expense expense = new Expense(name, weight);
         Set<Expense> expensesSet = Set.of(expense);
-        Transaction transaction = new Transaction(amount, description, name, expensesSet, timestamp);
+        Transaction transaction = new Transaction(amount, description, Name.SELF, expensesSet, timestamp);
 
         return new AddTransactionCommand(transaction);
     }
