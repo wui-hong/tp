@@ -43,5 +43,53 @@
     "address" : "4th street",
     "tags" : [ ]
   } ],
-  "transactions": []
+  "transactions" : [ {
+    "amount" : "60.00",
+    "description" : "Group Project Lunch",
+    "payeeName" : "SELF",
+    "expenses" : [ {
+      "personName" : "Benson Meier",
+      "weight" : "4.00"
+    }, {
+      "personName" : "Alice Pauline",
+      "weight" : "2.00"
+    } ],
+    "timestamp" : "2023-10-13T12:34:56.789"
+  }, {
+    "amount" : "90.00",
+    "description" : "Hall Dinner",
+    "payeeName" : "Benson Meier",
+    "expenses" : [ {
+      "personName" : "Benson Meier",
+      "weight" : "4.00"
+    }, {
+      "personName" : "SELF",
+      "weight" : "8.00"
+    } ],
+    "timestamp" : "2023-10-13T12:34:56.790"
+  }, {
+    "amount" : "600.00",
+    "description" : "Shared Dorm Rent",
+    "payeeName" : "Benson Meier",
+    "expenses" : [ {
+      "personName" : "SELF",
+      "weight" : "1.00"
+    }, {
+      "personName" : "Benson Meier",
+      "weight" : "1.00"
+    } ],
+    "timestamp" : "2023-10-13T12:34:56.791"
+  }, {
+    "amount" : "100.00",
+    "description" : "Carpool Subscription",
+    "payeeName" : "SELF",
+    "expenses" : [ {
+      "personName" : "SELF",
+      "weight" : "1.00"
+    }, {
+      "personName" : "Benson Meier",
+      "weight" : "1.00"
+    } ],
+    "timestamp" : "2023-10-13T12:34:56.792"
+  } ]
 }

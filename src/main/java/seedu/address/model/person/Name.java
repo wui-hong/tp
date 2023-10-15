@@ -11,9 +11,9 @@ import java.util.Set;
  */
 public class Name implements Comparable<Name> {
 
-    public static final Name SELF = new Name("Self");
-    public static final Name DELETED = new Name("Deleted");
-    public static final Name OTHERS = new Name("Others");
+    public static final Name SELF = new Name("SELF");
+    public static final Name DELETED = new Name("DELETED");
+    public static final Name OTHERS = new Name("OTHERS");
     public static final Set<Name> RESERVED_NAMES = Set.of(SELF, DELETED, OTHERS);
 
     public static final String MESSAGE_CONSTRAINTS =

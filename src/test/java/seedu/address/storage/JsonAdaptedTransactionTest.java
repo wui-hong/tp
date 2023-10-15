@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedTransaction.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTransactions.DINNER;
+import static seedu.address.testutil.TypicalTransactions.LUNCH;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,20 +23,20 @@ public class JsonAdaptedTransactionTest {
     private static final String INVALID_TIMESTAMP = "";
     private static final List<JsonAdaptedExpense> INVALID_EXPENSES = List.of();
 
-    private static final String VALID_AMOUNT = DINNER.getAmount().toString();
-    private static final String VALID_DESCRIPTION = DINNER.getDescription().toString();
-    private static final String VALID_PAYEE_NAME = DINNER.getPayeeName().toString();
-    private static final List<JsonAdaptedExpense> VALID_EXPENSES = DINNER.getExpenses().stream()
+    private static final String VALID_AMOUNT = LUNCH.getAmount().toString();
+    private static final String VALID_DESCRIPTION = LUNCH.getDescription().toString();
+    private static final String VALID_PAYEE_NAME = LUNCH.getPayeeName().toString();
+    private static final List<JsonAdaptedExpense> VALID_EXPENSES = LUNCH.getExpenses().stream()
             .map(JsonAdaptedExpense::new)
             .collect(Collectors.toList());
 
-    private static final String VALID_TIMESTAMP = DINNER.getTimestamp().toString();
+    private static final String VALID_TIMESTAMP = LUNCH.getTimestamp().toString();
 
 
     @Test
     public void toModelType_validTransactionDetails_returnsTransaction() throws Exception {
-        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(DINNER);
-        assertEquals(DINNER, transaction.toModelType());
+        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(LUNCH);
+        assertEquals(LUNCH, transaction.toModelType());
     }
 
     @Test
