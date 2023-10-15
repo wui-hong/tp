@@ -82,7 +82,7 @@ public class Transaction {
         if (Name.RESERVED_NAMES.containsAll(participants)) {
             return false;
         }
-        if (amount.amount.compareTo(BigFraction.ZERO) < 1) {
+        if (amount.amount.signum() <= 0) {
             return false;
         }
         if (!(payeeName.equals(Name.SELF) || validNames.contains(payeeName))) {
