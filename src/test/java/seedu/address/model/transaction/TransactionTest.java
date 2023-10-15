@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.expense.Expense;
+import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
@@ -192,5 +193,20 @@ class TransactionTest {
         expectedPortions.put(new Name(BENSON.getName().toString()), BigFraction.of(400, 1));
         expectedPortions.put(new Name(CARL.getName().toString()), BigFraction.of(600, 1));
         assertEquals(expectedPortions, transaction.getAllPortions());
+    }
+
+    @Test
+    public void isValid() {
+        assertFalse(new TransactionBuilder().build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName)
+                .withAmount("0").build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withExpenses(Set.of(new ExpenseBuilder()
+                .withName(Name.SELF.fullName).build(), ALICE_EXPENSE)).build().isValid(Set.of()))
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).withExpenses(Set.of(new ExpenseBuilder()
+                .withName(Name.SELF.fullName).build(), ALICE_EXPENSE)).build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).withExpenses(Set.of(new ExpenseBuilder()
+                .withName(Name.SELF.fullName).withWeight("0").build(), ALICE_EXPENSE)).build()
+                .isValid(Set.of(ALICE.getName())));
     }
 }
