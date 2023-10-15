@@ -20,7 +20,7 @@ import seedu.address.model.transaction.expense.Expense;
  * Represents a Transaction in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Transaction {
+public class Transaction implements Comparable<Transaction> {
 
     // Data fields
     private final Amount amount;
@@ -165,6 +165,11 @@ public class Transaction {
                 && expenses.equals(otherTransaction.expenses)
                 && timestamp.equals(otherTransaction.timestamp);
 
+    }
+
+    @Override
+    public int compareTo(Transaction other) {
+        return other.timestamp.value.compareTo(this.timestamp.value);
     }
 
     @Override

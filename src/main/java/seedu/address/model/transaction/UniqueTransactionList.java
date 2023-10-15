@@ -3,6 +3,7 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     public void add(Transaction toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        sort();
     }
 
     /**
@@ -49,6 +51,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new TransactionNotFoundException();
         }
         internalList.set(index, editedTransaction);
+        sort();
     }
 
     /**
@@ -60,11 +63,13 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         if (!internalList.remove(toRemove)) {
             throw new TransactionNotFoundException();
         }
+        sort();
     }
 
     public void setTransactions(UniqueTransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        sort();
     }
 
     /**
@@ -78,6 +83,19 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         }
 
         internalList.setAll(transactions);
+        sort();
+    }
+
+    /**
+     * Sorts transactions in the list by their comparator.
+     */
+    public void sort() {
+        internalList.sort(new Comparator<Transaction>() {
+            @Override
+            public int compare(Transaction t1, Transaction t2) {
+                return t1.compareTo(t2);
+            }
+        });
     }
 
     /**
