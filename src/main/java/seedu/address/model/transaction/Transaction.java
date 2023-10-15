@@ -80,7 +80,7 @@ public class Transaction {
     }
 
     /**
-     * Returns the portion of the transaction that the person has to pay.
+     * Returns the portion of the transaction that the person has to pay the payee.
      *
      * @param personName the name of the person
      */
@@ -93,7 +93,7 @@ public class Transaction {
     }
 
     /**
-     * Returns a map of all the portions each person has to pay for this transaction.
+     * Returns a map of all the portions each person has to pay the payee for this transaction.
      */
     public Map<Name, BigFraction> getAllPortions() {
         BigFraction totalWeight = getTotalWeight();
@@ -104,6 +104,40 @@ public class Transaction {
                     expense -> expense.getWeight().value.multiply(this.amount.amount).divide(totalWeight)
                 )
             );
+    }
+
+
+    /**
+     * Returns the portion of the transaction that the person has to pay the user.
+     *
+     * @param personName the name of the person
+     */
+    public BigFraction getPortionOwed(Name personName) {
+        BigFraction totalWeight = getTotalWeight();
+
+        // person is not relevant to user in the transaction
+        if (!payeeName.equals(personName) && !payeeName.equals(Name.SELF)) {
+            return BigFraction.ZERO;
+        }
+
+        // user cannot owe self money
+        if (payeeName.equals(Name.SELF) && personName.equals(Name.SELF)) {
+            return BigFraction.ZERO;
+        }
+
+        // user owes person money from the transaction
+        if (payeeName.equals(personName)) {
+            return expenses.stream()
+                    .filter(expense -> expense.getPersonName().equals(Name.SELF))
+                    .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
+                    .reduce(BigFraction.ZERO, BigFraction::subtract);
+        }
+
+        // person owes user money from the transaction
+        return expenses.stream()
+                .filter(expense -> expense.getPersonName().equals(personName))
+                .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
+                .reduce(BigFraction.ZERO, BigFraction::add);
     }
 
     /**
