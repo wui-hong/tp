@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
@@ -14,15 +13,15 @@ import seedu.address.model.transaction.expense.Weight;
  */
 public class JsonAdaptedExpense {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
-    private final String name;
+    private final String personName;
     private final String weight;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("weight") String weight) {
-        this.name = name;
+    public JsonAdaptedExpense(@JsonProperty("personName") String personName, @JsonProperty("weight") String weight) {
+        this.personName = personName;
         this.weight = weight;
     }
 
@@ -30,18 +29,8 @@ public class JsonAdaptedExpense {
      * Converts a given {@code Expense} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
-        name = source.getPersonName().fullName;
+        personName = source.getPersonName().fullName;
         weight = source.getWeight().toString();
-    }
-
-    @JsonValue
-    public String getName() {
-        return name;
-    }
-
-    @JsonValue
-    public String getWeight() {
-        return weight;
     }
 
     /**
@@ -50,13 +39,13 @@ public class JsonAdaptedExpense {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
-        if (name == null) {
+        if (personName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValidName(personName)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Name modelName = new Name(personName);
         if (weight == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weight.class.getSimpleName()));
         }
