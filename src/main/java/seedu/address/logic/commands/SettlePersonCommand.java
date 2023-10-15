@@ -77,7 +77,7 @@ public class SettlePersonCommand extends Command {
 
         // create transaction to cancel out outstanding balance
         model.addTransaction(new Transaction(
-                new Amount(balance.toString()), description, name, expenses));
+                new Amount(balance.abs().toString()), description, name, expenses));
         return new CommandResult(String.format(MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()));
     }
 
