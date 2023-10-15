@@ -12,7 +12,7 @@ class WeightTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Weight(null));
+        assertThrows(NullPointerException.class, () -> new Weight((String) null));
     }
 
     @Test

@@ -72,7 +72,7 @@ public class TransactionCard extends UiPart<Region> {
         amount.setText(transaction.getAmount().toString());
         expenseListView.setItems(lst);
         if (transaction.getPayeeName().equals(Name.SELF)) {
-            change.setText("0.00");
+            change.setText("-");
             expenseListView.setCellFactory(listView -> new CreditListViewCell());
         } else {
             change.setText("+" + FractionUtil.toString(subtotals.get(Name.SELF), 2));
