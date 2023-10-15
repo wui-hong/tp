@@ -2,6 +2,8 @@ package seedu.address.commons.util;
 
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -18,13 +20,15 @@ public class FractionUtil {
      * @return Fraction created.
      */
     public static BigFraction parseFraction(String s) {
-        String[] parts = s.replace(" ", "").split("\\.");
-        switch (parts.length) {
+        ArrayList<String> parts = new ArrayList<>(Arrays.asList(s.replace(" ", "").split("\\.")));
+        switch (parts.size()) {
         case 1:
-            return BigFraction.of(new BigInteger(parts[0]));
+            parts.add("");
+            // no break
         case 2:
-            return BigFraction.of(new BigInteger(parts[0] + parts[1]),
-                    new BigInteger("1" + "0".repeat(parts[1].length())));
+            parts.set(1, parts.get(1) + "0");
+            return BigFraction.of(new BigInteger(parts.get(0) + parts.get(1)),
+                    new BigInteger("1" + "0".repeat(parts.get(1).length())));
         default:
             throw new NumberFormatException();
         }
