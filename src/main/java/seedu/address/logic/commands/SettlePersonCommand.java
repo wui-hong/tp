@@ -54,7 +54,6 @@ public class SettlePersonCommand extends Command {
         Person personToSettle = lastShownList.get(targetIndex.getZeroBased());
 
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
-        List<Transaction> transactions = model.getFilteredTransactionList();
 
         // total money the person owes the user
         BigFraction balance = model.getBalance(personToSettle.getName());
