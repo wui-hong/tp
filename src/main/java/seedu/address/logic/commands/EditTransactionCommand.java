@@ -6,8 +6,10 @@ import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollectio
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -23,6 +25,7 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.expense.Weight;
 
 /**
  * Edits the details of an existing transaction in the transaction list.
@@ -87,6 +90,30 @@ public class EditTransactionCommand extends Command {
         return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, updatedExpenses);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditTransactionCommand)) {
+            return false;
+        }
+
+        EditTransactionCommand otherEditTransactionCommand = (EditTransactionCommand) other;
+        return index.equals(otherEditTransactionCommand.index)
+                && editTransactionDescriptor.equals(otherEditTransactionCommand.editTransactionDescriptor);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .add("editTransactionDescriptor", editTransactionDescriptor)
+                .toString();
+    }
+
     /**
      * Stores the details to edit the transaction with. Each non-empty field value will replace the
      * corresponding field value of the transaction.
@@ -96,7 +123,8 @@ public class EditTransactionCommand extends Command {
         private Amount amount;
         private Description description;
         private Name payeeName;
-        private Set<Expense> expenses = new HashSet<>();
+        // expenses are not to be empty
+        private Set<Expense> expenses;
 
         public EditTransactionDescriptor() {}
 
@@ -108,7 +136,10 @@ public class EditTransactionCommand extends Command {
             setAmount(toCopy.amount);
             setDescription(toCopy.description);
             setPayeeName(toCopy.payeeName);
-            setExpenses(toCopy.expenses);
+
+            if (toCopy.expenses != null) {
+                setExpenses(toCopy.expenses);
+            }
         }
 
         /**
@@ -145,12 +176,14 @@ public class EditTransactionCommand extends Command {
         /**
          * Sets {@code expenses} to this object's {@code expenses}.
          * A defensive copy of {@code expenses} is used internally.
-         * Requires {@code expenses} to be non-null, and not empty.
+         * Requires {@code expenses} to be non-empty if it is not null.
          */
         public void setExpenses(Set<Expense> expenses) {
-            requireNonEmptyCollection(expenses);
-            requireAllNonNull(expenses);
-            this.expenses = new HashSet<>(expenses);
+            if (!Objects.isNull(expenses)) {
+                requireNonEmptyCollection(expenses);
+                requireAllNonNull(expenses);
+                this.expenses = new HashSet<>(expenses);
+            }
         }
 
         /**
