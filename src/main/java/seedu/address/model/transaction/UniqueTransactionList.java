@@ -3,11 +3,14 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Name;
 import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
@@ -63,6 +66,20 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new TransactionNotFoundException();
         }
         sort();
+    }
+
+    /**
+     * Removes person p from all {@code transactions} in the list.
+     */
+    public void deletePerson(Name p, Set<Name> validNames) {
+        List<Transaction> validTransactions = new ArrayList<>();
+        for (Transaction transaction : internalList) {
+            Transaction updatedTransaction = transaction.removePerson(p);
+            if (updatedTransaction.isValid(validNames)) {
+                validTransactions.add(updatedTransaction);
+            }
+        }
+        internalList.setAll(validTransactions);
     }
 
     public void setTransactions(UniqueTransactionList replacement) {

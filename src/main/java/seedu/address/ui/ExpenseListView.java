@@ -41,10 +41,10 @@ public class ExpenseListView extends UiPart<Region> {
         this.expense = expense;
         payer.setText(expense.getName().toString());
         amount.setText(FractionUtil.toString(expense.getFraction(), 2));
-        if (isOwed && !expense.getName().equals(Name.SELF)) {
+        if (isOwed && !Name.RESERVED_NAMES.contains(expense.getName())) {
             change.setText("-" + FractionUtil.toString(expense.getFraction(), 2));
         } else {
-            change.setText("0.00");
+            change.setText("-");
         }
     }
 

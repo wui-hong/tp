@@ -32,6 +32,16 @@ public class Weight {
     }
 
     /**
+     * Constructs a {@code Weight}.
+     *
+     * @param weight A valid weight.
+     */
+    public Weight(BigFraction weight) {
+        requireNonNull(weight);
+        value = weight;
+    }
+
+    /**
      * Returns true if a given string is a valid weight.
      */
     public static boolean isValidWeight(String test) {

@@ -15,6 +15,7 @@ import org.apache.commons.numbers.fraction.BigFraction;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.expense.Weight;
 
 /**
  * Represents a Transaction in the address book.
@@ -45,7 +46,7 @@ public class Transaction implements Comparable<Transaction> {
      */
     public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses,
                        Timestamp timestamp) {
-        requireAllNonNull(amount, description, payeeName);
+        requireAllNonNull(amount, description, payeeName, expenses, timestamp);
         requireNonEmptyCollection(expenses);
         this.amount = amount;
         this.description = description;
@@ -70,6 +71,54 @@ public class Transaction implements Comparable<Transaction> {
         return timestamp;
     }
 
+    /**
+     * Returns if a transaction is valid.
+     */
+    public boolean isValid(Set<Name> validNames) {
+        Set<Name> participants = getAllInvolvedPersonNames();
+        if (!participants.contains(Name.SELF)) {
+            return false;
+        }
+        if (Name.RESERVED_NAMES.containsAll(participants)) {
+            return false;
+        }
+        if (amount.amount.signum() <= 0) {
+            return false;
+        }
+        if (!(payeeName.equals(Name.SELF) || validNames.contains(payeeName))) {
+            return false;
+        }
+        for (Expense expense : expenses) {
+            if (!(validNames.contains(expense.getPersonName())
+                    || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
+                return false;
+            }
+            if (expense.getWeight().value.signum() <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns a new {@code Transaction} replacing the person p with others.
+     */
+    public Transaction removePerson(Name p) {
+        Name newPayee = payeeName.equals(p) ? Name.OTHERS : payeeName;
+        Set<Expense> newExpenses = new HashSet<>();
+        BigFraction accumOthers = BigFraction.ZERO;
+        for (Expense expense : expenses) {
+            if (expense.getPersonName().equals(p) || expense.getPersonName().equals(Name.OTHERS)) {
+                accumOthers = accumOthers.add(expense.getWeight().value);
+            } else {
+                newExpenses.add(expense);
+            }
+        }
+        if (accumOthers.compareTo(BigFraction.ZERO) > 0) {
+            newExpenses.add(new Expense(Name.OTHERS, new Weight(accumOthers)));
+        }
+        return new Transaction(amount, description, newPayee, newExpenses, timestamp);
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
