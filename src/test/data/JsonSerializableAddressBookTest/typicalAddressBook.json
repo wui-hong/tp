@@ -46,7 +46,7 @@
   "transactions" : [ {
     "amount" : "60.00",
     "description" : "Group Project Lunch",
-    "payeeName" : "SELF",
+    "payeeName" : "Self",
     "expenses" : [ {
       "personName" : "Benson Meier",
       "weight" : "4.00"
@@ -63,7 +63,7 @@
       "personName" : "Benson Meier",
       "weight" : "4.00"
     }, {
-      "personName" : "SELF",
+      "personName" : "Self",
       "weight" : "8.00"
     } ],
     "timestamp" : "2023-10-13T12:34:56.790"
@@ -72,7 +72,7 @@
     "description" : "Shared Dorm Rent",
     "payeeName" : "Benson Meier",
     "expenses" : [ {
-      "personName" : "SELF",
+      "personName" : "Self",
       "weight" : "1.00"
     }, {
       "personName" : "Benson Meier",
@@ -82,9 +82,9 @@
   }, {
     "amount" : "100.00",
     "description" : "Carpool Subscription",
-    "payeeName" : "SELF",
+    "payeeName" : "Self",
     "expenses" : [ {
-      "personName" : "SELF",
+      "personName" : "Self",
       "weight" : "1.00"
     }, {
       "personName" : "Benson Meier",

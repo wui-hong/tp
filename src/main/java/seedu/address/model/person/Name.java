@@ -36,7 +36,7 @@ public class Name implements Comparable<Name> {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = name.strip();
     }
 
     /**
