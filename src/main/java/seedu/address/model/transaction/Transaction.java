@@ -89,10 +89,11 @@ public class Transaction {
             return false;
         }
         for (Expense expense : expenses) {
-            if (!(validNames.contains(expense.getPersonName()) || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
+            if (!(validNames.contains(expense.getPersonName())
+                    || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
                 return false;
             }
-            if (expense.getWeight().value.signum() < 1) {
+            if (expense.getWeight().value.signum() <= 0) {
                 return false;
             }
         }
