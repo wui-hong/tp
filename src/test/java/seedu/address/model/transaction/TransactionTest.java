@@ -202,7 +202,7 @@ class TransactionTest {
         assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName)
                 .withAmount("0").build().isValid(Set.of()));
         assertFalse(new TransactionBuilder().withExpenses(Set.of(new ExpenseBuilder()
-                .withName(Name.SELF.fullName).build(), ALICE_EXPENSE)).build().isValid(Set.of()))
+                .withName(Name.SELF.fullName).build(), ALICE_EXPENSE)).build().isValid(Set.of()));
         assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).withExpenses(Set.of(new ExpenseBuilder()
                 .withName(Name.SELF.fullName).build(), ALICE_EXPENSE)).build().isValid(Set.of()));
         assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).withExpenses(Set.of(new ExpenseBuilder()
