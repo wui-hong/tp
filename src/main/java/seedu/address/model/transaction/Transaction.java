@@ -106,11 +106,11 @@ public class Transaction {
         Name newPayee = payeeName.equals(p) ? Name.OTHERS : payeeName;
         Set<Expense> newExpenses = new HashSet<>();
         BigFraction accumOthers = BigFraction.ZERO;
-        for (Expense i : expenses) {
-            if (i.getPersonName().equals(p) || i.getPersonName().equals(Name.OTHERS)) {
-                accumOthers = accumOthers.add(i.getWeight().value);
+        for (Expense expense : expenses) {
+            if (expense.getPersonName().equals(p) || expense.getPersonName().equals(Name.OTHERS)) {
+                accumOthers = accumOthers.add(expense.getWeight().value);
             } else {
-                newExpenses.add(i);
+                newExpenses.add(expense);
             }
         }
         if (accumOthers.compareTo(BigFraction.ZERO) > 0) {
