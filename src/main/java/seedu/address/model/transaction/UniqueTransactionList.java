@@ -3,7 +3,6 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -90,12 +89,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * Sorts transactions in the list by their comparator.
      */
     public void sort() {
-        internalList.sort(new Comparator<Transaction>() {
-            @Override
-            public int compare(Transaction t1, Transaction t2) {
-                return t1.compareTo(t2);
-            }
-        });
+        internalList.sort((t1, t2) -> t1.compareTo(t2));
     }
 
     /**
