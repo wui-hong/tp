@@ -31,7 +31,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
-        checkArgument(!Name.isReservedName(name), Name.RESERVED_CONSTRAINTS);
+        checkArgument(!Name.isReservedName(name), String.format(Name.RESERVED_CONSTRAINTS, name.toString()));
         this.name = name;
         this.phone = phone;
         this.email = email;
