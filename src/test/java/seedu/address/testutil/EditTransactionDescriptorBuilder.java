@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.address.model.person.Name;
@@ -26,6 +25,9 @@ public class EditTransactionDescriptorBuilder {
         this.descriptor = new EditTransactionDescriptor(descriptor);
     }
 
+    /**
+     * Returns an {@code EditTransactionDescriptor} with fields containing {@code transaction}'s details
+     */
     public EditTransactionDescriptorBuilder(Transaction transaction) {
         descriptor = new EditTransactionDescriptor();
         descriptor.setAmount(transaction.getAmount());

@@ -15,43 +15,46 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditTransactionCommandParser implements Parser<EditTransactionCommand> {
 
-        /**
-        * Parses the given {@code String} of arguments in the context of the EditTransactionCommand
-        * and returns an EditTransactionCommand object for execution.
-        * @throws ParseException if the user input does not conform the expected format
-        */
-        public EditTransactionCommand parse(String args) throws ParseException {
-            requireNonNull(args);
-            // TODO: tokenize prefix for expense names and weights for v1.2b
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION);
+    /**
+    * Parses the given {@code String} of arguments in the context of the EditTransactionCommand
+    * and returns an EditTransactionCommand object for execution.
+    * @throws ParseException if the user input does not conform the expected format
+    */
+    public EditTransactionCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        // TODO: tokenize prefix for expense names and weights for v1.2b
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION);
 
-            Index index;
+        Index index;
 
-            try {
-                index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            } catch (ParseException pe) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
-            }
-
-            argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION);
-
-            EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
-
-            if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-                editTransactionDescriptor.setDescription(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
-            }
-            if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-                editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get()));
-            }
-            // TODO: parseExpensesForEdit
-
-            if (!editTransactionDescriptor.isAnyFieldEdited()) {
-                throw new ParseException(EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED);
-            }
-
-            return new EditTransactionCommand(index, editTransactionDescriptor);
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
         }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION);
+
+        EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
+
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            editTransactionDescriptor.setDescription(
+                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_COST).isPresent()) {
+            editTransactionDescriptor.setAmount(
+                    ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get()));
+        }
+        // TODO: parseExpensesForEdit
+
+        if (!editTransactionDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED);
+        }
+
+        return new EditTransactionCommand(index, editTransactionDescriptor);
+    }
 }
 
 // TODO: parseExpensesForEdit

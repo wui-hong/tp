@@ -6,10 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollectio
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -20,12 +18,10 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
 
 /**
  * Edits the details of an existing transaction in the transaction list.
@@ -54,7 +50,7 @@ public class EditTransactionCommand extends Command {
 
     /**
      * @param index of the transaction in the filtered transaction list to edit
-     *              * @param editTransactionDescriptor details to edit the transaction with
+     * @param editTransactionDescriptor details to edit the transaction with
      */
     public EditTransactionCommand(Index index, EditTransactionDescriptor editTransactionDescriptor) {
         requireNonNull(index);
@@ -71,7 +67,6 @@ public class EditTransactionCommand extends Command {
         // List<Transaction> lastShownTransactionList = model.getFilteredTransactionList();
         return new CommandResult("Not implemented yet");
     }
-    
     /**
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
      * edited with {@code editTransactionDescriptor}.

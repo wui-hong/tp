@@ -25,7 +25,8 @@ public class TransactionBuilder {
     public static final String DEFAULT_DESCRIPTION = "Mala Xiang Guo at Clementi Mall on 12 Oct 2023";
     public static final String DEFAULT_PAYEE_NAME = TypicalPersons.ALICE.getName().fullName;
 
-    public static final Set<Expense> DEFAULT_EXPENSES = new HashSet<>(List.of(new Expense(TypicalPersons.BOB.getName(), new Weight("1.0"))));
+    public static final Set<Expense> DEFAULT_EXPENSES = new HashSet<>(
+            List.of(new Expense(TypicalPersons.BOB.getName(), new Weight("1.0"))));
 
     private Amount amount;
     private Description description;

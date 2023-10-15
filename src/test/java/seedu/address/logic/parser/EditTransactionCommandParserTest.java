@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
@@ -10,6 +9,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditTransactionCommand;
@@ -62,13 +62,18 @@ class EditTransactionCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid description
-        assertParseFailure(parser, "1" + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
 
         // invalid cost
-        assertParseFailure(parser, "1" + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " " + PREFIX_COST + INVALID_COST, Amount.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " "
+                        + PREFIX_COST + INVALID_COST, Amount.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported (in order of description, cost)
-        assertParseFailure(parser, "1" + " " + PREFIX_COST + INVALID_COST + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + " " + PREFIX_COST + INVALID_COST + " "
+                        + PREFIX_DESCRIPTION + INVALID_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -76,7 +81,8 @@ class EditTransactionCommandParserTest {
         // description
         Index targetIndex = INDEX_FIRST_TRANSACTION;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION).build();
+        EditTransactionDescriptor descriptor =
+                new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION).build();
         EditTransactionCommand expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -92,21 +98,23 @@ class EditTransactionCommandParserTest {
 
         // valid followed by invalid
         Index targetIndex = INDEX_FIRST_TRANSACTION;
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION;
+        String userInput = targetIndex.getOneBased() + " "
+                + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DESCRIPTION));
 
         // invalid followed by valid
-        userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
+        userInput = targetIndex.getOneBased() + " "
+                + PREFIX_DESCRIPTION + INVALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DESCRIPTION));
 
         // multiple valid fields repeated
-        userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
+        userInput = targetIndex.getOneBased() + " "
+                + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DESCRIPTION));
 
         // multiple invalid fields repeated
-        userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION;
+        userInput = targetIndex.getOneBased() + " "
+                + PREFIX_DESCRIPTION + INVALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DESCRIPTION));
-
     }
-
 }
