@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalTransactions.GROCERIES;
-import static seedu.address.testutil.TypicalTransactions.LUNCH;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -76,7 +75,6 @@ public class JsonAddressBookStorageTest {
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
-        original.removeTransaction(LUNCH);
         original.addTransaction(GROCERIES);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
