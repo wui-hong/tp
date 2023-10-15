@@ -3,12 +3,18 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Set;
+
 /**
  * Represents a Person's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class Name implements Comparable<Name> {
+
     public static final Name SELF = new Name("SELF");
+    public static final Name DELETED = new Name("DELETED");
+    public static final Name OTHERS = new Name("OTHERS");
+    public static final Set<Name> RESERVED_NAMES = Set.of(SELF, DELETED, OTHERS);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -63,6 +69,32 @@ public class Name {
     @Override
     public int hashCode() {
         return fullName.hashCode();
+    }
+
+    @Override
+    public int compareTo(Name other) {
+        if (this.equals(other)) {
+            return 0;
+        }
+        if (this.equals(Name.SELF)) {
+            return -1;
+        }
+        if (other.equals(Name.SELF)) {
+            return 1;
+        }
+        if (this.equals(Name.OTHERS)) {
+            return 1;
+        }
+        if (other.equals(Name.OTHERS)) {
+            return -1;
+        }
+        if (this.equals(Name.DELETED)) {
+            return 1;
+        }
+        if (other.equals(Name.DELETED)) {
+            return -1;
+        }
+        return this.fullName.compareTo(other.fullName);
     }
 
 }
