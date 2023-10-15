@@ -12,6 +12,12 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.expense.Weight;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -40,10 +46,30 @@ public class SampleDataUtil {
         };
     }
 
+    public static Transaction[] getSampleTransactions() {
+        return new Transaction[] {
+            new Transaction(new Amount("60"), new Description("Group Project Lunch"), new Name("SELF"), Set.of(
+                new Expense(new Name("Alex Yeoh"), new Weight("2")), new Expense(new Name("Bernice Yu"),
+                    new Weight("4"))), new Timestamp("2023-10-13T12:34:56.789")),
+            new Transaction(new Amount("90"), new Description("Hall Dinner"), new Name("Bernice Yu"), Set.of(
+                new Expense(new Name("SELF"), new Weight("8")), new Expense(new Name("Bernice Yu"), new Weight("4"))),
+                    new Timestamp("2023-10-13T12:34:56.790")),
+            new Transaction(new Amount("600"), new Description("Shared Dorm Rent"), new Name("Bernice Yu"), Set.of(
+                new Expense(new Name("SELF"), new Weight("1")), new Expense(new Name("Bernice Yu"), new Weight("1"))),
+                    new Timestamp("2023-10-13T12:34:56.791")),
+            new Transaction(new Amount("100"), new Description("Carpool Subscription"), new Name("SELF"), Set.of(
+                new Expense(new Name("SELF"), new Weight("1")), new Expense(new Name("Bernice Yu"), new Weight("1"))),
+                    new Timestamp("2023-10-13T12:34:56.792")),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Transaction sampleTransaction : getSampleTransactions()) {
+            sampleAb.addTransaction(sampleTransaction);
         }
         return sampleAb;
     }

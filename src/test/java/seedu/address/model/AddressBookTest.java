@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTransactions.DINNER;
+import static seedu.address.testutil.TypicalTransactions.LUNCH;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -87,15 +87,15 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
         // Two transactions with the same identity fields
-        Transaction editedDinner = new TransactionBuilder(DINNER)
-            .withAmount(DINNER.getAmount().toString())
-            .withDescription(DINNER.getDescription().toString())
-            .withPayeeName(DINNER.getPayeeName().toString())
-            .withExpenses(DINNER.getExpenses())
-            .withTimestamp(DINNER.getTimestamp().toString())
+        Transaction editedDinner = new TransactionBuilder(LUNCH)
+            .withAmount(LUNCH.getAmount().toString())
+            .withDescription(LUNCH.getDescription().toString())
+            .withPayeeName(LUNCH.getPayeeName().toString())
+            .withExpenses(LUNCH.getExpenses())
+            .withTimestamp(LUNCH.getTimestamp().toString())
             .build();
         List<Person> newPersons = List.of();
-        List<Transaction> newTransactions = Arrays.asList(DINNER, editedDinner);
+        List<Transaction> newTransactions = Arrays.asList(LUNCH, editedDinner);
         AddressBookStub newData = new AddressBookStub(newPersons, newTransactions);
 
         assertThrows(DuplicateTransactionException.class, () -> addressBook.resetData(newData));
@@ -108,13 +108,13 @@ public class AddressBookTest {
 
     @Test
     public void hasTransaction_transactionNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasTransaction(DINNER));
+        assertFalse(addressBook.hasTransaction(LUNCH));
     }
 
     @Test
     public void hasTransaction_transactionInAddressBook_returnsTrue() {
-        addressBook.addTransaction(DINNER);
-        assertTrue(addressBook.hasTransaction(DINNER));
+        addressBook.addTransaction(LUNCH);
+        assertTrue(addressBook.hasTransaction(LUNCH));
     }
 
     @Test

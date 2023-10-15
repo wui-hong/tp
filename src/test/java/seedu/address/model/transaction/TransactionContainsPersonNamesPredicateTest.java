@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.BOB_EXPENSE;
+import static seedu.address.testutil.TypicalExpenses.BENSON_EXPENSE;
 import static seedu.address.testutil.TypicalExpenses.CARL_EXPENSE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.List;
@@ -57,11 +57,11 @@ public class TransactionContainsPersonNamesPredicateTest {
         assertTrue(predicate.test(new TransactionBuilder().withExpenses(Set.of(CARL_EXPENSE)).build()));
 
         // Multiple names
-        predicate = new TransactionContainsPersonNamesPredicate(List.of(BOB.getName(), CARL.getName()));
+        predicate = new TransactionContainsPersonNamesPredicate(List.of(BENSON.getName(), CARL.getName()));
         assertTrue(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
         assertTrue(predicate.test(new TransactionBuilder()
-            .withPayeeName(ALICE.getName().fullName).withExpenses(Set.of(BOB_EXPENSE, CARL_EXPENSE)).build()));
-        assertTrue(predicate.test(new TransactionBuilder().withExpenses(Set.of(BOB_EXPENSE)).build()));
+            .withPayeeName(ALICE.getName().fullName).withExpenses(Set.of(BENSON_EXPENSE, CARL_EXPENSE)).build()));
+        assertTrue(predicate.test(new TransactionBuilder().withExpenses(Set.of(BENSON_EXPENSE)).build()));
         assertTrue(predicate.test(new TransactionBuilder().withExpenses(Set.of(ALICE_EXPENSE, CARL_EXPENSE)).build()));
     }
 
