@@ -57,9 +57,7 @@ public class SettlePersonCommand extends Command {
         List<Transaction> transactions = model.getFilteredTransactionList();
 
         // total money the person owes the user
-        BigFraction balance = transactions.stream()
-                .map(transaction -> transaction.getPortionOwed(personToSettle.getName()))
-                .reduce(BigFraction.ZERO, BigFraction::add);
+        BigFraction balance = model.getBalance(personToSettle.getName());
         if (balance.equals(BigFraction.ZERO)) {
             throw new CommandException(MESSAGE_NO_OUTSTANDING_BALANCE);
         }
@@ -79,7 +77,7 @@ public class SettlePersonCommand extends Command {
 
         // create transaction to cancel out outstanding balance
         model.addTransaction(new Transaction(
-                new Amount(balance.negate().toString()), description, name, expenses));
+                new Amount(balance.toString()), description, name, expenses));
         return new CommandResult(String.format(MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()));
     }
 

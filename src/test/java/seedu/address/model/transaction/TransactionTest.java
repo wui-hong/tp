@@ -182,14 +182,14 @@ class TransactionTest {
     public void getPortionOwed_otherPayeeMultipleExpenses_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(
                 ALICE_EXPENSE,
-                BOB_EXPENSE,
+                BENSON_EXPENSE,
                 CARL_EXPENSE,
                 SELF_EXPENSE
         );
         Transaction transaction = new TransactionBuilder().withPayeeName(ALICE.getName().fullName)
                 .withAmount("1000").withExpenses(expenses).build();
         assertEquals(BigFraction.of(-400, 1), transaction.getPortionOwed(ALICE.getName()));
-        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(BOB.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(BENSON.getName()));
         assertEquals(BigFraction.ZERO, transaction.getPortionOwed(CARL.getName()));
         assertEquals(BigFraction.ZERO, transaction.getPortionOwed(Name.SELF));
     }
@@ -206,7 +206,7 @@ class TransactionTest {
     public void getPortionOwed_selfPayeeMultipleExpenses_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(
                 ALICE_EXPENSE,
-                BOB_EXPENSE,
+                BENSON_EXPENSE,
                 CARL_EXPENSE,
                 SELF_EXPENSE
         );
@@ -215,7 +215,7 @@ class TransactionTest {
         assertEquals(BigFraction.of(100, 1),
                 transaction.getPortionOwed(ALICE.getName()));
         assertEquals(BigFraction.of(200, 1),
-                transaction.getPortionOwed(BOB.getName()));
+                transaction.getPortionOwed(BENSON.getName()));
         assertEquals(BigFraction.of(300, 1),
                 transaction.getPortionOwed(CARL.getName()));
         assertEquals(BigFraction.ZERO,

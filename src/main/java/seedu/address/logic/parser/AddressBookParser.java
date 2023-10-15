@@ -72,7 +72,7 @@ public class AddressBookParser {
 
         case ListPersonCommand.COMMAND_WORD:
             return new ListPersonCommand();
-            
+
         case ListTransactionCommand.COMMAND_WORD:
             return new ListTransactionCommandParser().parse(arguments);
 
