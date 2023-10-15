@@ -39,6 +39,22 @@ public class NameTest {
     }
 
     @Test
+    public void isReservedName() {
+        // valid name
+        assertFalse(Name.isReservedName(new Name("peter jack")));
+
+        // Self
+        assertFalse(Name.isReservedName(new Name("self")));
+        assertFalse(Name.isReservedName(new Name("SELF")));
+        assertFalse(Name.isReservedName(new Name("Self")));
+
+        // others
+        assertFalse(Name.isReservedName(new Name("others")));
+        assertFalse(Name.isReservedName(new Name("OTHERS")));
+        assertFalse(Name.isReservedName(new Name("Others")));
+    }
+
+    @Test
     public void equals() {
         Name name = new Name("Valid Name");
 
