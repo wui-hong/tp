@@ -64,9 +64,8 @@ public class Messages {
             .append(transaction.getAmount())
             .append("; Paid by: ")
             .append(transaction.getPayeeName())
-            .append("; Participants: ");
-        transaction.getAllPortions()
-            .forEach((name, portion) -> builder.append(name).append(": ").append(portion).append("; "));
+            .append("; Expenses: ");
+        transaction.getExpenses().forEach(builder::append);
         return builder.toString();
     }
 }
