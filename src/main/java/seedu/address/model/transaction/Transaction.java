@@ -125,7 +125,7 @@ public class Transaction {
 
         // user owes person money from the transaction
         if (payeeName.equals(personName)) {
-            return BigFraction.ZERO.subtract(getPortion(Name.SELF));
+            return getPortion(Name.SELF).negate();
         }
 
         // person owes user money from the transaction
