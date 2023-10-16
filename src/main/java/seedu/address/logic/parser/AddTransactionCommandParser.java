@@ -26,7 +26,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
     /**
      * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
      * and returns an AddTransactionCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
