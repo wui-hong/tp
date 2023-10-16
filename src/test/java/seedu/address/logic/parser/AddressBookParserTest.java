@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditPersonCommand;
@@ -102,6 +103,12 @@ public class AddressBookParserTest {
         TransactionContainsPersonNamesPredicate predicate = new TransactionContainsPersonNamesPredicate(
             List.of(new Name(VALID_NAME_AMY), new Name(VALID_NAME_BOB)));
         assertEquals(new ListTransactionCommand(predicate), command);
+    }
+
+    @Test
+    public void parseCommand_addTransaction() throws Exception {
+        assertTrue(parser.parseCommand(AddTransactionCommand.COMMAND_WORD
+                + " n/Bob c/20.00 d/bread") instanceof AddTransactionCommand);
     }
 
     @Test

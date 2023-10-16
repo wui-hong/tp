@@ -127,8 +127,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a transaction to the address book.
      * The transaction must not already exist in the address book.
      */
-    public void addTransaction(Transaction t) {
-        transactions.add(t);
+    public void addTransaction(Transaction transaction) {
+        requireNonNull(transaction);
+        transactions.add(transaction);
     }
 
     /**
