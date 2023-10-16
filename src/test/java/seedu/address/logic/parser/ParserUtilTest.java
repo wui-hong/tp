@@ -21,6 +21,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.expense.Weight;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -249,5 +250,15 @@ public class ParserUtilTest {
     @Test
     public void parseDescription_invalidValueNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription(null));
+    }
+
+    @Test
+    public void parseWeight_invalidValueNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseWeight(null));
+    }
+
+    @Test
+    public void parseWeight_invalidValue_throwsNullParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeight("1/2/3"));
     }
 }
