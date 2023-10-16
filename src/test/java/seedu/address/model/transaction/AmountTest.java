@@ -29,13 +29,16 @@ class AmountTest {
         // invalid amount
         assertFalse(Amount.isValidAmount("")); // empty string
         assertFalse(Amount.isValidAmount("1.2.3")); // contains multiple decimal points
-        assertFalse(Amount.isValidAmount("1/2")); // contains non-numeric characters besides decimal point
 
         // valid amount
         assertTrue(Amount.isValidAmount("123")); // numbers without decimal point
         assertTrue(Amount.isValidAmount("123.45")); // numbers with decimal point
         assertTrue(Amount.isValidAmount(
             "123.4567890123456789012345678901234567890123456789012345678901234567890")); // long numbers
+        assertTrue(Amount.isValidAmount("1/2")); // fractional form
+        assertTrue(Amount.isValidAmount("1 / 2")); // fractional form with space
+        assertTrue(Amount.isValidAmount("-1/2")); // fractional form with negative
+        assertTrue(Amount.isValidAmount("1.0/2.0")); // fractional form with decimals
         assertTrue(Amount.isValidAmount("-123")); // negative numbers without decimal point
         assertTrue(Amount.isValidAmount("-123.45")); // negative numbers with decimal point
         assertTrue(Amount.isValidAmount("3.")); // contains no numbers after decimal point
