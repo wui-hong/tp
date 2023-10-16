@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.transaction.Amount;
 
 class WeightTest {
 
@@ -32,12 +31,9 @@ class WeightTest {
         assertFalse(Weight.isValidWeight("a")); // non-number
         assertFalse(Weight.isValidWeight(" ")); // spaces only
         assertFalse(Weight.isValidWeight("-1")); // negative number
-        assertTrue(Amount.isValidAmount("-1/2")); // fractional form with negative
+        assertFalse(Weight.isValidWeight("1/3")); // slash
 
         // valid weights
-        assertTrue(Amount.isValidAmount("1/2")); // fractional form
-        assertTrue(Amount.isValidAmount("1 / 2")); // fractional form with space
-        assertTrue(Amount.isValidAmount("1.0/2.0")); // fractional form with decimals
         assertTrue(Weight.isValidWeight("100.99"));
         assertTrue(Weight.isValidWeight("0")); // zero
         assertTrue(Weight.isValidWeight("0.0")); // zero with decimal places

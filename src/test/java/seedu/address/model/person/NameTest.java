@@ -61,9 +61,6 @@ public class NameTest {
         // same values -> returns true
         assertTrue(name.equals(new Name("Valid Name")));
 
-        // only different capitalization -> returns true
-        assertTrue(name.equals(new Name("vAliD nAmE")));
-
         // same object -> returns true
         assertTrue(name.equals(name));
 

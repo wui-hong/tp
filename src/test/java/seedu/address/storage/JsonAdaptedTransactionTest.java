@@ -17,7 +17,7 @@ import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 
 public class JsonAdaptedTransactionTest {
-    private static final String INVALID_AMOUNT = "1-3";
+    private static final String INVALID_AMOUNT = "1/3";
     private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_PAYEE_NAME = "";
     private static final String INVALID_TIMESTAMP = "";

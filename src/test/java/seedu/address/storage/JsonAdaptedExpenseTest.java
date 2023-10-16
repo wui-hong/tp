@@ -15,7 +15,7 @@ public class JsonAdaptedExpenseTest {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
     private static final String INVALID_NAME = "";
-    private static final String INVALID_WEIGHT = "-1/3";
+    private static final String INVALID_WEIGHT = "1/3";
 
     private static final String VALID_NAME = BOB.getName().toString();
 

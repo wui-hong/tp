@@ -54,7 +54,7 @@ public class JsonAdaptedTransaction {
      * Converts a given {@code Transaction} into this class for Jackson use.
      */
     public JsonAdaptedTransaction(Transaction source) {
-        amount = source.getAmount().amount.toString();
+        amount = source.getAmount().toString();
         description = source.getDescription().value;
         payeeName = source.getPayeeName().fullName;
         expenses.addAll(source.getExpenses().stream()
