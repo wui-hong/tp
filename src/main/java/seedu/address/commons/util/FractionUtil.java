@@ -2,6 +2,8 @@ package seedu.address.commons.util;
 
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -14,17 +16,31 @@ public class FractionUtil {
     /**
      * Creates new fraction from decimal string.
      *
-     * @param s Decimal string input.
+     * @param s Decimal string input in the form decimal / decimal.
      * @return Fraction created.
      */
     public static BigFraction parseFraction(String s) {
-        String[] parts = s.replace(" ", "").split("\\.");
+        String[] parts = s.replace(" ", "").split("/", -1);
         switch (parts.length) {
         case 1:
-            return BigFraction.of(new BigInteger(parts[0]));
+            return parseDecimal(parts[0]);
         case 2:
-            return BigFraction.of(new BigInteger(parts[0] + parts[1]),
-                    new BigInteger("1" + "0".repeat(parts[1].length())));
+            return parseDecimal(parts[0]).divide(parseDecimal(parts[1]));
+        default:
+            throw new NumberFormatException();
+        }
+    }
+
+    private static BigFraction parseDecimal(String s) {
+        ArrayList<String> parts = new ArrayList<>(Arrays.asList(s.replace(" ", "").split("\\.", -1)));
+        switch (parts.size()) {
+        case 1:
+            parts.add("");
+            // no break
+        case 2:
+            parts.set(1, parts.get(1) + "0");
+            return BigFraction.of(new BigInteger(parts.get(0) + parts.get(1)),
+                    new BigInteger("1" + "0".repeat(parts.get(1).length())));
         default:
             throw new NumberFormatException();
         }
