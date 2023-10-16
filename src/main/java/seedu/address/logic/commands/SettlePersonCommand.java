@@ -66,10 +66,15 @@ public class SettlePersonCommand extends Command {
         Weight weight = new Weight(BigFraction.ONE.toString());
         Name name;
         Set<Expense> expenses;
+
         if (balance.signum() > 0) {
+            // if the balance is positive, the person owes the user money
+            // we create a transaction where the person pays the user back
             name = personToSettle.getName();
             expenses = Set.of(new Expense(Name.SELF, weight));
         } else {
+            // if the balance is negative, the user owes the person money
+            // we create a transaction where the user pays the person back
             name = Name.SELF;
             expenses = Set.of(new Expense(personToSettle.getName(), weight));
         }

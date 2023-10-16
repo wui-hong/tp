@@ -109,6 +109,9 @@ public class Transaction {
 
     /**
      * Returns the portion of the transaction that the person has to pay the user.
+     * A positive amount indicates the amount the person owes the user.
+     * A negative amount indicates the amount the user owes the person.
+     * Zero amount indicates that the user has no net balance owed to the user from the transaction.
      *
      * @param personName the name of the person
      */
