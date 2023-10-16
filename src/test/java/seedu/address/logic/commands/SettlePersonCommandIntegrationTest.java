@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIFTH_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIFTH_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.ELLE;
@@ -50,7 +50,7 @@ public class SettlePersonCommandIntegrationTest {
                 .withWeight("1").build())).build();
         expectedModel.addTransaction(transaction);
 
-        assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_FIRST_PERSON), model,
+        assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_FIRST_ELEMENT), model,
                 String.format(SettlePersonCommand.MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()),
                 expectedModel);
     }
@@ -67,7 +67,7 @@ public class SettlePersonCommandIntegrationTest {
                 .withWeight("1").build())).build();
         expectedModel.addTransaction(transaction);
 
-        assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_SECOND_PERSON), model,
+        assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_SECOND_ELEMENT), model,
                 String.format(SettlePersonCommand.MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()),
                 expectedModel);
     }
@@ -84,7 +84,7 @@ public class SettlePersonCommandIntegrationTest {
                 .withWeight("1").build())).build();
         expectedModel.addTransaction(transaction);
 
-        assertCommandFailure(new SettlePersonCommand(INDEX_FIFTH_PERSON),
+        assertCommandFailure(new SettlePersonCommand(INDEX_FIFTH_ELEMENT),
                 model, SettlePersonCommand.MESSAGE_NO_OUTSTANDING_BALANCE);
     }
     @Test

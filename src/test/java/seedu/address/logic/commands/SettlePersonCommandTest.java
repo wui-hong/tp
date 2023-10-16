@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,14 +15,14 @@ import seedu.address.commons.core.index.Index;
 public class SettlePersonCommandTest {
     @Test
     public void equals() {
-        SettlePersonCommand settleFirstCommand = new SettlePersonCommand(INDEX_FIRST_PERSON);
-        SettlePersonCommand settleSecondCommand = new SettlePersonCommand(INDEX_SECOND_PERSON);
+        SettlePersonCommand settleFirstCommand = new SettlePersonCommand(INDEX_FIRST_ELEMENT);
+        SettlePersonCommand settleSecondCommand = new SettlePersonCommand(INDEX_SECOND_ELEMENT);
 
         // same object -> returns true
         assertEquals(settleFirstCommand, settleFirstCommand);
 
         // same values -> returns true
-        SettlePersonCommand settleFirstCommandCopy = new SettlePersonCommand(INDEX_FIRST_PERSON);
+        SettlePersonCommand settleFirstCommandCopy = new SettlePersonCommand(INDEX_FIRST_ELEMENT);
         assertEquals(settleFirstCommand, settleFirstCommandCopy);
 
         // different types -> returns false
