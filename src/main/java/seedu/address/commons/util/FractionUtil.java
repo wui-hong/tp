@@ -16,11 +16,23 @@ public class FractionUtil {
     /**
      * Creates new fraction from decimal string.
      *
-     * @param s Decimal string input.
+     * @param s Decimal string input in the form decimal / decimal.
      * @return Fraction created.
      */
     public static BigFraction parseFraction(String s) {
-        ArrayList<String> parts = new ArrayList<>(Arrays.asList(s.replace(" ", "").split("\\.")));
+        String[] parts = s.replace(" ", "").split("/", -1);
+        switch (parts.length) {
+        case 1:
+            return parseDecimal(parts[0]);
+        case 2:
+            return parseDecimal(parts[0]).divide(parseDecimal(parts[1]));
+        default:
+            throw new NumberFormatException();
+        }
+    }
+
+    private static BigFraction parseDecimal(String s) {
+        ArrayList<String> parts = new ArrayList<>(Arrays.asList(s.replace(" ", "").split("\\.", -1)));
         switch (parts.size()) {
         case 1:
             parts.add("");
