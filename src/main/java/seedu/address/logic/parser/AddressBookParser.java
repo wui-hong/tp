@@ -73,9 +73,6 @@ public class AddressBookParser {
         case ListPersonCommand.COMMAND_WORD:
             return new ListPersonCommand();
 
-        case EditTransactionCommand.COMMAND_WORD:
-            return new EditTransactionCommandParser().parse(arguments);
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -84,6 +81,9 @@ public class AddressBookParser {
 
         case ListTransactionCommand.COMMAND_WORD:
             return new ListTransactionCommandParser().parse(arguments);
+
+        case EditTransactionCommand.COMMAND_WORD:
+            return new EditTransactionCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

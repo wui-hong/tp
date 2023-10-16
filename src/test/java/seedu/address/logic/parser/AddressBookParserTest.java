@@ -9,7 +9,9 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TransactionUtil.getEditTransactionDescriptorDetails;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +24,8 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditTransactionCommand;
+import seedu.address.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -31,10 +35,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionContainsPersonNamesPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TransactionBuilder;
 
 public class AddressBookParserTest {
 
@@ -102,6 +109,16 @@ public class AddressBookParserTest {
         TransactionContainsPersonNamesPredicate predicate = new TransactionContainsPersonNamesPredicate(
             List.of(new Name(VALID_NAME_AMY), new Name(VALID_NAME_BOB)));
         assertEquals(new ListTransactionCommand(predicate), command);
+    }
+
+    @Test
+    public void parseCommand_editTransaction() throws Exception {
+        Transaction transaction = new TransactionBuilder().build();
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction).withoutPayeeNameAndExpenses().build();
+        EditTransactionCommand command = (EditTransactionCommand) parser.parseCommand(
+                EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + " "
+                        + getEditTransactionDescriptorDetails(descriptor));
+        assertEquals(new EditTransactionCommand(INDEX_FIRST_TRANSACTION, descriptor), command);
     }
 
     @Test

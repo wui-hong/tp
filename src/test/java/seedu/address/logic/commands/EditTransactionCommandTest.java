@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

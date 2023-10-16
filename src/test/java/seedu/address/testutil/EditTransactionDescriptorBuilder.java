@@ -37,6 +37,16 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
+     * Returns an {@code EditTransactionDescriptor} with fields {@code payeeName} and {@code expenses} set to null.
+     * This is used for v1.2 testing {@code EditTransactionCommand} without {@code payeeName} and {@code expenses}.
+     */
+    public EditTransactionDescriptorBuilder withoutPayeeNameAndExpenses() {
+        descriptor.setPayeeName(null);
+        descriptor.setExpenses(null);
+        return this;
+    }
+
+    /**
      * Sets the {@code Amount} of the {@code EditTransactionDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withAmount(String amount) {

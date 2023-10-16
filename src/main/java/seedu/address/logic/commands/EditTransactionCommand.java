@@ -171,7 +171,6 @@ public class EditTransactionCommand extends Command {
         /**
          * Sets {@code expenses} to this object's {@code expenses}.
          * A defensive copy of {@code expenses} is used internally.
-         * Requires {@code expenses} to be non-empty if it is not null.
          */
         public void setExpenses(Set<Expense> expenses) {
             if (!Objects.isNull(expenses)) {
@@ -179,6 +178,7 @@ public class EditTransactionCommand extends Command {
                 requireAllNonNull(expenses);
                 this.expenses = new HashSet<>(expenses);
             }
+            this.expenses = null;
         }
 
         /**
