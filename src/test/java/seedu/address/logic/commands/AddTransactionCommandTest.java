@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalTransactions.LUNCH;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -27,6 +28,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddTransactionCommandTest {
 
@@ -193,6 +195,11 @@ public class AddTransactionCommandTest {
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Name> nameSet() {
+            return Set.of(TypicalPersons.ALICE.getName(), new TransactionBuilder().build().getPayeeName());
         }
     }
 

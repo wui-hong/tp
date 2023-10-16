@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.numbers.fraction.BigFraction;
 
@@ -110,7 +111,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-        transactions.deletePerson(key.getName(), persons.nameSet());
+        transactions.deletePerson(key.getName(), nameSet());
+    }
+
+    /**
+     * Returns a set of all names in the addressbook.
+     */
+    public Set<Name> nameSet() {
+        return persons.nameSet();
     }
 
     //// transaction-level operations

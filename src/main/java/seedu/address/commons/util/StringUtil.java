@@ -65,4 +65,33 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Removes leading ^ and traling $ from regex.
+     */
+    public static String trimRegExp(String regex) {
+        if (regex.length() == 0) {
+            return regex;
+        }
+        if (regex.charAt(0) == '^') {
+            regex = regex.substring(1);
+        }
+        if (regex.length() == 0) {
+            return regex;
+        }
+        if (regex.charAt(regex.length() - 1) == '$') {
+            boolean isEscaped = false;
+            for (int i = regex.length() - 2; i >= 0; i--) {
+                if (regex.charAt(i) == '\\') {
+                    isEscaped = !isEscaped;
+                } else {
+                    break;
+                }
+            }
+            if (!isEscaped) {
+                regex = regex.substring(0, regex.length() - 1);
+            }
+        }
+        return regex;
+    }
 }

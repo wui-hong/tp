@@ -72,9 +72,9 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if a transaction is valid.
+     * Returns if the transaction relates to both us and another named person.
      */
-    public boolean isValid(Set<Name> validNames) {
+    public boolean isRelevant() {
         Set<Name> participants = getAllInvolvedPersonNames();
         if (!participants.contains(Name.SELF)) {
             return false;
@@ -82,9 +82,29 @@ public class Transaction implements Comparable<Transaction> {
         if (Name.RESERVED_NAMES.containsAll(participants)) {
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Returns if all values are positive.
+     * @return
+     */
+    public boolean isPositive() {
         if (amount.amount.signum() <= 0) {
             return false;
         }
+        for (Expense expense : expenses) {
+            if (expense.getWeight().value.signum() <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns if we know everyone involved in a transaction.
+     */
+    public boolean isKnown(Set<Name> validNames) {
         if (!(payeeName.equals(Name.SELF) || validNames.contains(payeeName))) {
             return false;
         }
@@ -93,11 +113,15 @@ public class Transaction implements Comparable<Transaction> {
                     || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
                 return false;
             }
-            if (expense.getWeight().value.signum() <= 0) {
-                return false;
-            }
         }
         return true;
+    }
+
+    /**
+     * Returns if a transaction is valid.
+     */
+    public boolean isValid(Set<Name> validNames) {
+        return isRelevant() && isPositive() && isKnown(validNames);
     }
 
     /**
