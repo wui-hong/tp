@@ -44,7 +44,13 @@ public class TypicalTransactions {
                             new ExpenseBuilder(BENSON_EXPENSE).withWeight(BigFraction.ONE.toString()).build(),
                             new ExpenseBuilder(SELF_EXPENSE).withWeight(BigFraction.ONE.toString()).build()))
             .withTimestamp("2023-10-13T12:34:56.793").build();
+
+    public static final Transaction BREAKFAST_WITH_ALICE = new TransactionBuilder().withAmount("10")
+            .withDescription("Breakfast with Alice").withPayeeName(Name.SELF.fullName).withExpenses(
+                    Set.of(new ExpenseBuilder(ALICE_EXPENSE).withWeight(BigFraction.ONE.toString()).build()))
+            .withTimestamp("2023-10-13T12:34:56.794").build();
+
     public static List<Transaction> getTypicalTransactions() {
-        return new ArrayList<>(Arrays.asList(LUNCH, DINNER, RENT, TRANSPORTATION));
+        return new ArrayList<>(Arrays.asList(LUNCH, DINNER, RENT, TRANSPORTATION, BREAKFAST_WITH_ALICE));
     }
 }

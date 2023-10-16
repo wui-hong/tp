@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +16,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
@@ -63,9 +65,20 @@ public class EditTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: implement FilteredTransactionList
-        // List<Transaction> lastShownTransactionList = model.getFilteredTransactionList();
-        return new CommandResult("Not implemented yet");
+         List<Transaction> lastShownTransactionList = model.getFilteredTransactionList();
+
+         if (index.getZeroBased() >= lastShownTransactionList.size()) {
+             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+         }
+
+         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
+        Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
+
+        model.setTransaction(transactionToEdit, editedTransaction);
+        model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
+        return new CommandResult(
+                String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.formatTransaction(editedTransaction)));
+
     }
     /**
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
