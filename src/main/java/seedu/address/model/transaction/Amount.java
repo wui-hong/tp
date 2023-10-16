@@ -15,7 +15,8 @@ public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Amount should be a valid decimal number, and it should not be blank";
-    public static final String VALIDATION_REGEX = "^-?(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*))$";
+    public static final String VALIDATION_REGEX =
+            "^-?(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*))(/(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*)))?$";
     public static final int DEFAULT_DECIMAL_PLACES = 2;
 
     // Identity fields

@@ -31,9 +31,12 @@ class WeightTest {
         assertFalse(Weight.isValidWeight("a")); // non-number
         assertFalse(Weight.isValidWeight(" ")); // spaces only
         assertFalse(Weight.isValidWeight("-1")); // negative number
-        assertFalse(Weight.isValidWeight("1/3")); // slash
+        assertFalse(Weight.isValidWeight("-1/2")); // fractional form with negative
 
         // valid weights
+        assertTrue(Weight.isValidWeight("1/2")); // fractional form
+        assertTrue(Weight.isValidWeight("1 / 2")); // fractional form with space
+        assertTrue(Weight.isValidWeight("1.0/2.0")); // fractional form with decimals
         assertTrue(Weight.isValidWeight("100.99"));
         assertTrue(Weight.isValidWeight("0")); // zero
         assertTrue(Weight.isValidWeight("0.0")); // zero with decimal places
