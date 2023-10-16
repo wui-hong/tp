@@ -17,7 +17,7 @@ public class Timestamp {
     public final LocalDateTime value;
 
     /**
-     * Constructs an {@code Timestamp}.
+     * Constructs a {@code Timestamp}.
      *
      * @param timestamp A valid timestamp.
      */
