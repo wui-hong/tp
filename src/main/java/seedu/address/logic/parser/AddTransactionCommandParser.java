@@ -41,6 +41,8 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         String costString = argMultimap.getValue(PREFIX_COST).get();
+        //Checking if amount is negative and then stripping the negative sign. This is to swap the payee and person that
+        //owes money when creating the transaction.
         boolean isNegative = false;
         if (costString.charAt(0) == '-') {
             isNegative = true;
