@@ -113,8 +113,6 @@ public class Transaction {
      * @param personName the name of the person
      */
     public BigFraction getPortionOwed(Name personName) {
-        BigFraction totalWeight = getTotalWeight();
-
         // person is not relevant to user in the transaction
         if (!payeeName.equals(personName) && !payeeName.equals(Name.SELF)) {
             return BigFraction.ZERO;
@@ -127,17 +125,11 @@ public class Transaction {
 
         // user owes person money from the transaction
         if (payeeName.equals(personName)) {
-            return expenses.stream()
-                    .filter(expense -> expense.getPersonName().equals(Name.SELF))
-                    .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
-                    .reduce(BigFraction.ZERO, BigFraction::subtract);
+            return BigFraction.ZERO.subtract(getPortion(Name.SELF));
         }
 
         // person owes user money from the transaction
-        return expenses.stream()
-                .filter(expense -> expense.getPersonName().equals(personName))
-                .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
-                .reduce(BigFraction.ZERO, BigFraction::add);
+        return getPortion(personName);
     }
 
     /**
