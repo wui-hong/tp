@@ -16,6 +16,8 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.RESERVED_NAME_DESC_OTHERS;
+import static seedu.address.logic.commands.CommandTestUtil.RESERVED_NAME_DESC_SELF;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -192,5 +194,16 @@ public class AddPersonCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_reservedValue_failure() {
+        // self
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + RESERVED_NAME_DESC_SELF + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, String.format(Name.RESERVED_CONSTRAINTS, "Self"));
+
+        // others
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + RESERVED_NAME_DESC_OTHERS + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, String.format(Name.RESERVED_CONSTRAINTS, "Others"));
     }
 }
