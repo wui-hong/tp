@@ -70,12 +70,12 @@ public class Name implements Comparable<Name> {
         }
 
         Name otherName = (Name) other;
-        return fullName.toUpperCase().equals(otherName.fullName.toUpperCase());
+        return fullName.equalsIgnoreCase(otherName.fullName);
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return fullName.toUpperCase().hashCode();
     }
 
     @Override
