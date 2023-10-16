@@ -12,7 +12,7 @@ class WeightTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Weight(null));
+        assertThrows(NullPointerException.class, () -> new Weight((String) null));
     }
 
     @Test
@@ -31,10 +31,7 @@ class WeightTest {
         assertFalse(Weight.isValidWeight("a")); // non-number
         assertFalse(Weight.isValidWeight(" ")); // spaces only
         assertFalse(Weight.isValidWeight("-1")); // negative number
-        assertFalse(Weight.isValidWeight(".0")); // decimal without 0
         assertFalse(Weight.isValidWeight("1/3")); // slash
-        assertFalse(Weight.isValidWeight("1 ")); // trailing space
-        assertFalse(Weight.isValidWeight("1. 0")); // spaces between
 
         // valid weights
         assertTrue(Weight.isValidWeight("100.99"));
@@ -42,6 +39,9 @@ class WeightTest {
         assertTrue(Weight.isValidWeight("0.0")); // zero with decimal places
         assertTrue(Weight.isValidWeight("010")); // leading 0
         assertTrue(Weight.isValidWeight("010.00")); // leading 0 with decimal places
+        assertTrue(Weight.isValidWeight(".0")); // decimal without 0
+        assertTrue(Weight.isValidWeight("1 ")); // trailing space
+        assertTrue(Weight.isValidWeight("1. 0")); // spaces between
     }
 
     @Test

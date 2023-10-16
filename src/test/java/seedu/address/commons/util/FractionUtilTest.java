@@ -9,12 +9,11 @@ import org.junit.jupiter.api.Test;
 public class FractionUtilTest {
 
     @Test
-    public void parseFraction_quarterTwo_quarter() {
+    public void parseFraction() {
+        assertEquals("0.00", FractionUtil.toString(FractionUtil.parseFraction("0"), 2));
+        assertEquals("0.00", FractionUtil.toString(FractionUtil.parseFraction("."), 2));
+        assertEquals("0.50", FractionUtil.toString(FractionUtil.parseFraction("1.0/2"), 2));
         assertEquals("0.25", FractionUtil.toString(FractionUtil.parseFraction("0.25"), 2));
-    }
-
-    @Test
-    public void parseFraction_quarterOne_pointThree() {
         assertEquals("0.3", FractionUtil.toString(FractionUtil.parseFraction("0.25"), 1));
     }
 

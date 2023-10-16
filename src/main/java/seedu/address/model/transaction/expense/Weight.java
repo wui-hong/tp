@@ -14,7 +14,7 @@ import seedu.address.commons.util.FractionUtil;
 public class Weight {
     public static final String MESSAGE_CONSTRAINTS =
             "Weight should only contain non-negative numbers.";
-    public static final String VALIDATION_REGEX = "^\\d+(\\.\\d+)?$";
+    public static final String VALIDATION_REGEX = "^(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*))$";
 
     public static final int DEFAULT_DECIMAL_PLACES = 2;
 
@@ -29,6 +29,16 @@ public class Weight {
         requireNonNull(weight);
         checkArgument(isValidWeight(weight), MESSAGE_CONSTRAINTS);
         value = FractionUtil.parseFraction(weight);
+    }
+
+    /**
+     * Constructs a {@code Weight}.
+     *
+     * @param weight A valid weight.
+     */
+    public Weight(BigFraction weight) {
+        requireNonNull(weight);
+        value = weight;
     }
 
     /**

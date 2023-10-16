@@ -107,6 +107,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        transactions.deletePerson(key.getName(), persons.nameSet());
     }
 
     //// transaction-level operations
