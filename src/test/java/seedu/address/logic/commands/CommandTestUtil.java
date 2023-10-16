@@ -40,6 +40,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TIMESTAMP = "2023-10-13T12:34:56.789";
 
+    public static final String VALID_COST_LUNCH = "20.00";
+
+    public static final String VALID_COST_DINNER = "50.00";
+
     public static final String RESERVED_NAME_SELF = "Self";
     public static final String RESERVED_NAME_OTHERS = "Others";
 
