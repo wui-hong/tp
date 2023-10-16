@@ -14,7 +14,7 @@ import seedu.address.commons.util.FractionUtil;
 public class Weight {
     public static final String MESSAGE_CONSTRAINTS =
             "Weight should only contain non-negative numbers.";
-    public static final String VALIDATION_REGEX = "^\\d+(\\.\\d+)?$";
+    public static final String VALIDATION_REGEX = "^(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*))$";
 
     public static final int DEFAULT_DECIMAL_PLACES = 2;
 

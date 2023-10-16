@@ -28,9 +28,6 @@ class AmountTest {
 
         // invalid amount
         assertFalse(Amount.isValidAmount("")); // empty string
-        assertFalse(Amount.isValidAmount("3.")); // contains no numbers after decimal point
-        assertFalse(Amount.isValidAmount(".12")); // contains no numbers before decimal point
-        assertFalse(Amount.isValidAmount("1.  2")); // contains spaces
         assertFalse(Amount.isValidAmount("1.2.3")); // contains multiple decimal points
         assertFalse(Amount.isValidAmount("1/2")); // contains non-numeric characters besides decimal point
 
@@ -41,6 +38,9 @@ class AmountTest {
             "123.4567890123456789012345678901234567890123456789012345678901234567890")); // long numbers
         assertTrue(Amount.isValidAmount("-123")); // negative numbers without decimal point
         assertTrue(Amount.isValidAmount("-123.45")); // negative numbers with decimal point
+        assertTrue(Amount.isValidAmount("3.")); // contains no numbers after decimal point
+        assertTrue(Amount.isValidAmount(".12")); // contains no numbers before decimal point
+        assertTrue(Amount.isValidAmount("1.  2")); // contains spaces
     }
 
     @Test

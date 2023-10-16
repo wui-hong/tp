@@ -13,4 +13,5 @@ public class TypicalIndexes {
     public static final Index INDEX_FIRST_TRANSACTION = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_TRANSACTION = Index.fromOneBased(2);
     public static final Index INDEX_THIRD_TRANSACTION = Index.fromOneBased(3);
+    public static final Index INDEX_FIFTH_PERSON = Index.fromOneBased(5);
 }

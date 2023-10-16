@@ -38,6 +38,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     public void add(Transaction toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
+        sort();
     }
 
     /**
@@ -52,6 +53,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new TransactionNotFoundException();
         }
         internalList.set(index, editedTransaction);
+        sort();
     }
 
     /**
@@ -63,6 +65,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         if (!internalList.remove(toRemove)) {
             throw new TransactionNotFoundException();
         }
+        sort();
     }
 
     /**
@@ -82,6 +85,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     public void setTransactions(UniqueTransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        sort();
     }
 
     /**
@@ -95,6 +99,14 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         }
 
         internalList.setAll(transactions);
+        sort();
+    }
+
+    /**
+     * Sorts transactions in the list by their comparator.
+     */
+    public void sort() {
+        internalList.sort((t1, t2) -> t1.compareTo(t2));
     }
 
     /**

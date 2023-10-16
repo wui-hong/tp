@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
 import static seedu.address.testutil.TypicalExpenses.BENSON_EXPENSE;
 import static seedu.address.testutil.TypicalExpenses.CARL_EXPENSE;
+import static seedu.address.testutil.TypicalExpenses.SELF_EXPENSE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -168,6 +169,58 @@ class TransactionTest {
                 transaction.getPortion(BENSON.getName()));
         assertEquals(BigFraction.of(300, 1),
                 transaction.getPortion(CARL.getName()));
+    }
+
+    @Test
+    public void getPortionOwed_otherPayeeSingleExpense_returnsCorrectPortion() {
+        Set<Expense> expenses = Set.of(ALICE_EXPENSE);
+        Transaction transaction = new TransactionBuilder().withPayeeName(ALICE.getName().fullName)
+                .withAmount("100").withExpenses(expenses).build();
+        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(ALICE.getName()));
+    }
+
+    @Test
+    public void getPortionOwed_otherPayeeMultipleExpenses_returnsCorrectPortion() {
+        Set<Expense> expenses = Set.of(
+                ALICE_EXPENSE,
+                BENSON_EXPENSE,
+                CARL_EXPENSE,
+                SELF_EXPENSE
+        );
+        Transaction transaction = new TransactionBuilder().withPayeeName(ALICE.getName().fullName)
+                .withAmount("1000").withExpenses(expenses).build();
+        assertEquals(BigFraction.of(-400, 1), transaction.getPortionOwed(ALICE.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(BENSON.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(CARL.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(Name.SELF));
+    }
+    @Test
+    public void getPortionOwed_selfPayeeSingleExpense_returnsCorrectPortion() {
+        Set<Expense> expenses = Set.of(ALICE_EXPENSE);
+        Transaction transaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName)
+                .withAmount("100").withExpenses(expenses).build();
+        BigFraction expectedPortion = BigFraction.of(100, 1);
+        assertEquals(expectedPortion, transaction.getPortionOwed(ALICE.getName()));
+    }
+
+    @Test
+    public void getPortionOwed_selfPayeeMultipleExpenses_returnsCorrectPortion() {
+        Set<Expense> expenses = Set.of(
+                ALICE_EXPENSE,
+                BENSON_EXPENSE,
+                CARL_EXPENSE,
+                SELF_EXPENSE
+        );
+        Transaction transaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName)
+                .withAmount("1000").withExpenses(expenses).build();
+        assertEquals(BigFraction.of(100, 1),
+                transaction.getPortionOwed(ALICE.getName()));
+        assertEquals(BigFraction.of(200, 1),
+                transaction.getPortionOwed(BENSON.getName()));
+        assertEquals(BigFraction.of(300, 1),
+                transaction.getPortionOwed(CARL.getName()));
+        assertEquals(BigFraction.ZERO,
+                transaction.getPortionOwed(Name.SELF));
     }
 
     @Test

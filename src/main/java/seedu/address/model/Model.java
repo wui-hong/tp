@@ -3,8 +3,11 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import org.apache.commons.numbers.fraction.BigFraction;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
@@ -106,6 +109,13 @@ public interface Model {
      * as another existing transaction in the address book.
      */
     void setTransaction(Transaction target, Transaction editedTransaction);
+
+    /**
+     * Returns the total balance of all transaction that the person has to pay the user.
+     *
+     * @param name the name of the person
+     */
+    BigFraction getBalance(Name name);
 
     /**
      * Returns an unmodifiable view of the filtered person list
