@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.apache.commons.numbers.fraction.BigFraction;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.PersonBuilder;
@@ -167,6 +169,11 @@ public class AddPersonCommandTest {
 
         @Override
         public void setTransaction(Transaction target, Transaction editedTransaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public BigFraction getBalance(Name name) {
             throw new AssertionError("This method should not be called.");
         }
 

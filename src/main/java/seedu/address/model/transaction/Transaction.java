@@ -129,7 +129,7 @@ public class Transaction {
     }
 
     /**
-     * Returns the portion of the transaction that the person has to pay.
+     * Returns the portion of the transaction that the person has to pay the payee.
      *
      * @param personName the name of the person
      */
@@ -142,7 +142,7 @@ public class Transaction {
     }
 
     /**
-     * Returns a map of all the portions each person has to pay for this transaction.
+     * Returns a map of all the portions each person has to pay the payee for this transaction.
      */
     public Map<Name, BigFraction> getAllPortions() {
         BigFraction totalWeight = getTotalWeight();
@@ -153,6 +153,35 @@ public class Transaction {
                     expense -> expense.getWeight().value.multiply(this.amount.amount).divide(totalWeight)
                 )
             );
+    }
+
+
+    /**
+     * Returns the portion of the transaction that the person has to pay the user.
+     * A positive amount indicates the amount the person owes the user.
+     * A negative amount indicates the amount the user owes the person.
+     * Zero amount indicates that the user has no net balance owed to the user from the transaction.
+     *
+     * @param personName the name of the person
+     */
+    public BigFraction getPortionOwed(Name personName) {
+        // person is not relevant to user in the transaction
+        if (!payeeName.equals(personName) && !payeeName.equals(Name.SELF)) {
+            return BigFraction.ZERO;
+        }
+
+        // user cannot owe self money
+        if (payeeName.equals(Name.SELF) && personName.equals(Name.SELF)) {
+            return BigFraction.ZERO;
+        }
+
+        // user owes person money from the transaction
+        if (payeeName.equals(personName)) {
+            return getPortion(Name.SELF).negate();
+        }
+
+        // person owes user money from the transaction
+        return getPortion(personName);
     }
 
     /**

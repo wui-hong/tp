@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.TransactionBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -37,6 +38,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TIMESTAMP = "2023-10-13T12:34:56.789";
 
     public static final String RESERVED_NAME_SELF = "Self";
     public static final String RESERVED_NAME_OTHERS = "Others";
@@ -78,6 +80,27 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel} excluding transaction timestamps
+     */
+    public static void assertTransactionCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        try {
+            CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+            CommandResult result = command.execute(actualModel);
+            actualModel.getFilteredTransactionList().forEach(transaction -> actualModel.setTransaction(transaction,
+                    new TransactionBuilder(transaction).withTimestamp(VALID_TIMESTAMP).build()));
+            expectedModel.getFilteredTransactionList().forEach(transaction -> expectedModel.setTransaction(transaction,
+                    new TransactionBuilder(transaction).withTimestamp(VALID_TIMESTAMP).build()));
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 
     /**

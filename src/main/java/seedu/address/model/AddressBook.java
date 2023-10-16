@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import org.apache.commons.numbers.fraction.BigFraction;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Transaction;
@@ -157,6 +160,17 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .add("persons", persons)
                 .add("transactions", transactions)
                 .toString();
+    }
+
+    /**
+     * Returns the total balance of all transaction that the person has to pay the user.
+     *
+     * @param name the name of the person
+     */
+    public BigFraction getBalance(Name name) {
+        return transactions.asUnmodifiableObservableList().stream()
+                .map(transaction -> transaction.getPortionOwed(name))
+                .reduce(BigFraction.ZERO, BigFraction::add);
     }
 
     @Override
