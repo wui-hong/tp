@@ -64,7 +64,7 @@ public class AddTransactionCommand extends Command {
         }
 
         if (!toAdd.isKnown(model.nameSet())) {
-            throw new CommandException(MESSAGE_IRRELEVANT_TRANSACTION);
+            throw new CommandException(MESSAGE_UNKNOWN_PARTY);
         }
 
         if (model.hasTransaction(toAdd)) {

@@ -28,6 +28,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TypicalExpenses;
 import seedu.address.testutil.TypicalPersons;
 
 public class AddTransactionCommandTest {
@@ -46,6 +47,27 @@ public class AddTransactionCommandTest {
         assertEquals(String.format(AddTransactionCommand.MESSAGE_SUCCESS, Messages.format(validTransaction)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
+    }
+
+    @Test
+    public void execute_irrelevantTransaction_throwsParseException() throws Exception {
+        ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
+        Transaction irrelevantTransaction = new TransactionBuilder()
+                .withExpenses(Set.of(TypicalExpenses.ALICE_EXPENSE)).build();
+        AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
+
+        assertThrows(CommandException.class,
+                AddTransactionCommand.MESSAGE_IRRELEVANT_TRANSACTION, () -> addTransactionCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_unknownTransaction_throwsParseException() throws Exception {
+        ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
+        Transaction irrelevantTransaction = new TransactionBuilder().withPayeeName("Unknown").build();
+        AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
+
+        assertThrows(CommandException.class,
+                AddTransactionCommand.MESSAGE_UNKNOWN_PARTY, () -> addTransactionCommand.execute(modelStub));
     }
 
     @Test
