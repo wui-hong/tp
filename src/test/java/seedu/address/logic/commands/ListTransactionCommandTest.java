@@ -3,11 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTransactions.DINNER;
-import static seedu.address.testutil.TypicalTransactions.LUNCH;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,12 +30,6 @@ public class ListTransactionCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-        // TODO: Add these typical transactions to getTypicalAddressBook()
-        model.addTransaction(LUNCH);
-        model.addTransaction(DINNER);
-        expectedModel.addTransaction(LUNCH);
-        expectedModel.addTransaction(DINNER);
     }
 
     @Test
@@ -70,7 +61,7 @@ public class ListTransactionCommandTest {
 
     @Test
     public void execute_zeroNames_allTransactionsFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 4);
         TransactionContainsPersonNamesPredicate predicate =
             new TransactionContainsPersonNamesPredicate(Collections.emptyList());
         assertCommandSuccess(new ListTransactionCommand(predicate), model, expectedMessage, expectedModel);
@@ -78,9 +69,10 @@ public class ListTransactionCommandTest {
 
     @Test
     public void execute_multipleNames_multipleTransactionsFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 4);
         TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate(Arrays.asList(new Name(VALID_NAME_BOB), new Name("Carl")));
+            new TransactionContainsPersonNamesPredicate(Arrays.asList(
+                    new Name("Alice Pauline"), new Name("Benson Meier")));
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(new ListTransactionCommand(predicate), model, expectedMessage, expectedModel);
     }

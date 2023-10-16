@@ -39,6 +39,22 @@ public class NameTest {
     }
 
     @Test
+    public void isReservedName() {
+        // valid name
+        assertFalse(Name.isReservedName(new Name("peter jack")));
+
+        // Self
+        assertTrue(Name.isReservedName(new Name("self")));
+        assertTrue(Name.isReservedName(new Name("SELF")));
+        assertTrue(Name.isReservedName(new Name("Self")));
+
+        // others
+        assertTrue(Name.isReservedName(new Name("others")));
+        assertTrue(Name.isReservedName(new Name("OTHERS")));
+        assertTrue(Name.isReservedName(new Name("Others")));
+    }
+
+    @Test
     public void equals() {
         Name name = new Name("Valid Name");
 
@@ -75,10 +91,6 @@ public class NameTest {
         // others -> <
         assertTrue(name.compareTo(Name.OTHERS) < 0);
         assertTrue(Name.OTHERS.compareTo(name) > 0);
-
-        // deleted -> <
-        assertTrue(name.compareTo(Name.DELETED) < 0);
-        assertTrue(Name.DELETED.compareTo(name) > 0);
 
         // smaller value -> >
         assertTrue(name.compareTo(new Name("Other Valid Name")) > 0);

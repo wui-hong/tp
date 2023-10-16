@@ -45,7 +45,12 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Person person;
+        try {
+            person = new Person(name, phone, email, address, tagList);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
 
         return new AddPersonCommand(person);
     }

@@ -6,9 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.BOB_EXPENSE;
+import static seedu.address.testutil.TypicalExpenses.BENSON_EXPENSE;
 import static seedu.address.testutil.TypicalExpenses.CARL_EXPENSE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.expense.Expense;
+import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
@@ -63,7 +65,7 @@ class TransactionTest {
                 new TransactionBuilder().withPayeeName(BOB.getName().fullName).build()));
 
         // different expenses -> returns false
-        Set<Expense> expenses = Set.of(BOB_EXPENSE);
+        Set<Expense> expenses = Set.of(BENSON_EXPENSE);
         assertFalse(transaction.isSameTransaction(new TransactionBuilder().withExpenses(expenses).build()));
     }
 
@@ -97,7 +99,7 @@ class TransactionTest {
         assertNotEquals(transaction, new TransactionBuilder().withPayeeName(BOB.getName().fullName).build());
 
         // different expenses -> returns false
-        Set<Expense> expenses = Set.of(BOB_EXPENSE);
+        Set<Expense> expenses = Set.of(BENSON_EXPENSE);
         assertNotEquals(transaction, new TransactionBuilder().withExpenses(expenses).build());
     }
 
@@ -139,8 +141,9 @@ class TransactionTest {
     public void getAllInvolvedPersonNames_transactionWithPayerAndPayee_returnsCorrectNames() {
         Set<Expense> expenses = Set.of(ALICE_EXPENSE, CARL_EXPENSE);
         Transaction transaction = new TransactionBuilder()
-            .withPayeeName(BOB.getName().fullName).withExpenses(expenses).build();
-        assertEquals(Set.of(ALICE.getName(), CARL.getName(), BOB.getName()), transaction.getAllInvolvedPersonNames());
+            .withPayeeName(BENSON.getName().fullName).withExpenses(expenses).build();
+        assertEquals(Set.of(ALICE.getName(), CARL.getName(), BENSON.getName()),
+            transaction.getAllInvolvedPersonNames());
     }
 
     @Test
@@ -155,14 +158,14 @@ class TransactionTest {
     public void getPortion_multipleExpenses_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(
             ALICE_EXPENSE,
-            BOB_EXPENSE,
+            BENSON_EXPENSE,
             CARL_EXPENSE
         );
         Transaction transaction = new TransactionBuilder().withAmount("600").withExpenses(expenses).build();
         assertEquals(BigFraction.of(100, 1),
                 transaction.getPortion(ALICE.getName()));
         assertEquals(BigFraction.of(200, 1),
-                transaction.getPortion(BOB.getName()));
+                transaction.getPortion(BENSON.getName()));
         assertEquals(BigFraction.of(300, 1),
                 transaction.getPortion(CARL.getName()));
     }
@@ -181,14 +184,29 @@ class TransactionTest {
     public void getAllPortions_multipleExpenses_returnsCorrectPortion() {
         Set<Expense> expenses = Set.of(
             ALICE_EXPENSE,
-            BOB_EXPENSE,
+            BENSON_EXPENSE,
             CARL_EXPENSE
         );
         Transaction transaction = new TransactionBuilder().withAmount("1200").withExpenses(expenses).build();
         Map<Name, BigFraction> expectedPortions = new HashMap<>();
         expectedPortions.put(new Name(ALICE.getName().toString()), BigFraction.of(200, 1));
-        expectedPortions.put(new Name(BOB.getName().toString()), BigFraction.of(400, 1));
+        expectedPortions.put(new Name(BENSON.getName().toString()), BigFraction.of(400, 1));
         expectedPortions.put(new Name(CARL.getName().toString()), BigFraction.of(600, 1));
         assertEquals(expectedPortions, transaction.getAllPortions());
+    }
+
+    @Test
+    public void isValid() {
+        assertFalse(new TransactionBuilder().build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName)
+                .withAmount("0").build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withExpenses(Set.of(new ExpenseBuilder()
+                .withName(Name.SELF.fullName).build(), ALICE_EXPENSE)).build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).withExpenses(Set.of(new ExpenseBuilder()
+                .withName(Name.SELF.fullName).build(), ALICE_EXPENSE)).build().isValid(Set.of()));
+        assertFalse(new TransactionBuilder().withPayeeName(Name.SELF.fullName).withExpenses(Set.of(new ExpenseBuilder()
+                .withName(Name.SELF.fullName).withWeight("0").build(), ALICE_EXPENSE)).build()
+                .isValid(Set.of(ALICE.getName())));
     }
 }

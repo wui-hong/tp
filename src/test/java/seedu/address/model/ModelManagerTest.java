@@ -7,7 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalTransactions.LUNCH;
+import static seedu.address.testutil.TypicalTransactions.DINNER;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,7 +90,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_transactionNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasTransaction(LUNCH));
+        assertFalse(modelManager.hasTransaction(DINNER));
     }
 
     @Test
@@ -101,8 +101,8 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_transactionInAddressBook_returnsTrue() {
-        modelManager.addTransaction(LUNCH);
-        assertTrue(modelManager.hasTransaction(LUNCH));
+        modelManager.addTransaction(DINNER);
+        assertTrue(modelManager.hasTransaction(DINNER));
     }
 
     @Test

@@ -1,8 +1,8 @@
 # User Guide
 ## Description
-Spend n Split (SnS) is a **desktop app for managing expense from contacts, optimized for use via a Command Line 
+Spend n Split (SnS) is a **desktop app for managing transactions from contacts, optimized for use via a Command Line 
 Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SnS can 
-get your contact expense management tasks done faster than traditional GUI apps.
+get your contact transaction management tasks done faster than traditional GUI apps.
 
 ## Setup
 
@@ -33,80 +33,80 @@ open the help window.<br>
 
 ### __v1.2__
 
-### Adding an expense: `addExpense`
-Adds an expense.
-Format: `addExpense n/NAME c/COST d/DETAILS`
+### Adding a transaction: `addTransaction`
+Adds a Transaction.
+Format: `addTransaction n/NAME c/COST d/DETAILS`
 
 Examples:
-* `addExpense n/John Doe c/25 d/Sourdough bread`
-* `addExpense n/Sir Bobby c/1759 d/Iphone 20`
+* `addTransaction n/John Doe c/25 d/Sourdough bread`
+* `addTransaction n/Sir Bobby c/1759 d/Iphone 20`
 
 Sample Execution:
 
 ```bash
-$ add n/John Doe c/25 d/Sourdough bread 
+$ addTransaction n/John Doe c/25 d/Sourdough bread 
 
-Added an expense for John Doe. Sourdough bread, $25.00.
+Added a transaction for John Doe. Sourdough bread, $25.00.
 
-$ add n/Ryan d/Sourdough bread 
+$ addTransaction n/Ryan d/Sourdough bread 
 
-Error. Expense cost was not provided with a c/ flag.
+Error. Transaction cost was not provided with a c/ flag.
 ```
-![addExpense success](images/user-guide/addExpense1.jpg)
+![addTransaction success](images/user-guide/addExpense1.jpg)
 
-![addExpense error](images/user-guide/addExpense2.jpg)
+![addTransaction error](images/user-guide/addExpense2.jpg)
 
 
-### Editing an expense: `editExpense`
-Edits the expense for the person at the specified `INDEX`. The index refers to the index number when viewing a 
-specific person's expenses. The index **must be a positive integer** 1, 2, 3, …​
-Format: `editExpense n/NAME i/INDEX [c/COST] [d/DETAILS]​`
+### Editing a Transaction: `editTransaction`
+Edits the transaction for the person at the specified `INDEX`. The index refers to the index number when viewing a 
+specific person's transactions. The index **must be a positive integer** 1, 2, 3, …​
+Format: `editTransaction n/NAME i/INDEX [c/COST] [d/DETAILS]​`
 
 Examples:
-* `editExpense n/John Doe i/1 c/35`
-* `editExpense n/Sir Bobby i/4 d/iPhone 30`
+* `editTransaction n/John Doe i/1 c/35`
+* `editTransaction n/Sir Bobby i/4 d/iPhone 30`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
 Sample Execution:
 ```
-Suppose this is the list of expenses for Bob:
+Suppose this is the list of transactions for Bob:
 
 $ log n/Bob
 
 1.            eat                  $1.00    Bob
 2.            Pokemon Cards        $15.12   Bob
 
-$ editExpense n/Bob 2 c/12.12
+$ editTransaction n/Bob 2 c/12.12
 
-I have edited Bob's expense to be Pokemon Cards, $12.12.
+I have edited Bob's transaction to be Pokemon Cards, $12.12.
 
-$ editExpense n/Bob 3 d/Potato
+$ editTransaction n/Bob 3 d/Potato
 
-Error! There is no such expense for Bob at that index.
+Error! There is no such transaction for Bob at that index.
 ```
-![editExpense success](images/user-guide/editExpense1.jpg)
+![editTransaction success](images/user-guide/editExpense1.jpg)
 
 
-![editExpense error](images/user-guide/editExpense2.jpg)
+![editTransaction error](images/user-guide/editExpense2.jpg)
 
 
 
-### Deleting an expense: `deleteExpense`
+### Deleting a transaction: `deleteTransaction`
 
-Deletes the specified expense based on index. Must be in an expense log view when entering this command.
+Deletes the specified transaction based on index. Must be in a transaction log view when entering this command.
 
-Format: `deleteExpense i/INDEX`
+Format: `deleteTransaction i/INDEX`
 
 Parameters:
-- `i/INDEX`: The index of the expense to be deleted.
+- `i/INDEX`: The index of the transaction to be deleted.
 
 Examples:
 
-* `deleteExpense i/2`
-    * Deletes the second expense in the list
-* `deleteExpense i/1`
-    * Deletes the first expense in the list
+* `deleteTransaction i/2`
+    * Deletes the second transaction in the list
+* `deleteTransaction i/1`
+    * Deletes the first transaction in the list
 
 ![](images/user-guide/deleteExpense1.png)
 
@@ -116,7 +116,7 @@ Examples:
 
 ### Viewing my log with a person: `log`
 
-Shows a list of the expenses with the specified person.
+Shows a list of the transactions with the specified person.
 
 Format: `log p/PERSON`
 
@@ -139,7 +139,7 @@ Examples:
 ![](images/user-guide/log4.png)
 
 
-### Settling expenses: `settle`
+### Settling transactions: `settle`
 Fully settles the outstanding balance with the specified person.
 After settling, outstanding balance with the specified person will be 0.
 
@@ -153,21 +153,21 @@ Sample Execution:
 ```
 $ settle 
 
-Error: Please indicate the person you would like to settle expenses with.
+Error: Please indicate the person you would like to settle transactions with.
 
 $ settle n/Bob
 
-Confirm settle expense with Bob? [Y/N]
+Confirm settle transaction with Bob? [Y/N]
     Bob owes you $50. 
     
 $ Y
 
-Successfully settled expense with Bob.  
+Successfully settled transaction with Bob.  
     No outstanding balance with Bob.
 
 $ settle n/Mary
 
-Confirm settle expense with Mary? [Y/N]
+Confirm settle transaction with Mary? [Y/N]
     You owe Mary $30.
 
 $ N
@@ -241,10 +241,10 @@ Invalid sorting order, must be `o/asc` or `o/desc`
 ```
 ![sortBalance error](images/user-guide/sortBalance2.png)
 
-### Creating shared expenses: `createGroupExpense`
-Creates an expense for multiple people with customised split ratios.
+### Creating shared transactions: `createGroupTransaction`
+Creates a transaction for multiple people with customised split ratios.
 
-Format: `createGroupExpense c/COST d/DETAILS [n/NAME w/WEIGHT]...`
+Format: `createGroupTransaction c/COST d/DETAILS [n/NAME w/WEIGHT]...`
 - Cost has to be a number.
 - Positive cost means that the person owes you.
 - Negative cost means that you owe the person.
@@ -255,34 +255,34 @@ Format: `createGroupExpense c/COST d/DETAILS [n/NAME w/WEIGHT]...`
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
 Examples:
-* `createGroupExpense c/100 d/Dinner n/John w/2 n/Mary w/2 n/Alice w/1`
-    * creates 3 expenses: two expenses of $40 for John and Mary (2/5 of $100 each), and one expense of $20 for 
+* `createGroupTransaction c/100 d/Dinner n/John w/2 n/Mary w/2 n/Alice w/1`
+    * creates 3 transactions: two transactions of $40 for John and Mary (2/5 of $100 each), and one transaction of $20 for 
         Alice (1/5 of $100)
-* `createGroupExpense c/600 d/Rent n/Self w/1 n/John w/1 n/Mary /w1`
-    * creates 2 expenses: $200 each for John and Mary (since you incurred 1/3 of the cost, which is $200)
+* `createGroupTransaction c/600 d/Rent n/Self w/1 n/John w/1 n/Mary /w1`
+    * creates 2 transactions: $200 each for John and Mary (since you incurred 1/3 of the cost, which is $200)
 
 Sample execution:
 ```
-$ createGroupExpense c/100 d/Dinner n/John w/2 n/Mary w/2 n/Alice w/1
+$ createGroupTransaction c/100 d/Dinner n/John w/2 n/Mary w/2 n/Alice w/1
 
-Successfully created 3 expenses totalling $100:    
+Successfully created 3 transactions totalling $100:    
     John owes you $40
     Mary owes you $40
     Alice owes you $20
 ```
-![createGroupExpense success](images/user-guide/createGroupExpense1.png)
+![createGroupTransaction success](images/user-guide/createGroupExpense1.png)
 
 
 ```
-$ createGroupExpense c/200 d/Textbooks
+$ createGroupTransaction c/200 d/Textbooks
 
-Error: At least one other person must be included in a shared expense.
+Error: At least one other person must be included in a shared transaction.
 
 For example,
 c/30 d/Lunch n/John w/1 n/Mary w/1
 ```
 
-![createGroupExpense error](images/user-guide/createGroupExpense2.png)
+![createGroupTransaction error](images/user-guide/createGroupExpense2.png)
 
 
 ### __v1.1__
