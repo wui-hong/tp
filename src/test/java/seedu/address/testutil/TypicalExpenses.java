@@ -8,7 +8,7 @@ import seedu.address.model.transaction.expense.Expense;
  */
 public class TypicalExpenses {
     public static final Expense ALICE_EXPENSE = new ExpenseBuilder().withName(
-            TypicalPersons.ALICE.getName().fullName).withWeight("1").build();
+            TypicalPersons.ALICE.getName().fullName).withWeight("2").build();
 
     public static final Expense BENSON_EXPENSE = new ExpenseBuilder().withName(
             TypicalPersons.BENSON.getName().fullName).withWeight("4").build();

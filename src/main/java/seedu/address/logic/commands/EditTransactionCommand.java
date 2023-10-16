@@ -65,13 +65,13 @@ public class EditTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-         List<Transaction> lastShownTransactionList = model.getFilteredTransactionList();
+        List<Transaction> lastShownTransactionList = model.getFilteredTransactionList();
 
-         if (index.getZeroBased() >= lastShownTransactionList.size()) {
-             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
-         }
+        if (index.getZeroBased() >= lastShownTransactionList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+        }
 
-         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
+        Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
 
         model.setTransaction(transactionToEdit, editedTransaction);
