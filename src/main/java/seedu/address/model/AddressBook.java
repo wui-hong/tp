@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -35,7 +36,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         transactions = new UniqueTransactionList();
     }
 
-    public AddressBook() {}
+    private final Comparator<Person> desc = (p1, p2) -> {
+        int balCompare = -transactions.getBalance(p1.getName()).compareTo(transactions.getBalance(p2.getName()));
+        if (balCompare == 0) {
+            return p1.getName().compareTo(p2.getName());
+        }
+        return balCompare;
+    };
+    private final Comparator<Person> asc = (p1, p2) -> {
+        int balCompare = transactions.getBalance(p1.getName()).compareTo(transactions.getBalance(p2.getName()));
+        if (balCompare == 0) {
+            return p1.getName().compareTo(p2.getName());
+        }
+        return balCompare;
+    };
+    private Comparator<Person> currComparator;
+
+    public AddressBook() {
+        this.currComparator = desc;
+    }
 
     /**
      * Creates an AddressBook using the Persons and Transactions in the {@code toBeCopied}
@@ -53,6 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        sortPersons();
     }
 
 
@@ -62,6 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setTransactions(List<Transaction> transactions) {
         this.transactions.setTransactions(transactions);
+        sortPersons();
     }
 
 
@@ -91,6 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        sortPersons();
     }
 
     /**
@@ -102,6 +124,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        sortPersons();
     }
 
     /**
@@ -111,6 +134,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
         transactions.deletePerson(key.getName(), persons.nameSet());
+        sortPersons();
     }
 
     //// transaction-level operations
@@ -130,6 +154,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addTransaction(Transaction transaction) {
         requireNonNull(transaction);
         transactions.add(transaction);
+        sortPersons();
     }
 
     /**
@@ -142,6 +167,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedTransaction);
 
         transactions.setTransaction(target, editedTransaction);
+        sortPersons();
     }
 
     /**
@@ -150,6 +176,27 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeTransaction(Transaction key) {
         transactions.remove(key);
+        sortPersons();
+    }
+
+    /**
+     * Sets sort person to descending.
+     */
+    public void setDesc() {
+        currComparator = desc;
+        sortPersons();
+    }
+
+    /**
+     * Sets sort person to ascending.
+     */
+    public void setAsc() {
+        currComparator = asc;
+        sortPersons();
+    }
+
+    private void sortPersons() {
+        persons.sort(currComparator);
     }
 
     //// util methods
@@ -168,9 +215,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param name the name of the person
      */
     public BigFraction getBalance(Name name) {
-        return transactions.asUnmodifiableObservableList().stream()
-                .map(transaction -> transaction.getPortionOwed(name))
-                .reduce(BigFraction.ZERO, BigFraction::add);
+        return transactions.getBalance(name);
     }
 
     @Override
