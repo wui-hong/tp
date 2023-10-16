@@ -36,7 +36,7 @@ public class AddTransactionCommand extends Command {
     private final Transaction toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Transaction}
+     * Creates an AddCommand to add the specified {@code Transaction}.
      */
     public AddTransactionCommand(Transaction transaction) {
         requireNonNull(transaction);
