@@ -7,10 +7,13 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import org.apache.commons.numbers.fraction.BigFraction;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
@@ -136,6 +139,12 @@ public class ModelManager implements Model {
     public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
         return addressBook.hasTransaction(transaction);
+    }
+
+    @Override
+    public BigFraction getBalance(Name name) {
+        requireNonNull(name);
+        return addressBook.getBalance(name);
     }
 
     //=========== Filtered Person & Transaction List Accessors ===============================================
