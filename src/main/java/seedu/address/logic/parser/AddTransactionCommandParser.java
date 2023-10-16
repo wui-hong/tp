@@ -19,7 +19,7 @@ import seedu.address.model.transaction.expense.Expense;
 import seedu.address.model.transaction.expense.Weight;
 
 /**
- * Parses input arguments and creates a new AddTransactionCommand object
+ * Parses input arguments and creates a new AddTransactionCommand object.
  */
 public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
 
