@@ -30,7 +30,7 @@ public class JsonAdaptedExpense {
      */
     public JsonAdaptedExpense(Expense source) {
         personName = source.getPersonName().fullName;
-        weight = source.getWeight().value.toString();
+        weight = source.getWeight().toString();
     }
 
     /**
