@@ -40,14 +40,25 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get());
+        String costString = argMultimap.getValue(PREFIX_COST).get();
+        boolean isNegative = false;
+        if (costString.charAt(0) == '-') {
+            isNegative = true;
+            costString = costString.substring(1);
+        }
+        Amount amount = ParserUtil.parseAmount(costString);
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Timestamp timestamp = Timestamp.now();
         Weight weight = new Weight("1");
-        Expense expense = new Expense(name, weight);
-        Set<Expense> expensesSet = Set.of(expense);
-        Transaction transaction = new Transaction(amount, description, Name.SELF, expensesSet, timestamp);
-
+        Expense expense;
+        Transaction transaction;
+        if (isNegative) {
+            expense = new Expense(Name.SELF, weight);
+            transaction = new Transaction(amount, description, name, Set.of(expense), timestamp);
+        } else {
+            expense = new Expense(name, weight);
+            transaction = new Transaction(amount, description, Name.SELF, Set.of(expense), timestamp);
+        }
         return new AddTransactionCommand(transaction);
     }
 
