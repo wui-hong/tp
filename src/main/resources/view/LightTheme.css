@@ -1,11 +1,38 @@
+@font-face {
+  font-family: 'Poppins Light'; 
+  src: url('../fonts/Poppins/static/Poppins-Light.ttf');
+}
+
+
+@font-face {
+  font-family: 'Poppins Regular'; 
+  src: url('../fonts/Poppins/static/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins Medium'; 
+  src: url('../fonts/Poppins/static/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins Semibold'; 
+  src: url('../fonts/Poppins/static/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins Bold'; 
+  src: url('../fonts/Poppins/static/Poppins-Bold.ttf');
+}
+
+
 .background {
-    -fx-background-color: derive(#EF7C00, 20%);
-    background-color: #003D7C; /* Used in the default.html file */
+    -fx-background-color: #f8fafc;
+    background-color: #f8fafc; /* Used in the default.html file */
 }
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Poppins Semibold";
     -fx-text-fill: transparent;
     -fx-opacity: 0.9;
     -fx-word-wrap: break-word;
@@ -13,24 +40,24 @@
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-font-family: "Poppins Semibold";
+    -fx-text-fill: #020617;
     -fx-opacity: 1;
     -fx-word-wrap: break-word;
 }
 
 .label-header {
-    -fx-background-color: #003D7C;
+    -fx-background-color: #cbd5e1;
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-font-family: "Poppins Semibold";
+    -fx-text-fill: #020617;
     -fx-opacity: 0.9;
     -fx-word-wrap: break-word;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Poppins Semibold";
     -fx-word-wrap: break-word;
 }
 
@@ -45,9 +72,9 @@
 }
 
 .table-view {
-    -fx-base: #EF7C00;
-    -fx-control-inner-background: #EF7C00;
-    -fx-background-color: #EF7C00;
+    -fx-base: #f8fafc;
+    -fx-control-inner-background: #f8fafc;
+    -fx-background-color: #f8fafc;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -71,31 +98,31 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-family: "Poppins Light";
+    -fx-text-fill: #020617;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color:#cbd5e1;
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(transparent, 20%);
+    -fx-background-color: transparent;
     -fx-border-color: transparent transparent transparent transparent;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#EF7C00, 20%);
+    -fx-background-color: #f8fafc;
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#EF7C00, 20%);
+    -fx-background-color: #f8fafc;
 }
 
 .list-cell {
@@ -105,125 +132,125 @@
 }
 
 #doublePanel .list-cell:filled:even {
-    -fx-background-color: #6D90B4;
+    -fx-background-color: #f1f5f9;
 }
 
 #doublePanel .list-cell:filled:odd {
-    -fx-background-color: #4974A1;
+    -fx-background-color: #e2e8f0;
 }
 
 #doublePanel .list-cell:filled:selected {
-    -fx-background-color: #F6B46D;
+    -fx-background-color: #dbeafe;
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
+    -fx-border-color: #2563eb;
     -fx-border-width: 1;
 }
 
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #020617;
     -fx-word-wrap: break-word;
 }
 
 #expenseListView .list-cell:filled:even {
-    -fx-background-color: #1C538B;
+    -fx-background-color: #eff6ff;
 }
 
 #expenseListView .list-cell:filled:odd {
-    -fx-background-color: #396899;
+    -fx-background-color: #dbeafe;
 }
 
 #expenseListView .list-cell:filled:selected {
-    -fx-background-color: #EF7C00;
+    -fx-background-color: #93c5fd;
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Poppins Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #020617;
     -fx-word-wrap: break-word;
 }
 
 .cell_medium_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Poppins Semibold";
     -fx-font-size: 14px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #020617;
     -fx-word-wrap: break-word;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Poppins Regular";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #020617;
     -fx-word-wrap: break-word;
 }
 
 .stack-pane {
-     -fx-background-color: derive(#EF7C00, 20%);
+     -fx-background-color: #f8fafc;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#003D7C, 20%);
-     -fx-border-color: derive(#003D7C, 10%);
+     -fx-background-color: #f8fafc;
+     -fx-border-color: #f8fafc;
      -fx-border-top-width: 1px;
 }
 
 .main-pane {
-    -fx-background-color: derive(#EF7C00, 20%);
-    -fx-border-color: derive(#EF7C00, 10%);
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #f8fafc;
     -fx-border-top-width: 1px;
 }
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Poppins Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: black;
+    -fx-text-fill: #020617;
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: #020617 !important;
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-family: "Poppins Light";
+    -fx-text-fill: #020617;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
 
 .grid-pane {
-    -fx-background-color: derive(#EF7C00, 30%);
-    -fx-border-color: derive(#EF7C00, 30%);
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #f8fafc;
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#EF7C00, 30%);
+    -fx-background-color: #f8fafc;
 }
 
 .context-menu {
-    -fx-background-color: derive( #003D7C, 50%);
+    -fx-background-color: #f8fafc;
 }
 
 .context-menu .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #020617;
 }
 
 .menu-bar {
-    -fx-background-color: derive(#003D7C, 20%);
+    -fx-background-color: #cbd5e1;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-family: "Poppins Light";
+    -fx-text-fill: #020617;
     -fx-opacity: 0.9;
 }
 
 .menu .left-container {
-    -fx-background-color: black;
+    -fx-background-color: #020617;
 }
 
 /*
@@ -233,27 +260,27 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
+    -fx-border-color: #e2e8f0;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #EF7C00;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-background-color: #e2e8f0;
+    -fx-font-family: "Poppins Regular", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-text-fill: #020617;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:hover {
-    -fx-background-color: #003D7C;
+    -fx-background-color: #94a3b8;
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #EF7C00;
+  -fx-background-color: #f8fafc;
+  -fx-text-fill: #020617;
 }
 
 .button:focused {
-    -fx-border-color: white, white;
+    -fx-border-color: #f8fafc, #f8fafc;
     -fx-border-width: 1, 1;
     -fx-border-style: solid, segments(1, 1);
     -fx-border-radius: 0, 0;
@@ -262,50 +289,50 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #EF7C00;
-    -fx-text-fill: white;
+    -fx-background-color: #020617;
+    -fx-text-fill: #020617;
 }
 
 .button:default {
-    -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #cbd5e1;
+    -fx-text-fill: #020617;
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
+    -fx-background-color: #e2e8f0;
 }
 
 .dialog-pane {
-    -fx-background-color: #EF7C00;
+    -fx-background-color: #f8fafc;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #EF7C00;
+    -fx-background-color: #f8fafc;
 }
 
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #020617;
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#EF7C00, 25%);
+    -fx-background-color: #f8fafc;
 }
 
 .dialog-pane:header *.header-panel *.label {
     -fx-font-size: 18px;
     -fx-font-style: italic;
-    -fx-fill: white;
-    -fx-text-fill: white;
+    -fx-fill: #f8fafc;
+    -fx-text-fill: #020617;
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#003D7C, 20%);
+    -fx-background-color: #e2e8f0;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#003D7C, 50%);
+    -fx-background-color: #cbd5e1;
     -fx-background-insets: 3;
 }
 
@@ -333,26 +360,36 @@
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: #b91c1c;
 }
 
 #commandTextField {
-    -fx-background-color: #24598F #24598F #24598F #24598F;
+    -fx-background-color: #f8fafc #f8fafc #f8fafc #f8fafc;
     -fx-background-insets: 0;
-    -fx-border-color: #003D7C #003D7C #003D7C #003D7C;
+    -fx-border-color: #020617 #020617 #020617 #020617;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Poppins Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #020617;
 }
 
 #filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, #020617, 10, 0, 0, 0);
+}
+
+#placeHolder {
+  -fx-border-width: 1;
+  -fx-border-color: #020617 #020617 #020617 #020617;
+  -fx-border-radius: 5;
+  -fx-background-radius: 5;
 }
 
 #resultDisplay .content {
-    -fx-background-color: #F6B46D, #F6B46D, #F6B46D, #F6B46D;
+    -fx-background-color: #f8fafc, #f8fafc, #f8fafc, #f8fafc;
+    -fx-radius: 5;
     -fx-background-radius: 0;
 }
 
@@ -362,8 +399,8 @@
 }
 
 #tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #EF7C00;
+    -fx-text-fill: #eff6ff;
+    -fx-background-color: #3b82f6;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
