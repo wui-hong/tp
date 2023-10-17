@@ -12,13 +12,13 @@ public class NameLabel {
      */
     public static void setNameLabel(Label l, Name name) {
         if (name.equals(Name.SELF)) {
-            l.setStyle("-fx-font-weight: bold");
+            l.setStyle("-fx-font-family: \"Poppins Semibold\"");
             l.setText(Name.SELF.toString());
         } else if (name.equals(Name.OTHERS)) {
-            l.setStyle("-fx-font-weight: italic");
+            l.setStyle("-fx-font-family: \"Poppins Italic\"");
             l.setText(Name.OTHERS.toString());
         } else {
-            l.setStyle("-fx-font-weight: regular");
+            l.setStyle("-fx-font-family: \"Poppins Regular\"");
             l.setText(name.toString());
         }
     }

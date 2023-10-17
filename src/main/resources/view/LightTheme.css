@@ -15,7 +15,7 @@
 }
 
 @font-face {
-  font-family: 'Poppins Semibold';
+  font-family: 'Poppins SemiBold';
   src: url('../fonts/Poppins/static/Poppins-SemiBold.ttf');
 }
 
@@ -24,6 +24,31 @@
   src: url('../fonts/Poppins/static/Poppins-Bold.ttf');
 }
 
+@font-face {
+  font-family: 'Poppins Italic Light';
+  src: url('../fonts/Poppins/static/Poppins-LightItalic.ttf');
+}
+
+
+@font-face {
+  font-family: 'Poppins Italic Regular';
+  src: url('../fonts/Poppins/static/Poppins-Italic.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins Italic Medium';
+  src: url('../fonts/Poppins/static/Poppins-MediumItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins Italic SemiBold';
+  src: url('../fonts/Poppins/static/Poppins-SemiBoldItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins Italic Bold';
+  src: url('../fonts/Poppins/static/Poppins-BoldItalic.ttf');
+}
 
 .background {
     -fx-background-color: #f8fafc;
@@ -32,7 +57,7 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Poppins Semibold";
+    -fx-font-family: "Poppins SemiBold";
     -fx-text-fill: transparent;
     -fx-opacity: 0.9;
     -fx-word-wrap: break-word;
@@ -40,7 +65,7 @@
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Poppins Semibold";
+    -fx-font-family: "Poppins SemiBold";
     -fx-text-fill: #020617;
     -fx-opacity: 1;
     -fx-word-wrap: break-word;
@@ -49,7 +74,7 @@
 .label-header {
     -fx-background-color: #cbd5e1;
     -fx-font-size: 11pt;
-    -fx-font-family: "Poppins Semibold";
+    -fx-font-family: "Poppins SemiBold";
     -fx-text-fill: #020617;
     -fx-opacity: 0.9;
     -fx-word-wrap: break-word;
@@ -57,7 +82,7 @@
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Poppins Semibold";
+    -fx-font-family: "Poppins SemiBold";
     -fx-word-wrap: break-word;
 }
 
@@ -166,14 +191,14 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Poppins Semibold";
+    -fx-font-family: "Poppins SemiBold";
     -fx-font-size: 16px;
     -fx-text-fill: #020617;
     -fx-word-wrap: break-word;
 }
 
 .cell_medium_label {
-    -fx-font-family: "Poppins Semibold";
+    -fx-font-family: "Poppins SemiBold";
     -fx-font-size: 14px;
     -fx-text-fill: #020617;
     -fx-word-wrap: break-word;
