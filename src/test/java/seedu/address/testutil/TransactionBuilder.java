@@ -56,6 +56,7 @@ public class TransactionBuilder {
         description = transactionToCopy.getDescription();
         payeeName = transactionToCopy.getPayeeName();
         expenses = new HashSet<>(transactionToCopy.getExpenses());
+        timestamp = transactionToCopy.getTimestamp();
     }
 
     /**
