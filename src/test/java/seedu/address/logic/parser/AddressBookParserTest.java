@@ -10,8 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TransactionUtil.getEditTransactionDescriptorDetails;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditPersonCommand;
@@ -63,8 +63,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
-                DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeletePersonCommand(INDEX_FIRST_PERSON), command);
+                DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
+        assertEquals(new DeletePersonCommand(INDEX_FIRST_ELEMENT), command);
     }
 
     @Test
@@ -72,8 +72,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditPersonCommand command = (EditPersonCommand) parser.parseCommand(EditPersonCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditPersonCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_ELEMENT.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditPersonCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
     @Test
@@ -112,14 +112,20 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addTransaction() throws Exception {
+        assertTrue(parser.parseCommand(AddTransactionCommand.COMMAND_WORD
+                + " n/Bob c/20.00 d/bread") instanceof AddTransactionCommand);
+    }
+
+    @Test
     public void parseCommand_editTransaction() throws Exception {
         Transaction transaction = new TransactionBuilder().build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction)
-                .withoutPayeeNameAndExpenses().build();
+                .withoutPayeeNameAndExpenses().withoutTimestamp().build();
         EditTransactionCommand command = (EditTransactionCommand) parser.parseCommand(
-                EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + " "
+                EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
                         + getEditTransactionDescriptorDetails(descriptor));
-        assertEquals(new EditTransactionCommand(INDEX_FIRST_TRANSACTION, descriptor), command);
+        assertEquals(new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
     @Test

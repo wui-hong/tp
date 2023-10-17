@@ -7,6 +7,7 @@ import seedu.address.logic.commands.EditTransactionCommand.EditTransactionDescri
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 
@@ -34,6 +35,7 @@ public class EditTransactionDescriptorBuilder {
         descriptor.setDescription(transaction.getDescription());
         descriptor.setPayeeName(transaction.getPayeeName());
         descriptor.setExpenses(transaction.getExpenses());
+        descriptor.setTimestamp(transaction.getTimestamp());
     }
 
     /**
@@ -43,6 +45,15 @@ public class EditTransactionDescriptorBuilder {
     public EditTransactionDescriptorBuilder withoutPayeeNameAndExpenses() {
         descriptor.setPayeeName(null);
         descriptor.setExpenses(null);
+        return this;
+    }
+
+    /**
+     * Returns an {@code EditTransactionDescriptor} with fields {@code timestamp} set to null.
+     * This is required for testing the parser, as the parser does not parse the timestamp.
+     */
+    public EditTransactionDescriptorBuilder withoutTimestamp() {
+        descriptor.setTimestamp(null);
         return this;
     }
 
@@ -84,6 +95,14 @@ public class EditTransactionDescriptorBuilder {
             expenseSet.add(new ExpenseBuilder().withName(expenses[i]).withWeight(expenses[i + 1]).build());
         }
         descriptor.setExpenses(expenseSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Timestamp} of the {@code EditTransactionDescriptor} that we are building.
+     */
+    public EditTransactionDescriptorBuilder withTimestamp(String timestamp) {
+        descriptor.setTimestamp(new Timestamp(timestamp));
         return this;
     }
 

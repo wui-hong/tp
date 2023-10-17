@@ -25,6 +25,9 @@ public class TransactionBuilder {
     public static final String DEFAULT_DESCRIPTION = "Mala Xiang Guo at Clementi Mall on 12 Oct 2023";
     public static final String DEFAULT_PAYEE_NAME = "Default Payee Name";
 
+    // necessary for testing of EditTransactionCommand, to test actual vs expected transactions
+    public static final String DEFAULT_TIMESTAMP = "2023-10-12T12:34:56.789";
+
     public static final Set<Expense> DEFAULT_EXPENSES = new HashSet<>(
             List.of(new Expense(TypicalPersons.BOB.getName(), new Weight("1.0"))));
 

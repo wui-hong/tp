@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -79,7 +79,7 @@ class EditTransactionCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // description
-        Index targetIndex = INDEX_FIRST_TRANSACTION;
+        Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
         EditTransactionDescriptor descriptor =
                 new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION).build();
@@ -97,7 +97,7 @@ class EditTransactionCommandParserTest {
     public void parse_multipleRepeatedFields_failure() {
 
         // valid followed by invalid
-        Index targetIndex = INDEX_FIRST_TRANSACTION;
+        Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + " "
                 + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " " + PREFIX_DESCRIPTION + INVALID_DESCRIPTION;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DESCRIPTION));

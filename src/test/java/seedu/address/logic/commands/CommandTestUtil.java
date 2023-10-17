@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -19,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
@@ -39,6 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TIMESTAMP = "2023-10-13T12:34:56.789";
 
+    public static final String VALID_COST_LUNCH = "20.00";
+
+    public static final String VALID_COST_DINNER = "50.00";
+
     public static final String RESERVED_NAME_SELF = "Self";
     public static final String RESERVED_NAME_OTHERS = "Others";
 
@@ -52,6 +58,10 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    public static final String COST_DESC_LUNCH = " " + PREFIX_COST + VALID_COST_LUNCH;
+
+    public static final String COST_DESC_DINNER = " " + PREFIX_COST + VALID_COST_DINNER;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -140,6 +150,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -154,4 +165,16 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showTransactionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
+
+        Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
+        model.updateFilteredTransactionList(currentTransaction -> currentTransaction.equals(transaction));
+
+        assertEquals(1, model.getFilteredTransactionList().size());
+    }
 }

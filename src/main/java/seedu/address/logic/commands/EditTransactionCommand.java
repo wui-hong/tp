@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 
@@ -77,7 +78,7 @@ public class EditTransactionCommand extends Command {
         model.setTransaction(transactionToEdit, editedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.formatTransaction(editedTransaction)));
+                String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction)));
 
     }
     /**
@@ -95,7 +96,11 @@ public class EditTransactionCommand extends Command {
         Set<Expense> updatedExpenses = editTransactionDescriptor.getExpenses().orElse(transactionToEdit
                 .getExpenses());
 
-        return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, updatedExpenses);
+        // Timestamp is edited here for testing purposes
+        Timestamp updatedTimestamp = editTransactionDescriptor.getTimestamp().orElse(transactionToEdit
+                .getTimestamp());
+
+        return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, updatedExpenses, updatedTimestamp);
     }
 
     @Override
@@ -131,8 +136,8 @@ public class EditTransactionCommand extends Command {
         private Amount amount;
         private Description description;
         private Name payeeName;
-        // expenses are not to be empty
         private Set<Expense> expenses;
+        private Timestamp timestamp;
 
         public EditTransactionDescriptor() {}
 
@@ -144,6 +149,7 @@ public class EditTransactionCommand extends Command {
             setAmount(toCopy.amount);
             setDescription(toCopy.description);
             setPayeeName(toCopy.payeeName);
+            setTimestamp(toCopy.timestamp);
 
             if (toCopy.expenses != null) {
                 setExpenses(toCopy.expenses);
@@ -202,6 +208,14 @@ public class EditTransactionCommand extends Command {
             return (expenses != null) ? Optional.of(Collections.unmodifiableSet(expenses)) : Optional.empty();
         }
 
+        public void setTimestamp(Timestamp timestamp) {
+            this.timestamp = timestamp;
+        }
+
+        public Optional<Timestamp> getTimestamp() {
+            return Optional.ofNullable(timestamp);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -217,7 +231,8 @@ public class EditTransactionCommand extends Command {
             return Objects.equals(amount, otherEditTransactionDescriptor.amount)
                     && Objects.equals(description, otherEditTransactionDescriptor.description)
                     && Objects.equals(payeeName, otherEditTransactionDescriptor.payeeName)
-                    && Objects.equals(expenses, otherEditTransactionDescriptor.expenses);
+                    && Objects.equals(expenses, otherEditTransactionDescriptor.expenses)
+                    && Objects.equals(timestamp, otherEditTransactionDescriptor.timestamp);
         }
 
         /**
@@ -226,6 +241,7 @@ public class EditTransactionCommand extends Command {
         @Override
         public String toString() {
             return new ToStringBuilder(this)
+                    .add("timestamp", timestamp)
                     .add("cost", amount)
                     .add("description", description)
                     .add("payeeName", payeeName)
