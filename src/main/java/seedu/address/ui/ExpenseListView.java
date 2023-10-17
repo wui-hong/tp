@@ -38,12 +38,7 @@ public class ExpenseListView extends UiPart<Region> {
     public ExpenseListView(Name name, String subtotal, String change, int displayedIndex) {
         super(FXML);
         this.name = name;
-        for (Name i : Name.RESERVED_NAMES) {
-            if (i.equals(name)) {
-                name = i;
-            }
-        }
-        payer.setText(name.toString());
+        NameLabel.setNameLabel(payer, name);
         amount.setText(subtotal);
         this.change.setText(change);
     }

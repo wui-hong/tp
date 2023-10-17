@@ -66,7 +66,7 @@ public class TransactionCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(transaction.getDescription().toString());
         date.setText(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss").format(transaction.getTimestamp().value));
-        payee.setText(transaction.getPayeeName().toString());
+        NameLabel.setNameLabel(payee, transaction.getPayeeName());
         amount.setText(transaction.getAmount().toString());
         expenseListView.setItems(lst);
         if (transaction.getPayeeName().equals(Name.SELF)) {
