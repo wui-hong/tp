@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -41,9 +43,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TIMESTAMP = "2023-10-13T12:34:56.789";
 
+    public static final String VALID_DESC_LUNCH = "Lunch";
+    public static final String VALID_DESC_DINNER = "Dinner";
     public static final String VALID_COST_LUNCH = "20.00";
-
     public static final String VALID_COST_DINNER = "50.00";
+    public static final String VALID_WEIGHT_ONE = "1";
+    public static final String VALID_WEIGHT_HALF = "0.5";
 
     public static final String RESERVED_NAME_SELF = "Self";
     public static final String RESERVED_NAME_OTHERS = "Others";
@@ -59,9 +64,12 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String DESC_DESC_LUNCH = " " + PREFIX_DESCRIPTION + VALID_DESC_LUNCH;
+    public static final String DESC_DESC_DINNER = " " + PREFIX_DESCRIPTION + VALID_DESC_DINNER;
     public static final String COST_DESC_LUNCH = " " + PREFIX_COST + VALID_COST_LUNCH;
-
     public static final String COST_DESC_DINNER = " " + PREFIX_COST + VALID_COST_DINNER;
+    public static final String WEIGHT_DESC_ONE = " " + PREFIX_WEIGHT + VALID_WEIGHT_ONE;
+    public static final String WEIGHT_DESC_HALF = " " + PREFIX_WEIGHT + VALID_WEIGHT_HALF;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

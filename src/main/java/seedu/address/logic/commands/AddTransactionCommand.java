@@ -30,13 +30,13 @@ public class AddTransactionCommand extends Command {
             + PREFIX_WEIGHT + "WEIGHT"
             + "] "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESCRIPTION + "bread"
+            + PREFIX_DESCRIPTION + "bread "
             + PREFIX_NAME + "John Doe "
             + PREFIX_COST + "25.00 "
             + PREFIX_NAME + "Self "
             + PREFIX_WEIGHT + "1.5 "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_WEIGHT + "1 ";
+            + PREFIX_WEIGHT + "1";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 

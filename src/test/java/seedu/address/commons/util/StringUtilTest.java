@@ -141,14 +141,15 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    @Test
     public void trimRegExpTest() {
         assertEquals("", StringUtil.trimRegExp(""));
-        assertEquals("^", StringUtil.trimRegExp(""));
-        assertEquals("$", StringUtil.trimRegExp(""));
-        assertEquals("^$", StringUtil.trimRegExp(""));
-        assertEquals("^ $", StringUtil.trimRegExp(" "));
-        assertEquals("^\\$", StringUtil.trimRegExp("$"));
-        assertEquals(" \\\\$", StringUtil.trimRegExp(" "));
+        assertEquals("", StringUtil.trimRegExp("^"));
+        assertEquals("", StringUtil.trimRegExp("$"));
+        assertEquals("", StringUtil.trimRegExp("^$"));
+        assertEquals(" ", StringUtil.trimRegExp("^ $"));
+        assertEquals("\\$", StringUtil.trimRegExp("^\\$"));
+        assertEquals(" \\\\", StringUtil.trimRegExp(" \\\\$"));
     }
 
 }
