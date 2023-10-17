@@ -42,19 +42,16 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_WEIGHT);
 
-        System.out.println(1);
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTransactionCommand.MESSAGE_USAGE));
         }
 
-        System.out.println(2);
         if (!args.trim().matches(VALIDATION_REGEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTransactionCommand.MESSAGE_USAGE));
         }
-        System.out.println(3);
         List<String> names = argMultimap.getAllValues(PREFIX_NAME);
         List<String> weights = argMultimap.getAllValues(PREFIX_WEIGHT);
         assert names.size() == weights.size() + 1;
