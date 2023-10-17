@@ -35,8 +35,8 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     /**
      * Get balance for a person with a given name, within a given list.
      */
-    public static BigFraction getBalance(Name name, ObservableList<Transaction> lst) {
-        return lst.stream().map(transaction -> transaction.getPortionOwed(name))
+    public static BigFraction getBalance(Name name, ObservableList<Transaction> transactionList) {
+        return transactionList.stream().map(transaction -> transaction.getPortionOwed(name))
                 .reduce(BigFraction.ZERO, BigFraction::add);
     }
 

@@ -49,16 +49,16 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonCard(Person person, BigFraction bal, int displayedIndex) {
+    public PersonCard(Person person, BigFraction balanceValue, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        String balString = FractionUtil.toString(bal, 2);
-        if (bal.signum() > 0) {
-            balString = "+" + balString;
+        String balanceString = FractionUtil.toString(balanceValue, 2);
+        if (balanceValue.signum() > 0) {
+            balanceString = "+" + balanceString;
         }
-        balance.setText("Balance: " + balString);
+        balance.setText("Balance: " + balanceString);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
