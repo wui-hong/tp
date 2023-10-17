@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.numbers.fraction.BigFraction;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Name;
@@ -23,6 +25,20 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    /**
+     * Get balance for a person with a given name, within this list.
+     */
+    public BigFraction getBalance(Name name) {
+        return UniqueTransactionList.getBalance(name, internalList);
+    }
+
+    /**
+     * Get balance for a person with a given name, within a given list.
+     */
+    public static BigFraction getBalance(Name name, ObservableList<Transaction> transactionList) {
+        return transactionList.stream().map(transaction -> transaction.getPortionOwed(name))
+                .reduce(BigFraction.ZERO, BigFraction::add);
+    }
 
     /**
      * Returns true if the list contains an equivalent transaction as the given argument.

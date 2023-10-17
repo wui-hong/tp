@@ -2,11 +2,14 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 
+import org.apache.commons.numbers.fraction.BigFraction;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.FractionUtil;
 import seedu.address.model.person.Person;
 
 /**
@@ -33,6 +36,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label balance;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
@@ -44,11 +49,16 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Person person, BigFraction balanceValue, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        String balanceString = FractionUtil.toString(balanceValue, 2);
+        if (balanceValue.signum() > 0) {
+            balanceString = "+" + balanceString;
+        }
+        balance.setText("Balance: " + balanceString);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);

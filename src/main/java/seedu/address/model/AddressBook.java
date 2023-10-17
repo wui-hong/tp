@@ -168,9 +168,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param name the name of the person
      */
     public BigFraction getBalance(Name name) {
-        return transactions.asUnmodifiableObservableList().stream()
-                .map(transaction -> transaction.getPortionOwed(name))
-                .reduce(BigFraction.ZERO, BigFraction::add);
+        return transactions.getBalance(name);
     }
 
     @Override

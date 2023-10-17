@@ -6,17 +6,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
 import static seedu.address.testutil.TypicalExpenses.BENSON_EXPENSE;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.numbers.fraction.BigFraction;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 import seedu.address.model.transaction.expense.Expense;
+import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 
@@ -143,6 +147,16 @@ class UniqueTransactionListTest {
     @Test
     void testToString() {
         assertEquals(transactionList.asUnmodifiableObservableList().toString(), transactionList.toString());
+    }
+
+    @Test
+    void testGetBalance() {
+        transactionList.add(new TransactionBuilder().withAmount("3").withPayeeName(Name.SELF.fullName)
+            .withExpenses(Set.of(ALICE_EXPENSE, BENSON_EXPENSE)).build());
+        assertTrue(transactionList.getBalance(ALICE.getName()).equals(BigFraction.ONE));
+        System.out.println(transactionList.getBalance(BENSON.getName()));
+        assertTrue(UniqueTransactionList.getBalance(BENSON.getName(),
+                transactionList.asUnmodifiableObservableList()).equals(BigFraction.ONE.add(BigFraction.ONE)));
     }
 
     private static class TransactionWithAliceStub extends Transaction {
