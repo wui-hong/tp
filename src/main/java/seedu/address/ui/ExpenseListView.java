@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.commons.util.FractionUtil;
 import seedu.address.model.person.Name;
 
 /**
@@ -22,7 +21,7 @@ public class ExpenseListView extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final TransactionCard.NameFraction expense;
+    public final Name name;
 
     @FXML
     private HBox expenseListView;
@@ -36,16 +35,17 @@ public class ExpenseListView extends UiPart<Region> {
     /**
      * Creates a {@code TransactionCode} with the given {@code Transaction} and index to display.
      */
-    public ExpenseListView(TransactionCard.NameFraction expense, int displayedIndex, boolean isOwed) {
+    public ExpenseListView(Name name, String subtotal, String change, int displayedIndex) {
         super(FXML);
-        this.expense = expense;
-        payer.setText(expense.getName().toString());
-        amount.setText(FractionUtil.toString(expense.getFraction(), 2));
-        if (isOwed && !Name.RESERVED_NAMES.contains(expense.getName())) {
-            change.setText("-" + FractionUtil.toString(expense.getFraction(), 2));
-        } else {
-            change.setText("-");
+        this.name = name;
+        for (Name i : Name.RESERVED_NAMES) {
+            if (i.equals(name)) {
+                name = i;
+            }
         }
+        payer.setText(name.toString());
+        amount.setText(subtotal);
+        this.change.setText(change);
     }
 
 }
