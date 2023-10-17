@@ -60,11 +60,11 @@ Error. Transaction cost was not provided with a c= flag.
 ### Editing a Transaction: `editTransaction`
 Edits the transaction for the person at the specified `INDEX`. The index refers to the index number when viewing a 
 specific person's transactions. The index **must be a positive integer** 1, 2, 3, …​
-Format: `editTransaction n=NAME i=INDEX [c=COST] [d=DETAILS]​`
+Format: `editTransaction n=NAME INDEX [c=COST] [d=DETAILS]​`
 
 Examples:
-* `editTransaction n=John Doe i=1 c=35`
-* `editTransaction n=Sir Bobby i=4 d=iPhone 30`
+* `editTransaction n=John Doe 1 c=35`
+* `editTransaction n=Sir Bobby 4 d=iPhone 30`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -96,16 +96,16 @@ Error! There is no such transaction for Bob at that index.
 
 Deletes the specified transaction based on index. Must be in a transaction log view when entering this command.
 
-Format: `deleteTransaction i=INDEX`
+Format: `deleteTransaction INDEX`
 
 Parameters:
-- `i=INDEX`: The index of the transaction to be deleted.
+- `INDEX`: The index of the transaction to be deleted.
 
 Examples:
 
-* `deleteTransaction i=2`
+* `deleteTransaction 2`
     * Deletes the second transaction in the list
-* `deleteTransaction i=1`
+* `deleteTransaction 1`
     * Deletes the first transaction in the list
 
 ![](images/user-guide/deleteExpense1.png)
