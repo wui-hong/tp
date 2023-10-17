@@ -36,7 +36,7 @@ class EditTransactionCommandTest {
                 EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        // use 4th transaction in the list to test for v1.2
+        // use 1st transaction in the list to test for v1.2
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertTransactionCommandSuccess(editTransactionCommand, model, expectedMessage, expectedModel);
