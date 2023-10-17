@@ -94,15 +94,15 @@ public class TransactionCard extends UiPart<Region> {
         @Override
         protected void updateItem(Name name, boolean empty) {
             super.updateItem(name, empty);
-            String subtotal = map.get(name).toString();
-            String change = "-";
-            if (isCredit && !Name.RESERVED_NAMES.contains(name)) {
-                change = "-" + subtotal;
-            }
             if (empty || name == null) {
                 setGraphic(null);
                 setText(null);
             } else {
+                String subtotal = FractionUtil.toString(map.get(name), 2);
+                String change = "-";
+                if (isCredit && !Name.RESERVED_NAMES.contains(name)) {
+                    change = "-" + subtotal;
+                }
                 setGraphic(new ExpenseListView(name, subtotal, change, getIndex() + 1).getRoot());
             }
         }
