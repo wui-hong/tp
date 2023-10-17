@@ -35,10 +35,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         transactions = new UniqueTransactionList();
     }
-    private Comparator<Person> currComparator;
+    private Comparator<Person> personComparator;
 
     public AddressBook() {
-        this.setDesc();
+        this.setPersonDescendingBalance();
     }
 
     /**
@@ -167,8 +167,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Sets sort person to descending.
      */
-    public void setDesc() {
-        currComparator = (p1, p2) -> {
+    public void setPersonDescendingBalance() {
+        personComparator = (p1, p2) -> {
             int balCompare = -transactions.getBalance(p1.getName()).compareTo(transactions.getBalance(p2.getName()));
             if (balCompare == 0) {
                 return p1.getName().compareTo(p2.getName());
@@ -181,8 +181,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Sets sort person to ascending.
      */
-    public void setAsc() {
-        currComparator = (p1, p2) -> {
+    public void setPersonAscendingBalance() {
+        personComparator = (p1, p2) -> {
             int balCompare = transactions.getBalance(p1.getName()).compareTo(transactions.getBalance(p2.getName()));
             if (balCompare == 0) {
                 return p1.getName().compareTo(p2.getName());
@@ -193,7 +193,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     private void sortPersons() {
-        persons.sort(currComparator);
+        persons.sort(personComparator);
     }
 
     //// util methods
