@@ -127,9 +127,9 @@ public class AddressBookTest {
     @Test
     public void sort() {
         AddressBook ab = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).withTransaction(LUNCH).build();
-        ab.setAsc();
+        ab.setPersonAscendingBalance();
         assertTrue(ALICE.equals(ab.getPersonList().get(0)));
-        ab.setDesc();
+        ab.setPersonDescendingBalance();
         assertTrue(BENSON.equals(ab.getPersonList().get(0)));
     }
 
