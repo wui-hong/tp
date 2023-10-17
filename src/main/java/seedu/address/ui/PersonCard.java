@@ -54,7 +54,11 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        balance.setText("Balance: " + FractionUtil.toString(bal, 2));
+        String balString = FractionUtil.toString(bal, 2);
+        if (bal.signum() > 0) {
+            balString = "+" + balString;
+        }
+        balance.setText("Balance: " + balString);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
