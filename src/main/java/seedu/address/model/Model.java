@@ -118,12 +118,17 @@ public interface Model {
     BigFraction getBalance(Name name);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered person list.
      */
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns an unmodifiable view of the filtered transaction list
+     * Returns an unmodifiable view of the full transaction list.
+     */
+    ObservableList<Transaction> getFullTransactionList();
+
+    /**
+     * Returns an unmodifiable view of the filtered transaction list.
      */
     ObservableList<Transaction> getFilteredTransactionList();
 

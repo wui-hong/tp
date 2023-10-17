@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -22,6 +23,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
 /**
@@ -41,6 +43,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TIMESTAMP = "2023-10-13T12:34:56.789";
 
+    public static final String VALID_DESCRIPTION_LUNCH = "Lunch at Tampines Mall";
+
+    public static final String VALID_DESCRIPTION_DINNER = "Dinner at Clementi Mall";
+
     public static final String VALID_COST_LUNCH = "20.00";
 
     public static final String VALID_COST_DINNER = "50.00";
@@ -58,6 +64,10 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    public static final String DESCRIPTION_DESC_LUNCH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_LUNCH;
+
+    public static final String DESCRIPTION_DESC_DINNER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_DINNER;
 
     public static final String COST_DESC_LUNCH = " " + PREFIX_COST + VALID_COST_LUNCH;
 
@@ -78,6 +88,9 @@ public class CommandTestUtil {
     public static final EditPersonCommand.EditPersonDescriptor DESC_AMY;
     public static final EditPersonCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final EditTransactionCommand.EditTransactionDescriptor DESC_LUNCH;
+    public static final EditTransactionCommand.EditTransactionDescriptor DESC_DINNER;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -85,6 +98,13 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    }
+
+    static {
+        DESC_LUNCH = new EditTransactionDescriptorBuilder().withAmount(VALID_COST_LUNCH)
+                .withDescription(VALID_DESCRIPTION_LUNCH).build();
+        DESC_DINNER = new EditTransactionDescriptorBuilder().withAmount(VALID_COST_DINNER)
+                .withDescription(VALID_DESCRIPTION_DINNER).build();
     }
 
     /**
