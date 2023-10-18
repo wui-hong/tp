@@ -25,7 +25,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
+      <VBox styleClass="main-container">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -42,7 +42,7 @@
           </padding>
         </StackPane>
 
-        <HBox fx:id="doublePanel" alignment="CENTER" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+        <HBox fx:id="doublePanel" spacing="10" alignment="CENTER" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
           <children>
             <VBox fx:id="personList" styleClass="main-pane" minWidth="170" prefWidth="170" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
               <padding>
