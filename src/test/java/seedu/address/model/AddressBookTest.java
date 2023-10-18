@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalTransactions.LUNCH;
 
 import java.util.Arrays;
@@ -23,6 +24,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
+import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
@@ -120,6 +122,15 @@ public class AddressBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    }
+
+    @Test
+    public void sort() {
+        AddressBook ab = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).withTransaction(LUNCH).build();
+        ab.setPersonAscendingBalance();
+        assertTrue(ALICE.equals(ab.getPersonList().get(0)));
+        ab.setPersonDescendingBalance();
+        assertTrue(BENSON.equals(ab.getPersonList().get(0)));
     }
 
     @Test

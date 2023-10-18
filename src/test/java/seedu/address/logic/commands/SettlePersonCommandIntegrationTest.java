@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertTransactionComm
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIFTH_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SEVENTH_ELEMENT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.ELLE;
@@ -67,7 +67,7 @@ public class SettlePersonCommandIntegrationTest {
                 .withWeight("1").build())).build();
         expectedModel.addTransaction(transaction);
 
-        assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_SECOND_ELEMENT), model,
+        assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_SEVENTH_ELEMENT), model,
                 String.format(SettlePersonCommand.MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()),
                 expectedModel);
     }
