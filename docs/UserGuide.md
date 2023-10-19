@@ -35,22 +35,22 @@ open the help window.<br>
 
 ### Adding a transaction: `addTransaction`
 Adds a Transaction.
-Format: `addTransaction n/NAME c/COST d/DETAILS`
+Format: `addTransaction n=NAME c=COST d=DETAILS`
 
 Examples:
-* `addTransaction n/John Doe c/25 d/Sourdough bread`
-* `addTransaction n/Sir Bobby c/1759 d/Iphone 20`
+* `addTransaction n=John Doe c=25 d=Sourdough bread`
+* `addTransaction n=Sir Bobby c=1759 d=Iphone 20`
 
 Sample Execution:
 
 ```bash
-$ addTransaction n/John Doe c/25 d/Sourdough bread 
+$ addTransaction n=John Doe c=25 d=Sourdough bread 
 
 Added a transaction for John Doe. Sourdough bread, $25.00.
 
-$ addTransaction n/Ryan d/Sourdough bread 
+$ addTransaction n=Ryan d=Sourdough bread 
 
-Error. Transaction cost was not provided with a c/ flag.
+Error. Transaction cost was not provided with a c= flag.
 ```
 ![addTransaction success](images/user-guide/addExpense1.jpg)
 
@@ -60,11 +60,11 @@ Error. Transaction cost was not provided with a c/ flag.
 ### Editing a Transaction: `editTransaction`
 Edits the transaction for the person at the specified `INDEX`. The index refers to the index number when viewing a 
 specific person's transactions. The index **must be a positive integer** 1, 2, 3, …​
-Format: `editTransaction n/NAME i/INDEX [c/COST] [d/DETAILS]​`
+Format: `editTransaction n=NAME INDEX [c=COST] [d=DETAILS]​`
 
 Examples:
-* `editTransaction n/John Doe i/1 c/35`
-* `editTransaction n/Sir Bobby i/4 d/iPhone 30`
+* `editTransaction n=John Doe 1 c=35`
+* `editTransaction n=Sir Bobby 4 d=iPhone 30`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -72,16 +72,16 @@ Sample Execution:
 ```
 Suppose this is the list of transactions for Bob:
 
-$ log n/Bob
+$ log n=Bob
 
 1.            eat                  $1.00    Bob
 2.            Pokemon Cards        $15.12   Bob
 
-$ editTransaction n/Bob 2 c/12.12
+$ editTransaction n=Bob 2 c=12.12
 
 I have edited Bob's transaction to be Pokemon Cards, $12.12.
 
-$ editTransaction n/Bob 3 d/Potato
+$ editTransaction n=Bob 3 d=Potato
 
 Error! There is no such transaction for Bob at that index.
 ```
@@ -96,16 +96,16 @@ Error! There is no such transaction for Bob at that index.
 
 Deletes the specified transaction based on index. Must be in a transaction log view when entering this command.
 
-Format: `deleteTransaction i/INDEX`
+Format: `deleteTransaction INDEX`
 
 Parameters:
-- `i/INDEX`: The index of the transaction to be deleted.
+- `INDEX`: The index of the transaction to be deleted.
 
 Examples:
 
-* `deleteTransaction i/2`
+* `deleteTransaction 2`
     * Deletes the second transaction in the list
-* `deleteTransaction i/1`
+* `deleteTransaction 1`
     * Deletes the first transaction in the list
 
 ![](images/user-guide/deleteExpense1.png)
@@ -118,16 +118,16 @@ Examples:
 
 Shows a list of the transactions with the specified person.
 
-Format: `log p/PERSON`
+Format: `log p=PERSON`
 
 Parameters:
-- `p/PERSON`: Specifies the name of the person whose log we want to check.
+- `p=PERSON`: Specifies the name of the person whose log we want to check.
 
 Examples:
 
-* `log p/Bob`
+* `log p=Bob`
     * Shows log with Bob
-* `log p/Alice`
+* `log p=Alice`
     * Shows log with Alice
 
 ![log success](images/user-guide/log1.png)
@@ -143,10 +143,10 @@ Examples:
 Fully settles the outstanding balance with the specified person.
 After settling, outstanding balance with the specified person will be 0.
 
-Format: `settle n/NAME`
+Format: `settle n=NAME`
 
 Example:
-- `settle n/Bob`
+- `settle n=Bob`
     - settles the outstanding balance with contact Bob.
 
 Sample Execution:
@@ -155,7 +155,7 @@ $ settle
 
 Error: Please indicate the person you would like to settle transactions with.
 
-$ settle n/Bob
+$ settle n=Bob
 
 Confirm settle transaction with Bob? [Y/N]
     Bob owes you $50. 
@@ -165,7 +165,7 @@ $ Y
 Successfully settled transaction with Bob.  
     No outstanding balance with Bob.
 
-$ settle n/Mary
+$ settle n=Mary
 
 Confirm settle transaction with Mary? [Y/N]
     You owe Mary $30.
@@ -207,24 +207,24 @@ Sorts the list of people in your address book based on their outstanding balance
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you 
 own them money.
 
-Format: `sortBalance o/ORDER`
+Format: `sortBalance o=ORDER`
 
 Parameters:
-- `o/ORDER`: Specifies the order in which to sort the balances. Use `asc` for ascending order and `desc` for 
+- `o=ORDER`: Specifies the order in which to sort the balances. Use `asc` for ascending order and `desc` for 
 descending order. Raise error for missing or unknown parameters.
 
 Examples:
-* `sortBalance o/asc`
+* `sortBalance o=asc`
     * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
         by others in increasing order of their outstanding balances.
-* `sortBalance o/desc`
+* `sortBalance o=desc`
     * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
         followed by others in decreasing order of their outstanding balances.
 
 Sample execution:
 
 ```
-$ sortBalance o/asc
+$ sortBalance o=asc
 All contacts balance in ascending order. Negative balance means you own them money.
 1. Alex Yeoh, -$15
 2. Bernice Yu, -$12
@@ -234,36 +234,36 @@ All contacts balance in ascending order. Negative balance means you own them mon
 
 ```
 $ sortBalance
-Invalid sorting order, must be `o/asc` or `o/desc`
+Invalid sorting order, must be `o=asc` or `o=desc`
 
-$ sortBalance o/increasing
-Invalid sorting order, must be `o/asc` or `o/desc`
+$ sortBalance o=increasing
+Invalid sorting order, must be `o=asc` or `o=desc`
 ```
 ![sortBalance error](images/user-guide/sortBalance2.png)
 
 ### Creating shared transactions: `createGroupTransaction`
 Creates a transaction for multiple people with customised split ratios.
 
-Format: `createGroupTransaction c/COST d/DETAILS [n/NAME w/WEIGHT]...`
+Format: `createGroupTransaction c=COST d=DETAILS [n=NAME w=WEIGHT]...`
 - Cost has to be a number.
 - Positive cost means that the person owes you.
 - Negative cost means that you owe the person.
-- If you want to create a weight for yourself, include `n/Self` to refer to yourself.
+- If you want to create a weight for yourself, include `n=Self` to refer to yourself.
 - At least one pair of name and weight must be provided.
 - Weight must be an integer.
 - The cost for each person is calculated as follows:
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
 Examples:
-* `createGroupTransaction c/100 d/Dinner n/John w/2 n/Mary w/2 n/Alice w/1`
+* `createGroupTransaction c=100 d=Dinner n=John w=2 n=Mary w=2 n=Alice w=1`
     * creates 3 transactions: two transactions of $40 for John and Mary (2/5 of $100 each), and one transaction of $20 for 
         Alice (1/5 of $100)
-* `createGroupTransaction c/600 d/Rent n/Self w/1 n/John w/1 n/Mary /w1`
+* `createGroupTransaction c=600 d=Rent n=Self w=1 n=John w=1 n=Mary =w1`
     * creates 2 transactions: $200 each for John and Mary (since you incurred 1/3 of the cost, which is $200)
 
 Sample execution:
 ```
-$ createGroupTransaction c/100 d/Dinner n/John w/2 n/Mary w/2 n/Alice w/1
+$ createGroupTransaction c=100 d=Dinner n=John w=2 n=Mary w=2 n=Alice w=1
 
 Successfully created 3 transactions totalling $100:    
     John owes you $40
@@ -274,12 +274,12 @@ Successfully created 3 transactions totalling $100:
 
 
 ```
-$ createGroupTransaction c/200 d/Textbooks
+$ createGroupTransaction c=200 d=Textbooks
 
 Error: At least one other person must be included in a shared transaction.
 
 For example,
-c/30 d/Lunch n/John w/1 n/Mary w/1
+c=30 d=Lunch n=John w=1 n=Mary w=1
 ```
 
 ![createGroupTransaction error](images/user-guide/createGroupExpense2.png)
@@ -290,11 +290,11 @@ c/30 d/Lunch n/John w/1 n/Mary w/1
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n=NAME p=PHONE_NUMBER e=EMAIL a=ADDRESS [t=TAG]…​`
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
+* `add n=Betsy Crowe t=friend e=betsycrowe@example.com a=Newgate Prison p=1234567 t=criminal`
 
 ### Listing all persons : `list` (deprecated)
 **NOTE: The latest version of this command is in v1.2**
@@ -309,21 +309,21 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
     The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
+* You can remove all the person’s tags by typing `t=` without
   specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com`
+*  `edit 1 p=91234567 e=johndoe@example.com`
     *  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` 
         respectively.
-*  `edit 2 n/Betsy Crower t/`
+*  `edit 2 n=Betsy Crower t=`
     *  Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`

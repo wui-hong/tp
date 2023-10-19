@@ -114,7 +114,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addTransaction() throws Exception {
         assertTrue(parser.parseCommand(AddTransactionCommand.COMMAND_WORD
-                + " d/bread n/Bob c/20.00 n/self w/1") instanceof AddTransactionCommand);
+                + " d=bread n=Bob c=20.00 n=self w=1") instanceof AddTransactionCommand);
     }
 
     @Test
