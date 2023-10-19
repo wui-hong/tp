@@ -21,7 +21,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TransactionBuilder;
@@ -51,7 +50,7 @@ class EditTransactionCommandTest {
     }
 
     @Test
-    public void execute_DescriptionFieldsSpecifiedUnfilteredList_success() {
+    public void execute_descriptionFieldSpecifiedUnfilteredList_success() {
         Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
         String descriptionString = "A New Dinner";
 
@@ -72,7 +71,7 @@ class EditTransactionCommandTest {
     }
 
     @Test
-    public void execute_CostFieldSpecifiedUnfilteredList_success() {
+    public void execute_costFieldSpecifiedUnfilteredList_success() {
         Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
         String costString = "123.21";
 
@@ -93,9 +92,9 @@ class EditTransactionCommandTest {
     }
 
     @Test
-    public void execute_TimestampFieldsSpecifiedUnfilteredList_success() {
+    public void execute_timestampFieldSpecifiedUnfilteredList_success() {
         Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
-        String timestampString =  "2020-10-10T10:10:10.000";
+        String timestampString = "2020-10-10T10:10:10.000";
 
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
         Transaction editedTransaction = transactionInList.withTimestamp(timestampString).build();
