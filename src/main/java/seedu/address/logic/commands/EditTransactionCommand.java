@@ -160,7 +160,7 @@ public class EditTransactionCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, description, payeeName, expenses);
+            return CollectionUtil.isAnyNonNull(amount, description, payeeName, timestamp, expenses);
         }
 
         public void setAmount(Amount amount) {
