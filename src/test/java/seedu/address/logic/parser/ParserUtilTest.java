@@ -216,6 +216,11 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseAmount_negativeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("-1"));
+    }
+
+    @Test
     public void parseAmount_validValueWithoutWhitespace_returnsAmount() throws Exception {
         Amount expectedAmount = new Amount(VALID_COST);
         assertEquals(expectedAmount, ParserUtil.parseAmount(VALID_COST));
@@ -259,5 +264,10 @@ public class ParserUtilTest {
     @Test
     public void parseWeight_invalidValue_throwsNullParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseWeight("1/2/3"));
+    }
+
+    @Test
+    public void parseWeight_negativeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseWeight("-1"));
     }
 }
