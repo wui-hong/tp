@@ -140,22 +140,30 @@ public class ParserUtil {
         if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        return new Amount(trimmedAmount);
+        Amount val = new Amount(trimmedAmount);
+        if (val.amount.signum() <= 0) {
+            throw new ParseException(Amount.VALUE_CONSTRAINT);
+        }
+        return val;
     }
 
     /**
      * Parses a {@code String weight} into a {@code Weight}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code amount} is invalid.
+     * @throws ParseException if the given {@code weight} is invalid.
      */
     public static Weight parseWeight(String weight) throws ParseException {
         requireNonNull(weight);
         String trimmedWeight = weight.trim();
-        if (!Amount.isValidAmount(trimmedWeight)) {
-            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        if (!Weight.isValidWeight(trimmedWeight)) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
         }
-        return new Weight(trimmedWeight);
+        Weight val = new Weight(trimmedWeight);
+        if (val.value.signum() <= 0) {
+            throw new ParseException(Weight.VALUE_CONSTRAINT);
+        }
+        return val;
     }
 
     /**

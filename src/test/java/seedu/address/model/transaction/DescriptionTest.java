@@ -29,7 +29,7 @@ public class DescriptionTest {
         // invalid descriptions
         assertFalse(Description.isValidDescription("")); // empty string
         assertFalse(Description.isValidDescription(" ")); // spaces only
-        assertFalse(Description.isValidDescription("/")); // special character
+        assertFalse(Description.isValidDescription("=")); // special character
 
         // valid descriptions
         assertTrue(Description.isValidDescription("Dinner"));

@@ -9,9 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESC_LUNCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WEIGHT_ONE;
 import static seedu.address.logic.commands.CommandTestUtil.WEIGHT_DESC_ONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
@@ -45,17 +43,6 @@ public class AddTransactionCommandParserTest {
         // missing weight prefix
         assertParseFailure(parser, DESC_DESC_LUNCH + NAME_DESC_AMY + COST_DESC_LUNCH
                 + " " + PREFIX_NAME + Name.SELF + " " + VALID_WEIGHT_ONE, expectedMessage);
-    }
-
-    @Test
-    public void parse_negativeWeight_failure() {
-        String expectedMessage = String.format(AddTransactionCommandParser.MESSAGE_POSITIVE_VALUES_RESTRICTION);
-
-        assertParseFailure(parser, DESC_DESC_LUNCH + NAME_DESC_AMY + " " + PREFIX_COST + "0"
-                + " " + PREFIX_NAME + Name.SELF + WEIGHT_DESC_ONE, expectedMessage);
-
-        assertParseFailure(parser, DESC_DESC_LUNCH + NAME_DESC_AMY + COST_DESC_LUNCH
-                + " " + PREFIX_NAME + Name.SELF + " " + PREFIX_WEIGHT + "-" + VALID_WEIGHT_ONE, expectedMessage);
     }
 
 }

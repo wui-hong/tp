@@ -118,10 +118,18 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
+     * Returns if there are no duplicate names in expenses.
+     */
+    public boolean hasNoDuplicates() {
+        return expenses.stream().map(Expense::getPersonName)
+            .collect(Collectors.toSet()).size() == expenses.size();
+    }
+
+    /**
      * Returns if a transaction is valid.
      */
     public boolean isValid(Set<Name> validNames) {
-        return isRelevant() && isPositive() && isKnown(validNames);
+        return isRelevant() && isPositive() && isKnown(validNames) && hasNoDuplicates();
     }
 
     /**

@@ -7,9 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddTransactionCommand;
@@ -31,7 +33,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
             PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_COST, trimRegExp(Amount.VALIDATION_REGEX),
             PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_WEIGHT, trimRegExp(Weight.VALIDATION_REGEX));
 
-    public static final String MESSAGE_POSITIVE_VALUES_RESTRICTION = "All values must be positive";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "Name %s is duplicated in expense string";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
@@ -61,7 +63,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         }
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Set<Expense> expenses = new HashSet<>();
+        Map<Name, Weight> expenseMap = new HashMap<>();
         for (int i = 0; i < weights.size(); i++) {
             Name name = ParserUtil.parseName(names.get(i + 1));
             if (name.equals(Name.SELF)) {
@@ -71,12 +73,18 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
                 name = Name.OTHERS;
             }
             Weight weight = ParserUtil.parseWeight(weights.get(i));
-            expenses.add(new Expense(name, weight));
+            if (expenseMap.containsKey(name)) {
+                if (!name.equals(Name.OTHERS)) {
+                    throw new ParseException(String.format(MESSAGE_DUPLICATE_EXPENSE, name.fullName));
+                }
+                Weight previousWeight = expenseMap.get(name);
+                weight = new Weight(previousWeight.value.add(weight.value));
+            }
+            expenseMap.put(name, weight);
         }
+        Set<Expense> expenses = expenseMap.keySet().stream()
+                .map(x -> new Expense(x, expenseMap.get(x))).collect(Collectors.toSet());
         Transaction transaction = new Transaction(amount, description, payee, expenses);
-        if (!transaction.isPositive()) {
-            throw new ParseException(MESSAGE_POSITIVE_VALUES_RESTRICTION);
-        }
         return new AddTransactionCommand(transaction);
     }
 
