@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
+import static seedu.address.testutil.TypicalExpenses.SELF_EXPENSE;
 
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +44,7 @@ public class TransactionBuilder {
         amount = new Amount(DEFAULT_AMOUNT);
         description = new Description(DEFAULT_DESCRIPTION);
         payeeName = new Name(DEFAULT_PAYEE_NAME);
-        expenses = Set.of(ALICE_EXPENSE, new ExpenseBuilder().withName(Name.SELF.fullName).build());
+        expenses = Set.of(ALICE_EXPENSE, SELF_EXPENSE);
         timestamp = Timestamp.now();
     }
 
