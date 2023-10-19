@@ -1,8 +1,10 @@
 package seedu.address.testutil;
 
+
 import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.person.Name;
@@ -11,6 +13,7 @@ import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.expense.Weight;
 
 /**
  * A utility class to help with building Transaction objects.
@@ -20,6 +23,12 @@ public class TransactionBuilder {
     public static final String DEFAULT_AMOUNT = "12.34";
     public static final String DEFAULT_DESCRIPTION = "Mala Xiang Guo at Clementi Mall on 12 Oct 2023";
     public static final String DEFAULT_PAYEE_NAME = "Default Payee Name";
+
+    // necessary for testing of EditTransactionCommand, to test actual vs expected transactions
+    public static final String DEFAULT_TIMESTAMP = "2023-10-12T12:34:56.789";
+
+    public static final Set<Expense> DEFAULT_EXPENSES = new HashSet<>(
+            List.of(new Expense(TypicalPersons.BOB.getName(), new Weight("1.0"))));
 
     private Amount amount;
     private Description description;
@@ -46,6 +55,7 @@ public class TransactionBuilder {
         description = transactionToCopy.getDescription();
         payeeName = transactionToCopy.getPayeeName();
         expenses = new HashSet<>(transactionToCopy.getExpenses());
+        timestamp = transactionToCopy.getTimestamp();
     }
 
     /**

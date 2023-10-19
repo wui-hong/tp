@@ -61,7 +61,7 @@ public class ListTransactionCommandTest {
 
     @Test
     public void execute_zeroNames_allTransactionsFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 4);
+        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 5);
         TransactionContainsPersonNamesPredicate predicate =
             new TransactionContainsPersonNamesPredicate(Collections.emptyList());
         assertCommandSuccess(new ListTransactionCommand(predicate), model, expectedMessage, expectedModel);
@@ -69,7 +69,7 @@ public class ListTransactionCommandTest {
 
     @Test
     public void execute_multipleNames_multipleTransactionsFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 4);
+        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 5);
         TransactionContainsPersonNamesPredicate predicate =
             new TransactionContainsPersonNamesPredicate(Arrays.asList(
                     new Name("Alice Pauline"), new Name("Benson Meier")));

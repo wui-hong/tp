@@ -184,6 +184,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public ObservableList<Transaction> getFullTransactionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
