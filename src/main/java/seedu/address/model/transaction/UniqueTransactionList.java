@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.numbers.fraction.BigFraction;
 
@@ -96,6 +97,14 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             }
         }
         internalList.setAll(validTransactions);
+    }
+
+    /**
+     * Replaces all instances of the target name to the edited name in transactions.
+     */
+    public void setPerson(Name target, Name edited) {
+        internalList.setAll(internalList.stream()
+                .map(transaction -> transaction.setPerson(target, edited)).collect(Collectors.toList()));
     }
 
     public void setTransactions(UniqueTransactionList replacement) {
