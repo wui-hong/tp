@@ -51,17 +51,57 @@ class EditTransactionCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-
+    public void execute_DescriptionFieldsSpecifiedUnfilteredList_success() {
         Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
-        Timestamp firstTransactionTimestamp = firstTransaction.getTimestamp();
+        String descriptionString = "A New Dinner";
 
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
-        Transaction editedTransaction = transactionInList.withDescription("A New Dinner").build();
-
+        Transaction editedTransaction = transactionInList.withDescription(descriptionString).build();
 
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
-                .withDescription("A New Dinner").build();
+                .withDescription(descriptionString).build();
+        EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        String expectedMessage = String.format(
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
+
+        assertTransactionCommandSuccess(editTransactionCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_CostFieldSpecifiedUnfilteredList_success() {
+        Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
+        String costString = "123.21";
+
+        TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
+        Transaction editedTransaction = transactionInList.withAmount(costString).build();
+
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+                .withAmount(costString).build();
+        EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        String expectedMessage = String.format(
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
+
+        assertTransactionCommandSuccess(editTransactionCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_TimestampFieldsSpecifiedUnfilteredList_success() {
+        Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
+        String timestampString =  "2020-10-10T10:10:10.000";
+
+        TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
+        Transaction editedTransaction = transactionInList.withTimestamp(timestampString).build();
+
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+                .withTimestamp(timestampString).build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(
