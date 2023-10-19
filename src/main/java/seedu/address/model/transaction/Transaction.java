@@ -86,7 +86,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if all values are positive.
+     * Returns if all values (amount and weights)  in the transaction are positive.
      * @return
      */
     public boolean isPositive() {
