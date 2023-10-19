@@ -72,7 +72,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if the transaction relates to both us and another named person.
+     * Returns if the transaction relates to both the user (`SELF`) and another named person (not `OTHERS`).
      */
     public boolean isRelevant() {
         Set<Name> participants = getAllInvolvedPersonNames();
