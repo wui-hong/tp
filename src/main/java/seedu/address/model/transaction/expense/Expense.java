@@ -70,9 +70,6 @@ public class Expense {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("name", personName)
-                .add("weight", weight)
-                .toString();
+        return "[name: " + personName + ", weight: " + weight + "]";
     }
 }
