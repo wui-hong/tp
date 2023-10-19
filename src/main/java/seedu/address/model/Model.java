@@ -121,7 +121,7 @@ public interface Model {
     /**
      * Gets all names in the model.
      */
-    Set<Name> nameSet();
+    Set<Name> getAllNames();
 
     /**
      * Returns an unmodifiable view of the filtered person list.

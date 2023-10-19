@@ -119,15 +119,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-        transactions.deletePerson(key.getName(), nameSet());
+        transactions.deletePerson(key.getName(), getAllNames());
         sortPersons();
     }
 
     /**
      * Returns a set of all names in the addressbook.
      */
-    public Set<Name> nameSet() {
-        return persons.nameSet();
+    public Set<Name> getAllNames() {
+        return persons.getAllNames();
     }
 
     //// transaction-level operations

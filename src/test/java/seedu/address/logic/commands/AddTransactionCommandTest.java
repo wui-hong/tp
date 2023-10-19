@@ -225,7 +225,7 @@ public class AddTransactionCommandTest {
         }
 
         @Override
-        public Set<Name> nameSet() {
+        public Set<Name> getAllNames() {
             return Set.of(TypicalPersons.ALICE.getName(), new TransactionBuilder().build().getPayeeName());
         }
     }

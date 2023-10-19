@@ -204,7 +204,7 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public Set<Name> nameSet() {
+        public Set<Name> getAllNames() {
             throw new AssertionError("This method should not be called.");
         }
     }

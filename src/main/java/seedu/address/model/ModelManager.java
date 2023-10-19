@@ -112,8 +112,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Set<Name> nameSet() {
-        return addressBook.nameSet();
+    public Set<Name> getAllNames() {
+        return addressBook.getAllNames();
     }
 
     @Override

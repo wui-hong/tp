@@ -63,7 +63,7 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(MESSAGE_IRRELEVANT_TRANSACTION);
         }
 
-        if (!toAdd.isKnown(model.nameSet())) {
+        if (!toAdd.isKnown(model.getAllNames())) {
             throw new CommandException(MESSAGE_UNKNOWN_PARTY);
         }
 
