@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTransactionCommand;
@@ -24,7 +25,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
         requireNonNull(args);
         // TODO: tokenize prefix for expense names and weights for v1.2b
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_TIMESTAMP);
 
         Index index;
 
@@ -35,7 +36,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_TIMESTAMP);
 
         EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
 
@@ -46,6 +47,10 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
             editTransactionDescriptor.setAmount(
                     ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
+            editTransactionDescriptor.setTimestamp(
+                    ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()));
         }
         // TODO: parseExpensesForEdit
 

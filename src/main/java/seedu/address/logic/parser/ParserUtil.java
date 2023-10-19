@@ -16,6 +16,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -140,6 +141,21 @@ public class ParserUtil {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
         return new Amount(trimmedAmount);
+    }
+
+    /**
+     * Parses a {@code String timestamp} into a {@code Timestamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @ throws ParseException if the given {@code timestamp} is invalid.
+     */
+    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
+        requireNonNull(timestamp);
+        String trimmedTimestamp = timestamp.trim();
+        if (!Timestamp.isValidTimestamp(trimmedTimestamp)) {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+        }
+        return new Timestamp(trimmedTimestamp);
     }
 
     /**
