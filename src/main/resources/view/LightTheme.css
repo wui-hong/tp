@@ -54,7 +54,9 @@
     -fx-background-color: #f8fafc;
     background-color: #f8fafc; /* Used in the default.html file */
 }
-
+.main-container {
+  -fx-background-color: #f8fafc;
+}
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Poppins SemiBold";
