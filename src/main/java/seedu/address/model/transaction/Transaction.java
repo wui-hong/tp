@@ -120,6 +120,19 @@ public class Transaction implements Comparable<Transaction> {
         return new Transaction(amount, description, newPayee, newExpenses, timestamp);
     }
 
+    public Transaction setPerson(Name target, Name editedName) {
+        Name newPayee = payeeName.equals(target) ? editedName : payeeName;
+        Set<Expense> newExpenses = new HashSet<>();
+        for (Expense expense : expenses) {
+            if (expense.getPersonName().equals(target)) {
+                newExpenses.add(new Expense(editedName, expense.getWeight()));
+            } else {
+                newExpenses.add(expense);
+            }
+        }
+        return new Transaction(amount, description, newPayee, newExpenses, timestamp);
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

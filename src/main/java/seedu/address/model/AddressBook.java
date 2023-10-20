@@ -109,6 +109,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        transactions.setPerson(target.getName(), editedPerson.getName());
         sortPersons();
     }
 
