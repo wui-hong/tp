@@ -72,7 +72,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if the transaction relates to both the user (`SELF`) and another named person (not `OTHERS`).
+     * Returns true if the transaction relates to both the user (`SELF`) and another named person (not `OTHERS`).
      */
     public boolean isRelevant() {
         Set<Name> participants = getAllInvolvedPersonNames();
@@ -86,7 +86,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if all values (amount and weights)  in the transaction are positive.
+     * Returns true if all values (amount and weights)  in the transaction are positive.
      * @return
      */
     public boolean isPositive() {
@@ -102,7 +102,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if we know everyone involved in a transaction.
+     * Returns true if we know everyone involved in a transaction.
      */
     public boolean isKnown(Set<Name> validNames) {
         if (!(payeeName.equals(Name.SELF) || validNames.contains(payeeName))) {
@@ -118,7 +118,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if there are no duplicate names in expenses.
+     * Returns true if there are no duplicate names in expenses.
      */
     public boolean hasNoDuplicates() {
         return expenses.stream().map(Expense::getPersonName)
@@ -126,7 +126,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if a transaction is valid.
+     * Returns true if a transaction is valid.
      */
     public boolean isValid(Set<Name> validNames) {
         return isRelevant() && isPositive() && isKnown(validNames) && hasNoDuplicates();

@@ -67,7 +67,7 @@ public class StringUtil {
     }
 
     /**
-     * Removes leading ^ and traling $ from regex.
+     * Removes leading ^ and trailing $ from regex.
      */
     public static String trimRegExp(String regex) {
         if (regex.length() == 0) {
