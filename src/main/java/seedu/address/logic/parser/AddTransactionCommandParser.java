@@ -1,11 +1,17 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.util.StringUtil.trimRegExp;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddTransactionCommand;
@@ -13,7 +19,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
-import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 import seedu.address.model.transaction.expense.Weight;
@@ -23,6 +28,13 @@ import seedu.address.model.transaction.expense.Weight;
  */
 public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
 
+    public static final String VALIDATION_REGEX = String.format("^%s%s %s%s %s%s (%s%s %s%s)+$",
+            PREFIX_DESCRIPTION, trimRegExp(Description.VALIDATION_REGEX),
+            PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_COST, trimRegExp(Amount.VALIDATION_REGEX),
+            PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_WEIGHT, trimRegExp(Weight.VALIDATION_REGEX));
+
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "Name %s is duplicated in expense string";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
      * and returns an AddTransactionCommand object for execution.
@@ -30,7 +42,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
      */
     public AddTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_WEIGHT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -38,29 +50,41 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
                     AddTransactionCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION);
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        String costString = argMultimap.getValue(PREFIX_COST).get();
-        //Checking if amount is negative and then stripping the negative sign. This is to swap the payee and person that
-        //owes money when creating the transaction.
-        boolean isNegative = false;
-        if (costString.charAt(0) == '-') {
-            isNegative = true;
-            costString = costString.substring(1);
+        if (!args.trim().matches(VALIDATION_REGEX)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTransactionCommand.MESSAGE_USAGE));
         }
-        Amount amount = ParserUtil.parseAmount(costString);
+        List<String> names = argMultimap.getAllValues(PREFIX_NAME);
+        List<String> weights = argMultimap.getAllValues(PREFIX_WEIGHT);
+        assert names.size() == weights.size() + 1;
+        Name payee = ParserUtil.parseName(names.get(0));
+        if (payee.equals(Name.SELF)) {
+            payee = Name.SELF;
+        }
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Timestamp timestamp = Timestamp.now();
-        Weight weight = new Weight("1");
-        Expense expense;
-        Transaction transaction;
-        if (isNegative) {
-            expense = new Expense(Name.SELF, weight);
-            transaction = new Transaction(amount, description, name, Set.of(expense), timestamp);
-        } else {
-            expense = new Expense(name, weight);
-            transaction = new Transaction(amount, description, Name.SELF, Set.of(expense), timestamp);
+        Map<Name, Weight> expenseMap = new HashMap<>();
+        for (int i = 0; i < weights.size(); i++) {
+            Name name = ParserUtil.parseName(names.get(i + 1));
+            if (name.equals(Name.SELF)) {
+                name = Name.SELF;
+            }
+            if (name.equals(Name.OTHERS)) {
+                name = Name.OTHERS;
+            }
+            Weight weight = ParserUtil.parseWeight(weights.get(i));
+            if (expenseMap.containsKey(name)) {
+                if (!name.equals(Name.OTHERS)) {
+                    throw new ParseException(String.format(MESSAGE_DUPLICATE_EXPENSE, name.fullName));
+                }
+                Weight previousWeight = expenseMap.get(name);
+                weight = new Weight(previousWeight.value.add(weight.value));
+            }
+            expenseMap.put(name, weight);
         }
+        Set<Expense> expenses = expenseMap.keySet().stream()
+                .map(x -> new Expense(x, expenseMap.get(x))).collect(Collectors.toSet());
+        Transaction transaction = new Transaction(amount, description, payee, expenses);
         return new AddTransactionCommand(transaction);
     }
 

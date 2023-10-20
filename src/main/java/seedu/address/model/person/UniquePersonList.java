@@ -41,7 +41,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns the set of names of people in the list.
      */
-    public Set<Name> nameSet() {
+    public Set<Name> getAllNames() {
         return internalList.stream().map(x -> x.getName()).collect(Collectors.toSet());
     }
 
