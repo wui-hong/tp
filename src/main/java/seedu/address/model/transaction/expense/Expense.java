@@ -2,7 +2,6 @@ package seedu.address.model.transaction.expense;
 
 import java.util.Objects;
 
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
 
 /**
