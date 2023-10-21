@@ -28,6 +28,8 @@ import seedu.address.model.transaction.expense.Expense;
 
 /**
  * Edits the details of an existing transaction in the transaction list.
+ * i.e. cost, description, payeeName
+ * Note: Editing of expenses is done via the {@code EditExpenseCommand}.
  */
 public class EditTransactionCommand extends Command {
 
