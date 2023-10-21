@@ -42,11 +42,19 @@ class ExpenseTest {
 
         String otherName = "Elle";
         String otherWeight = "20.0";
-        Expense otherExpense = new ExpenseBuilder()
+        Expense differentNameAndWeightExpense = new ExpenseBuilder()
                 .withName(otherName).withWeight(otherWeight).build();
 
-        assertNotEquals(expense, otherExpense);
+        assertNotEquals(expense, differentNameAndWeightExpense);
         assertNotEquals(expense, null);
+
+        Expense sameNameDifferentWeightExpense = new ExpenseBuilder()
+                .withName(name).withWeight(otherWeight).build();
+        assertNotEquals(expense, sameNameDifferentWeightExpense);
+
+        Expense differentNameSameWeightExpense = new ExpenseBuilder()
+                .withName(otherName).withWeight(weight).build();
+        assertNotEquals(expense, differentNameSameWeightExpense);
     }
 
     @Test
