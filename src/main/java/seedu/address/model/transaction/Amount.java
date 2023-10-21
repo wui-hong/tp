@@ -13,6 +13,7 @@ import seedu.address.commons.util.FractionUtil;
  */
 public class Amount {
 
+    public static final String VALUE_CONSTRAINT = "Amount should be greater than 0";
     public static final String MESSAGE_CONSTRAINTS =
         "Amount should be a valid decimal number, and it should not be blank";
     public static final String VALIDATION_REGEX =

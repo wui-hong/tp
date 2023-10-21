@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_DINNER;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_LUNCH;
 import static seedu.address.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
-import static seedu.address.testutil.TransactionBuilder.DEFAULT_TIMESTAMP;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
@@ -36,7 +35,10 @@ class EditTransactionCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Transaction editedTransaction = new TransactionBuilder().withTimestamp(DEFAULT_TIMESTAMP).build();
+        Transaction originalTransaction = model.getFilteredTransactionList().get(0);
+        Transaction editedTransaction = new TransactionBuilder()
+                .withTimestamp(originalTransaction.getTimestamp().toString())
+                .withExpenses(originalTransaction.getExpenses()).build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedTransaction).build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 

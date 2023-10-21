@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.numbers.fraction.BigFraction;
 
@@ -109,6 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        transactions.setPerson(target.getName(), editedPerson.getName());
         sortPersons();
     }
 
@@ -118,8 +120,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-        transactions.deletePerson(key.getName(), persons.nameSet());
+        transactions.deletePerson(key.getName(), getAllNames());
         sortPersons();
+    }
+
+    /**
+     * Returns a set of all names in the addressbook.
+     */
+    public Set<Name> getAllNames() {
+        return persons.getAllNames();
     }
 
     //// transaction-level operations

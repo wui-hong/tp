@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -199,6 +200,11 @@ public class AddPersonCommandTest {
 
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Name> getAllNames() {
             throw new AssertionError("This method should not be called.");
         }
     }

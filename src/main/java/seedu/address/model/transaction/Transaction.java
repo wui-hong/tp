@@ -72,9 +72,9 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns if a transaction is valid.
+     * Returns true if the transaction relates to both the user (`SELF`) and another named person (not `OTHERS`).
      */
-    public boolean isValid(Set<Name> validNames) {
+    public boolean isRelevant() {
         Set<Name> participants = getAllInvolvedPersonNames();
         if (!participants.contains(Name.SELF)) {
             return false;
@@ -82,9 +82,29 @@ public class Transaction implements Comparable<Transaction> {
         if (Name.RESERVED_NAMES.containsAll(participants)) {
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Returns true if all values (amount and weights)  in the transaction are positive.
+     * @return
+     */
+    public boolean isPositive() {
         if (amount.amount.signum() <= 0) {
             return false;
         }
+        for (Expense expense : expenses) {
+            if (expense.getWeight().value.signum() <= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if we know everyone involved in a transaction.
+     */
+    public boolean isKnown(Set<Name> validNames) {
         if (!(payeeName.equals(Name.SELF) || validNames.contains(payeeName))) {
             return false;
         }
@@ -93,11 +113,23 @@ public class Transaction implements Comparable<Transaction> {
                     || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
                 return false;
             }
-            if (expense.getWeight().value.signum() <= 0) {
-                return false;
-            }
         }
         return true;
+    }
+
+    /**
+     * Returns true if there are no duplicate names in expenses.
+     */
+    public boolean hasNoDuplicates() {
+        return expenses.stream().map(Expense::getPersonName)
+            .collect(Collectors.toSet()).size() == expenses.size();
+    }
+
+    /**
+     * Returns true if a transaction is valid.
+     */
+    public boolean isValid(Set<Name> validNames) {
+        return isRelevant() && isPositive() && isKnown(validNames) && hasNoDuplicates();
     }
 
     /**
@@ -116,6 +148,19 @@ public class Transaction implements Comparable<Transaction> {
         }
         if (accumOthers.compareTo(BigFraction.ZERO) > 0) {
             newExpenses.add(new Expense(Name.OTHERS, new Weight(accumOthers)));
+        }
+        return new Transaction(amount, description, newPayee, newExpenses, timestamp);
+    }
+
+    public Transaction setPerson(Name target, Name editedName) {
+        Name newPayee = payeeName.equals(target) ? editedName : payeeName;
+        Set<Expense> newExpenses = new HashSet<>();
+        for (Expense expense : expenses) {
+            if (expense.getPersonName().equals(target)) {
+                newExpenses.add(new Expense(editedName, expense.getWeight()));
+            } else {
+                newExpenses.add(expense);
+            }
         }
         return new Transaction(amount, description, newPayee, newExpenses, timestamp);
     }

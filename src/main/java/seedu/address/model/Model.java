@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -116,6 +117,11 @@ public interface Model {
      * @param name the name of the person
      */
     BigFraction getBalance(Name name);
+
+    /**
+     * Gets all names in the model.
+     */
+    Set<Name> getAllNames();
 
     /**
      * Returns an unmodifiable view of the filtered person list.

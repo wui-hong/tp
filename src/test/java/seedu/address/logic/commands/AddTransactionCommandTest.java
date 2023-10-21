@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalTransactions.LUNCH;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -27,6 +28,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TypicalExpenses;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddTransactionCommandTest {
 
@@ -44,6 +47,27 @@ public class AddTransactionCommandTest {
         assertEquals(String.format(AddTransactionCommand.MESSAGE_SUCCESS, Messages.format(validTransaction)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
+    }
+
+    @Test
+    public void execute_irrelevantTransaction_throwsParseException() throws Exception {
+        ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
+        Transaction irrelevantTransaction = new TransactionBuilder()
+                .withExpenses(Set.of(TypicalExpenses.ALICE_EXPENSE)).build();
+        AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
+
+        assertThrows(CommandException.class,
+                AddTransactionCommand.MESSAGE_IRRELEVANT_TRANSACTION, () -> addTransactionCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_unknownTransaction_throwsParseException() throws Exception {
+        ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
+        Transaction irrelevantTransaction = new TransactionBuilder().withPayeeName("Unknown").build();
+        AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
+
+        assertThrows(CommandException.class,
+                AddTransactionCommand.MESSAGE_UNKNOWN_PARTY, () -> addTransactionCommand.execute(modelStub));
     }
 
     @Test
@@ -198,6 +222,11 @@ public class AddTransactionCommandTest {
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Name> getAllNames() {
+            return Set.of(TypicalPersons.ALICE.getName(), new TransactionBuilder().build().getPayeeName());
         }
     }
 

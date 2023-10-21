@@ -24,6 +24,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -110,6 +111,16 @@ public class EditPersonCommandTest {
         EditPersonCommand editPersonCommand = new EditPersonCommand(INDEX_SECOND_ELEMENT, descriptor);
 
         assertCommandFailure(editPersonCommand, model, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_reservedPersonUnfilteredList_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_ELEMENT.getZeroBased());
+        EditPersonDescriptor descriptor =
+                new EditPersonDescriptorBuilder(firstPerson).withName(Name.SELF.fullName).build();
+        EditPersonCommand editPersonCommand = new EditPersonCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        assertCommandFailure(editPersonCommand, model, String.format(Name.RESERVED_CONSTRAINTS, Name.SELF.fullName));
     }
 
     @Test
