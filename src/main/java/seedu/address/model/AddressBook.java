@@ -207,7 +207,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.sort(personComparator);
     }
 
-    private void syncNames(){
+    private void syncNames() {
         Set<Name> names = getAllNames();
         names.addAll(Name.RESERVED_NAMES);
         this.transactions.syncNames(names);
