@@ -61,7 +61,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         sortPersons();
     }
 
-
     /**
      * Replaces the contents of the transaction list with {@code transactions}.
      * {@code transactions} must not contain duplicate transactions.
@@ -111,6 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         persons.setPerson(target, editedPerson);
         transactions.setPerson(target.getName(), editedPerson.getName());
+        syncNames();
         sortPersons();
     }
 
@@ -148,6 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addTransaction(Transaction transaction) {
         requireNonNull(transaction);
         transactions.add(transaction);
+        syncNames();
         sortPersons();
     }
 
@@ -161,6 +162,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedTransaction);
 
         transactions.setTransaction(target, editedTransaction);
+        syncNames();
         sortPersons();
     }
 
@@ -203,6 +205,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private void sortPersons() {
         persons.sort(personComparator);
+    }
+
+    private void syncNames(){
+        Set<Name> names = getAllNames();
+        names.addAll(Name.RESERVED_NAMES);
+        this.transactions.syncNames(names);
     }
 
     //// util methods

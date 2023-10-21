@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
@@ -130,6 +131,20 @@ public class Transaction implements Comparable<Transaction> {
      */
     public boolean isValid(Set<Name> validNames) {
         return isRelevant() && isPositive() && isKnown(validNames) && hasNoDuplicates();
+    }
+
+    /**
+     * Replaces all equal names to names in the set.
+     */
+    public Transaction syncNames(Set<Name> validNames) {
+        Map<Name, Name> nameMap = new HashMap<>();
+        for (Name name : validNames) {
+            nameMap.put(name, name);
+        }
+        Name newPayee = nameMap.get(payeeName);
+        Set<Expense> newExpenses = expenses.stream().map(x -> new Expense(
+                nameMap.get(x.getPersonName()), x.getWeight())).collect(Collectors.toSet());
+        return new Transaction(amount, description, newPayee, newExpenses, timestamp);
     }
 
     /**
