@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.EditTransactionCommand.MESSAGE_TRANSA
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.EditTransactionCommand;
 import seedu.address.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 
 class EditTransactionCommandParserTest {
@@ -25,9 +27,13 @@ class EditTransactionCommandParserTest {
     private static final String VALID_DESCRIPTION = "Dinner";
     private static final String VALID_COST = "10.00";
 
+    private static final String VALID_TIMESTAMP = "2020-10-10T10:10:10.100";
+
     private static final String INVALID_DESCRIPTION = " ";
 
     private static final String INVALID_COST = "1.3.0.1";
+
+    private static final String INVALID_TIMESTAMP = "20 October 2022";
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE);
@@ -72,7 +78,11 @@ class EditTransactionCommandParserTest {
                 "1" + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION + " "
                         + PREFIX_COST + INVALID_COST, Amount.MESSAGE_CONSTRAINTS);
 
-        // two invalid values, only first invalid value reported (in order of description, cost)
+        // invalid timestamp
+        assertParseFailure(parser,
+                "1" + " " + PREFIX_TIMESTAMP + INVALID_TIMESTAMP, Timestamp.MESSAGE_CONSTRAINTS);
+
+        // two invalid values, only first invalid value reported (in order of description, cost, timestamp)
         assertParseFailure(parser,
                 "1" + " " + PREFIX_COST + INVALID_COST + " "
                         + PREFIX_DESCRIPTION + INVALID_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
@@ -97,6 +107,12 @@ class EditTransactionCommandParserTest {
         // payeeName
         userInput = targetIndex.getOneBased() + " " + PREFIX_NAME + VALID_NAME_AMY;
         descriptor = new EditTransactionDescriptorBuilder().withPayeeName(VALID_NAME_AMY).build();
+        expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // timestamp
+        userInput = targetIndex.getOneBased() + " " + PREFIX_TIMESTAMP + VALID_TIMESTAMP;
+        descriptor = new EditTransactionDescriptorBuilder().withTimestamp(VALID_TIMESTAMP).build();
         expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
