@@ -41,8 +41,8 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTransactionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_WEIGHT, PREFIX_TIMESTAMP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_WEIGHT, PREFIX_TIMESTAMP);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
