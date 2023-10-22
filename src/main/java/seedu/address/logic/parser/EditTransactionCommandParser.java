@@ -5,6 +5,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTransactionCommand;
@@ -24,7 +25,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
     public EditTransactionCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME, PREFIX_TIMESTAMP);
 
         Index index;
 
@@ -35,7 +36,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME, PREFIX_TIMESTAMP);
 
         EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
 
@@ -50,6 +51,10 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editTransactionDescriptor.setPayeeName(
                     ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
+            editTransactionDescriptor.setTimestamp(
+                    ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()));
         }
 
         if (!editTransactionDescriptor.isAnyFieldEdited()) {

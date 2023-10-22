@@ -16,6 +16,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.expense.Weight;
 
 /**
@@ -164,6 +165,21 @@ public class ParserUtil {
             throw new ParseException(Weight.VALUE_CONSTRAINT);
         }
         return val;
+    }
+
+    /**
+     * Parses a {@code String timestamp} into a {@code Timestamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @ throws ParseException if the given {@code timestamp} is invalid.
+     */
+    public static Timestamp parseTimestamp(String timestamp) throws ParseException {
+        requireNonNull(timestamp);
+        String trimmedTimestamp = timestamp.trim();
+        if (!Timestamp.isValidTimestamp(trimmedTimestamp)) {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+        }
+        return new Timestamp(trimmedTimestamp);
     }
 
     /**
