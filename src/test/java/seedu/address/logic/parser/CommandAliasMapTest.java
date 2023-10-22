@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.SetShorthandCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -18,13 +19,18 @@ public class CommandAliasMapTest {
             assertTrue(e == null);
         }
         try {
-            map.putAlias(SetShorthandCommand.COMMAND_WORD, "a");
+            map.putAlias(ListPersonCommand.COMMAND_WORD, "a");
             assertTrue(false);
         } catch (Exception e) {
             assertTrue(e instanceof CommandException);
         }
         try {
-            map.putAlias("a", "a");
+            map.putAlias(ListPersonCommand.COMMAND_WORD, "b");
+        } catch (Exception e) {
+            assertTrue(e == null);
+        }
+        try {
+            map.putAlias("a", "c");
             assertTrue(false);
         } catch (Exception e) {
             assertTrue(e instanceof CommandException);
