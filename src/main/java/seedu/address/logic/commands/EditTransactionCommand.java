@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -39,9 +40,11 @@ public class EditTransactionCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COST + "COST] "
             + "[" + PREFIX_DESCRIPTION + "DETAILS] "
+            + "[" + PREFIX_NAME + "PAYEE NAME] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COST + "10.00 "
-            + PREFIX_DESCRIPTION + "Bought a book";
+            + PREFIX_DESCRIPTION + "Bought a book"
+            + PREFIX_NAME + "John Doe";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
 

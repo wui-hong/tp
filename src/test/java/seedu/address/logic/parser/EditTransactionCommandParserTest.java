@@ -1,9 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -99,6 +101,12 @@ class EditTransactionCommandParserTest {
         // cost
         userInput = targetIndex.getOneBased() + " " + PREFIX_COST + VALID_COST;
         descriptor = new EditTransactionDescriptorBuilder().withAmount(VALID_COST).build();
+        expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // payeeName
+        userInput = targetIndex.getOneBased() + " " + PREFIX_NAME + VALID_NAME_AMY;
+        descriptor = new EditTransactionDescriptorBuilder().withPayeeName(VALID_NAME_AMY).build();
         expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

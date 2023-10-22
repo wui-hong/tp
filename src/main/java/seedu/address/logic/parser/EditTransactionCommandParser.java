@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.commons.core.index.Index;
@@ -23,9 +24,8 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
     */
     public EditTransactionCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        // TODO: tokenize prefix for expense names and weights for v1.2b
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_TIMESTAMP);
+                ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME, PREFIX_TIMESTAMP);
 
         Index index;
 
@@ -36,7 +36,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_TIMESTAMP);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME, PREFIX_TIMESTAMP);
 
         EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
 
@@ -48,11 +48,14 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
             editTransactionDescriptor.setAmount(
                     ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get()));
         }
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editTransactionDescriptor.setPayeeName(
+                    ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
         if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
             editTransactionDescriptor.setTimestamp(
                     ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()));
         }
-        // TODO: parseExpensesForEdit
 
         if (!editTransactionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED);
@@ -61,5 +64,3 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
         return new EditTransactionCommand(index, editTransactionDescriptor);
     }
 }
-
-// TODO: parseExpensesForEdit
