@@ -19,7 +19,7 @@ public class SetShorthandCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets an alias for command words. "
         + "Parameters: "
         + PREFIX_ORIGINAL_COMMAND + "COMMAND "
-        + PREFIX_SHORTHAND + "ALIAS "
+        + PREFIX_SHORTHAND + "SHORTHAND "
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_ORIGINAL_COMMAND + "addTransaction "
         + PREFIX_SHORTHAND + "addT";

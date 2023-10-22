@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new SetShorthandCommand object
  */
-public class SetShorthandCommandParser {
+public class SetShorthandCommandParser implements Parser<SetShorthandCommand> {
 
     public static final String MESSAGE_INVALID_SHORTHAND = "Invalid shorthand! "
                 + "Command shorthands must have at least one character "
@@ -32,11 +32,12 @@ public class SetShorthandCommandParser {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetShorthandCommand.MESSAGE_USAGE));
         }
-        String shorthand = argMultimap.getValue(PREFIX_SHORTHAND).get();
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORIGINAL_COMMAND, PREFIX_SHORTHAND);
+        String shorthand = argMultimap.getValue(PREFIX_SHORTHAND).get().trim();
         if (!shorthand.matches(CommandAliasMap.VALIDATION_REGEX)) {
             throw new ParseException(MESSAGE_INVALID_SHORTHAND);
         }
-        return new SetShorthandCommand(argMultimap.getValue(PREFIX_ORIGINAL_COMMAND).get(), shorthand);
+        return new SetShorthandCommand(argMultimap.getValue(PREFIX_ORIGINAL_COMMAND).get().trim(), shorthand);
     }
 
     /**
