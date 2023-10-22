@@ -8,6 +8,8 @@ import org.apache.commons.numbers.fraction.BigFraction;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CommandAliasMap;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
@@ -151,4 +153,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    CommandAliasMap getCommandMap();
+
+    String setCommandAlias(String command, String alias) throws CommandException;
 }
