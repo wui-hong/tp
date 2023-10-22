@@ -30,8 +30,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, TelegramHandle telegramHandle) {
-        requireAllNonNull(name, phone, email, address, tags, telegramHandle);
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, telegramHandle, email, address, tags);
         checkArgument(!Name.isReservedName(name), String.format(Name.RESERVED_CONSTRAINTS, name.toString()));
         this.name = name;
         this.phone = phone;
@@ -109,7 +109,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, telegramHandle);
+        return Objects.hash(name, phone, telegramHandle, email, address, tags);
     }
 
     @Override
