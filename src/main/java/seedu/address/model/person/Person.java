@@ -117,9 +117,9 @@ public class Person {
         return new ToStringBuilder(this)
                 .add("name", name)
                 .add("phone", phone)
+                .add("telegramHandle", telegramHandle)
                 .add("email", email)
                 .add("address", address)
-                .add("telegramHandle", telegramHandle)
                 .add("tags", tags)
                 .toString();
     }
