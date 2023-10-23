@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WEIGHT_HALF;
 import static seedu.address.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
@@ -138,28 +139,50 @@ class UpdatePortionCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_failure() {
-        // TODO
-    }
-
-    @Test
-    public void execute_oneFieldSpecifiedUnfilteredList_failure() {
-        // TODO
-    }
-
-    @Test
     public void execute_filteredList_success() {
-        // TODO
+        showTransactionAtIndex(model, INDEX_FIRST_ELEMENT);
+
+        Transaction transactionInFilteredList = model.getFilteredTransactionList()
+                .get(INDEX_FIRST_ELEMENT.getZeroBased());
+
+        Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1").build();
+        Set<Portion> editedPortions = transactionInFilteredList.getPortionsCopy();
+        editedPortions.add(newPortion);
+        Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList)
+                .withPortions(editedPortions).build();
+
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT,
+                new UpdatePortionDescriptorBuilder(newPortion).build());
+
+        String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
+                Messages.format(editedTransaction));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
+
+        assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
-        // TODO
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder()
+                .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(outOfBoundIndex, descriptor);
+
+        CommandTestUtil.assertCommandFailure(updatePortionCommand, model,
+                Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_invalidTransactionIndexFilteredList_failure() {
-        // TODO
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder()
+                .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(outOfBoundIndex, descriptor);
+
+        CommandTestUtil.assertCommandFailure(updatePortionCommand, model,
+                Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
 
     @Test
