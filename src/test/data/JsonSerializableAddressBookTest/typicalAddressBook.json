@@ -47,7 +47,7 @@
     "amount" : "60.00",
     "description" : "Group Project Lunch",
     "payeeName" : "Self",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Benson Meier",
       "weight" : "4.00"
     }, {
@@ -59,7 +59,7 @@
     "amount" : "90.00",
     "description" : "Hall Dinner",
     "payeeName" : "Benson Meier",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Benson Meier",
       "weight" : "4.00"
     }, {
@@ -71,7 +71,7 @@
     "amount" : "600.00",
     "description" : "Shared Dorm Rent",
     "payeeName" : "Benson Meier",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Self",
       "weight" : "1.00"
     }, {
@@ -83,7 +83,7 @@
     "amount" : "100.00",
     "description" : "Carpool Subscription",
     "payeeName" : "Self",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Self",
       "weight" : "1.00"
     }, {
@@ -95,7 +95,7 @@
     "amount" : "10.00",
     "description" : "Breakfast with Alice",
     "payeeName" : "Self",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Alice Pauline",
       "weight" : "2.00"
     }],

@@ -5,40 +5,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
- * Jackson-friendly version of {@link Expense}.
+ * Jackson-friendly version of {@link Portion}.
  */
-public class JsonAdaptedExpense {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
+public class JsonAdaptedPortion {
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Portion's %s field is missing!";
     private final String personName;
     private final String weight;
 
     /**
-     * Constructs a {@code JsonAdaptedExpense} with the given expense details.
+     * Constructs a {@code JsonAdaptedPortion} with the given portion details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("personName") String personName, @JsonProperty("weight") String weight) {
+    public JsonAdaptedPortion(@JsonProperty("personName") String personName, @JsonProperty("weight") String weight) {
         this.personName = personName;
         this.weight = weight;
     }
 
     /**
-     * Converts a given {@code Expense} into this class for Jackson use.
+     * Converts a given {@code Portion} into this class for Jackson use.
      */
-    public JsonAdaptedExpense(Expense source) {
+    public JsonAdaptedPortion(Portion source) {
         personName = source.getPersonName().fullName;
         weight = source.getWeight().value.toString();
     }
 
     /**
-     * Converts this Jackson-friendly adapted expense object into the model's {@code Expense} object.
+     * Converts this Jackson-friendly adapted portion object into the model's {@code Portion} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted portion.
      */
-    public Expense toModelType() throws IllegalValueException {
+    public Portion toModelType() throws IllegalValueException {
         if (personName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -53,7 +53,7 @@ public class JsonAdaptedExpense {
             throw new IllegalValueException(Weight.MESSAGE_CONSTRAINTS);
         }
         final Weight modelWeight = new Weight(weight);
-        return new Expense(modelName, modelWeight);
+        return new Portion(modelName, modelWeight);
     }
 }
 

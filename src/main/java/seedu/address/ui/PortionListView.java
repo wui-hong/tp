@@ -7,11 +7,11 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Name;
 
 /**
- * An UI component that displays information of an {@code Expense}.
+ * A UI component that displays information of a {@code Portion}.
  */
-public class ExpenseListView extends UiPart<Region> {
+public class PortionListView extends UiPart<Region> {
 
-    private static final String FXML = "ExpenseListView.fxml";
+    private static final String FXML = "PortionListView.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class ExpenseListView extends UiPart<Region> {
     public final Name name;
 
     @FXML
-    private HBox expenseListView;
+    private HBox portionListView;
     @FXML
     private Label payer;
     @FXML
@@ -35,7 +35,7 @@ public class ExpenseListView extends UiPart<Region> {
     /**
      * Creates a {@code TransactionCode} with the given {@code Transaction} and index to display.
      */
-    public ExpenseListView(Name name, String subtotal, String change, int displayedIndex) {
+    public PortionListView(Name name, String subtotal, String change, int displayedIndex) {
         super(FXML);
         this.name = name;
         NameLabel.setNameLabel(payer, name);

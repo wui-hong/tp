@@ -25,7 +25,7 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.portion.Portion;
 
 /**
  * Edits the details of an existing transaction in the transaction list.
@@ -96,14 +96,14 @@ public class EditTransactionCommand extends Command {
         Description updatedDescription = editTransactionDescriptor.getDescription().orElse(transactionToEdit
                 .getDescription());
         Name updatedPayeeName = editTransactionDescriptor.getPayeeName().orElse(transactionToEdit.getPayeeName());
-        Set<Expense> updatedExpenses = editTransactionDescriptor.getExpenses().orElse(transactionToEdit
-                .getExpenses());
+        Set<Portion> updatedPortions = editTransactionDescriptor.getPortions().orElse(transactionToEdit
+                .getPortions());
 
         // Timestamp is edited here for testing purposes
         Timestamp updatedTimestamp = editTransactionDescriptor.getTimestamp().orElse(transactionToEdit
                 .getTimestamp());
 
-        return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, updatedExpenses, updatedTimestamp);
+        return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, updatedPortions, updatedTimestamp);
     }
 
     @Override
@@ -139,14 +139,14 @@ public class EditTransactionCommand extends Command {
         private Amount amount;
         private Description description;
         private Name payeeName;
-        private Set<Expense> expenses;
+        private Set<Portion> portions;
         private Timestamp timestamp;
 
         public EditTransactionDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code expenses} is used internally.
+         * A defensive copy of {@code portions} is used internally.
          */
         public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
@@ -154,8 +154,8 @@ public class EditTransactionCommand extends Command {
             setPayeeName(toCopy.payeeName);
             setTimestamp(toCopy.timestamp);
 
-            if (toCopy.expenses != null) {
-                setExpenses(toCopy.expenses);
+            if (toCopy.portions != null) {
+                setPortions(toCopy.portions);
             }
         }
 
@@ -163,7 +163,7 @@ public class EditTransactionCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, description, payeeName, timestamp, expenses);
+            return CollectionUtil.isAnyNonNull(amount, description, payeeName, timestamp, portions);
         }
 
         public void setAmount(Amount amount) {
@@ -191,24 +191,24 @@ public class EditTransactionCommand extends Command {
         }
 
         /**
-         * Sets {@code expenses} to this object's {@code expenses}.
-         * A defensive copy of {@code expenses} is used internally.
+         * Sets {@code portions} to this object's {@code portions}.
+         * A defensive copy of {@code portions} is used internally.
          */
-        public void setExpenses(Set<Expense> expenses) {
-            if (!Objects.isNull(expenses)) {
-                requireNonEmptyCollection(expenses);
-                requireAllNonNull(expenses);
-                this.expenses = new HashSet<>(expenses);
+        public void setPortions(Set<Portion> portions) {
+            if (!Objects.isNull(portions)) {
+                requireNonEmptyCollection(portions);
+                requireAllNonNull(portions);
+                this.portions = new HashSet<>(portions);
             }
-            this.expenses = null;
+            this.portions = null;
         }
 
         /**
-         * Returns an unmodifiable expense set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable portion set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          */
-        public Optional<Set<Expense>> getExpenses() {
-            return (expenses != null) ? Optional.of(Collections.unmodifiableSet(expenses)) : Optional.empty();
+        public Optional<Set<Portion>> getPortions() {
+            return (portions != null) ? Optional.of(Collections.unmodifiableSet(portions)) : Optional.empty();
         }
 
         public void setTimestamp(Timestamp timestamp) {
@@ -234,7 +234,7 @@ public class EditTransactionCommand extends Command {
             return Objects.equals(amount, otherEditTransactionDescriptor.amount)
                     && Objects.equals(description, otherEditTransactionDescriptor.description)
                     && Objects.equals(payeeName, otherEditTransactionDescriptor.payeeName)
-                    && Objects.equals(expenses, otherEditTransactionDescriptor.expenses)
+                    && Objects.equals(portions, otherEditTransactionDescriptor.portions)
                     && Objects.equals(timestamp, otherEditTransactionDescriptor.timestamp);
         }
 
@@ -248,7 +248,7 @@ public class EditTransactionCommand extends Command {
                     .add("cost", amount)
                     .add("description", description)
                     .add("payeeName", payeeName)
-                    .add("expenses", expenses)
+                    .add("portions", portions)
                     .toString();
         }
     }
