@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
+import java.sql.Time;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.expense.Expense;
 import seedu.address.model.transaction.expense.Weight;
@@ -42,6 +44,8 @@ public class UpdateExpenseCommand extends Command {
 
     // TODO: Message should also include details about the transaction
     public static final String MESSAGE_UPDATE_EXPENSE_SUCCESS = "Updated Expense: %1$s";
+    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted Expense: %1$s";
+    public static final String MESSAGE_ADD_EXPENSE_SUCCESS = "Added Expense: %1$s";
 
     // TODO: add message for invalid pair of name and weight
     public static final String MESSAGE_EXPENSE_NOT_UPDATED = "At least one field must be provided.";
@@ -88,6 +92,7 @@ public class UpdateExpenseCommand extends Command {
         Amount existingAmount = transactionToEdit.getAmount();
         Description existingDescription = transactionToEdit.getDescription();
         Name existingPayeeName = transactionToEdit.getPayeeName();
+        Timestamp existingTimestamp = transactionToEdit.getTimestamp();
 
         Set<Expense> newExpenses = transactionToEdit.getExpensesCopy();
         Name personName = updateExpenseDescriptor.getPersonName();
@@ -100,7 +105,7 @@ public class UpdateExpenseCommand extends Command {
             newExpenses.add(new Expense(personName, updatedWeight));
         }
 
-        return new Transaction(existingAmount, existingDescription, existingPayeeName, newExpenses);
+        return new Transaction(existingAmount, existingDescription, existingPayeeName, newExpenses, existingTimestamp);
     }
 
     @Override
