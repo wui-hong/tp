@@ -47,8 +47,10 @@ public class UpdatePortionCommand extends Command {
 
     public static final String MESSAGE_DELETE_ONLY_PORTION_FAILURE = "Cannot delete the only portion in a transaction.";
 
+    public static final String MESSAGE_IRRELEVANT_UPDATED_TRANSACTION =
+            "The updated transaction does not affect your balances. Please use the delete command instead.";
+
     // TODO: add message for invalid pair of name and weight
-    public static final String MESSAGE_PORTION_NOT_UPDATED = "At least one field must be provided.";
 
     private final Index index;
 
@@ -77,6 +79,10 @@ public class UpdatePortionCommand extends Command {
         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction transactionWithUpdatedPortions =
                 createTransactionWithUpdatedPortions(transactionToEdit, updatePortionDescriptor);
+
+        if (!transactionWithUpdatedPortions.isRelevant()) {
+            throw new CommandException(MESSAGE_IRRELEVANT_UPDATED_TRANSACTION);
+        }
 
         model.setTransaction(transactionToEdit, transactionWithUpdatedPortions);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);

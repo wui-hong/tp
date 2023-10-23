@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertTransactionComm
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ELEMENT;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.portion.Portion;
 import seedu.address.testutil.PortionBuilder;
@@ -62,7 +64,7 @@ class UpdatePortionCommandTest {
 
     @Test
     public void execute_deleteExistingPortionUnfilteredList_success() {
-        Transaction originalTransaction = model.getFilteredTransactionList().get(1);
+        Transaction originalTransaction = model.getFilteredTransactionList().get(2);
         Set<Portion> originalPortions = originalTransaction.getPortions();
         Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
 
@@ -73,12 +75,12 @@ class UpdatePortionCommandTest {
 
         UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
                 .withWeight("0").build();
-        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_SECOND_ELEMENT, descriptor);
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_THIRD_ELEMENT, descriptor);
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(1), editedTransaction);
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(2), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
     }
@@ -96,6 +98,22 @@ class UpdatePortionCommandTest {
 
         CommandTestUtil.assertCommandFailure(updatePortionCommand, model,
                 UpdatePortionCommand.MESSAGE_DELETE_ONLY_PORTION_FAILURE);
+    }
+
+    /**
+     * Deletes a portion that results in an irrelevant transaction.
+     * i.e. Transaction does not involve yourself.
+     */
+    @Test
+    public void execute_deleteExistingPortionIrrelevantTransactionUnfilteredList_failure() {
+        Transaction originalTransaction = model.getFilteredTransactionList().get(2);
+        Portion originalPortion = originalTransaction.getPortions().stream().filter(portion ->
+                portion.getPersonName().equals(Name.SELF)).iterator().next();
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+                .withWeight("0").build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_THIRD_ELEMENT, descriptor);
+        String expectedMessage = UpdatePortionCommand.MESSAGE_IRRELEVANT_UPDATED_TRANSACTION;
+        CommandTestUtil.assertCommandFailure(updatePortionCommand, model, expectedMessage);
     }
 
     @Test
