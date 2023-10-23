@@ -86,6 +86,14 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
+     * Replaces all names with names from the set.
+     */
+    public void syncNames(Set<Name> validNames) {
+        internalList.setAll(internalList.stream()
+                .map(transaction -> transaction.syncNames(validNames)).collect(Collectors.toList()));
+    }
+
+    /**
      * Removes person p from all {@code transactions} in the list.
      */
     public void deletePerson(Name p, Set<Name> validNames) {
