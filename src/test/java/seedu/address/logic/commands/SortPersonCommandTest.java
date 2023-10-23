@@ -20,10 +20,10 @@ public class SortPersonCommandTest {
         assertEquals(sortDescCommand, sortDescCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, sortDescCommand);
+        assertNotEquals(sortDescCommand, 1);
 
         // null -> returns false
-        assertNotEquals(null, sortDescCommand);
+        assertNotEquals(sortDescCommand, null);
 
         // different isDesc -> returns false
         assertNotEquals(sortDescCommand, sortAscCommand);
