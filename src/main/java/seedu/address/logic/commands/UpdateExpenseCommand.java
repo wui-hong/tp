@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
@@ -44,8 +45,8 @@ public class UpdateExpenseCommand extends Command {
 
     // TODO: Message should also include details about the transaction
     public static final String MESSAGE_UPDATE_EXPENSE_SUCCESS = "Updated Expense: %1$s";
-    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted Expense: %1$s";
-    public static final String MESSAGE_ADD_EXPENSE_SUCCESS = "Added Expense: %1$s";
+
+    public static final String MESSAGE_DELETE_ONLY_EXPENSE_FAILURE = "Cannot delete the only expense in a transaction.";
 
     // TODO: add message for invalid pair of name and weight
     public static final String MESSAGE_EXPENSE_NOT_UPDATED = "At least one field must be provided.";
@@ -56,7 +57,7 @@ public class UpdateExpenseCommand extends Command {
 
     public UpdateExpenseCommand(Index index, UpdateExpenseDescriptor updateExpenseDescriptor) {
         requireNonNull(index);
-        requireNonNull(updateExpenseDescriptor);
+        requireAllNonNull(updateExpenseDescriptor);
 
         this.index = index;
         this.updateExpenseDescriptor = new UpdateExpenseDescriptor(updateExpenseDescriptor);
@@ -86,7 +87,7 @@ public class UpdateExpenseCommand extends Command {
      * edited with {@code updateExpenseDescriptor}.
      */
     private static Transaction createTransactionWithUpdatedExpenses(Transaction transactionToEdit,
-            UpdateExpenseDescriptor updateExpenseDescriptor) {
+            UpdateExpenseDescriptor updateExpenseDescriptor) throws CommandException {
         assert transactionToEdit != null;
 
         Amount existingAmount = transactionToEdit.getAmount();
@@ -101,7 +102,13 @@ public class UpdateExpenseCommand extends Command {
         // remove existing expense, if exists
         newExpenses.removeIf(expense -> expense.getPersonName().equals(personName));
 
-        if (!updatedWeight.value.equals(BigFraction.ZERO)) {
+
+        if (updatedWeight.value.equals(BigFraction.ZERO)) {
+            // delete expense
+            if (newExpenses.isEmpty()) {
+                throw new CommandException(MESSAGE_DELETE_ONLY_EXPENSE_FAILURE);
+            }
+        } else {
             newExpenses.add(new Expense(personName, updatedWeight));
         }
 
