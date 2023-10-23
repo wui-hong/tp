@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.PortionUtil.getUpdatePortionDescriptorDetails;
 import static seedu.address.testutil.TransactionUtil.getEditTransactionDescriptorDetails;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
@@ -31,17 +32,22 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTransactionCommand;
+import seedu.address.logic.commands.UpdatePortionCommand;
+import seedu.address.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionContainsPersonNamesPredicate;
+import seedu.address.model.transaction.portion.Portion;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PortionBuilder;
 import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.UpdatePortionDescriptorBuilder;
 
 public class AddressBookParserTest {
 
@@ -126,6 +132,16 @@ public class AddressBookParserTest {
                 EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
                         + getEditTransactionDescriptorDetails(descriptor));
         assertEquals(new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_updatePortion() throws Exception {
+        Portion portion = new PortionBuilder().build();
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(portion).build();
+        UpdatePortionCommand command = (UpdatePortionCommand) parser.parseCommand(
+                UpdatePortionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
+                        + getUpdatePortionDescriptorDetails(descriptor));
+        assertEquals(new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
     @Test
