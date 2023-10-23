@@ -38,6 +38,7 @@ class EditTransactionCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Transaction originalTransaction = model.getFilteredTransactionList().get(0);
         Transaction editedTransaction = new TransactionBuilder()
+                .withPayeeName(originalTransaction.getPayeeName().toString())
                 .withTimestamp(originalTransaction.getTimestamp().toString())
                 .withPortions(originalTransaction.getPortions()).build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedTransaction).build();
