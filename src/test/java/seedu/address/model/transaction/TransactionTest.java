@@ -152,7 +152,7 @@ class TransactionTest {
         Set<Portion> portions = Set.of(ALICE_PORTION);
         Transaction transaction = new TransactionBuilder().withAmount("100").withPortions(portions).build();
         BigFraction expectedPortion = BigFraction.of(100, 1);
-        assertEquals(expectedPortion, transaction.getPortion(ALICE.getName()));
+        assertEquals(expectedPortion, transaction.getPortionAmount(ALICE.getName()));
     }
 
     @Test
@@ -164,11 +164,11 @@ class TransactionTest {
         );
         Transaction transaction = new TransactionBuilder().withAmount("600").withPortions(portions).build();
         assertEquals(BigFraction.of(100, 1),
-                transaction.getPortion(ALICE.getName()));
+                transaction.getPortionAmount(ALICE.getName()));
         assertEquals(BigFraction.of(200, 1),
-                transaction.getPortion(BENSON.getName()));
+                transaction.getPortionAmount(BENSON.getName()));
         assertEquals(BigFraction.of(300, 1),
-                transaction.getPortion(CARL.getName()));
+                transaction.getPortionAmount(CARL.getName()));
     }
 
     @Test
@@ -176,7 +176,7 @@ class TransactionTest {
         Set<Portion> portions = Set.of(ALICE_PORTION);
         Transaction transaction = new TransactionBuilder().withPayeeName(ALICE.getName().fullName)
                 .withAmount("100").withPortions(portions).build();
-        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(ALICE.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionAmountOwedSelf(ALICE.getName()));
     }
 
     @Test
@@ -189,10 +189,10 @@ class TransactionTest {
         );
         Transaction transaction = new TransactionBuilder().withPayeeName(ALICE.getName().fullName)
                 .withAmount("1000").withPortions(portions).build();
-        assertEquals(BigFraction.of(-400, 1), transaction.getPortionOwed(ALICE.getName()));
-        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(BENSON.getName()));
-        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(CARL.getName()));
-        assertEquals(BigFraction.ZERO, transaction.getPortionOwed(Name.SELF));
+        assertEquals(BigFraction.of(-400, 1), transaction.getPortionAmountOwedSelf(ALICE.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionAmountOwedSelf(BENSON.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionAmountOwedSelf(CARL.getName()));
+        assertEquals(BigFraction.ZERO, transaction.getPortionAmountOwedSelf(Name.SELF));
     }
     @Test
     public void getPortionOwed_selfPayeeSinglePortion_returnsCorrectPortion() {
@@ -200,7 +200,7 @@ class TransactionTest {
         Transaction transaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName)
                 .withAmount("100").withPortions(portions).build();
         BigFraction expectedPortion = BigFraction.of(100, 1);
-        assertEquals(expectedPortion, transaction.getPortionOwed(ALICE.getName()));
+        assertEquals(expectedPortion, transaction.getPortionAmountOwedSelf(ALICE.getName()));
     }
 
     @Test
@@ -214,13 +214,13 @@ class TransactionTest {
         Transaction transaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName)
                 .withAmount("1000").withPortions(portions).build();
         assertEquals(BigFraction.of(100, 1),
-                transaction.getPortionOwed(ALICE.getName()));
+                transaction.getPortionAmountOwedSelf(ALICE.getName()));
         assertEquals(BigFraction.of(200, 1),
-                transaction.getPortionOwed(BENSON.getName()));
+                transaction.getPortionAmountOwedSelf(BENSON.getName()));
         assertEquals(BigFraction.of(300, 1),
-                transaction.getPortionOwed(CARL.getName()));
+                transaction.getPortionAmountOwedSelf(CARL.getName()));
         assertEquals(BigFraction.ZERO,
-                transaction.getPortionOwed(Name.SELF));
+                transaction.getPortionAmountOwedSelf(Name.SELF));
     }
 
     @Test
@@ -230,7 +230,7 @@ class TransactionTest {
         Person person = new PersonBuilder().withName(ALICE_PORTION.getPersonName().fullName).build();
         Map<Name, BigFraction> expectedPortions = new HashMap<>();
         expectedPortions.put(person.getName(), BigFraction.of(100, 1));
-        assertEquals(expectedPortions, transaction.getAllPortions());
+        assertEquals(expectedPortions, transaction.getAllPortionAmounts());
     }
 
     @Test
@@ -245,7 +245,7 @@ class TransactionTest {
         expectedPortions.put(new Name(ALICE.getName().toString()), BigFraction.of(200, 1));
         expectedPortions.put(new Name(BENSON.getName().toString()), BigFraction.of(400, 1));
         expectedPortions.put(new Name(CARL.getName().toString()), BigFraction.of(600, 1));
-        assertEquals(expectedPortions, transaction.getAllPortions());
+        assertEquals(expectedPortions, transaction.getAllPortionAmounts());
     }
 
     @Test

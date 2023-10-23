@@ -174,11 +174,11 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns the portion of the transaction that the person has to pay the payee.
+     * Returns the portion amount of the transaction that the person has to pay the payee.
      *
      * @param personName the name of the person
      */
-    public BigFraction getPortion(Name personName) {
+    public BigFraction getPortionAmount(Name personName) {
         BigFraction totalWeight = getTotalWeight();
         return portions.stream()
             .filter(portion -> portion.getPersonName().equals(personName))
@@ -187,9 +187,9 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns a map of all the portions each person has to pay the payee for this transaction.
+     * Returns a map of all the portions with calculated amount each person has to pay the payee for this transaction.
      */
-    public Map<Name, BigFraction> getAllPortions() {
+    public Map<Name, BigFraction> getAllPortionAmounts() {
         BigFraction totalWeight = getTotalWeight();
         return portions.stream()
             .collect(
@@ -202,14 +202,14 @@ public class Transaction implements Comparable<Transaction> {
 
 
     /**
-     * Returns the portion of the transaction that the person has to pay the user.
+     * Returns the portion amount of the transaction that the person has to pay the user (self).
      * A positive amount indicates the amount the person owes the user.
      * A negative amount indicates the amount the user owes the person.
      * Zero amount indicates that the user has no net balance owed to the user from the transaction.
      *
      * @param personName the name of the person
      */
-    public BigFraction getPortionOwed(Name personName) {
+    public BigFraction getPortionAmountOwedSelf(Name personName) {
         // person is not relevant to user in the transaction
         if (!payeeName.equals(personName) && !payeeName.equals(Name.SELF)) {
             return BigFraction.ZERO;
@@ -222,11 +222,11 @@ public class Transaction implements Comparable<Transaction> {
 
         // user owes person money from the transaction
         if (payeeName.equals(personName)) {
-            return getPortion(Name.SELF).negate();
+            return getPortionAmount(Name.SELF).negate();
         }
 
         // person owes user money from the transaction
-        return getPortion(personName);
+        return getPortionAmount(personName);
     }
 
     /**

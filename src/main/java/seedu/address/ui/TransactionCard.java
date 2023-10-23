@@ -60,7 +60,7 @@ public class TransactionCard extends UiPart<Region> {
     public TransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
         this.transaction = transaction;
-        Map<Name, BigFraction> subtotals = transaction.getAllPortions();
+        Map<Name, BigFraction> subtotals = transaction.getAllPortionAmounts();
         ObservableList<Name> lst = new SortedList<>(FXCollections.observableArrayList(
             subtotals.keySet()), (name1, name2) -> name1.compareTo(name2));
         id.setText(displayedIndex + ". ");
