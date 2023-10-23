@@ -48,7 +48,7 @@ public class UpdatePortionCommandParser implements Parser<UpdatePortionCommand> 
         updatePortionDescriptor.setPersonName(
                 ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
         updatePortionDescriptor.setWeight(
-                ParserUtil.parseWeight(argMultimap.getValue(CliSyntax.PREFIX_WEIGHT).get()));
+                ParserUtil.parseZeroableWeight(argMultimap.getValue(CliSyntax.PREFIX_WEIGHT).get()));
 
         return new UpdatePortionCommand(index, updatePortionDescriptor);
     }

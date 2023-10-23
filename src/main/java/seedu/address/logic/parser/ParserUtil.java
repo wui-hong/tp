@@ -168,6 +168,26 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String weight} into a {@code Weight}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Zero weight is allowed, and is used when updating portion.
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
+    public static Weight parseZeroableWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!Weight.isValidWeight(trimmedWeight)) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
+        }
+        Weight val = new Weight(trimmedWeight);
+        if (val.value.signum() < 0) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
+        }
+        return val;
+    }
+
+    /**
      * Parses a {@code String timestamp} into a {@code Timestamp}.
      * Leading and trailing whitespaces will be trimmed.
      *
