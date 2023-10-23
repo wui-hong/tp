@@ -21,7 +21,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
-import seedu.address.model.transaction.portion.Weight;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
