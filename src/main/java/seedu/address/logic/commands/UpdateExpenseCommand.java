@@ -4,16 +4,22 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import org.apache.commons.numbers.fraction.BigFraction;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.expense.Expense;
 import seedu.address.model.transaction.expense.Weight;
 
 /**
@@ -78,7 +84,23 @@ public class UpdateExpenseCommand extends Command {
     private static Transaction createTransactionWithUpdatedExpenses(Transaction transactionToEdit,
             UpdateExpenseDescriptor updateExpenseDescriptor) {
         assert transactionToEdit != null;
-        // TODO: Implement this
+
+        Amount existingAmount = transactionToEdit.getAmount();
+        Description existingDescription = transactionToEdit.getDescription();
+        Name existingPayeeName = transactionToEdit.getPayeeName();
+
+        Set<Expense> newExpenses = transactionToEdit.getExpensesCopy();
+        Name personName = updateExpenseDescriptor.getPersonName();
+        Weight updatedWeight = updateExpenseDescriptor.getWeight();
+
+        // remove existing expense, if exists
+        newExpenses.removeIf(expense -> expense.getPersonName().equals(personName));
+
+        if (!updatedWeight.value.equals(BigFraction.ZERO)) {
+            newExpenses.add(new Expense(personName, updatedWeight));
+        }
+
+        return new Transaction(existingAmount, existingDescription, existingPayeeName, newExpenses);
     }
 
     @Override

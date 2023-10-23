@@ -166,11 +166,18 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable expenses set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Expense> getExpenses() {
         return Collections.unmodifiableSet(expenses);
+    }
+
+    /**
+     * Returns a copy of the expenses set.
+     */
+    public Set<Expense> getExpensesCopy() {
+        return new HashSet<>(expenses);
     }
 
     /**
