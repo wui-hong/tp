@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_DINNER;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_LUNCH;
 import static seedu.address.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
+import static seedu.address.logic.commands.EditTransactionCommand.MESSAGE_TRANSACTION_NOT_RELEVANT;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
@@ -127,6 +128,16 @@ class EditTransactionCommandTest {
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertTransactionCommandSuccess(editTransactionCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidTransactionUnfilteredList_failure() {
+        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+                .withPayeeName("Alice").build();
+        EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        CommandTestUtil.assertCommandFailure(editTransactionCommand, model,
+                MESSAGE_TRANSACTION_NOT_RELEVANT);
     }
 
     @Test

@@ -50,6 +50,9 @@ public class EditTransactionCommand extends Command {
 
     public static final String MESSAGE_TRANSACTION_NOT_EDITED = "At least one field to edit must be provided.";
 
+    public static final String MESSAGE_TRANSACTION_NOT_RELEVANT =
+            "The edited transaction does not affect your balances. Please use the delete command instead.";
+
     private final Index index;
 
     private final EditTransactionDescriptor editTransactionDescriptor;
@@ -77,6 +80,10 @@ public class EditTransactionCommand extends Command {
 
         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
+
+        if (!editedTransaction.isRelevant()) {
+            throw new CommandException(MESSAGE_TRANSACTION_NOT_RELEVANT);
+        }
 
         model.setTransaction(transactionToEdit, editedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
