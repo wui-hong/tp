@@ -20,8 +20,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
  * Parses input arguments and creates a new AddTransactionCommand object.
@@ -33,7 +33,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
             PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_COST, trimRegExp(Amount.VALIDATION_REGEX),
             PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_WEIGHT, trimRegExp(Weight.VALIDATION_REGEX));
 
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "Name %s is duplicated in expense string";
+    public static final String MESSAGE_DUPLICATE_PORTION = "Name %s is duplicated in portion string";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
@@ -75,16 +75,16 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
             Weight weight = ParserUtil.parseWeight(weights.get(i));
             if (expenseMap.containsKey(name)) {
                 if (!name.equals(Name.OTHERS)) {
-                    throw new ParseException(String.format(MESSAGE_DUPLICATE_EXPENSE, name.fullName));
+                    throw new ParseException(String.format(MESSAGE_DUPLICATE_PORTION, name.fullName));
                 }
                 Weight previousWeight = expenseMap.get(name);
                 weight = new Weight(previousWeight.value.add(weight.value));
             }
             expenseMap.put(name, weight);
         }
-        Set<Expense> expenses = expenseMap.keySet().stream()
-                .map(x -> new Expense(x, expenseMap.get(x))).collect(Collectors.toSet());
-        Transaction transaction = new Transaction(amount, description, payee, expenses);
+        Set<Portion> portions = expenseMap.keySet().stream()
+                .map(x -> new Portion(x, expenseMap.get(x))).collect(Collectors.toSet());
+        Transaction transaction = new Transaction(amount, description, payee, portions);
         return new AddTransactionCommand(transaction);
     }
 

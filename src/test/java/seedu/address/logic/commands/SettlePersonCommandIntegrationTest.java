@@ -23,8 +23,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PortionBuilder;
 import seedu.address.testutil.TransactionBuilder;
 
 /**
@@ -46,7 +46,7 @@ public class SettlePersonCommandIntegrationTest {
         Transaction transaction = new TransactionBuilder().withPayeeName(personToSettleName.fullName).withDescription(
                 String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
                 .withAmount(expectedModel.getBalance(personToSettleName).toString())
-                .withExpenses(Set.of(new ExpenseBuilder().withName(Name.SELF.fullName)
+                .withPortions(Set.of(new PortionBuilder().withName(Name.SELF.fullName)
                 .withWeight("1").build())).build();
         expectedModel.addTransaction(transaction);
 
@@ -63,7 +63,7 @@ public class SettlePersonCommandIntegrationTest {
         Transaction transaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName).withDescription(
                 String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
                 .withAmount(expectedModel.getBalance(personToSettleName).abs().toString())
-                .withExpenses(Set.of(new ExpenseBuilder().withName(personToSettleName.fullName)
+                .withPortions(Set.of(new PortionBuilder().withName(personToSettleName.fullName)
                 .withWeight("1").build())).build();
         expectedModel.addTransaction(transaction);
 
@@ -80,7 +80,7 @@ public class SettlePersonCommandIntegrationTest {
         Transaction transaction = new TransactionBuilder().withPayeeName(personToSettleName.toString()).withDescription(
                 String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
                 .withAmount(expectedModel.getBalance(personToSettleName).toString())
-                .withExpenses(Set.of(new ExpenseBuilder().withName(Name.SELF.fullName)
+                .withPortions(Set.of(new PortionBuilder().withName(Name.SELF.fullName)
                 .withWeight("1").build())).build();
         expectedModel.addTransaction(transaction);
 

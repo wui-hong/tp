@@ -1,4 +1,4 @@
-package seedu.address.model.transaction.expense;
+package seedu.address.model.transaction.portion;
 
 import java.util.Objects;
 
@@ -6,10 +6,10 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
 
 /**
- * Represents an Expense in a transaction.
+ * Represents an Portion in a transaction.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Expense {
+public class Portion {
     // Identity fields
     private final Name personName;
     private final Weight weight;
@@ -17,7 +17,7 @@ public class Expense {
     /**
      * Every field must be present and not null.
      */
-    public Expense(Name personName, Weight weight) {
+    public Portion(Name personName, Weight weight) {
         this.personName = personName;
         this.weight = weight;
     }
@@ -33,14 +33,14 @@ public class Expense {
     /**
      * Returns true if both expenses have the same name and weight.
      */
-    public boolean isSameExpense(Expense otherExpense) {
-        if (otherExpense == this) {
+    public boolean isSamePortion(Portion otherPortion) {
+        if (otherPortion == this) {
             return true;
         }
 
-        return otherExpense != null
-                && otherExpense.getPersonName().equals(getPersonName())
-                && otherExpense.getWeight().equals(getWeight());
+        return otherPortion != null
+                && otherPortion.getPersonName().equals(getPersonName())
+                && otherPortion.getWeight().equals(getWeight());
     }
 
     /**
@@ -53,13 +53,13 @@ public class Expense {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Expense)) {
+        if (!(other instanceof Portion)) {
             return false;
         }
 
-        Expense otherExpense = (Expense) other;
-        return personName.equals(otherExpense.personName)
-                && weight.equals(otherExpense.weight);
+        Portion otherPortion = (Portion) other;
+        return personName.equals(otherPortion.personName)
+                && weight.equals(otherPortion.weight);
     }
 
     @Override
