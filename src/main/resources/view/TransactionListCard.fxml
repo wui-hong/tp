@@ -97,7 +97,7 @@
           </VBox>
         </children>
       </HBox>
-      <ListView fx:id="expenseListView" VBox.vgrow="ALWAYS" />
+      <ListView fx:id="portionListView" VBox.vgrow="ALWAYS" />
     </VBox>
   </GridPane>
 </HBox>

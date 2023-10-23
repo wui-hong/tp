@@ -5,8 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
-import java.sql.Time;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -22,18 +20,18 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
- * Edits the expense details of an existing transaction in the transaction list.
+ * Edits the portion details of an existing transaction in the transaction list.
  */
-public class UpdateExpenseCommand extends Command {
+public class UpdatePortionCommand extends Command {
 
-    public static final String COMMAND_WORD = "updateExpense";
+    public static final String COMMAND_WORD = "updatePortion";
 
     public static final String MESSAGE_USAGE =
-            COMMAND_WORD + ": Edits the expense details of the transaction identified "
+            COMMAND_WORD + ": Edits the portion details of the transaction identified "
             + "by the index number used in the displayed transaction list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -44,23 +42,23 @@ public class UpdateExpenseCommand extends Command {
             + PREFIX_WEIGHT + "65";
 
     // TODO: Message should also include details about the transaction
-    public static final String MESSAGE_UPDATE_EXPENSE_SUCCESS = "Updated Expense: %1$s";
+    public static final String MESSAGE_UPDATE_PORTION_SUCCESS = "Updated Portion: %1$s";
 
-    public static final String MESSAGE_DELETE_ONLY_EXPENSE_FAILURE = "Cannot delete the only expense in a transaction.";
+    public static final String MESSAGE_DELETE_ONLY_PORTION_FAILURE = "Cannot delete the only portion in a transaction.";
 
     // TODO: add message for invalid pair of name and weight
-    public static final String MESSAGE_EXPENSE_NOT_UPDATED = "At least one field must be provided.";
+    public static final String MESSAGE_PORTION_NOT_UPDATED = "At least one field must be provided.";
 
     private final Index index;
 
-    private final UpdateExpenseDescriptor updateExpenseDescriptor;
+    private final UpdatePortionDescriptor updatePortionDescriptor;
 
-    public UpdateExpenseCommand(Index index, UpdateExpenseDescriptor updateExpenseDescriptor) {
+    public UpdatePortionCommand(Index index, UpdatePortionDescriptor updatePortionDescriptor) {
         requireNonNull(index);
-        requireAllNonNull(updateExpenseDescriptor);
+        requireAllNonNull(updatePortionDescriptor);
 
         this.index = index;
-        this.updateExpenseDescriptor = new UpdateExpenseDescriptor(updateExpenseDescriptor);
+        this.updatePortionDescriptor = new UpdatePortionDescriptor(updatePortionDescriptor);
     }
 
     @Override
@@ -73,21 +71,22 @@ public class UpdateExpenseCommand extends Command {
         }
 
         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
-        Transaction transactionWithUpdatedExpenses =
-                createTransactionWithUpdatedExpenses(transactionToEdit, updateExpenseDescriptor);
+        Transaction transactionWithUpdatedPortions =
+                createTransactionWithUpdatedPortions(transactionToEdit, updatePortionDescriptor);
 
-        model.setTransaction(transactionToEdit, transactionWithUpdatedExpenses);
+        model.setTransaction(transactionToEdit, transactionWithUpdatedPortions);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(
-                String.format(MESSAGE_UPDATE_EXPENSE_SUCCESS, Messages.format(transactionWithUpdatedExpenses)));
+                String.format(MESSAGE_UPDATE_PORTION_SUCCESS, Messages.format(transactionWithUpdatedPortions)));
     }
 
     /**
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
-     * edited with {@code updateExpenseDescriptor}.
+     * edited with {@code updatePortionDescriptor}.
      */
-    private static Transaction createTransactionWithUpdatedExpenses(Transaction transactionToEdit,
-            UpdateExpenseDescriptor updateExpenseDescriptor) throws CommandException {
+    private static Transaction createTransactionWithUpdatedPortions(Transaction transactionToEdit,
+                                                                    UpdatePortionDescriptor updatePortionDescriptor)
+            throws CommandException {
         assert transactionToEdit != null;
 
         Amount existingAmount = transactionToEdit.getAmount();
@@ -95,24 +94,23 @@ public class UpdateExpenseCommand extends Command {
         Name existingPayeeName = transactionToEdit.getPayeeName();
         Timestamp existingTimestamp = transactionToEdit.getTimestamp();
 
-        Set<Expense> newExpenses = transactionToEdit.getExpensesCopy();
-        Name personName = updateExpenseDescriptor.getPersonName();
-        Weight updatedWeight = updateExpenseDescriptor.getWeight();
+        Set<Portion> newPortions = transactionToEdit.getPortionsCopy();
+        Name personName = updatePortionDescriptor.getPersonName();
+        Weight updatedWeight = updatePortionDescriptor.getWeight();
 
-        // remove existing expense, if exists
-        newExpenses.removeIf(expense -> expense.getPersonName().equals(personName));
-
+        // remove existing portion, if exists
+        newPortions.removeIf(portion -> portion.getPersonName().equals(personName));
 
         if (updatedWeight.value.equals(BigFraction.ZERO)) {
-            // delete expense
-            if (newExpenses.isEmpty()) {
-                throw new CommandException(MESSAGE_DELETE_ONLY_EXPENSE_FAILURE);
+            // delete portion
+            if (newPortions.isEmpty()) {
+                throw new CommandException(MESSAGE_DELETE_ONLY_PORTION_FAILURE);
             }
         } else {
-            newExpenses.add(new Expense(personName, updatedWeight));
+            newPortions.add(new Portion(personName, updatedWeight));
         }
 
-        return new Transaction(existingAmount, existingDescription, existingPayeeName, newExpenses, existingTimestamp);
+        return new Transaction(existingAmount, existingDescription, existingPayeeName, newPortions, existingTimestamp);
     }
 
     @Override
@@ -122,38 +120,38 @@ public class UpdateExpenseCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UpdateExpenseCommand)) {
+        if (!(other instanceof UpdatePortionCommand)) {
             return false;
         }
 
-        UpdateExpenseCommand otherUpdateExpenseCommand = (UpdateExpenseCommand) other;
-        return index.equals(otherUpdateExpenseCommand.index)
-                && updateExpenseDescriptor.equals(otherUpdateExpenseCommand.updateExpenseDescriptor);
+        UpdatePortionCommand otherUpdatePortionCommand = (UpdatePortionCommand) other;
+        return index.equals(otherUpdatePortionCommand.index)
+                && updatePortionDescriptor.equals(otherUpdatePortionCommand.updatePortionDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("updateExpenseDescriptor", updateExpenseDescriptor)
+                .add("updatePortionDescriptor", updatePortionDescriptor)
                 .toString();
     }
 
     /**
-     * Stores the details to update the expense with.
+     * Stores the details to update the portion with.
      * All fields are mandatory.
      */
-    public static class UpdateExpenseDescriptor {
+    public static class UpdatePortionDescriptor {
         private Name personName;
         private Weight weight;
 
-        public UpdateExpenseDescriptor() {}
+        public UpdatePortionDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code expenses} is used internally.
+         * A defensive copy of {@code UpdatePortionDescriptor} is used internally.
          */
-        public UpdateExpenseDescriptor(UpdateExpenseDescriptor toCopy) {
+        public UpdatePortionDescriptor(UpdatePortionDescriptor toCopy) {
             setPersonName(toCopy.personName);
             setWeight(toCopy.weight);
         }
@@ -181,13 +179,13 @@ public class UpdateExpenseCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof UpdateExpenseDescriptor)) {
+            if (!(other instanceof UpdatePortionDescriptor)) {
                 return false;
             }
 
-            UpdateExpenseDescriptor otherUpdateExpenseDescriptor = (UpdateExpenseDescriptor) other;
-            return Objects.equals(personName, otherUpdateExpenseDescriptor.personName)
-                    && Objects.equals(weight, otherUpdateExpenseDescriptor.weight);
+            UpdatePortionDescriptor otherUpdatePortionDescriptor = (UpdatePortionDescriptor) other;
+            return Objects.equals(personName, otherUpdatePortionDescriptor.personName)
+                    && Objects.equals(weight, otherUpdatePortionDescriptor.weight);
         }
 
         @Override

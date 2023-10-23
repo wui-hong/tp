@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
+import static seedu.address.testutil.TypicalPortions.ALICE_PORTION;
 
 import java.util.Set;
 
@@ -30,7 +30,7 @@ public class AddTransactionCommandIntegrationTest {
     @Test
     public void execute_newTransaction_success() {
         Transaction validTransaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName)
-                .withExpenses(Set.of(ALICE_EXPENSE)).build();
+                .withPortions(Set.of(ALICE_PORTION)).build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addTransaction(validTransaction);

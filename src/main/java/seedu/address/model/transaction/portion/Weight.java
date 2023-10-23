@@ -1,4 +1,4 @@
-package seedu.address.model.transaction.expense;
+package seedu.address.model.transaction.portion;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -8,7 +8,7 @@ import org.apache.commons.numbers.fraction.BigFraction;
 import seedu.address.commons.util.FractionUtil;
 
 /**
- * Represents a Weight in an Expense.
+ * Represents a Weight in an Portion.
  * Guarantees: immutable; is valid as declared in {@link #isValidWeight(String)}
  */
 public class Weight {

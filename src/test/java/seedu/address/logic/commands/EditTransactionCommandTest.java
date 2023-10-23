@@ -38,7 +38,7 @@ class EditTransactionCommandTest {
         Transaction originalTransaction = model.getFilteredTransactionList().get(0);
         Transaction editedTransaction = new TransactionBuilder()
                 .withTimestamp(originalTransaction.getTimestamp().toString())
-                .withExpenses(originalTransaction.getExpenses()).build();
+                .withPortions(originalTransaction.getPortions()).build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedTransaction).build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 

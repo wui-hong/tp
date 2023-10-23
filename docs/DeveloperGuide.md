@@ -271,21 +271,21 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​ | I want to …​                                | So that I can…​ |
-| -------- | ------------------------------------------ |---------------------------------------------| ---------------------------------------------------------------------- |
-| `* * *` | new user | see usage instructions                      | refer to instructions when I forget how to use the app |
-| `* * *` | user | add a new person                            | |
-| `* * *`  | user | delete a person                             | remove entries that I no longer need |
-| `* * *`  | user | find a person by name                       | locate details of persons without having to go through the entire list |
-| `* * *` | user | add transactions under a specific person    | |
-| `* * *` | user | add group transactions                          | easily add expenses that are split among a group |
-| `* *` | user | edit transactions                               | change incorrectly added entries |
-| `* * *` | user | delete transactions                             | remove incorrectly added entries |
-| `* * *` | user | view balance with each person               | know how much they owe me |
-| `* *` | user | settle balances                             | simulate clearing of debt |
-| `* * *` | user | list all my transactions with a specific person | remind myself of why a specific person's balance is the way it is |
-| `* *` | user with many persons in the address book | sort persons by balance                     | know from whom I should collect money |
-| `*` | user | hide private contact details                | minimise chance of someone else seeing them by accident |
+| Priority | As a …​                                    | I want to …​                                    | So that I can…​                                                        |
+|----------|--------------------------------------------|-------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions                          | refer to instructions when I forget how to use the app                 |
+| `* * *`  | user                                       | add a new person                                |                                                                        |
+| `* * *`  | user                                       | delete a person                                 | remove entries that I no longer need                                   |
+| `* * *`  | user                                       | find a person by name                           | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                       | add transactions under a specific person        |                                                                        |
+| `* * *`  | user                                       | add group transactions                          | easily add transactions that are split among a group                   |
+| `* *`    | user                                       | edit transactions                               | change incorrectly added entries                                       |
+| `* * *`  | user                                       | delete transactions                             | remove incorrectly added entries                                       |
+| `* * *`  | user                                       | view balance with each person                   | know how much they owe me                                              |
+| `* *`    | user                                       | settle balances                                 | simulate clearing of debt                                              |
+| `* * *`  | user                                       | list all my transactions with a specific person | remind myself of why a specific person's balance is the way it is      |
+| `* *`    | user with many persons in the address book | sort persons by balance                         | know from whom I should collect money                                  |
+| `*`      | user                                       | hide private contact details                    | minimise chance of someone else seeing them by accident                |
 
 *{More to be added}*
 
@@ -383,14 +383,14 @@ TODO: Internal note: let's remove / amend this feature, this command is too powe
 
 ---
 
-**Use Case: UC6 - Listing all Expenses with a Person**
+**Use Case: UC6 - Listing all Transactions with a Person**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to view the expense list of a person.
-2. Spend n Split shows the list of expenses with that person.
+1. User requests to view the transaction list involving a person.
+2. Spend n Split shows the list of transactions involving that person.
 
 Use case ends.
 
@@ -401,15 +401,15 @@ Extensions:
 
 ---
 
-**Use Case: UC7 - Add a New Expense**
+**Use Case: UC7 - Add a New Transaction**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to add a new expense.
-2. Spend n Split informs the user that the new expense has been added.
-3. Spend n Split shows the updated expense list with that person.
+1. User requests to add a new transaction.
+2. Spend n Split informs the user that the new transaction has been added.
+3. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
@@ -424,58 +424,39 @@ Extensions:
 
 ---
 
-**Use Case: UC8 - Edit an Expense**
+**Use Case: UC8 - Edit a Transaction**
 
-Preconditions: Expense exists in the expense list of the person.
+Preconditions: Transaction exists in the transaction list.
 
 **MSS**
 
-1. User requests to view the expense list of a person.
-2. Spend n Split shows a list of expenses.
-3. User requests to edit an expense.
-4. Spend n Split informs the user that the expense has been edited. 
-5. Spend n Split shows the updated expense list with that person.
+1. User requests to view the transaction list.
+2. Spend n Split shows a list of transaction.
+3. User requests to edit a transaction.
+4. Spend n Split informs the user that the transaction has been edited. 
+5. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
 Extensions:
-* 4a. Expense does not exist in the expense list.
-  * 4a1. Spend n Split informs the user that the expense does not exist in the expense list.
+* 4a. Transaction does not exist in the portion list.
+  * 4a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
   * 4a2. Use case resumes at step 3.
   
-* 4b. Spend n Split detects an error in the request for the new person.
+* 4b. Spend n Split detects an error in the request.
   * 4b1. Spend n Split informs the user that request is invalid.
   * 4b2. Use case resumes at step 3.
 
 ---
 
-**Use Case: UC9 - Create Group Expense**
-
-Preconditions: Persons exist in the contact list.
-
-**MSS**
-
-1. User requests to create a group expense.
-2. Spend n Split informs the user that the group expense has been created.
-3. Spend n Split shows the expense list for that group of persons.
-
-Use case ends.
-
-Extensions:
-* 1a. If the person(s) does not exist in the contact list, Spend n Split throws an error.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
-
----
-
-**Use Case: UC10 - Settle expenses with a person**
+**Use Case: UC9 - Settle with a person**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to settle expenses with a person. 
-2. Spend n Split informs the user that the expenses have been settled. 
+1. User requests to settle with a person. 
+2. Spend n Split informs the user that all the outstanding balance with the person have been settled. 
 3. Spend n Split shows the list of contacts.
 
 Use case ends.
@@ -487,42 +468,24 @@ Extensions:
 
 ---
 
-**Use Case: UC11 - Delete an Expense**
+**Use Case: UC10 - Delete a Transaction**
 
-Preconditions: Expense exists in the expense list of the person.
+Preconditions: Transaction exists in the transaction list.
 
 **MSS**
 
-1. User requests to view the expense list of a person.
-2. Spend n Split shows a list of expenses.
-3. User requests to delete an expense.
-4. Spend n Split informs the user that the expense has been deleted.
-5. Spend n Split shows the updated expense list with that person.
+1. User requests to view the transaction list.
+2. Spend n Split shows a list of transactions.
+3. User requests to delete a transaction.
+4. Spend n Split informs the user that the transaction has been deleted.
+5. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
 Extensions:
-* 1a. Person does not exist in the contact list.
-    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-    * 1a2. Use case resumes at step 2.
-
----
-
-**Use Case: UC12 - View Logs with a Person**
-
-Preconditions: Person exists in the contact list.
-
-**MSS**
-
-1. User requests to view the logs with a person. 
-2. Spend n Split shows the logs with that person.
-
-Use case ends.
-
-Extensions:
-* 1a. Person does not exist in the contact list.
-    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-    * 1a2. Use case resumes at step 2.
+* 3a. Transaction does not exist in the portion list.
+    * 3a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
+    * 3a2. Use case resumes at step 2.
 
 ---
 
@@ -534,23 +497,23 @@ Extensions:
 4.  The application should work without internet access.
 5.  The application should not take more than 50MB of space.
 6.  The user interface should be intuitive to new users. From the interface, users should easily find out how to write input, view output, and find the help guide.
-7.  The application should be accurate when calculating expenses, being able to handle the division of costs with precision.
+7.  The application should be accurate when calculating portions, being able to handle the division of costs with precision.
 8.  The application should store data to the hard disk consistently so that loading the data on a different device leads to the same application state.
 9.  The GUI should organise and present data clearly so that users are able to read application details easily.
 
 ### Glossary
 
-**Expenses Tracker**
+**Application**
 
 * **Contact**: A person stored in your application with additional information.
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Expense**: A monetary transaction that records costs involving you and another contact.
-* **Group Expense**: A monetary transaction that records costs involving you are more than one contact, which can be divided into individual expenses.
+* **Transaction**: A monetary transaction that records costs involving a single contact who pays for the whole transaction and other contacts who are involved in the transaction.
+* **Portion**: A breakdown of a transaction into individual portions, each of which involves a single contact and a weightage indicating the proportion of the transaction cost that the contact needs to pay to the person who paid for the transaction.
 * **Balance**: The amount of money either owed to you or owed by you to another person in your contacts.
   * **Positive Balance**: Indicates that the contact owes you money.
   * **Negative Balance**: Indicates that you owe the contact money.
 * **Outstanding Balance**: The amount of unsettled money between you and your contact.
-* **Settle**: The action of clearing any outstanding balance between you and another contact via a new expense.
+* **Settle**: The action of clearing any outstanding balance between you and another contact via a new portion.
 
 **General**
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.

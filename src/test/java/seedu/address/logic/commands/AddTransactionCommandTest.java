@@ -28,8 +28,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
-import seedu.address.testutil.TypicalExpenses;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalPortions;
 
 public class AddTransactionCommandTest {
 
@@ -53,7 +53,7 @@ public class AddTransactionCommandTest {
     public void execute_irrelevantTransaction_throwsParseException() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Transaction irrelevantTransaction = new TransactionBuilder()
-                .withExpenses(Set.of(TypicalExpenses.ALICE_EXPENSE)).build();
+                .withPortions(Set.of(TypicalPortions.ALICE_PORTION)).build();
         AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
 
         assertThrows(CommandException.class,

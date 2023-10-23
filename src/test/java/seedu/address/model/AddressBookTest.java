@@ -93,7 +93,7 @@ public class AddressBookTest {
             .withAmount(LUNCH.getAmount().toString())
             .withDescription(LUNCH.getDescription().toString())
             .withPayeeName(LUNCH.getPayeeName().toString())
-            .withExpenses(LUNCH.getExpenses())
+            .withPortions(LUNCH.getPortions())
             .withTimestamp(LUNCH.getTimestamp().toString())
             .build();
         List<Person> newPersons = List.of();
