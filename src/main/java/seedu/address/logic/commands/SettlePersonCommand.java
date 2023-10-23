@@ -18,8 +18,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
  * Settles any outstanding balance with a person.
@@ -65,23 +65,23 @@ public class SettlePersonCommand extends Command {
                 SETTLE_TRANSACTION_DESCRIPTION, personToSettle.getName()));
         Weight weight = new Weight(BigFraction.ONE.toString());
         Name name;
-        Set<Expense> expenses;
+        Set<Portion> portions;
 
         if (balance.signum() > 0) {
             // if the balance is positive, the person owes the user money
             // we create a transaction where the person pays the user back
             name = personToSettle.getName();
-            expenses = Set.of(new Expense(Name.SELF, weight));
+            portions = Set.of(new Portion(Name.SELF, weight));
         } else {
             // if the balance is negative, the user owes the person money
             // we create a transaction where the user pays the person back
             name = Name.SELF;
-            expenses = Set.of(new Expense(personToSettle.getName(), weight));
+            portions = Set.of(new Portion(personToSettle.getName(), weight));
         }
 
         // create transaction to cancel out outstanding balance
         model.addTransaction(new Transaction(
-                new Amount(balance.abs().toString()), description, name, expenses));
+                new Amount(balance.abs().toString()), description, name, portions));
         return new CommandResult(String.format(MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()));
     }
 

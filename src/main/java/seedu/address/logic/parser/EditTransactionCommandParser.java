@@ -24,6 +24,7 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
     */
     public EditTransactionCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        // TODO: tokenize prefix for portion names and weights for v1.2b
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME, PREFIX_TIMESTAMP);
 

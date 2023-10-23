@@ -1,4 +1,4 @@
-package seedu.address.model.transaction.expense;
+package seedu.address.model.transaction.portion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
