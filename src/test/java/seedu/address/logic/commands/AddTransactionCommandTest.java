@@ -228,6 +228,16 @@ public class AddTransactionCommandTest {
         public Set<Name> getAllNames() {
             return Set.of(TypicalPersons.ALICE.getName(), new TransactionBuilder().build().getPayeeName());
         }
+
+        @Override
+        public void sortPersonDescending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPersonAscending() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

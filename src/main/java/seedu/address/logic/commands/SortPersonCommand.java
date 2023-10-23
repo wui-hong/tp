@@ -4,6 +4,9 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Sorts persons by balance.
+ */
 public class SortPersonCommand extends Command {
     public static final String COMMAND_WORD = "sortPerson";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort Person List by balance. "

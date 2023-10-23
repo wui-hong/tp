@@ -207,6 +207,16 @@ public class AddPersonCommandTest {
         public Set<Name> getAllNames() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void sortPersonDescending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPersonAscending() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
