@@ -31,7 +31,7 @@ public class Portion {
     }
 
     /**
-     * Returns true if both expenses have the same name and weight.
+     * Returns true if both portions have the same name and weight.
      */
     public boolean isSamePortion(Portion otherPortion) {
         if (otherPortion == this) {
@@ -44,7 +44,7 @@ public class Portion {
     }
 
     /**
-     * Returns true if both expenses have the same identity fields.
+     * Returns true if both portions have the same identity fields.
      */
     @Override
     public boolean equals(Object other) {

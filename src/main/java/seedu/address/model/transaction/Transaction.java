@@ -182,7 +182,7 @@ public class Transaction implements Comparable<Transaction> {
         BigFraction totalWeight = getTotalWeight();
         return portions.stream()
             .filter(portion -> portion.getPersonName().equals(personName))
-            .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
+            .map(portions -> portions.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
             .reduce(BigFraction.ZERO, BigFraction::add);
     }
 

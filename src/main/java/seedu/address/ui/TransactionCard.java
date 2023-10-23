@@ -80,7 +80,7 @@ public class TransactionCard extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of an {@code Portion} using an {@code PortionListView}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Portion} using a {@code PortionListView}.
      */
     class PortionListViewCell extends ListCell<Name> {
         private Map<Name, BigFraction> map;

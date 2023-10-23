@@ -63,7 +63,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         }
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Map<Name, Weight> expenseMap = new HashMap<>();
+        Map<Name, Weight> portionMap = new HashMap<>();
         for (int i = 0; i < weights.size(); i++) {
             Name name = ParserUtil.parseName(names.get(i + 1));
             if (name.equals(Name.SELF)) {
@@ -73,17 +73,17 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
                 name = Name.OTHERS;
             }
             Weight weight = ParserUtil.parseWeight(weights.get(i));
-            if (expenseMap.containsKey(name)) {
+            if (portionMap.containsKey(name)) {
                 if (!name.equals(Name.OTHERS)) {
                     throw new ParseException(String.format(MESSAGE_DUPLICATE_PORTION, name.fullName));
                 }
-                Weight previousWeight = expenseMap.get(name);
+                Weight previousWeight = portionMap.get(name);
                 weight = new Weight(previousWeight.value.add(weight.value));
             }
-            expenseMap.put(name, weight);
+            portionMap.put(name, weight);
         }
-        Set<Portion> portions = expenseMap.keySet().stream()
-                .map(x -> new Portion(x, expenseMap.get(x))).collect(Collectors.toSet());
+        Set<Portion> portions = portionMap.keySet().stream()
+                .map(x -> new Portion(x, portionMap.get(x))).collect(Collectors.toSet());
         Transaction transaction = new Transaction(amount, description, payee, portions);
         return new AddTransactionCommand(transaction);
     }

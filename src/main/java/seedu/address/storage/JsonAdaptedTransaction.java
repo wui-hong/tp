@@ -39,7 +39,7 @@ public class JsonAdaptedTransaction {
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount,
                                   @JsonProperty("description") String description,
                                   @JsonProperty("payeeName") String payeeName,
-                                  @JsonProperty("expenses") List<JsonAdaptedPortion> portions,
+                                  @JsonProperty("portions") List<JsonAdaptedPortion> portions,
                                   @JsonProperty("timestamp") String timestamp) {
         this.amount = amount;
         this.description = description;
