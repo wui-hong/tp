@@ -73,7 +73,7 @@ public class TransactionCard extends UiPart<Region> {
             change.setText("-");
             portionListView.setCellFactory(listView -> new PortionListViewCell(subtotals, true));
         } else {
-            change.setText("+" + FractionUtil.toString(subtotals.get(Name.SELF), 2));
+            change.setText("-" + FractionUtil.toString(subtotals.get(Name.SELF), 2));
             portionListView.setCellFactory(listView -> new PortionListViewCell(subtotals, false));
         }
         portionListView.prefHeightProperty().bind(Bindings.size(lst).multiply(ROW_HEIGHT));
@@ -101,7 +101,7 @@ public class TransactionCard extends UiPart<Region> {
                 String subtotal = FractionUtil.toString(map.get(name), 2);
                 String change = "-";
                 if (isCredit && !Name.RESERVED_NAMES.contains(name)) {
-                    change = "-" + subtotal;
+                    change = "+" + subtotal;
                 }
                 setGraphic(new PortionListView(name, subtotal, change, getIndex() + 1).getRoot());
             }
