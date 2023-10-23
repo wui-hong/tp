@@ -1,15 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.portion.Portion;
 
 /**
  * A utility class to help with building EditTransactionDescriptor objects.
@@ -34,7 +30,6 @@ public class EditTransactionDescriptorBuilder {
         descriptor.setAmount(transaction.getAmount());
         descriptor.setDescription(transaction.getDescription());
         descriptor.setPayeeName(transaction.getPayeeName());
-//        descriptor.setPortions(transaction.getPortions());
         descriptor.setTimestamp(transaction.getTimestamp());
     }
 

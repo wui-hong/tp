@@ -1,14 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -185,27 +181,6 @@ public class EditTransactionCommand extends Command {
         public Optional<Name> getPayeeName() {
             return Optional.ofNullable(payeeName);
         }
-
-//        /**
-//         * Sets {@code portions} to this object's {@code portions}.
-//         * A defensive copy of {@code portions} is used internally.
-//         */
-//        public void setPortions(Set<Portion> portions) {
-//            if (!Objects.isNull(portions)) {
-//                requireNonEmptyCollection(portions);
-//                requireAllNonNull(portions);
-//                this.portions = new HashSet<>(portions);
-//            }
-//            this.portions = null;
-//        }
-//
-//        /**
-//         * Returns an unmodifiable portion set, which throws {@code UnsupportedOperationException}
-//         * if modification is attempted.
-//         */
-//        public Optional<Set<Portion>> getPortions() {
-//            return (portions != null) ? Optional.of(Collections.unmodifiableSet(portions)) : Optional.empty();
-//        }
 
         public void setTimestamp(Timestamp timestamp) {
             this.timestamp = timestamp;
