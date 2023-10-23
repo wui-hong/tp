@@ -21,7 +21,7 @@ command to run the application.<br>
 open the help window.<br>
    Some example commands you can try:
 
-    * `list` : Lists all expenses.
+    * `list` : Lists all transactions.
 
     * `clear` : Deletes all content.
 
@@ -387,9 +387,9 @@ to save manually.
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users 
 are welcome to update data directly by editing that data file.
 ## FAQ
-### Why do the expenses in the log not add up exactly to the balance?
-The expenses displayed are rounded to a fixed number of decimal places. This means there may be fractional differences 
-between the actual expenses and what is displayed.
+### Why do the portions in the log not add up exactly to the balance?
+The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences 
+between the actual portions and what is displayed.
 
 Example:
 ```

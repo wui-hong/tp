@@ -16,8 +16,8 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -49,16 +49,16 @@ public class SampleDataUtil {
     public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
             new Transaction(new Amount("60"), new Description("Group Project Lunch"), new Name("Self"), Set.of(
-                new Expense(new Name("Alex Yeoh"), new Weight("2")), new Expense(new Name("Bernice Yu"),
+                new Portion(new Name("Alex Yeoh"), new Weight("2")), new Portion(new Name("Bernice Yu"),
                     new Weight("4"))), new Timestamp("2023-10-13T12:34:56.789")),
             new Transaction(new Amount("90"), new Description("Hall Dinner"), new Name("Bernice Yu"), Set.of(
-                new Expense(new Name("Self"), new Weight("8")), new Expense(new Name("Bernice Yu"), new Weight("4"))),
+                new Portion(new Name("Self"), new Weight("8")), new Portion(new Name("Bernice Yu"), new Weight("4"))),
                     new Timestamp("2023-10-13T12:34:56.790")),
             new Transaction(new Amount("600"), new Description("Shared Dorm Rent"), new Name("Bernice Yu"), Set.of(
-                new Expense(new Name("Self"), new Weight("1")), new Expense(new Name("Bernice Yu"), new Weight("1"))),
+                new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"), new Weight("1"))),
                     new Timestamp("2023-10-13T12:34:56.791")),
             new Transaction(new Amount("100"), new Description("Carpool Subscription"), new Name("Self"), Set.of(
-                new Expense(new Name("Self"), new Weight("1")), new Expense(new Name("Bernice Yu"), new Weight("1"))),
+                new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"), new Weight("1"))),
                     new Timestamp("2023-10-13T12:34:56.792")),
         };
     }

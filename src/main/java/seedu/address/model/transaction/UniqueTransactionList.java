@@ -37,7 +37,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * Get balance for a person with a given name, within a given list.
      */
     public static BigFraction getBalance(Name name, ObservableList<Transaction> transactionList) {
-        return transactionList.stream().map(transaction -> transaction.getPortionOwed(name))
+        return transactionList.stream().map(transaction -> transaction.getPortionAmountOwedSelf(name))
                 .reduce(BigFraction.ZERO, BigFraction::add);
     }
 
@@ -83,6 +83,14 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new TransactionNotFoundException();
         }
         sort();
+    }
+
+    /**
+     * Replaces all names with names from the set.
+     */
+    public void syncNames(Set<Name> validNames) {
+        internalList.setAll(internalList.stream()
+                .map(transaction -> transaction.syncNames(validNames)).collect(Collectors.toList()));
     }
 
     /**

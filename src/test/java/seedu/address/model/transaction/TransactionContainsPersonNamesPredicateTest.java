@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.BENSON_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.CARL_EXPENSE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPortions.ALICE_PORTION;
+import static seedu.address.testutil.TypicalPortions.BENSON_PORTION;
+import static seedu.address.testutil.TypicalPortions.CARL_PORTION;
 
 import java.util.List;
 import java.util.Set;
@@ -54,15 +54,15 @@ public class TransactionContainsPersonNamesPredicateTest {
         TransactionContainsPersonNamesPredicate predicate =
             new TransactionContainsPersonNamesPredicate(List.of(CARL.getName()));
         assertTrue(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
-        assertTrue(predicate.test(new TransactionBuilder().withExpenses(Set.of(CARL_EXPENSE)).build()));
+        assertTrue(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
 
         // Multiple names
         predicate = new TransactionContainsPersonNamesPredicate(List.of(BENSON.getName(), CARL.getName()));
         assertTrue(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
         assertTrue(predicate.test(new TransactionBuilder()
-            .withPayeeName(ALICE.getName().fullName).withExpenses(Set.of(BENSON_EXPENSE, CARL_EXPENSE)).build()));
-        assertTrue(predicate.test(new TransactionBuilder().withExpenses(Set.of(BENSON_EXPENSE)).build()));
-        assertTrue(predicate.test(new TransactionBuilder().withExpenses(Set.of(ALICE_EXPENSE, CARL_EXPENSE)).build()));
+            .withPayeeName(ALICE.getName().fullName).withPortions(Set.of(BENSON_PORTION, CARL_PORTION)).build()));
+        assertTrue(predicate.test(new TransactionBuilder().withPortions(Set.of(BENSON_PORTION)).build()));
+        assertTrue(predicate.test(new TransactionBuilder().withPortions(Set.of(ALICE_PORTION, CARL_PORTION)).build()));
     }
 
     @Test
@@ -71,12 +71,12 @@ public class TransactionContainsPersonNamesPredicateTest {
         TransactionContainsPersonNamesPredicate predicate =
             new TransactionContainsPersonNamesPredicate(List.of());
         assertFalse(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
-        assertFalse(predicate.test(new TransactionBuilder().withExpenses(Set.of(CARL_EXPENSE)).build()));
+        assertFalse(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
 
         // Non-matching name
         predicate = new TransactionContainsPersonNamesPredicate(List.of(new Name("Carol")));
         assertFalse(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
-        assertFalse(predicate.test(new TransactionBuilder().withExpenses(Set.of(CARL_EXPENSE)).build()));
+        assertFalse(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
     }
 
     @Test

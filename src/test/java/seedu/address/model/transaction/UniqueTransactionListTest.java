@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.BENSON_EXPENSE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPortions.ALICE_PORTION;
+import static seedu.address.testutil.TypicalPortions.BENSON_PORTION;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
-import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.portion.Portion;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 
@@ -152,7 +152,7 @@ class UniqueTransactionListTest {
     @Test
     void testGetBalance() {
         transactionList.add(new TransactionBuilder().withAmount("3").withPayeeName(Name.SELF.fullName)
-            .withExpenses(Set.of(ALICE_EXPENSE, BENSON_EXPENSE)).build());
+            .withPortions(Set.of(ALICE_PORTION, BENSON_PORTION)).build());
         assertTrue(transactionList.getBalance(ALICE.getName()).equals(BigFraction.ONE));
         assertTrue(UniqueTransactionList.getBalance(BENSON.getName(),
                 transactionList.asUnmodifiableObservableList()).equals(BigFraction.ONE.add(BigFraction.ONE)));
@@ -163,10 +163,10 @@ class UniqueTransactionListTest {
         private static final Amount amount = new Amount("0");
         private static final Description description = new Description("Stub");
         private static final Name payeeName = TypicalPersons.ALICE.getName();
-        private static final Set<Expense> expenses = new HashSet<>(Collections.singletonList(ALICE_EXPENSE));
+        private static final Set<Portion> portions = new HashSet<>(Collections.singletonList(ALICE_PORTION));
 
         public TransactionWithAliceStub() {
-            super(amount, description, payeeName, expenses);
+            super(amount, description, payeeName, portions);
         }
     }
 
@@ -175,10 +175,10 @@ class UniqueTransactionListTest {
         private static final Amount amount = new Amount("0");
         private static final Description description = new Description("Stub");
         private static final Name payeeName = TypicalPersons.BOB.getName();
-        private static final Set<Expense> expenses = new HashSet<>(Collections.singletonList(BENSON_EXPENSE));
+        private static final Set<Portion> portions = new HashSet<>(Collections.singletonList(BENSON_PORTION));
 
         public TransactionWithBobStub() {
-            super(amount, description, payeeName, expenses);
+            super(amount, description, payeeName, portions);
         }
     }
 }

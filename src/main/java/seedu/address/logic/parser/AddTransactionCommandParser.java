@@ -21,8 +21,8 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
  * Parses input arguments and creates a new AddTransactionCommand object.
@@ -33,7 +33,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
             PREFIX_DESCRIPTION, "[^=]*", PREFIX_NAME, "[^=]*", PREFIX_COST, "[^=]*",
             PREFIX_TIMESTAMP, "[^=]*", PREFIX_NAME, "[^=]*", PREFIX_WEIGHT, "[^=]*");
 
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "Name %s is duplicated in expense string";
+    public static final String MESSAGE_DUPLICATE_PORTION = "Name %s is duplicated in portion string";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
@@ -63,7 +63,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         }
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Map<Name, Weight> expenseMap = new HashMap<>();
+        Map<Name, Weight> portionMap = new HashMap<>();
         for (int i = 0; i < weights.size(); i++) {
             Name name = ParserUtil.parseName(names.get(i + 1));
             if (name.equals(Name.SELF)) {
@@ -73,24 +73,24 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
                 name = Name.OTHERS;
             }
             Weight weight = ParserUtil.parseWeight(weights.get(i));
-            if (expenseMap.containsKey(name)) {
+            if (portionMap.containsKey(name)) {
                 if (!name.equals(Name.OTHERS)) {
-                    throw new ParseException(String.format(MESSAGE_DUPLICATE_EXPENSE, name.fullName));
+                    throw new ParseException(String.format(MESSAGE_DUPLICATE_PORTION, name.fullName));
                 }
-                Weight previousWeight = expenseMap.get(name);
+                Weight previousWeight = portionMap.get(name);
                 weight = new Weight(previousWeight.value.add(weight.value));
             }
-            expenseMap.put(name, weight);
+            portionMap.put(name, weight);
         }
-        Set<Expense> expenses = expenseMap.keySet().stream()
-                .map(x -> new Expense(x, expenseMap.get(x))).collect(Collectors.toSet());
+        Set<Portion> portions = portionMap.keySet().stream()
+                .map(x -> new Portion(x, portionMap.get(x))).collect(Collectors.toSet());
         Timestamp timestamp;
         if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
             timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
         } else {
             timestamp = Timestamp.now();
         }
-        Transaction transaction = new Transaction(amount, description, payee, expenses, timestamp);
+        Transaction transaction = new Transaction(amount, description, payee, portions, timestamp);
         return new AddTransactionCommand(transaction);
     }
 
