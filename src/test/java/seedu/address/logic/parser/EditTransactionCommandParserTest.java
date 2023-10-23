@@ -55,16 +55,16 @@ class EditTransactionCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + VALID_DESCRIPTION, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + PREFIX_DESCRIPTION + VALID_DESCRIPTION, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + VALID_DESCRIPTION, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + PREFIX_DESCRIPTION + VALID_DESCRIPTION, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 i=string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
