@@ -30,7 +30,7 @@ import seedu.address.model.transaction.portion.Portion;
 /**
  * Edits the details of an existing transaction in the transaction list.
  * i.e. cost, description, payeeName
- * Note: Editing of expenses is done via the {@code EditExpenseCommand}.
+ * Note: Editing of expenses is done via the {@code UpdatePortionCommand}.
  */
 public class EditTransactionCommand extends Command {
 

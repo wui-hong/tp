@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.numbers.fraction.BigFraction;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -53,6 +54,9 @@ public class UpdatePortionCommand extends Command {
 
     private final UpdatePortionDescriptor updatePortionDescriptor;
 
+    /**
+     * Edits the portion details of an existing transaction in the transaction list.
+     */
     public UpdatePortionCommand(Index index, UpdatePortionDescriptor updatePortionDescriptor) {
         requireNonNull(index);
         requireAllNonNull(updatePortionDescriptor);

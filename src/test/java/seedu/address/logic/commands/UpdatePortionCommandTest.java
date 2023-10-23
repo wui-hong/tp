@@ -146,9 +146,9 @@ class UpdatePortionCommandTest {
 
     @Test
     public void equals() {
-        final UpdatePortionDescriptor standardDescriptor =  new UpdatePortionDescriptorBuilder()
+        final UpdatePortionDescriptor standardDescriptor = new UpdatePortionDescriptorBuilder()
                 .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
-        final UpdatePortionCommand standardCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT,standardDescriptor);
+        final UpdatePortionCommand standardCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, standardDescriptor);
 
         // same values -> returns true
         UpdatePortionDescriptor copyDescriptor = new UpdatePortionDescriptorBuilder()
@@ -185,5 +185,4 @@ class UpdatePortionCommandTest {
                 + ", updatePortionDescriptor=" + updatePortionDescriptor + "}";
         assertEquals(expectedString, updatePortionCommand.toString());
     }
-
 }

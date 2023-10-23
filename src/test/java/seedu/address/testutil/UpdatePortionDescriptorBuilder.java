@@ -20,6 +20,9 @@ public class UpdatePortionDescriptorBuilder {
         this.descriptor = new UpdatePortionDescriptor(descriptor);
     }
 
+    /**
+     * Returns an {@code UpdatePortionDescriptor} with fields containing {@code portion}'s details
+     */
     public UpdatePortionDescriptorBuilder(Portion portion) {
         descriptor = new UpdatePortionDescriptor();
         descriptor.setPersonName(portion.getPersonName());
