@@ -43,7 +43,7 @@ class EditTransactionCommandTest {
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(
-                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
@@ -64,7 +64,7 @@ class EditTransactionCommandTest {
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(
-                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
@@ -85,7 +85,7 @@ class EditTransactionCommandTest {
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(
-                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
@@ -106,7 +106,7 @@ class EditTransactionCommandTest {
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(
-                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
@@ -121,7 +121,7 @@ class EditTransactionCommandTest {
         Transaction editedTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
 
         String expectedMessage = String.format(
-                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
@@ -141,7 +141,7 @@ class EditTransactionCommandTest {
                 new EditTransactionDescriptorBuilder().withAmount("123.21").build());
 
         String expectedMessage = String.format(
-                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
+                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
