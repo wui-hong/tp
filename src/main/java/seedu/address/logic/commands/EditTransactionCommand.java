@@ -45,7 +45,7 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_NAME + "PAYEE NAME] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COST + "10.00 "
-            + PREFIX_DESCRIPTION + "Bought a book"
+            + PREFIX_DESCRIPTION + "Bought a book "
             + PREFIX_NAME + "John Doe";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";

@@ -40,7 +40,7 @@ public class UpdatePortionCommand extends Command {
             + "[" + PREFIX_WEIGHT + "WEIGHT] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_WEIGHT + "65";
+            + PREFIX_WEIGHT + "1 / 2";
 
     // TODO: Message should also include details about the transaction
     public static final String MESSAGE_UPDATE_PORTION_SUCCESS = "Updated Portion: %1$s";
