@@ -52,7 +52,7 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private Label change;
     @FXML
-    private ListView<Name> expenseListView;
+    private ListView<Name> portionListView;
 
     /**
      * Creates a {@code TransactionCode} with the given {@code Transaction} and index to display.
@@ -60,7 +60,7 @@ public class TransactionCard extends UiPart<Region> {
     public TransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
         this.transaction = transaction;
-        Map<Name, BigFraction> subtotals = transaction.getAllPortions();
+        Map<Name, BigFraction> subtotals = transaction.getAllPortionAmounts();
         ObservableList<Name> lst = new SortedList<>(FXCollections.observableArrayList(
             subtotals.keySet()), (name1, name2) -> name1.compareTo(name2));
         id.setText(displayedIndex + ". ");
@@ -68,25 +68,25 @@ public class TransactionCard extends UiPart<Region> {
         date.setText(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss").format(transaction.getTimestamp().value));
         NameLabel.setNameLabel(payee, transaction.getPayeeName());
         amount.setText(transaction.getAmount().toString());
-        expenseListView.setItems(lst);
+        portionListView.setItems(lst);
         if (transaction.getPayeeName().equals(Name.SELF)) {
             change.setText("-");
-            expenseListView.setCellFactory(listView -> new ExpenseListViewCell(subtotals, true));
+            portionListView.setCellFactory(listView -> new PortionListViewCell(subtotals, true));
         } else {
-            change.setText("+" + FractionUtil.toString(subtotals.get(Name.SELF), 2));
-            expenseListView.setCellFactory(listView -> new ExpenseListViewCell(subtotals, false));
+            change.setText("-" + FractionUtil.toString(subtotals.get(Name.SELF), 2));
+            portionListView.setCellFactory(listView -> new PortionListViewCell(subtotals, false));
         }
-        expenseListView.prefHeightProperty().bind(Bindings.size(lst).multiply(ROW_HEIGHT));
+        portionListView.prefHeightProperty().bind(Bindings.size(lst).multiply(ROW_HEIGHT));
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of an {@code Expense} using an {@code ExpenseListView}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Portion} using a {@code PortionListView}.
      */
-    class ExpenseListViewCell extends ListCell<Name> {
+    class PortionListViewCell extends ListCell<Name> {
         private Map<Name, BigFraction> map;
         private boolean isCredit;
 
-        ExpenseListViewCell(Map<Name, BigFraction> map, boolean isCredit) {
+        PortionListViewCell(Map<Name, BigFraction> map, boolean isCredit) {
             this.map = map;
             this.isCredit = isCredit;
         }
@@ -101,9 +101,9 @@ public class TransactionCard extends UiPart<Region> {
                 String subtotal = FractionUtil.toString(map.get(name), 2);
                 String change = "-";
                 if (isCredit && !Name.RESERVED_NAMES.contains(name)) {
-                    change = "-" + subtotal;
+                    change = "+" + subtotal;
                 }
-                setGraphic(new ExpenseListView(name, subtotal, change, getIndex() + 1).getRoot());
+                setGraphic(new PortionListView(name, subtotal, change, getIndex() + 1).getRoot());
             }
         }
     }

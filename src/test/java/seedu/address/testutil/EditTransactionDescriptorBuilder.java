@@ -9,7 +9,7 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.portion.Portion;
 
 /**
  * A utility class to help with building EditTransactionDescriptor objects.
@@ -34,17 +34,17 @@ public class EditTransactionDescriptorBuilder {
         descriptor.setAmount(transaction.getAmount());
         descriptor.setDescription(transaction.getDescription());
         descriptor.setPayeeName(transaction.getPayeeName());
-        descriptor.setExpenses(transaction.getExpenses());
+        descriptor.setPortions(transaction.getPortions());
         descriptor.setTimestamp(transaction.getTimestamp());
     }
 
     /**
-     * Returns an {@code EditTransactionDescriptor} with fields {@code payeeName} and {@code expenses} set to null.
-     * This is used for v1.2 testing {@code EditTransactionCommand} without {@code payeeName} and {@code expenses}.
+     * Returns an {@code EditTransactionDescriptor} with fields {@code payeeName} and {@code portions} set to null.
+     * This is used for v1.2 testing {@code EditTransactionCommand} without {@code payeeName} and {@code portions}.
      */
-    public EditTransactionDescriptorBuilder withoutPayeeNameAndExpenses() {
+    public EditTransactionDescriptorBuilder withoutPayeeNameAndPortions() {
         descriptor.setPayeeName(null);
-        descriptor.setExpenses(null);
+        descriptor.setPortions(null);
         return this;
     }
 
@@ -82,19 +82,19 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code expenses} into a {@code Set<Expense>}
+     * Parses the {@code portions} into a {@code Set<Portion>}
      * and set it to the {@code EditTransactionDescriptor}.
      * Arguments should be in pairs of {@code name} and {@code weight}.
      */
-    public EditTransactionDescriptorBuilder withExpenses(String... expenses) {
-        if (expenses.length % 2 != 0) {
+    public EditTransactionDescriptorBuilder withPortions(String... portions) {
+        if (portions.length % 2 != 0) {
             throw new IllegalArgumentException("Arguments should be in pairs of name and weight");
         }
-        Set<Expense> expenseSet = new HashSet<>();
-        for (int i = 0; i < expenses.length; i += 2) {
-            expenseSet.add(new ExpenseBuilder().withName(expenses[i]).withWeight(expenses[i + 1]).build());
+        Set<Portion> portionSet = new HashSet<>();
+        for (int i = 0; i < portions.length; i += 2) {
+            portionSet.add(new PortionBuilder().withName(portions[i]).withWeight(portions[i + 1]).build());
         }
-        descriptor.setExpenses(expenseSet);
+        descriptor.setPortions(portionSet);
         return this;
     }
 

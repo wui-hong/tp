@@ -1,4 +1,4 @@
-package seedu.address.model.transaction.expense;
+package seedu.address.model.transaction.portion;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -8,14 +8,15 @@ import org.apache.commons.numbers.fraction.BigFraction;
 import seedu.address.commons.util.FractionUtil;
 
 /**
- * Represents a Weight in an Expense.
+ * Represents a Weight in an Portion.
  * Guarantees: immutable; is valid as declared in {@link #isValidWeight(String)}
  */
 public class Weight {
+    public static final String VALUE_CONSTRAINT = "Weight should be greater than 0";
     public static final String MESSAGE_CONSTRAINTS =
             "Weight should only contain non-negative numbers.";
     public static final String VALIDATION_REGEX =
-            "^(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*))(/(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*)))?$";
+            "^-?(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*))(/(([0-9 ]*[0-9][0-9 ]*)|([0-9 ]*\\.[0-9 ]*)))?$";
     public static final int DEFAULT_DECIMAL_PLACES = 2;
 
     public final BigFraction value;

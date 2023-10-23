@@ -114,14 +114,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addTransaction() throws Exception {
         assertTrue(parser.parseCommand(AddTransactionCommand.COMMAND_WORD
-                + " n=Bob c=20.00 d=bread") instanceof AddTransactionCommand);
+                + " d=bread n=Bob c=20.00 n=self w=1") instanceof AddTransactionCommand);
     }
 
     @Test
     public void parseCommand_editTransaction() throws Exception {
         Transaction transaction = new TransactionBuilder().build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction)
-                .withoutPayeeNameAndExpenses().withoutTimestamp().build();
+                .withoutPayeeNameAndPortions().withoutTimestamp().build();
         EditTransactionCommand command = (EditTransactionCommand) parser.parseCommand(
                 EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
                         + getEditTransactionDescriptorDetails(descriptor));

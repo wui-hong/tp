@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.numbers.fraction.BigFraction;
 
@@ -36,7 +37,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      * Get balance for a person with a given name, within a given list.
      */
     public static BigFraction getBalance(Name name, ObservableList<Transaction> transactionList) {
-        return transactionList.stream().map(transaction -> transaction.getPortionOwed(name))
+        return transactionList.stream().map(transaction -> transaction.getPortionAmountOwedSelf(name))
                 .reduce(BigFraction.ZERO, BigFraction::add);
     }
 
@@ -85,6 +86,14 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
+     * Replaces all names with names from the set.
+     */
+    public void syncNames(Set<Name> validNames) {
+        internalList.setAll(internalList.stream()
+                .map(transaction -> transaction.syncNames(validNames)).collect(Collectors.toList()));
+    }
+
+    /**
      * Removes person p from all {@code transactions} in the list.
      */
     public void deletePerson(Name p, Set<Name> validNames) {
@@ -96,6 +105,14 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             }
         }
         internalList.setAll(validTransactions);
+    }
+
+    /**
+     * Replaces all instances of the target name to the edited name in transactions.
+     */
+    public void setPerson(Name target, Name edited) {
+        internalList.setAll(internalList.stream()
+                .map(transaction -> transaction.setPerson(target, edited)).collect(Collectors.toList()));
     }
 
     public void setTransactions(UniqueTransactionList replacement) {

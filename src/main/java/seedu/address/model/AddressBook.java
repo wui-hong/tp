@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.numbers.fraction.BigFraction;
 
@@ -60,7 +61,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         sortPersons();
     }
 
-
     /**
      * Replaces the contents of the transaction list with {@code transactions}.
      * {@code transactions} must not contain duplicate transactions.
@@ -109,6 +109,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        transactions.setPerson(target.getName(), editedPerson.getName());
+        syncNames();
         sortPersons();
     }
 
@@ -118,8 +120,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-        transactions.deletePerson(key.getName(), persons.nameSet());
+        transactions.deletePerson(key.getName(), getAllNames());
         sortPersons();
+    }
+
+    /**
+     * Returns a set of all names in the addressbook.
+     */
+    public Set<Name> getAllNames() {
+        return persons.getAllNames();
     }
 
     //// transaction-level operations
@@ -139,6 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addTransaction(Transaction transaction) {
         requireNonNull(transaction);
         transactions.add(transaction);
+        syncNames();
         sortPersons();
     }
 
@@ -152,6 +162,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedTransaction);
 
         transactions.setTransaction(target, editedTransaction);
+        syncNames();
         sortPersons();
     }
 
@@ -194,6 +205,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private void sortPersons() {
         persons.sort(personComparator);
+    }
+
+    private void syncNames() {
+        Set<Name> names = getAllNames();
+        names.addAll(Name.RESERVED_NAMES);
+        this.transactions.syncNames(names);
     }
 
     //// util methods

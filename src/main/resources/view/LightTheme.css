@@ -180,15 +180,15 @@
     -fx-word-wrap: break-word;
 }
 
-#expenseListView .list-cell:filled:even {
+#portionListView .list-cell:filled:even {
     -fx-background-color: #eff6ff;
 }
 
-#expenseListView .list-cell:filled:odd {
+#portionListView .list-cell:filled:odd {
     -fx-background-color: #dbeafe;
 }
 
-#expenseListView .list-cell:filled:selected {
+#portionListView .list-cell:filled:selected {
     -fx-background-color: #93c5fd;
 }
 

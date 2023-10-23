@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 
-import static seedu.address.testutil.TypicalExpenses.ALICE_EXPENSE;
+import static seedu.address.testutil.TypicalPortions.ALICE_PORTION;
+import static seedu.address.testutil.TypicalPortions.SELF_PORTION;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,8 +13,8 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
  * A utility class to help with building Transaction objects.
@@ -28,13 +28,13 @@ public class TransactionBuilder {
     // necessary for testing of EditTransactionCommand, to test actual vs expected transactions
     public static final String DEFAULT_TIMESTAMP = "2023-10-12T12:34:56.789";
 
-    public static final Set<Expense> DEFAULT_EXPENSES = new HashSet<>(
-            List.of(new Expense(TypicalPersons.BOB.getName(), new Weight("1.0"))));
+    public static final Set<Portion> DEFAULT_PORTIONS = new HashSet<>(
+            List.of(new Portion(TypicalPersons.BOB.getName(), new Weight("1.0"))));
 
     private Amount amount;
     private Description description;
     private Name payeeName;
-    private Set<Expense> expenses;
+    private Set<Portion> portions;
     private Timestamp timestamp;
 
     /**
@@ -44,7 +44,7 @@ public class TransactionBuilder {
         amount = new Amount(DEFAULT_AMOUNT);
         description = new Description(DEFAULT_DESCRIPTION);
         payeeName = new Name(DEFAULT_PAYEE_NAME);
-        expenses = new HashSet<>(Collections.singletonList(ALICE_EXPENSE));
+        portions = Set.of(ALICE_PORTION, SELF_PORTION);
         timestamp = Timestamp.now();
     }
 
@@ -55,7 +55,7 @@ public class TransactionBuilder {
         amount = transactionToCopy.getAmount();
         description = transactionToCopy.getDescription();
         payeeName = transactionToCopy.getPayeeName();
-        expenses = new HashSet<>(transactionToCopy.getExpenses());
+        portions = new HashSet<>(transactionToCopy.getPortions());
         timestamp = transactionToCopy.getTimestamp();
     }
 
@@ -84,10 +84,10 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Expenses} of the {@code Transaction} that we are building.
+     * Sets the {@code Portions} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withExpenses(Set<Expense> expenses) {
-        this.expenses = expenses;
+    public TransactionBuilder withPortions(Set<Portion> portions) {
+        this.portions = portions;
         return this;
     }
 
@@ -100,6 +100,6 @@ public class TransactionBuilder {
     }
 
     public Transaction build() {
-        return new Transaction(amount, description, payeeName, expenses, timestamp);
+        return new Transaction(amount, description, payeeName, portions, timestamp);
     }
 }
