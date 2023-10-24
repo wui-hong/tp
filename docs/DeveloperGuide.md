@@ -238,6 +238,26 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Editing Transactions
+
+#### Implementation
+
+Editing transactions mechanism is facilitated by `EditTransactionCommand`. It extends `Command` with the ability to edit a transaction.
+
+It consists of the following classes:
+
+* `EditTransactionCommand`— Represents a command to edit a transaction.
+* `EditTransactionCommandParser`— Parses user input into a `EditTransactionCommand`.
+* `EditTransactionDescriptor`— Stores the details to edit the transaction with. Each non-empty field value will replace the corresponding field value of the transaction.
+
+<img src="images/EditTransactionCommandDiagram.png" width="550" />
+
+**Note**: The above class diagram is to be updated to reflect the new implementation, with the addition of `UpdateExpenseCommand`.
+
+Upon execution, `EditTransactionCommand` will retrieve the transaction to be edited from `filteredTransactionList` from `Model`, create a copy of the `Transaction` object with the new details, then replace the old `Transaction` object with the new one in `filteredTransactionList`.
+
+We chose this method of execution instead of directly editing the `Transaction` object in `filteredTransactionList` because `Model` re-renders the UI only when `filteredTransactionList` is updated. If we were to edit the `Transaction` object directly, `Model` would not be able to detect the change and re-render the UI.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
