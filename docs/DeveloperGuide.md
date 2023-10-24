@@ -514,6 +514,7 @@ Extensions:
   * **Negative Balance**: Indicates that you owe the contact money.
 * **Outstanding Balance**: The amount of unsettled money between you and your contact.
 * **Settle**: The action of clearing any outstanding balance between you and another contact via a new portion.
+* **Payee**: The person that paid the bill for that specific transaction
 
 **General**
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
@@ -561,6 +562,23 @@ testers are expected to do more *exploratory* testing.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
+### Deleting a transaction
+
+1. Deleting a transaction while all transactions are being shown
+
+    1. Prerequisites: There already exist some transactions in the application.
+
+    1. Test case: `deleteTransaction 1`<br>
+       Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `delete 0`<br>
+       Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect delete commands to try: `deleteTransaction`, `deleteTransaction x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
