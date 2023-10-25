@@ -139,45 +139,31 @@ Examples:
 ![](images/user-guide/log4.png)
 
 
-### Settling transactions: `settle`
+### Settling transactions: `settlePerson`
 Fully settles the outstanding balance with the specified person.
 After settling, outstanding balance with the specified person will be 0.
 
-Format: `settle n=NAME`
+Format: `settlePerson INDEX`
 
 Example:
-- `settle n=Bob`
-    - settles the outstanding balance with contact Bob.
+*  `settlePerson 1` settles the outstanding balance with the 2nd person in the displayed list.
 
 Sample Execution:
 ```
-$ settle 
+$ settlePerson 
 
-Error: Please indicate the person you would like to settle transactions with.
+Invalid command format! 
+settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
+Example: settlePerson 1
 
-$ settle n=Bob
+$ settlePerson 1
 
-Confirm settle transaction with Bob? [Y/N]
-    Bob owes you $50. 
-    
-$ Y
-
-Successfully settled transaction with Bob.  
-    No outstanding balance with Bob.
-
-$ settle n=Mary
-
-Confirm settle transaction with Mary? [Y/N]
-    You owe Mary $30.
-
-$ N
+Balance settled: Alex Yeoh 
 ```
 
-![settle error](images/user-guide/settle1.jpg)
+![settle error](images/user-guide/settle1.jpeg)
 
-![settle prompt confirm](images/user-guide/settle2.jpg)
-
-![settle success](images/user-guide/settle3.jpg)
+![settle success](images/user-guide/settle2.jpeg)
 
 
 ### Listing balances of all persons : `list`

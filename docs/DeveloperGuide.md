@@ -9,7 +9,21 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+We would like to acknowledge the following libraries for use in Spend n Split:
+
+* **[JavaFX](https://openjfx.io/)**: The GUI framework of Spend n Split.
+
+* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for Spend n Split.
+
+* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend n Split.
+
+* **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
+* 
+* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend n Split.
+
+* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The font used in Spend n Split.
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -121,8 +135,8 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object) and all `Transaction` objects (which are contained in a `UniqueTransactionList` object).
+* stores the currently 'selected' `Person` and `Transaction` objects (e.g., results of a search query) as separate _filtered_ lists which are exposed to outsiders as unmodifiable `ObservableList<Person>` and `ObservableList<Transaction>` lists that can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the lists change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -485,7 +499,9 @@ Extensions:
 * 1a. Person does not exist in the contact list.
   * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
   * 1a2. Use case resumes at step 2.
-
+* 1b. User does not have an outstanding balance with the person.
+  * 1b1. Spend n Split informs the user that there is no outstanding balance with that person.
+  * 1b2. Use case resumes at step 3.
 ---
 
 **Use Case: UC10 - Delete a Transaction**
