@@ -56,7 +56,7 @@ class UpdatePortionCommandTest {
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
-                Messages.format(editedTransaction));
+                Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
@@ -79,7 +79,7 @@ class UpdatePortionCommandTest {
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_THIRD_ELEMENT, descriptor);
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
-                Messages.format(editedTransaction));
+                Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(2), editedTransaction);
 
@@ -131,7 +131,7 @@ class UpdatePortionCommandTest {
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
-                Messages.format(editedTransaction));
+                Messages.format(editedTransaction, true));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
@@ -155,7 +155,7 @@ class UpdatePortionCommandTest {
                 new UpdatePortionDescriptorBuilder(newPortion).build());
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
-                Messages.format(editedTransaction));
+                Messages.format(editedTransaction, true));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);

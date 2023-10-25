@@ -88,7 +88,7 @@ public class UpdatePortionCommand extends Command {
         model.setTransaction(transactionToEdit, transactionWithUpdatedPortions);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(
-                String.format(MESSAGE_UPDATE_PORTION_SUCCESS, Messages.format(transactionWithUpdatedPortions)));
+                String.format(MESSAGE_UPDATE_PORTION_SUCCESS, Messages.format(transactionWithUpdatedPortions, true)));
     }
 
     /**
