@@ -40,6 +40,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label telegramHandle;
+    @FXML
     private Label address;
     @FXML
     private Label email;
@@ -60,6 +62,7 @@ public class PersonCard extends UiPart<Region> {
         }
         balance.setText("Balance: " + balanceString);
         phone.setText(person.getPhone().value);
+        telegramHandle.setText(person.getTelegramHandle().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().stream()

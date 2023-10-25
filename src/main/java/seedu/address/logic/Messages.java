@@ -43,6 +43,8 @@ public class Messages {
         builder.append(person.getName())
             .append("; Phone: ")
             .append(person.getPhone())
+            .append("; Telegram Handle: ")
+            .append(person.getTelegramHandle())
             .append("; Email: ")
             .append(person.getEmail())
             .append("; Address: ")
