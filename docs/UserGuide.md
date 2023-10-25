@@ -268,7 +268,7 @@ Sorts the list of people in your address book based on their outstanding balance
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
-Format: `sortBalance ORDER`
+Format: `sortPerson ORDER`
 
 Parameters:
 - `ORDER`: Specifies the order in which to sort the balances. Use `-` for ascending order (or most negative balance at the top) and `+` for descending order (or most positive balance at the top). Raise error for missing or unknown parameters.
