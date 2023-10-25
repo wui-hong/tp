@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+top to bottom direction
+skinparam linetype ortho
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+class Command
+
+class Transaction {
+}
+class UniqueTransactionList {
+}
+class UpdatePortionCommand {
+}
+
+class UpdatePortionCommandParser {
+}
+
+UniqueTransactionList      "1" *-[#595959,plain]-> "internalList\n*" Transaction
+UpdatePortionCommand        -[#000082,plain]up-^  Command
+UpdatePortionCommand        -[#595959,dashed]left->  Transaction                : "«create»"
+UpdatePortionCommand        -[#595959,dashed]->  UpdatePortionDescriptor    : "«create»"
+UpdatePortionCommand       "1" *-[#595959,plain]-> "1" UpdatePortionDescriptor
+UpdatePortionCommandParser  -[#595959,dashed]->  UpdatePortionCommand       : "«create»"
+UpdatePortionCommandParser  -[#595959,dashed]->  UpdatePortionDescriptor    : "«create»"
+@enduml
