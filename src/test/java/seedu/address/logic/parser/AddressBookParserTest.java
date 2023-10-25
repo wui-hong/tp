@@ -121,7 +121,7 @@ public class AddressBookParserTest {
     public void parseCommand_editTransaction() throws Exception {
         Transaction transaction = new TransactionBuilder().build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction)
-                .withoutPayeeNameAndPortions().withoutTimestamp().build();
+                .withoutTimestamp().build();
         EditTransactionCommand command = (EditTransactionCommand) parser.parseCommand(
                 EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
                         + getEditTransactionDescriptorDetails(descriptor));
