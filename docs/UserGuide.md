@@ -1,5 +1,3 @@
-# User Guide
-
 ## Welcome to Spend n Split!
 
 ***Taking care of your finances has never been easier!***
@@ -34,7 +32,7 @@ get your contact transaction management tasks done faster than traditional GUI a
     * `exit` : Exits the app.
 
 6. Learn more about navigating the app in the [Navigating the App](#navigating-the-app) section below.
-6. Learn more about the commands in the [Features](#features) section below.
+7. Learn more about the commands in the [Features](#features) section below.
 
 ---
 
@@ -50,7 +48,7 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 | **Command Output Display** | Shows the result of the command execution.                                                                                 |
 | **Transaction List**       | Shows a list of transactions. <br/> The list can be filtered and sorted by the user.                                       |
 | **Transaction Card**       | Shows the details of a transaction. <br/> Details include the description, date, payee, as well as the breakdown of costs. |
-| **Person List**            | Shows a list of persons. <br/> TheÏ list can be filtered and sorted by the user.                                           |
+| **Person List**            | Shows a list of persons. <br/> The list can be filtered and sorted by the user.                                            |
 | **Person Card**            | Shows the details of a person. <br/> Details include name, balance, phone number, etc.                                     |
 
 ---
@@ -159,51 +157,60 @@ updatePortion 1 n=Alice w=0.5
 
 ### Deleting a transaction: `deleteTransaction`
 
-Deletes the specified transaction based on index. Must be in a transaction log view when entering this command.
+Deletes the specified transaction based on index.
 
 Format: `deleteTransaction INDEX`
 
-Parameters:
-
-- `INDEX`: The index of the transaction to be deleted.
+* The index refers to the index number shown in the displayed transaction list. The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 
-* `deleteTransaction 2`
-    * Deletes the second transaction in the list
 * `deleteTransaction 1`
     * Deletes the first transaction in the list
 
-![](images/user-guide/deleteExpense1.png)
+Sample Execution:
 
-![](images/user-guide/deleteExpense2.png)
+```
+$ deleteTransaction 4
 
-![](images/user-guide/deleteExpense3.png)
+Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Amount: 60.00; Paid by: Self; Portions: [name: Benson Meier, weight: 4.00][name: Alice Pauline, weight: 2.00]
+```
 
-### Viewing my log with a person: `log`
+![](images/user-guide/deleteTransaction.png)
 
-Shows a list of the transactions with the specified person.
+### Listing transactions: `listTransaction`
 
-Format: `log p=PERSON`
+Shows a list of transactions that includes the specified people. If no people are specified, all transactions will be shown.
 
-Parameters:
+Format: `listTransaction [n=NAME]`
 
-- `p=PERSON`: Specifies the name of the person whose log we want to check.
+* The name refers to the name of the person in the transaction (either as a payee or a payer).
+* The name must contain only alphabets, numbers, and spaces. It cannot be empty and is case-insensitive.
 
 Examples:
 
-* `log p=Bob`
-    * Shows log with Bob
-* `log p=Alice`
-    * Shows log with Alice
+* `listTransaction`
+    * Shows all transactions
+* `listTransaction n=Alice Pauline n=Carl Kurz`
+    * Shows all transactions that include Alice Pauline or Carl Kurz
 
-![log success](images/user-guide/log1.png)
+Sample Execution:
 
-![](images/user-guide/log2.png)
+```
+$ listTransaction
 
-![](images/user-guide/log3.png)
+5 transactions listed!
+```
 
-![](images/user-guide/log4.png)
+![listTransaction1 success](images/user-guide/listTransaction1.png)
+
+```
+$ listTransaction n=Alice Pauline n=Carl Kurz
+
+2 transactions listed!
+```
+
+![listTransaction2 success](images/user-guide/listTransaction2.png)
 
 ### Settling transactions: `settlePerson`
 
@@ -234,25 +241,26 @@ Balance settled: Alex Yeoh
 
 ![settle success](images/user-guide/settle2.jpeg)
 
-### Listing balances of all persons : `list`
+### Listing people: `listPerson`
 
 Shows the outstanding balances for each person, along with their contact information.
 
-Format: `list`
+Format: `listPerson`
+* The outstanding balance is calculated as follows:
+    * Outstanding balance = Total amount owed to you - Total amount you owe
+* The list is sorted by the outstanding balance in descending order:
+    * The person who owes you the most money will be shown first.
+    * The person who you owe the most money to will be shown last.
 
 Sample Execution:
 
 ```
-$ list
+$ listPerson
 
-| S/N | Name | Contact  | Balance |
-| --- | ---  | -------- | ------- |
-|  1  | Amy  | 95382713 |   $50   |
-|  2  | John | 82347185 |  -$14   |
-
+Listed all persons
 ```
 
-![list success](images/user-guide/list1.png)
+![listPerson success](images/user-guide/listPerson.png)
 
 ### Sorting people by balance: `sortPerson`
 
