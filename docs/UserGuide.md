@@ -287,16 +287,16 @@ All contacts balance in descending order. Negative balance means you own them mo
 
 ### __v1.1__
 
-### Adding a person: `add`
+### Adding a person: `addPerson`
 
 Adds a person to the address book.
 
-Format: `add n=NAME p=PHONE_NUMBER e=EMAIL a=ADDRESS [t=TAG]…​`
+Format: `addPerson n=NAME p=PHONE_NUMBER e=EMAIL a=ADDRESS [t=TAG]…​`
 
 Examples:
 
-* `add n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
-* `add n=Betsy Crowe t=friend e=betsycrowe@example.com a=Newgate Prison p=1234567 t=criminal`
+* `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
+* `addPerson  n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
 
 ### Listing all persons : `list` (deprecated)
 
@@ -305,13 +305,11 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
-![list](images/user-guide/listOld.png)
-
-### Editing a person : `edit`
+### Editing a person : `editPerson`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
+Format: `editPerson INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
   The index **must be a positive integer** 1, 2, 3, …​
@@ -323,11 +321,13 @@ Format: `edit INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
 Examples:
 
-* `edit 1 p=91234567 e=johndoe@example.com`
+* `editPerson 1 p=91234567 e=johndoe@example.com`
     * Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com`
       respectively.
-* `edit 2 n=Betsy Crower t=`
+* `editPerson 2 n=Betsy Crower t=`
     * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+  ![editPerson_success](C:\Users\khoow\Documents\tp\docs\images\user-guide\editPerson.PNG)
 
 ### Locating persons by name: `find`
 
@@ -346,13 +346,13 @@ Examples:
 
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`
-  ![find success](images/user-guide/find1.png)
+  ![find success](C:\Users\khoow\Documents\tp\docs\images\user-guide\find.PNG)
 
-### Deleting a person : `delete`
+### Deleting a person : `deletePerson`
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX`
+Format: `deletePerson INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -360,24 +360,23 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
-![](images/user-guide/delete1.png)
+![](C:\Users\khoow\Documents\tp\docs\images\user-guide\deletePerson.PNG)
 
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
-![](images/user-guide/clear1.png)
+![](C:\Users\khoow\Documents\tp\docs\images\user-guide\clear.PNG)
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
-![](images/user-guide/exit1.png)
 
 ### Saving the data
 
