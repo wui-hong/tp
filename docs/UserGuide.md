@@ -62,28 +62,39 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 ### Adding a transaction: `addTransaction`
 
 Adds a Transaction.
-Format: `addTransaction n=NAME c=COST d=DETAILS`
+`addTransaction`
+Creates a transaction for multiple people with customised split ratios.
+
+Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
+- Cost and weights have to be decimal numbers or fractions, and they must be positive.
+- The first name refers to the payee (that is the person whom everyone else now owes).
+- If the timestamp is not provided, the default time is the current system time.
+- If you want to create a weight for yourself, include `n=Self` to refer to yourself.
+- At least one pair of name and weight must be provided.
+- The cost for each person is calculated as follows:
+    - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
 Examples:
+* `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
+    * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
+* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary =w1`
+    * Rent costed $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
 
-* `addTransaction n=John Doe c=25 d=Sourdough bread`
-* `addTransaction n=Sir Bobby c=1759 d=Iphone 20`
-
-Sample Execution:
-
-```bash
-$ addTransaction n=John Doe c=25 d=Sourdough bread 
-
-Added a transaction for John Doe. Sourdough bread, $25.00.
-
-$ addTransaction n=Ryan d=Sourdough bread 
-
-Error. Transaction cost was not provided with a c= flag.
+Sample execution:
 ```
+$ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
 
-![addTransaction success](images/user-guide/addExpense1.jpg)
+```
+![addTransaction success](images/user-guide/addTransaction1.png)
 
-![addTransaction error](images/user-guide/addExpense2.jpg)
+
+```
+$ addTransaction c=200 d=Textbooks
+
+Invalid command format! 
+addTransaction: Adds a transaction to the address book. 
+Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
+```
 
 ### Editing a Transaction: `editTransaction`
 
@@ -243,97 +254,36 @@ $ list
 
 ![list success](images/user-guide/list1.png)
 
-### Sorting people by balance: `sortBalance`
+### Sorting people by balance: `sortPerson`
 
 Sorts the list of people in your address book based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
-Format: `sortBalance o=ORDER`
+Format: `sortBalance ORDER`
 
 Parameters:
-
-- `o=ORDER`: Specifies the order in which to sort the balances. Use `asc` for ascending order and `desc` for
-  descending order. Raise error for missing or unknown parameters.
+- `ORDER`: Specifies the order in which to sort the balances. Use `-` for ascending order (or most negative balance at the top) and `+` for descending order (or most positive balance at the top). Raise error for missing or unknown parameters.
 
 Examples:
-
-* `sortBalance o=asc`
-    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed
-      by others in increasing order of their outstanding balances.
-* `sortBalance o=desc`
-    * This command will rearrange the list to show the person with the highest outstanding balance at the top,
-      followed by others in decreasing order of their outstanding balances.
+* `sortPerson -`
+    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
+        by others in increasing order of their outstanding balances.
+* `sortPerson +`
+    * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
+        followed by others in decreasing order of their outstanding balances.
 
 Sample execution:
 
 ```
-$ sortBalance o=asc
-All contacts balance in ascending order. Negative balance means you own them money.
-1. Alex Yeoh, -$15
-2. Bernice Yu, -$12
-3. Charlotte Oliveiro, $23
+$ sortPerson +
+All contacts balance in descending order. Negative balance means you own them money.
+1. John, +40.00
+2. Mary, +40.00
+3. Alice, +20.00
 ```
+![sortPerson success](images/user-guide/sortPerson1.png)
 
-![sortBalance success](images/user-guide/sortBalance1.png)
-
-```
-$ sortBalance
-Invalid sorting order, must be `o=asc` or `o=desc`
-
-$ sortBalance o=increasing
-Invalid sorting order, must be `o=asc` or `o=desc`
-```
-
-![sortBalance error](images/user-guide/sortBalance2.png)
-
-### Creating shared transactions: `createGroupTransaction`
-
-Creates a transaction for multiple people with customised split ratios.
-
-Format: `createGroupTransaction c=COST d=DETAILS [n=NAME w=WEIGHT]...`
-
-- Cost has to be a number.
-- Positive cost means that the person owes you.
-- Negative cost means that you owe the person.
-- If you want to create a weight for yourself, include `n=Self` to refer to yourself.
-- At least one pair of name and weight must be provided.
-- Weight must be an integer.
-- The cost for each person is calculated as follows:
-    - Individual cost = Total Cost * (Individual Weight / Total Weight)
-
-Examples:
-
-* `createGroupTransaction c=100 d=Dinner n=John w=2 n=Mary w=2 n=Alice w=1`
-    * creates 3 transactions: two transactions of $40 for John and Mary (2/5 of $100 each), and one transaction of $20
-      for
-      Alice (1/5 of $100)
-* `createGroupTransaction c=600 d=Rent n=Self w=1 n=John w=1 n=Mary =w1`
-    * creates 2 transactions: $200 each for John and Mary (since you incurred 1/3 of the cost, which is $200)
-
-Sample execution:
-
-```
-$ createGroupTransaction c=100 d=Dinner n=John w=2 n=Mary w=2 n=Alice w=1
-
-Successfully created 3 transactions totalling $100:    
-    John owes you $40
-    Mary owes you $40
-    Alice owes you $20
-```
-
-![createGroupTransaction success](images/user-guide/createGroupExpense1.png)
-
-```
-$ createGroupTransaction c=200 d=Textbooks
-
-Error: At least one other person must be included in a shared transaction.
-
-For example,
-c=30 d=Lunch n=John w=1 n=Mary w=1
-```
-
-![createGroupTransaction error](images/user-guide/createGroupExpense2.png)
 
 ### __v1.1__
 
