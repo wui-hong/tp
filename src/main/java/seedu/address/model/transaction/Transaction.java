@@ -166,7 +166,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns an immutable expenses set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable portions set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Portion> getPortions() {
