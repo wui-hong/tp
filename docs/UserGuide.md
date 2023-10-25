@@ -58,38 +58,56 @@ Error. Transaction cost was not provided with a c= flag.
 
 
 ### Editing a Transaction: `editTransaction`
-Edits the transaction for the person at the specified `INDEX`. The index refers to the index number when viewing a 
-specific person's transactions. The index **must be a positive integer** 1, 2, 3, …​
-Format: `editTransaction n=NAME INDEX [c=COST] [d=DETAILS]​`
+Edits the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList. The index **must be a positive integer** 1, 2, 3, ...
+
+Transaction details that can be edited:
+* Description
+* Cost
+* Payee
+
+Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE]`
 
 Examples:
-* `editTransaction n=John Doe 1 c=35`
-* `editTransaction n=Sir Bobby 4 d=iPhone 30`
+* `editTransaction 1 c=12.12`
+* `editTransaction 2 d=Potato n=Bob`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* A transaction cannot be edited to be "irrelevant".
+
+Sample Execution:
+``` 
+editTransaction 1 n=Bob c=12.12
+```
+
+![editTransaction success](images/user-guide/editTransactionSuccess.png)
+
+### Updating a Portion of a Transaction: `updatePortion`
+Updates the portion of a transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList. The index **must be a positive integer** 1, 2, 3, ...
+
+Portion refers to the amount of money that a person owes you for a transaction. \
+The portion is calculated based on the cost of the transaction and the proportion of the transaction that the person has to pay for, which is determined by the `WEIGHT` of the person.
+
+
+
+Format: `updatePortion INDEX n=NAME w=WEIGHT`
+
+Examples:
+* To add a new person (e.g. Alice) to the transaction:
+    * `updatePortion 1 n=Alice w=0.5`
+
+
+* To edit the weight of an existing person (e.g. Bob) in the transaction: 
+  * `updatePortion 1 n=Bob w=0.5`
+
+
+* To remove an existing person (e.g. Bob) from the transaction, set the weight to 0:
+  * `updatePortion 1 n=Bob w=0`
 
 Sample Execution:
 ```
-Suppose this is the list of transactions for Bob:
-
-$ log n=Bob
-
-1.            eat                  $1.00    Bob
-2.            Pokemon Cards        $15.12   Bob
-
-$ editTransaction n=Bob 2 c=12.12
-
-I have edited Bob's transaction to be Pokemon Cards, $12.12.
-
-$ editTransaction n=Bob 3 d=Potato
-
-Error! There is no such transaction for Bob at that index.
+updatePortion 1 n=Alice w=0.5
 ```
-![editTransaction success](images/user-guide/editExpense1.jpg)
-
-
-![editTransaction error](images/user-guide/editExpense2.jpg)
-
+![](images/user-guide/updatePortionSuccess.png)
 
 
 ### Deleting a transaction: `deleteTransaction`
