@@ -21,7 +21,7 @@ public class UpdatePortionDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code UpdatePortionDescriptor} with fields containing {@code portion}'s details
+     * Returns an {@code UpdatePortionDescriptor} with fields containing {@code portion}'s details.
      */
     public UpdatePortionDescriptorBuilder(Portion portion) {
         descriptor = new UpdatePortionDescriptor();
