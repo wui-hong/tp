@@ -12,22 +12,22 @@ import seedu.address.model.Model;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Deletes a transaction identified using it's displayed index from the address book.
+ * Duplicates a transaction identified using it's displayed index from the address book.
  */
-public class DeleteTransactionCommand extends Command {
+public class DuplicateTransactionCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteTransaction";
+    public static final String COMMAND_WORD = "duplicateTransaction";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
+        + ": Duplicates the transaction identified by the index number used in the displayed transaction list.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Transaction: %1$s";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION_SUCCESS = "Duplicated Transaction: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteTransactionCommand(Index targetIndex) {
+    public DuplicateTransactionCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -40,10 +40,15 @@ public class DeleteTransactionCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
-        Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTransaction(transactionToDelete);
+        Transaction transaction = lastShownList.get(targetIndex.getZeroBased());
+
+        // Use the same information as the original transaction, except for the timestamp to be the current time
+        Transaction transactionToDuplicate = new Transaction(transaction.getAmount(), transaction.getDescription(),
+            transaction.getPayeeName(), transaction.getPortions());
+
+        model.addTransaction(transactionToDuplicate);
         return new CommandResult(
-            String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, Messages.format(transactionToDelete, true)));
+            String.format(MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(transactionToDuplicate, false)));
     }
 
     @Override
@@ -53,12 +58,12 @@ public class DeleteTransactionCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteTransactionCommand)) {
+        if (!(other instanceof DuplicateTransactionCommand)) {
             return false;
         }
 
-        DeleteTransactionCommand otherDeleteTransactionCommand = (DeleteTransactionCommand) other;
-        return targetIndex.equals(otherDeleteTransactionCommand.targetIndex);
+        DuplicateTransactionCommand otherDuplicateTransactionCommand = (DuplicateTransactionCommand) other;
+        return targetIndex.equals(otherDuplicateTransactionCommand.targetIndex);
     }
 
     @Override
