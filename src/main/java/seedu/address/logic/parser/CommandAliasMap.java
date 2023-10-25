@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ALIAS;
+import static seedu.address.logic.Messages.MESSAGE_SHORTHAND_IS_COMMAND;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.HashMap;
@@ -79,6 +80,9 @@ public class CommandAliasMap {
     public String putAlias(String command, String alias) throws CommandException {
         if (!fullCommands.contains(command)) {
             throw new CommandException(MESSAGE_UNKNOWN_COMMAND + " " + command);
+        }
+        if (fullCommands.contains(alias)) {
+            throw new CommandException(MESSAGE_SHORTHAND_IS_COMMAND + " " + command);
         }
         if (aliasToCommand.containsKey(alias)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_ALIAS, alias, aliasToCommand.get(alias)));
