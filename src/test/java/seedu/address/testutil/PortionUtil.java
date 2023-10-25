@@ -11,7 +11,7 @@ import seedu.address.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor
 public class PortionUtil {
 
     /**
-     * Returns the part of command string for the given {@code UpdatePortionDescriptor}'s details.\
+     * Returns the part of command string for the given {@code UpdatePortionDescriptor}'s details.
      */
     public static String getUpdatePortionDescriptorDetails(UpdatePortionDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();

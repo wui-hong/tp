@@ -34,10 +34,11 @@ public class UpdatePortionCommand extends Command {
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Edits the portion details of the transaction identified "
             + "by the index number used in the displayed transaction list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing values will be overwritten by the input values. "
+            + "Setting the weight of an existing portion will delete it.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_WEIGHT + "WEIGHT] "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_WEIGHT + "WEIGHT "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_WEIGHT + "1 / 2";

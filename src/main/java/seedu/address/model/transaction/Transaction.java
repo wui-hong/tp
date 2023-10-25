@@ -174,7 +174,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns a copy of the portions set.
+     * Returns a mutable copy of the portions set.
      */
     public Set<Portion> getPortionsCopy() {
         return new HashSet<>(portions);
