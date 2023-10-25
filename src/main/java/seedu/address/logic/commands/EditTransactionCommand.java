@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.List;
 import java.util.Objects;
@@ -39,10 +40,12 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_COST + "COST] "
             + "[" + PREFIX_DESCRIPTION + "DETAILS] "
             + "[" + PREFIX_NAME + "PAYEE NAME] "
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COST + "10.00 "
             + PREFIX_DESCRIPTION + "Bought a book "
-            + PREFIX_NAME + "John Doe";
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_TIMESTAMP + "2020-01-01 12:00";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
 
