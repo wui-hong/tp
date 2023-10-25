@@ -19,6 +19,12 @@ public class CommandAliasMapTest {
             assertTrue(e == null);
         }
         try {
+            map.putAlias(ListPersonCommand.COMMAND_WORD, SetShorthandCommand.COMMAND_WORD);
+            assertTrue(false);
+        } catch (Exception e) {
+            assertTrue(e instanceof CommandException);
+        }
+        try {
             map.putAlias(ListPersonCommand.COMMAND_WORD, "a");
             assertTrue(false);
         } catch (Exception e) {
