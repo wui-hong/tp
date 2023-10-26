@@ -97,7 +97,7 @@ public class EditTransactionCommand extends Command {
      * edited with {@code editTransactionDescriptor}.
      * Portions are not edited with this {@code EditTransactionCommand}
      */
-    private static Transaction createEditedTransaction(Transaction transactionToEdit, EditTransactionDescriptor
+    public static Transaction createEditedTransaction(Transaction transactionToEdit, EditTransactionDescriptor
             editTransactionDescriptor) {
         assert transactionToEdit != null;
 
