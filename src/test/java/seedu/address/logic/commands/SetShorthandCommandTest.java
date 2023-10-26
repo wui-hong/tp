@@ -3,10 +3,29 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+
 public class SetShorthandCommandTest {
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void execute() {
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new UserPrefs(model.getUserPrefs()));
+        SetShorthandCommand cmd = new SetShorthandCommand(SetShorthandCommand.COMMAND_WORD, "a");
+        String expectedMessage = String.format(SetShorthandCommand.MESSAGE_SET_SHORTHAND_SUCCESS,
+                "a", SetShorthandCommand.COMMAND_WORD);
+        assertTransactionCommandSuccess(cmd, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void equals() {
