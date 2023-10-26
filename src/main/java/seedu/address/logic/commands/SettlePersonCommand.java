@@ -26,7 +26,7 @@ import seedu.address.model.transaction.portion.Weight;
  */
 public class SettlePersonCommand extends Command {
     public static final String COMMAND_WORD = "settlePerson";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Settle any outstanding balance with another person. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Settle any outstanding balance with another person.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

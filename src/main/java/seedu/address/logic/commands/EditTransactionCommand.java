@@ -40,7 +40,7 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_COST + "COST] "
             + "[" + PREFIX_DESCRIPTION + "DETAILS] "
             + "[" + PREFIX_NAME + "PAYEE NAME] "
-            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP] "
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COST + "10.00 "
             + PREFIX_DESCRIPTION + "Bought a book "

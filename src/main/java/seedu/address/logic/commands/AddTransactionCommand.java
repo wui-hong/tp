@@ -20,7 +20,7 @@ public class AddTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "addTransaction";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the address book. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the address book.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_NAME + "NAME "
@@ -28,7 +28,7 @@ public class AddTransactionCommand extends Command {
             + "["
             + PREFIX_NAME + "NAME "
             + PREFIX_WEIGHT + "WEIGHT"
-            + "] "
+            + "]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "bread "
             + PREFIX_NAME + "John Doe "

@@ -38,7 +38,7 @@ public class UpdatePortionCommand extends Command {
             + "Setting the weight of an existing portion will delete it.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_NAME + "NAME "
-            + PREFIX_WEIGHT + "WEIGHT "
+            + PREFIX_WEIGHT + "WEIGHT\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_WEIGHT + "1 / 2";
