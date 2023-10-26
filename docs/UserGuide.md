@@ -1,3 +1,8 @@
+---
+layout: page
+title: User Guide
+---
+
 ## Welcome to Spend n Split!
 
 ***Taking care of your finances has never been easier!***
@@ -5,6 +10,9 @@
 Spend n Split (SnS) is a **desktop app for managing transactions from contacts, optimized for use via a Command Line
 Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SnS can
 get your contact transaction management tasks done faster than traditional GUI apps.
+
+* Table of Contents
+  {:toc}
 
 ---
 
