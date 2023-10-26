@@ -32,5 +32,7 @@ public class SetShorthandCommandParserTest {
     public void parse_inValidValue_failure() {
         assertParseFailure(parser, " " + PREFIX_ORIGINAL_COMMAND + SetShorthandCommand.COMMAND_WORD
                 + " " + PREFIX_SHORTHAND + "123", SetShorthandCommandParser.MESSAGE_INVALID_SHORTHAND);
+        assertParseFailure(parser, " " + PREFIX_ORIGINAL_COMMAND + SetShorthandCommand.COMMAND_WORD
+                + " " + PREFIX_SHORTHAND, SetShorthandCommandParser.MESSAGE_INVALID_SHORTHAND);
     }
 }
