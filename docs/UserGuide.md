@@ -12,7 +12,8 @@ Interface** (CLI) while still having the benefits of a Graphical User Interface 
 get your contact transaction management tasks done faster than traditional GUI apps.
 
 * Table of Contents
-  {:toc}
+
+{:toc}
 
 ---
 
