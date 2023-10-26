@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="portionListView" fx:id="portionListView" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" spacing="5" HBox.hgrow="ALWAYS" prefHeight="20">
+  <children>
+    <VBox HBox.hgrow="ALWAYS" minWidth="55" prefWidth="60" alignment="CENTER_LEFT">
+        <padding>
+          <Insets top="0" right="5" bottom="0" left="0" />
+        </padding>
+      <Label fx:id="payer" prefWidth="Infinity" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" styleClass="cell_small_label" text="\$payer" />
+    </VBox>
+    <VBox HBox.hgrow="ALWAYS" minWidth="55" prefWidth="60" alignment="CENTER">
+        <padding>
+          <Insets top="0" right="5" bottom="0" left="5" />
+        </padding>
+      <Label fx:id="amount" prefWidth="Infinity" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" styleClass="cell_small_label" text="\$amount" />
+    </VBox>
+    <VBox HBox.hgrow="ALWAYS" minWidth="55" prefWidth="60" alignment="CENTER_RIGHT">
+        <padding>
+          <Insets top="0" right="0" bottom="0" left="5" />
+        </padding>
+      <Label fx:id="change" prefWidth="Infinity" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" styleClass="cell_small_label" text="\$change" />
+    </VBox>
+  </children>
+</HBox>

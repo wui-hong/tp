@@ -1,10 +1,23 @@
-# User Guide
-## Description
-Spend n Split (SnS) is a **desktop app for managing transactions from contacts, optimized for use via a Command Line 
-Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SnS can 
+---
+layout: page
+title: User Guide
+---
+
+## Welcome to Spend n Split!
+
+***Taking care of your finances has never been easier!***
+
+Spend n Split (SnS) is a **desktop app for managing transactions from contacts, optimized for use via a Command Line
+Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SnS can
 get your contact transaction management tasks done faster than traditional GUI apps.
 
-## Setup
+* Table of Contents
+
+{:toc}
+
+---
+
+## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -12,307 +25,311 @@ get your contact transaction management tasks done faster than traditional GUI a
 
 3. Copy the file to the folder you want to use as the _home folder_ for your Spend N Split.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar spendnsplit.jar` 
-command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar spendnsplit.jar`
+   command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will 
-open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+   open the help window.<br>
    Some example commands you can try:
 
-    * `list` : Lists all expenses.
+    * `listPerson` : Lists all persons.
 
-    * `clear` : Deletes all content.
+    * `listTransaction` : Lists all transactions.
 
     * `exit` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+6. Learn more about navigating the app in the [Navigating the App](#navigating-the-app) section below.
+7. Learn more about the commands in the [Features](#features) section below.
+
+---
+
+## Navigating the App
+
+Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to navigate the app easily.
+
+![](images/user-guide/labelledUi.png)
+
+| Component                  | Description                                                                                                                |
+|----------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| **Command Input Field**    | Type commands here and press `Enter` to execute them.                                                                      |
+| **Command Output Display** | Shows the result of the command execution.                                                                                 |
+| **Transaction List**       | Shows a list of transactions. <br/> The list can be filtered and sorted by the user.                                       |
+| **Transaction Card**       | Shows the details of a transaction. <br/> Details include the description, date, payee, as well as the breakdown of costs. |
+| **Person List**            | Shows a list of persons. <br/> The list can be filtered and sorted by the user.                                            |
+| **Person Card**            | Shows the details of a person. <br/> Details include name, balance, phone number, etc.                                     |
+
+---
 
 ## Features
 
 ### __v1.2__
 
 ### Adding a transaction: `addTransaction`
+
 Adds a Transaction.
-Format: `addTransaction n=NAME c=COST d=DETAILS`
+`addTransaction`
+Creates a transaction for multiple people with customised split ratios.
+
+Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
+- Cost and weights have to be decimal numbers or fractions, and they must be positive.
+- The first name refers to the payee (that is the person whom everyone else now owes).
+- If the timestamp is not provided, the default time is the current system time.
+- If you want to create a weight for yourself, include `n=Self` to refer to yourself.
+- At least one pair of name and weight must be provided.
+- The cost for each person is calculated as follows:
+    - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
 Examples:
-* `addTransaction n=John Doe c=25 d=Sourdough bread`
-* `addTransaction n=Sir Bobby c=1759 d=Iphone 20`
+* `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
+    * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
+* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary =w1`
+    * Rent costed $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
 
-Sample Execution:
-
-```bash
-$ addTransaction n=John Doe c=25 d=Sourdough bread 
-
-Added a transaction for John Doe. Sourdough bread, $25.00.
-
-$ addTransaction n=Ryan d=Sourdough bread 
-
-Error. Transaction cost was not provided with a c= flag.
+Sample execution:
 ```
-![addTransaction success](images/user-guide/addExpense1.jpg)
+$ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
 
-![addTransaction error](images/user-guide/addExpense2.jpg)
+```
+![addTransaction success](images/user-guide/addTransaction1.png)
 
+
+```
+$ addTransaction c=200 d=Textbooks
+
+Invalid command format! 
+addTransaction: Adds a transaction to the address book. 
+Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
+```
 
 ### Editing a Transaction: `editTransaction`
-Edits the transaction for the person at the specified `INDEX`. The index refers to the index number when viewing a 
-specific person's transactions. The index **must be a positive integer** 1, 2, 3, …​
-Format: `editTransaction n=NAME INDEX [c=COST] [d=DETAILS]​`
+
+Edits the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
+The index **must be a positive integer** 1, 2, 3, ...
+
+Transaction details that can be edited:
+
+* Description
+* Cost
+* Payee
+
+Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE]`
 
 Examples:
-* `editTransaction n=John Doe 1 c=35`
-* `editTransaction n=Sir Bobby 4 d=iPhone 30`
+
+* `editTransaction 1 c=12.12`
+* `editTransaction 2 d=Potato n=Bob`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* A transaction cannot be edited to be "irrelevant".
 
 Sample Execution:
+
+``` 
+editTransaction 1 n=Bob c=12.12
 ```
-Suppose this is the list of transactions for Bob:
 
-$ log n=Bob
+![editTransaction success](images/user-guide/editTransactionSuccess.png)
 
-1.            eat                  $1.00    Bob
-2.            Pokemon Cards        $15.12   Bob
+### Updating a Portion of a Transaction: `updatePortion`
 
-$ editTransaction n=Bob 2 c=12.12
+Updates the portion of a transaction at the specified `INDEX`. The index refers to the index number when viewing the
+TransactionList. The index **must be a positive integer** 1, 2, 3, ...
 
-I have edited Bob's transaction to be Pokemon Cards, $12.12.
+Portion refers to the amount of money that a person owes you for a transaction. \
+The portion is calculated based on the cost of the transaction and the proportion of the transaction that the person has
+to pay for, which is determined by the `WEIGHT` of the person.
 
-$ editTransaction n=Bob 3 d=Potato
+Format: `updatePortion INDEX n=NAME w=WEIGHT`
 
-Error! There is no such transaction for Bob at that index.
+Examples:
+
+* To add a new person (e.g. Alice) to the transaction:
+    * `updatePortion 1 n=Alice w=0.5`
+
+
+* To edit the weight of an existing person (e.g. Bob) in the transaction:
+    * `updatePortion 1 n=Bob w=0.5`
+
+
+* To remove an existing person (e.g. Bob) from the transaction, set the weight to 0:
+    * `updatePortion 1 n=Bob w=0`
+
+Sample Execution:
+
 ```
-![editTransaction success](images/user-guide/editExpense1.jpg)
+updatePortion 1 n=Alice w=0.5
+```
 
-
-![editTransaction error](images/user-guide/editExpense2.jpg)
-
-
+![](images/user-guide/updatePortionSuccess.png)
 
 ### Deleting a transaction: `deleteTransaction`
 
-Deletes the specified transaction based on index. Must be in a transaction log view when entering this command.
+Deletes the specified transaction based on index.
 
 Format: `deleteTransaction INDEX`
 
-Parameters:
-- `INDEX`: The index of the transaction to be deleted.
+* The index refers to the index number shown in the displayed transaction list. The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 
-* `deleteTransaction 2`
-    * Deletes the second transaction in the list
 * `deleteTransaction 1`
     * Deletes the first transaction in the list
 
-![](images/user-guide/deleteExpense1.png)
+Sample Execution:
 
-![](images/user-guide/deleteExpense2.png)
+```
+$ deleteTransaction 4
 
-![](images/user-guide/deleteExpense3.png)
+Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Amount: 60.00; Paid by: Self; Portions: [name: Benson Meier, weight: 4.00][name: Alice Pauline, weight: 2.00]
+```
 
-### Viewing my log with a person: `log`
+![](images/user-guide/deleteTransaction.png)
 
-Shows a list of the transactions with the specified person.
+### Listing transactions: `listTransaction`
 
-Format: `log p=PERSON`
+Shows a list of transactions that includes the specified people. If no people are specified, all transactions will be shown.
 
-Parameters:
-- `p=PERSON`: Specifies the name of the person whose log we want to check.
+Format: `listTransaction [n=NAME]`
+
+* The name refers to the name of the person in the transaction (either as a payee or a payer).
+* The name must contain only alphabets, numbers, and spaces. It cannot be empty and is case-insensitive.
 
 Examples:
 
-* `log p=Bob`
-    * Shows log with Bob
-* `log p=Alice`
-    * Shows log with Alice
+* `listTransaction`
+    * Shows all transactions
+* `listTransaction n=Alice Pauline n=Carl Kurz`
+    * Shows all transactions that include Alice Pauline or Carl Kurz
 
-![log success](images/user-guide/log1.png)
+Sample Execution:
 
-![](images/user-guide/log2.png)
+```
+$ listTransaction
 
-![](images/user-guide/log3.png)
+5 transactions listed!
+```
 
-![](images/user-guide/log4.png)
+![listTransaction1 success](images/user-guide/listTransaction1.png)
 
+```
+$ listTransaction n=Alice Pauline n=Carl Kurz
 
-### Settling transactions: `settle`
+2 transactions listed!
+```
+
+![listTransaction2 success](images/user-guide/listTransaction2.png)
+
+### Settling transactions: `settlePerson`
+
 Fully settles the outstanding balance with the specified person.
 After settling, outstanding balance with the specified person will be 0.
 
-Format: `settle n=NAME`
+Format: `settlePerson INDEX`
 
 Example:
-- `settle n=Bob`
-    - settles the outstanding balance with contact Bob.
+
+*  `settlePerson 1` settles the outstanding balance with the 2nd person in the displayed list.
 
 Sample Execution:
+
 ```
-$ settle 
+$ settlePerson 
 
-Error: Please indicate the person you would like to settle transactions with.
+Invalid command format! 
+settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
+Example: settlePerson 1
 
-$ settle n=Bob
+$ settlePerson 1
 
-Confirm settle transaction with Bob? [Y/N]
-    Bob owes you $50. 
-    
-$ Y
-
-Successfully settled transaction with Bob.  
-    No outstanding balance with Bob.
-
-$ settle n=Mary
-
-Confirm settle transaction with Mary? [Y/N]
-    You owe Mary $30.
-
-$ N
+Balance settled: Alex Yeoh 
 ```
 
-![settle error](images/user-guide/settle1.jpg)
+![settle error](images/user-guide/settle1.jpeg)
 
-![settle prompt confirm](images/user-guide/settle2.jpg)
+![settle success](images/user-guide/settle2.jpeg)
 
-![settle success](images/user-guide/settle3.jpg)
-
-
-### Listing balances of all persons : `list`
-
+### Listing people: `listPerson`
 
 Shows the outstanding balances for each person, along with their contact information.
 
-Format: `list`
+Format: `listPerson`
+* The outstanding balance is calculated as follows:
+    * Outstanding balance = Total amount owed to you - Total amount you owe
+* The list is sorted by the outstanding balance in descending order:
+    * The person who owes you the most money will be shown first.
+    * The person who you owe the most money to will be shown last.
 
 Sample Execution:
 
 ```
-$ list
+$ listPerson
 
-| S/N | Name | Contact  | Balance |
-| --- | ---  | -------- | ------- |
-|  1  | Amy  | 95382713 |   $50   |
-|  2  | John | 82347185 |  -$14   |
-
+Listed all persons
 ```
-![list success](images/user-guide/list1.png)
 
+![listPerson success](images/user-guide/listPerson.png)
 
-### Sorting people by balance: `sortBalance`
+### Sorting people by balance: `sortPerson`
 
-Sorts the list of people in your address book based on their outstanding balances in either ascending or descending 
-order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you 
+Sorts the list of people in your address book based on their outstanding balances in either ascending or descending
+order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
-Format: `sortBalance o=ORDER`
+Format: `sortPerson ORDER`
 
 Parameters:
-- `o=ORDER`: Specifies the order in which to sort the balances. Use `asc` for ascending order and `desc` for 
-descending order. Raise error for missing or unknown parameters.
+- `ORDER`: Specifies the order in which to sort the balances. Use `-` for ascending order (or most negative balance at the top) and `+` for descending order (or most positive balance at the top). Raise error for missing or unknown parameters.
 
 Examples:
-* `sortBalance o=asc`
+* `sortPerson -`
     * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
         by others in increasing order of their outstanding balances.
-* `sortBalance o=desc`
+* `sortPerson +`
     * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
         followed by others in decreasing order of their outstanding balances.
 
 Sample execution:
 
 ```
-$ sortBalance o=asc
-All contacts balance in ascending order. Negative balance means you own them money.
-1. Alex Yeoh, -$15
-2. Bernice Yu, -$12
-3. Charlotte Oliveiro, $23
+$ sortPerson +
+All contacts balance in descending order. Negative balance means you own them money.
+1. John, +40.00
+2. Mary, +40.00
+3. Alice, +20.00
 ```
-![sortBalance success](images/user-guide/sortBalance1.png)
-
-```
-$ sortBalance
-Invalid sorting order, must be `o=asc` or `o=desc`
-
-$ sortBalance o=increasing
-Invalid sorting order, must be `o=asc` or `o=desc`
-```
-![sortBalance error](images/user-guide/sortBalance2.png)
-
-### Creating shared transactions: `createGroupTransaction`
-Creates a transaction for multiple people with customised split ratios.
-
-Format: `createGroupTransaction c=COST d=DETAILS [n=NAME w=WEIGHT]...`
-- Cost has to be a number.
-- Positive cost means that the person owes you.
-- Negative cost means that you owe the person.
-- If you want to create a weight for yourself, include `n=Self` to refer to yourself.
-- At least one pair of name and weight must be provided.
-- Weight must be an integer.
-- The cost for each person is calculated as follows:
-    - Individual cost = Total Cost * (Individual Weight / Total Weight)
-
-Examples:
-* `createGroupTransaction c=100 d=Dinner n=John w=2 n=Mary w=2 n=Alice w=1`
-    * creates 3 transactions: two transactions of $40 for John and Mary (2/5 of $100 each), and one transaction of $20 for 
-        Alice (1/5 of $100)
-* `createGroupTransaction c=600 d=Rent n=Self w=1 n=John w=1 n=Mary =w1`
-    * creates 2 transactions: $200 each for John and Mary (since you incurred 1/3 of the cost, which is $200)
-
-Sample execution:
-```
-$ createGroupTransaction c=100 d=Dinner n=John w=2 n=Mary w=2 n=Alice w=1
-
-Successfully created 3 transactions totalling $100:    
-    John owes you $40
-    Mary owes you $40
-    Alice owes you $20
-```
-![createGroupTransaction success](images/user-guide/createGroupExpense1.png)
-
-
-```
-$ createGroupTransaction c=200 d=Textbooks
-
-Error: At least one other person must be included in a shared transaction.
-
-For example,
-c=30 d=Lunch n=John w=1 n=Mary w=1
-```
-
-![createGroupTransaction error](images/user-guide/createGroupExpense2.png)
+![sortPerson success](images/user-guide/sortPerson1.png)
 
 
 ### __v1.1__
-### Adding a person: `add`
+
+### Adding a person: `addPerson`
 
 Adds a person to the address book.
 
-Format: `add n=NAME p=PHONE_NUMBER e=EMAIL a=ADDRESS [t=TAG]…​`
+Format: `addPerson n=NAME p=PHONE_NUMBER e=EMAIL a=ADDRESS [t=TAG]…​`
 
 Examples:
-* `add n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
-* `add n=Betsy Crowe t=friend e=betsycrowe@example.com a=Newgate Prison p=1234567 t=criminal`
+
+* `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
+* `addPerson  n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
 
 ### Listing all persons : `list` (deprecated)
+
 **NOTE: The latest version of this command is in v1.2**
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-![list](images/user-guide/listOld.png)
-
-
-### Editing a person : `edit`
+### Editing a person : `editPerson`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
+Format: `editPerson INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. 
-    The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+  The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -320,11 +337,14 @@ Format: `edit INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
   specifying any tags after it.
 
 Examples:
-*  `edit 1 p=91234567 e=johndoe@example.com`
-    *  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` 
-        respectively.
-*  `edit 2 n=Betsy Crower t=`
-    *  Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+* `editPerson 1 p=91234567 e=johndoe@example.com`
+    * Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com`
+      respectively.
+* `editPerson 2 n=Betsy Crower t=`
+    * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+  ![editPerson_success](C:\Users\khoow\Documents\tp\docs\images\user-guide\editPerson.PNG)
 
 ### Locating persons by name: `find`
 
@@ -340,58 +360,60 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
+
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`
-  ![find success](images/user-guide/find1.png)
+  ![find success](C:\Users\khoow\Documents\tp\docs\images\user-guide\find.PNG)
 
-
-### Deleting a person : `delete`
+### Deleting a person : `deletePerson`
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX`
+Format: `deletePerson INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-![](images/user-guide/delete1.png)
+* `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
+![](C:\Users\khoow\Documents\tp\docs\images\user-guide\deletePerson.PNG)
 
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
-![](images/user-guide/clear1.png)
-
+![](C:\Users\khoow\Documents\tp\docs\images\user-guide\clear.PNG)
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
-![](images/user-guide/exit1.png)
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need 
+AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need
 to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users 
+AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users
 are welcome to update data directly by editing that data file.
+
 ## FAQ
-### Why do the expenses in the log not add up exactly to the balance?
-The expenses displayed are rounded to a fixed number of decimal places. This means there may be fractional differences 
-between the actual expenses and what is displayed.
+
+### Why do the portions in the log not add up exactly to the balance?
+
+The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences
+between the actual portions and what is displayed.
 
 Example:
+
 ```
 If these are the logs stored:
 A:      0.122

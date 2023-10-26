@@ -15,7 +15,7 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.expense.Expense;
+import seedu.address.model.transaction.portion.Portion;
 
 
 /**
@@ -29,7 +29,7 @@ public class JsonAdaptedTransaction {
 
     private final String payeeName;
 
-    private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
+    private final List<JsonAdaptedPortion> portions = new ArrayList<>();
     private final String timestamp;
 
     /**
@@ -39,13 +39,13 @@ public class JsonAdaptedTransaction {
     public JsonAdaptedTransaction(@JsonProperty("amount") String amount,
                                   @JsonProperty("description") String description,
                                   @JsonProperty("payeeName") String payeeName,
-                                  @JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
+                                  @JsonProperty("portions") List<JsonAdaptedPortion> portions,
                                   @JsonProperty("timestamp") String timestamp) {
         this.amount = amount;
         this.description = description;
         this.payeeName = payeeName;
-        if (expenses != null) {
-            this.expenses.addAll(expenses);
+        if (portions != null) {
+            this.portions.addAll(portions);
         }
         this.timestamp = timestamp;
     }
@@ -57,8 +57,8 @@ public class JsonAdaptedTransaction {
         amount = source.getAmount().amount.toString();
         description = source.getDescription().value;
         payeeName = source.getPayeeName().fullName;
-        expenses.addAll(source.getExpenses().stream()
-                .map(JsonAdaptedExpense::new)
+        portions.addAll(source.getPortions().stream()
+                .map(JsonAdaptedPortion::new)
                 .collect(Collectors.toList()));
         timestamp = source.getTimestamp().toString();
     }
@@ -70,9 +70,9 @@ public class JsonAdaptedTransaction {
      * @throws IllegalValueException if there were any data constraints violated in the adapted transaction.
      */
     public Transaction toModelType() throws IllegalValueException {
-        final List<Expense> transactionExpenses = new ArrayList<>();
-        for (JsonAdaptedExpense expense: expenses) {
-            transactionExpenses.add(expense.toModelType());
+        final List<Portion> transactionPortions = new ArrayList<>();
+        for (JsonAdaptedPortion portion: portions) {
+            transactionPortions.add(portion.toModelType());
         }
 
         if (amount == null) {
@@ -111,8 +111,8 @@ public class JsonAdaptedTransaction {
         final Timestamp modelTimestamp = new Timestamp(timestamp);
 
 
-        final Set<Expense> modelExpenses = new HashSet<>(transactionExpenses);
+        final Set<Portion> modelPortions = new HashSet<>(transactionPortions);
 
-        return new Transaction(modelAmount, modelDescription, modelPayeeName, modelExpenses, modelTimestamp);
+        return new Transaction(modelAmount, modelDescription, modelPayeeName, modelPortions, modelTimestamp);
     }
 }

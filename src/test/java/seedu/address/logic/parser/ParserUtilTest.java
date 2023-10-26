@@ -270,4 +270,16 @@ public class ParserUtilTest {
     public void parseWeight_negativeValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseWeight("-1"));
     }
+
+    @Test
+    public void parseZeroableWeight_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseZeroableWeight("1/2/3"));
+    }
+
+    @Test
+    public void parseZeroableWeight_negativeValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseZeroableWeight("-1"));
+    }
+
+
 }

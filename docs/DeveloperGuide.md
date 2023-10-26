@@ -9,7 +9,21 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+We would like to acknowledge the following libraries for use in Spend n Split:
+
+* **[JavaFX](https://openjfx.io/)**: The GUI framework of Spend n Split.
+
+* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for Spend n Split.
+
+* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend n Split.
+
+* **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
+* 
+* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend n Split.
+
+* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The font used in Spend n Split.
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -121,8 +135,8 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object) and all `Transaction` objects (which are contained in a `UniqueTransactionList` object).
+* stores the currently 'selected' `Person` and `Transaction` objects (e.g., results of a search query) as separate _filtered_ lists which are exposed to outsiders as unmodifiable `ObservableList<Person>` and `ObservableList<Transaction>` lists that can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the lists change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -238,6 +252,26 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+### Editing Transactions
+
+#### Implementation
+
+Editing transactions mechanism is facilitated by `EditTransactionCommand`. It extends `Command` with the ability to edit a transaction.
+
+It consists of the following classes:
+
+* `EditTransactionCommand`— Represents a command to edit a transaction.
+* `EditTransactionCommandParser`— Parses user input into a `EditTransactionCommand`.
+* `EditTransactionDescriptor`— Stores the details to edit the transaction with. Each non-empty field value will replace the corresponding field value of the transaction.
+
+<img src="images/EditTransactionCommandDiagram.png" width="550" />
+
+**Note**: The above class diagram is to be updated to reflect the new implementation, with the addition of `UpdateExpenseCommand`.
+
+Upon execution, `EditTransactionCommand` will retrieve the transaction to be edited from `filteredTransactionList` from `Model`, create a copy of the `Transaction` object with the new details, then replace the old `Transaction` object with the new one in `filteredTransactionList`.
+
+We chose this method of execution instead of directly editing the `Transaction` object in `filteredTransactionList` because `Model` re-renders the UI only when `filteredTransactionList` is updated. If we were to edit the `Transaction` object directly, `Model` would not be able to detect the change and re-render the UI.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -271,21 +305,21 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​ | I want to …​ | So that I can…​ |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the app |
-| `* * *` | user | add a new person | |
-| `* * *`  | user | delete a person | remove entries that I no longer need |
-| `* * *`  | user | find a person by name | locate details of persons without having to go through the entire list |
-| `* * *` | user | add expenses under a specific person | |
-| `* * *` | user | add group expenses | easily add expenses that are split among a group |
-| `* *` | user | edit expenses | change incorrectly added entries |
-| `* * *` | user | delete expenses | remove incorrectly added entries |
-| `* * *` | user | view balance with each person | know how much they owe me |
-| `* *` | user | settle balances | simulate clearing of debt |
-| `* * *` | user | list all my expenses with a specific person | remind myself of why a specific person's balance is the way it is |
-| `* *` | user with many persons in the address book | sort persons by balance | know from whom I should collect money |
-| `*` | user | hide private contact details | minimise chance of someone else seeing them by accident |
+| Priority | As a …​                                    | I want to …​                                    | So that I can…​                                                        |
+|----------|--------------------------------------------|-------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions                          | refer to instructions when I forget how to use the app                 |
+| `* * *`  | user                                       | add a new person                                |                                                                        |
+| `* * *`  | user                                       | delete a person                                 | remove entries that I no longer need                                   |
+| `* * *`  | user                                       | find a person by name                           | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                       | add transactions under a specific person        |                                                                        |
+| `* * *`  | user                                       | add group transactions                          | easily add transactions that are split among a group                   |
+| `* *`    | user                                       | edit transactions                               | change incorrectly added entries                                       |
+| `* * *`  | user                                       | delete transactions                             | remove incorrectly added entries                                       |
+| `* * *`  | user                                       | view balance with each person                   | know how much they owe me                                              |
+| `* *`    | user                                       | settle balances                                 | simulate clearing of debt                                              |
+| `* * *`  | user                                       | list all my transactions with a specific person | remind myself of why a specific person's balance is the way it is      |
+| `* *`    | user with many persons in the address book | sort persons by balance                         | know from whom I should collect money                                  |
+| `*`      | user                                       | hide private contact details                    | minimise chance of someone else seeing them by accident                |
 
 *{More to be added}*
 
@@ -383,14 +417,14 @@ TODO: Internal note: let's remove / amend this feature, this command is too powe
 
 ---
 
-**Use Case: UC6 - Listing all Expenses with a Person**
+**Use Case: UC6 - Listing all Transactions with a Person**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to view the expense list of a person.
-2. Spend n Split shows the list of expenses with that person.
+1. User requests to view the transaction list involving a person.
+2. Spend n Split shows the list of transactions involving that person.
 
 Use case ends.
 
@@ -401,15 +435,15 @@ Extensions:
 
 ---
 
-**Use Case: UC7 - Add a New Expense**
+**Use Case: UC7 - Add a New Transaction**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to add a new expense.
-2. Spend n Split informs the user that the new expense has been added.
-3. Spend n Split shows the updated expense list with that person.
+1. User requests to add a new transaction.
+2. Spend n Split informs the user that the new transaction has been added.
+3. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
@@ -424,58 +458,39 @@ Extensions:
 
 ---
 
-**Use Case: UC8 - Edit an Expense**
+**Use Case: UC8 - Edit a Transaction**
 
-Preconditions: Expense exists in the expense list of the person.
+Preconditions: Transaction exists in the transaction list.
 
 **MSS**
 
-1. User requests to view the expense list of a person.
-2. Spend n Split shows a list of expenses.
-3. User requests to edit an expense.
-4. Spend n Split informs the user that the expense has been edited. 
-5. Spend n Split shows the updated expense list with that person.
+1. User requests to view the transaction list.
+2. Spend n Split shows a list of transaction.
+3. User requests to edit a transaction.
+4. Spend n Split informs the user that the transaction has been edited. 
+5. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
 Extensions:
-* 4a. Expense does not exist in the expense list.
-  * 4a1. Spend n Split informs the user that the expense does not exist in the expense list.
+* 4a. Transaction does not exist in the portion list.
+  * 4a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
   * 4a2. Use case resumes at step 3.
   
-* 4b. Spend n Split detects an error in the request for the new person.
+* 4b. Spend n Split detects an error in the request.
   * 4b1. Spend n Split informs the user that request is invalid.
   * 4b2. Use case resumes at step 3.
 
 ---
 
-**Use Case: UC9 - Create Group Expense**
-
-Preconditions: Persons exist in the contact list.
-
-**MSS**
-
-1. User requests to create a group expense.
-2. Spend n Split informs the user that the group expense has been created.
-3. Spend n Split shows the expense list for that group of persons.
-
-Use case ends.
-
-Extensions:
-* 1a. If the person(s) does not exist in the contact list, Spend n Split throws an error.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
-
----
-
-**Use Case: UC10 - Settle expenses with a person**
+**Use Case: UC9 - Settle with a person**
 
 Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to settle expenses with a person. 
-2. Spend n Split informs the user that the expenses have been settled. 
+1. User requests to settle with a person. 
+2. Spend n Split informs the user that all the outstanding balance with the person have been settled. 
 3. Spend n Split shows the list of contacts.
 
 Use case ends.
@@ -484,45 +499,29 @@ Extensions:
 * 1a. Person does not exist in the contact list.
   * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
   * 1a2. Use case resumes at step 2.
-
+* 1b. User does not have an outstanding balance with the person.
+  * 1b1. Spend n Split informs the user that there is no outstanding balance with that person.
+  * 1b2. Use case resumes at step 3.
 ---
 
-**Use Case: UC11 - Delete an Expense**
+**Use Case: UC10 - Delete a Transaction**
 
-Preconditions: Expense exists in the expense list of the person.
+Preconditions: Transaction exists in the transaction list.
 
 **MSS**
 
-1. User requests to view the expense list of a person.
-2. Spend n Split shows a list of expenses.
-3. User requests to delete an expense.
-4. Spend n Split informs the user that the expense has been deleted.
-5. Spend n Split shows the updated expense list with that person.
+1. User requests to view the transaction list.
+2. Spend n Split shows a list of transactions.
+3. User requests to delete a transaction.
+4. Spend n Split informs the user that the transaction has been deleted.
+5. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
 Extensions:
-* 1a. Person does not exist in the contact list.
-    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-    * 1a2. Use case resumes at step 2.
-
----
-
-**Use Case: UC12 - View Logs with a Person**
-
-Preconditions: Person exists in the contact list.
-
-**MSS**
-
-1. User requests to view the logs with a person. 
-2. Spend n Split shows the logs with that person.
-
-Use case ends.
-
-Extensions:
-* 1a. Person does not exist in the contact list.
-    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-    * 1a2. Use case resumes at step 2.
+* 3a. Transaction does not exist in the portion list.
+    * 3a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
+    * 3a2. Use case resumes at step 2.
 
 ---
 
@@ -534,23 +533,24 @@ Extensions:
 4.  The application should work without internet access.
 5.  The application should not take more than 50MB of space.
 6.  The user interface should be intuitive to new users. From the interface, users should easily find out how to write input, view output, and find the help guide.
-7.  The application should be accurate when calculating expenses, being able to handle the division of costs with precision.
+7.  The application should be accurate when calculating portions, being able to handle the division of costs with precision.
 8.  The application should store data to the hard disk consistently so that loading the data on a different device leads to the same application state.
 9.  The GUI should organise and present data clearly so that users are able to read application details easily.
 
 ### Glossary
 
-**Expenses Tracker**
+**Application**
 
 * **Contact**: A person stored in your application with additional information.
 * **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Expense**: A monetary transaction that records costs involving you and another contact.
-* **Group Expense**: A monetary transaction that records costs involving you are more than one contact, which can be divided into individual expenses.
+* **Transaction**: A monetary transaction that records costs involving a single contact who pays for the whole transaction and other contacts who are involved in the transaction.
+* **Portion**: A breakdown of a transaction into individual portions, each of which involves a single contact and a weightage indicating the proportion of the transaction cost that the contact needs to pay to the person who paid for the transaction.
 * **Balance**: The amount of money either owed to you or owed by you to another person in your contacts.
   * **Positive Balance**: Indicates that the contact owes you money.
   * **Negative Balance**: Indicates that you owe the contact money.
 * **Outstanding Balance**: The amount of unsettled money between you and your contact.
-* **Settle**: The action of clearing any outstanding balance between you and another contact via a new expense.
+* **Settle**: The action of clearing any outstanding balance between you and another contact via a new portion.
+* **Payee**: The person that paid the bill for that specific transaction
 
 **General**
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
@@ -601,6 +601,23 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Deleting a transaction
+
+1. Deleting a transaction while all transactions are being shown
+
+    1. Prerequisites: There already exist some transactions in the application.
+
+    1. Test case: `deleteTransaction 1`<br>
+       Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `delete 0`<br>
+       Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect delete commands to try: `deleteTransaction`, `deleteTransaction x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -608,3 +625,13 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+
+
+
+
+
+
+
+

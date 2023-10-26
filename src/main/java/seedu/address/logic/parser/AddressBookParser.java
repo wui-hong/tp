@@ -14,6 +14,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.DeleteTransactionCommand;
+import seedu.address.logic.commands.DuplicateTransactionCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditTransactionCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -23,6 +24,7 @@ import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTransactionCommand;
 import seedu.address.logic.commands.SetShorthandCommand;
 import seedu.address.logic.commands.SettlePersonCommand;
+import seedu.address.logic.commands.UpdatePortionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -68,9 +70,6 @@ public class AddressBookParser {
         case DeletePersonCommand.COMMAND_WORD:
             return new DeletePersonCommandParser().parse(arguments);
 
-        case DeleteTransactionCommand.COMMAND_WORD:
-            return new DeleteTransactionCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -97,6 +96,14 @@ public class AddressBookParser {
 
         case EditTransactionCommand.COMMAND_WORD:
             return new EditTransactionCommandParser().parse(arguments);
+        case UpdatePortionCommand.COMMAND_WORD:
+            return new UpdatePortionCommandParser().parse(arguments);
+
+        case DeleteTransactionCommand.COMMAND_WORD:
+            return new DeleteTransactionCommandParser().parse(arguments);
+
+        case DuplicateTransactionCommand.COMMAND_WORD:
+            return new DuplicateTransactionCommandParser().parse(arguments);
 
         case SetShorthandCommand.COMMAND_WORD:
             return new SetShorthandCommandParser().parse(arguments);

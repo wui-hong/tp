@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
@@ -14,8 +15,8 @@ import org.apache.commons.numbers.fraction.BigFraction;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
-import seedu.address.model.transaction.expense.Expense;
-import seedu.address.model.transaction.expense.Weight;
+import seedu.address.model.transaction.portion.Portion;
+import seedu.address.model.transaction.portion.Weight;
 
 /**
  * Represents a Transaction in the address book.
@@ -27,7 +28,7 @@ public class Transaction implements Comparable<Transaction> {
     private final Amount amount;
     private final Description description;
     private final Name payeeName;
-    private final Set<Expense> expenses = new HashSet<>();
+    private final Set<Portion> portions = new HashSet<>();
 
     /**
      * Internal timestamp used for uniquely identifying transactions.
@@ -37,21 +38,21 @@ public class Transaction implements Comparable<Transaction> {
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses) {
-        this(amount, description, payeeName, expenses, Timestamp.now());
+    public Transaction(Amount amount, Description description, Name payeeName, Set<Portion> portions) {
+        this(amount, description, payeeName, portions, Timestamp.now());
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Amount amount, Description description, Name payeeName, Set<Expense> expenses,
+    public Transaction(Amount amount, Description description, Name payeeName, Set<Portion> portions,
                        Timestamp timestamp) {
-        requireAllNonNull(amount, description, payeeName, expenses, timestamp);
-        requireNonEmptyCollection(expenses);
+        requireAllNonNull(amount, description, payeeName, portions, timestamp);
+        requireNonEmptyCollection(portions);
         this.amount = amount;
         this.description = description;
         this.payeeName = payeeName;
-        this.expenses.addAll(expenses);
+        this.portions.addAll(portions);
         this.timestamp = timestamp;
     }
 
@@ -93,8 +94,8 @@ public class Transaction implements Comparable<Transaction> {
         if (amount.amount.signum() <= 0) {
             return false;
         }
-        for (Expense expense : expenses) {
-            if (expense.getWeight().value.signum() <= 0) {
+        for (Portion portion : portions) {
+            if (portion.getWeight().value.signum() <= 0) {
                 return false;
             }
         }
@@ -108,9 +109,9 @@ public class Transaction implements Comparable<Transaction> {
         if (!(payeeName.equals(Name.SELF) || validNames.contains(payeeName))) {
             return false;
         }
-        for (Expense expense : expenses) {
-            if (!(validNames.contains(expense.getPersonName())
-                    || Name.RESERVED_NAMES.contains(expense.getPersonName()))) {
+        for (Portion portion : portions) {
+            if (!(validNames.contains(portion.getPersonName())
+                    || Name.RESERVED_NAMES.contains(portion.getPersonName()))) {
                 return false;
             }
         }
@@ -118,11 +119,11 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns true if there are no duplicate names in expenses.
+     * Returns true if there are no duplicate names in portions.
      */
     public boolean hasNoDuplicates() {
-        return expenses.stream().map(Expense::getPersonName)
-            .collect(Collectors.toSet()).size() == expenses.size();
+        return portions.stream().map(Portion::getPersonName)
+            .collect(Collectors.toSet()).size() == portions.size();
     }
 
     /**
@@ -133,83 +134,105 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
+     * Replaces all equal names to names in the set.
+     */
+    public Transaction syncNames(Set<Name> validNames) {
+        Map<Name, Name> nameMap = new HashMap<>();
+        for (Name name : validNames) {
+            nameMap.put(name, name);
+        }
+        Name newPayee = nameMap.containsKey(payeeName) ? nameMap.get(payeeName) : payeeName;
+        Set<Portion> newExpenses = portions.stream().map(x -> new Portion(
+                nameMap.containsKey(x.getPersonName()) ? nameMap.get(x.getPersonName()) : x.getPersonName(),
+                x.getWeight())).collect(Collectors.toSet());
+        return new Transaction(amount, description, newPayee, newExpenses, timestamp);
+    }
+
+    /**
      * Returns a new {@code Transaction} replacing the person p with others.
      */
     public Transaction removePerson(Name p) {
         Name newPayee = payeeName.equals(p) ? Name.OTHERS : payeeName;
-        Set<Expense> newExpenses = new HashSet<>();
+        Set<Portion> newPortions = new HashSet<>();
         BigFraction accumOthers = BigFraction.ZERO;
-        for (Expense expense : expenses) {
-            if (expense.getPersonName().equals(p) || expense.getPersonName().equals(Name.OTHERS)) {
-                accumOthers = accumOthers.add(expense.getWeight().value);
+        for (Portion portion : portions) {
+            if (portion.getPersonName().equals(p) || portion.getPersonName().equals(Name.OTHERS)) {
+                accumOthers = accumOthers.add(portion.getWeight().value);
             } else {
-                newExpenses.add(expense);
+                newPortions.add(portion);
             }
         }
         if (accumOthers.compareTo(BigFraction.ZERO) > 0) {
-            newExpenses.add(new Expense(Name.OTHERS, new Weight(accumOthers)));
+            newPortions.add(new Portion(Name.OTHERS, new Weight(accumOthers)));
         }
-        return new Transaction(amount, description, newPayee, newExpenses, timestamp);
+        return new Transaction(amount, description, newPayee, newPortions, timestamp);
     }
 
     public Transaction setPerson(Name target, Name editedName) {
         Name newPayee = payeeName.equals(target) ? editedName : payeeName;
-        Set<Expense> newExpenses = new HashSet<>();
-        for (Expense expense : expenses) {
-            if (expense.getPersonName().equals(target)) {
-                newExpenses.add(new Expense(editedName, expense.getWeight()));
+        Set<Portion> newPortions = new HashSet<>();
+        for (Portion portion : portions) {
+            if (portion.getPersonName().equals(target)) {
+                newPortions.add(new Portion(editedName, portion.getWeight()));
             } else {
-                newExpenses.add(expense);
+                newPortions.add(portion);
             }
         }
-        return new Transaction(amount, description, newPayee, newExpenses, timestamp);
+        return new Transaction(amount, description, newPayee, newPortions, timestamp);
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable portions set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Expense> getExpenses() {
-        return Collections.unmodifiableSet(expenses);
+    public Set<Portion> getPortions() {
+        return Collections.unmodifiableSet(portions);
     }
 
     /**
-     * Returns the portion of the transaction that the person has to pay the payee.
+     * Returns a mutable copy of the portions set.
+     */
+    public Set<Portion> getPortionsCopy() {
+        return new HashSet<>(portions);
+    }
+
+    /**
+     * Returns the portion amount of the transaction that the person has to pay the payee.
      *
      * @param personName the name of the person
      */
-    public BigFraction getPortion(Name personName) {
+    public BigFraction getPortionAmount(Name personName) {
         BigFraction totalWeight = getTotalWeight();
-        return expenses.stream()
-            .filter(expense -> expense.getPersonName().equals(personName))
-            .map(expenses -> expenses.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
+        return portions.stream()
+            .filter(portion -> portion.getPersonName().equals(personName))
+            .map(portions -> portions.getWeight().value.multiply(this.amount.amount).divide(totalWeight))
             .reduce(BigFraction.ZERO, BigFraction::add);
     }
 
     /**
-     * Returns a map of all the portions each person has to pay the payee for this transaction.
+     * Returns a map of all the portions with calculated amount each person has to pay the payee for this transaction.
      */
-    public Map<Name, BigFraction> getAllPortions() {
+    public Map<Name, BigFraction> getAllPortionAmounts() {
         BigFraction totalWeight = getTotalWeight();
-        return expenses.stream()
+        return portions.stream()
             .collect(
                 Collectors.toMap(
-                    Expense::getPersonName,
-                    expense -> expense.getWeight().value.multiply(this.amount.amount).divide(totalWeight)
+                    Portion::getPersonName,
+                    portion -> portion.getWeight().value.multiply(this.amount.amount).divide(totalWeight)
                 )
             );
     }
 
 
     /**
-     * Returns the portion of the transaction that the person has to pay the user.
+     * Returns the portion amount of the transaction that the person has to pay the user (self).
      * A positive amount indicates the amount the person owes the user.
      * A negative amount indicates the amount the user owes the person.
      * Zero amount indicates that the user has no net balance owed to the user from the transaction.
      *
      * @param personName the name of the person
      */
-    public BigFraction getPortionOwed(Name personName) {
+    public BigFraction getPortionAmountOwedSelf(Name personName) {
         // person is not relevant to user in the transaction
         if (!payeeName.equals(personName) && !payeeName.equals(Name.SELF)) {
             return BigFraction.ZERO;
@@ -222,11 +245,11 @@ public class Transaction implements Comparable<Transaction> {
 
         // user owes person money from the transaction
         if (payeeName.equals(personName)) {
-            return getPortion(Name.SELF).negate();
+            return getPortionAmount(Name.SELF).negate();
         }
 
         // person owes user money from the transaction
-        return getPortion(personName);
+        return getPortionAmount(personName);
     }
 
     /**
@@ -242,15 +265,15 @@ public class Transaction implements Comparable<Transaction> {
      * Returns the names of all the persons involved in this transaction, either as a payer or a payee.
      */
     public Set<Name> getAllInvolvedPersonNames() {
-        Set<Name> names = expenses.stream()
-            .map(Expense::getPersonName)
+        Set<Name> names = portions.stream()
+            .map(Portion::getPersonName)
             .collect(Collectors.toSet());
         names.add(payeeName);
         return names;
     }
 
     /**
-     * Returns true if both transactions have the same amount, description, payeeName, expenses and transactions.
+     * Returns true if both transactions have the same amount, description, payeeName, portions and transactions.
      * This defines a weaker notion of equality between two transactions.
      */
     public boolean isSameTransaction(Transaction otherTransaction) {
@@ -262,7 +285,7 @@ public class Transaction implements Comparable<Transaction> {
             && otherTransaction.getAmount().equals(getAmount())
             && otherTransaction.getDescription().equals(getDescription())
             && otherTransaction.getPayeeName().equals(getPayeeName())
-            && otherTransaction.getExpenses().equals(getExpenses())
+            && otherTransaction.getPortions().equals(getPortions())
             && otherTransaction.getTimestamp().equals(getTimestamp());
     }
 
@@ -285,7 +308,7 @@ public class Transaction implements Comparable<Transaction> {
         return amount.equals(otherTransaction.amount)
                 && payeeName.equals(otherTransaction.payeeName)
                 && description.equals(otherTransaction.description)
-                && expenses.equals(otherTransaction.expenses)
+                && portions.equals(otherTransaction.portions)
                 && timestamp.equals(otherTransaction.timestamp);
 
     }
@@ -298,7 +321,7 @@ public class Transaction implements Comparable<Transaction> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, payeeName, expenses);
+        return Objects.hash(amount, description, payeeName, portions);
     }
 
     @Override
@@ -307,13 +330,13 @@ public class Transaction implements Comparable<Transaction> {
             .add("amount", amount)
             .add("description", description)
             .add("payeeName", payeeName)
-            .add("expenses", expenses)
+            .add("portions", portions)
             .toString();
     }
 
     private BigFraction getTotalWeight() {
-        return expenses.stream()
-            .map(expense -> expense.getWeight().value)
+        return portions.stream()
+            .map(portion -> portion.getWeight().value)
             .reduce(BigFraction.ZERO, BigFraction::add);
     }
 }

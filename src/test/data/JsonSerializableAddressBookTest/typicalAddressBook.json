@@ -3,42 +3,49 @@
   "persons" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
+    "telegramHandle" : "@Alice123",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
+    "telegramHandle" : "@Benson123",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
+    "telegramHandle" : "@Carl123",
     "email" : "heinz@example.com",
     "address" : "wall street",
     "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
+    "telegramHandle" : "@Daniel123",
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tags" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
+    "telegramHandle" : "@Elle123",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
+    "telegramHandle" : "@Fiona123",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "tags" : [ ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
+    "telegramHandle" : "@George123",
     "email" : "anna@example.com",
     "address" : "4th street",
     "tags" : [ ]
@@ -47,7 +54,7 @@
     "amount" : "60.00",
     "description" : "Group Project Lunch",
     "payeeName" : "Self",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Benson Meier",
       "weight" : "4.00"
     }, {
@@ -59,7 +66,7 @@
     "amount" : "90.00",
     "description" : "Hall Dinner",
     "payeeName" : "Benson Meier",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Benson Meier",
       "weight" : "4.00"
     }, {
@@ -71,7 +78,7 @@
     "amount" : "600.00",
     "description" : "Shared Dorm Rent",
     "payeeName" : "Benson Meier",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Self",
       "weight" : "1.00"
     }, {
@@ -83,7 +90,7 @@
     "amount" : "100.00",
     "description" : "Carpool Subscription",
     "payeeName" : "Self",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Self",
       "weight" : "1.00"
     }, {
@@ -95,7 +102,7 @@
     "amount" : "10.00",
     "description" : "Breakfast with Alice",
     "payeeName" : "Self",
-    "expenses" : [ {
+    "portions" : [ {
       "personName" : "Alice Pauline",
       "weight" : "2.00"
     }],
