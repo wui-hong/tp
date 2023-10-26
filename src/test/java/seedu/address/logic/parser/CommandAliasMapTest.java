@@ -8,10 +8,38 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.SetShorthandCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class CommandAliasMapTest {
+
     @Test
-    public void put() {
+    public void getCommand() {
+        CommandAliasMap map = new CommandAliasMap();
+        try {
+            map.getCommand("a");
+            assertTrue(false);
+        } catch (Exception e) {
+            assertTrue(e instanceof ParseException);
+        }
+        try {
+            map.putAlias(SetShorthandCommand.COMMAND_WORD, "a");
+        } catch (Exception e) {
+            assertTrue(e == null);
+        }
+        try {
+            map.getCommand(SetShorthandCommand.COMMAND_WORD);
+        } catch (Exception e) {
+            assertTrue(e == null);
+        }
+        try {
+            map.getCommand("a");
+        } catch (Exception e) {
+            assertTrue(e == null);
+        }
+    }
+
+    @Test
+    public void putAlias() {
         CommandAliasMap map = new CommandAliasMap();
         try {
             map.putAlias(SetShorthandCommand.COMMAND_WORD, "a");
