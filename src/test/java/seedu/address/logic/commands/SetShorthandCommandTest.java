@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -21,9 +22,23 @@ public class SetShorthandCommandTest {
     public void execute() {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new UserPrefs(model.getUserPrefs()));
+        try {
+            expectedModel.setCommandAlias(SetShorthandCommand.COMMAND_WORD, "a");
+        } catch (CommandException e) {
+            assertTrue(false);
+        }
         SetShorthandCommand cmd = new SetShorthandCommand(SetShorthandCommand.COMMAND_WORD, "a");
         String expectedMessage = String.format(SetShorthandCommand.MESSAGE_SET_SHORTHAND_SUCCESS,
                 "a", SetShorthandCommand.COMMAND_WORD);
+        assertTransactionCommandSuccess(cmd, model, expectedMessage, expectedModel);
+        try {
+            expectedModel.setCommandAlias(SetShorthandCommand.COMMAND_WORD, "b");
+        } catch (CommandException e) {
+            assertTrue(false);
+        }
+        cmd = new SetShorthandCommand(SetShorthandCommand.COMMAND_WORD, "b");
+        expectedMessage = String.format(SetShorthandCommand.MESSAGE_UPDATE_SHORTHAND_SUCCESS,
+                SetShorthandCommand.COMMAND_WORD, "a", "b");
         assertTransactionCommandSuccess(cmd, model, expectedMessage, expectedModel);
     }
 

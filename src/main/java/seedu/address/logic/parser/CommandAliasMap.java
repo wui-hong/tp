@@ -64,6 +64,13 @@ public class CommandAliasMap {
     }
 
     /**
+     * Copies a CommandAliasMap.
+     */
+    public CommandAliasMap(CommandAliasMap copy) {
+        this.aliasToCommand = new HashMap<>(copy.aliasToCommand);
+    }
+
+    /**
      * Gets to full input command from the alias.
      */
     public String getCommand(String inputCommand) throws ParseException {
