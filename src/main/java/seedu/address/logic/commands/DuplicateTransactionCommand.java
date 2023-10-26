@@ -48,7 +48,7 @@ public class DuplicateTransactionCommand extends Command {
 
         model.addTransaction(transactionToDuplicate);
         return new CommandResult(
-            String.format(MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(transactionToDuplicate, false)));
+            String.format(MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(transactionToDuplicate)));
     }
 
     @Override

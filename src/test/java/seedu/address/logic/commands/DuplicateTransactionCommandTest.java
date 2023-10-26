@@ -35,7 +35,7 @@ public class DuplicateTransactionCommandTest {
         DuplicateTransactionCommand duplicateCommand = new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT);
 
         String expectedMessage = String.format(DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS,
-            Messages.format(transactionToDuplicate, false));
+            Messages.format(transactionToDuplicate));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addTransaction(transactionToDuplicate);
@@ -61,7 +61,7 @@ public class DuplicateTransactionCommandTest {
         DuplicateTransactionCommand duplicateCommand = new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT);
 
         String expectedMessage = String.format(DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS,
-            Messages.format(transactionToDuplicate, false));
+            Messages.format(transactionToDuplicate));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addTransaction(transactionToDuplicate);
