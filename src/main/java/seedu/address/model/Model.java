@@ -154,7 +154,13 @@ public interface Model {
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
 
+    /**
+     * Gets the command aliases stored in the user preferences.
+     */
     CommandAliasMap getCommandMap();
 
+    /**
+     * Ties the alias to the command, and returns the previous alias for the command, if any.
+     */
     String setCommandAlias(String command, String alias) throws CommandException;
 }
