@@ -33,7 +33,7 @@ public class DeleteTransactionCommandTest {
         DeleteTransactionCommand deleteCommand = new DeleteTransactionCommand(INDEX_FIRST_ELEMENT);
 
         String expectedMessage = String.format(DeleteTransactionCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS,
-            Messages.format(transactionToDelete));
+            Messages.format(transactionToDelete, true));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);
@@ -57,7 +57,7 @@ public class DeleteTransactionCommandTest {
         DeleteTransactionCommand deleteCommand = new DeleteTransactionCommand(INDEX_FIRST_ELEMENT);
 
         String expectedMessage = String.format(DeleteTransactionCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS,
-            Messages.format(transactionToDelete));
+            Messages.format(transactionToDelete, true));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);

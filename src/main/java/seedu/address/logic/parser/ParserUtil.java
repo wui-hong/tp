@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TelegramHandle;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
@@ -67,6 +68,21 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String telegramHandle} into a {@code TelegramHandle}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code telegramHandle} is invalid.
+     */
+    public static TelegramHandle parseTelegramHandle(String telegramHandle) throws ParseException {
+        requireNonNull(telegramHandle);
+        String trimmedTelegramHandle = telegramHandle.trim();
+        if (!TelegramHandle.isValidTelegramHandle(trimmedTelegramHandle)) {
+            throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
+        }
+        return new TelegramHandle(trimmedTelegramHandle);
     }
 
     /**
@@ -163,6 +179,26 @@ public class ParserUtil {
         Weight val = new Weight(trimmedWeight);
         if (val.value.signum() <= 0) {
             throw new ParseException(Weight.VALUE_CONSTRAINT);
+        }
+        return val;
+    }
+
+    /**
+     * Parses a {@code String weight} into a {@code Weight}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Zero weight is allowed, and is used when updating portion.
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
+    public static Weight parseZeroableWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!Weight.isValidWeight(trimmedWeight)) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
+        }
+        Weight val = new Weight(trimmedWeight);
+        if (val.value.signum() < 0) {
+            throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
         }
         return val;
     }

@@ -2,11 +2,10 @@ package seedu.address.model.transaction.portion;
 
 import java.util.Objects;
 
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
 
 /**
- * Represents an Portion in a transaction.
+ * Represents a Portion in a transaction.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Portion {
@@ -70,9 +69,6 @@ public class Portion {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("name", personName)
-                .add("weight", weight)
-                .toString();
+        return "[name: " + personName + ", weight: " + weight + "]";
     }
 }

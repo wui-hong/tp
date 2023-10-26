@@ -182,11 +182,18 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable portions set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Portion> getPortions() {
         return Collections.unmodifiableSet(portions);
+    }
+
+    /**
+     * Returns a mutable copy of the portions set.
+     */
+    public Set<Portion> getPortionsCopy() {
+        return new HashSet<>(portions);
     }
 
     /**
