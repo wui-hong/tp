@@ -43,6 +43,8 @@ public class Messages {
         builder.append(person.getName())
             .append("; Phone: ")
             .append(person.getPhone())
+            .append("; Telegram Handle: ")
+            .append(person.getTelegramHandle())
             .append("; Email: ")
             .append(person.getEmail())
             .append("; Address: ")
@@ -55,12 +57,14 @@ public class Messages {
     /**
      * Formats the {@code transaction} for display to the user.
      */
-    public static String format(Transaction transaction) {
+    public static String format(Transaction transaction, boolean includeTimestamp) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(transaction.getDescription())
-            .append("; Timestamp: ")
-            .append(transaction.getTimestamp())
-            .append("; Amount: ")
+        builder.append(transaction.getDescription());
+        if (includeTimestamp) {
+            builder.append("; Timestamp: ")
+                .append(transaction.getTimestamp());
+        }
+        builder.append("; Amount: ")
             .append(transaction.getAmount())
             .append("; Paid by: ")
             .append(transaction.getPayeeName())

@@ -1,14 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,6 +26,8 @@ import seedu.address.model.transaction.portion.Portion;
 
 /**
  * Edits the details of an existing transaction in the transaction list.
+ * i.e. cost, description, payeeName
+ * Note: Editing of expenses is done via the {@code UpdatePortionCommand}.
  */
 public class EditTransactionCommand extends Command {
 
@@ -41,14 +40,19 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_COST + "COST] "
             + "[" + PREFIX_DESCRIPTION + "DETAILS] "
             + "[" + PREFIX_NAME + "PAYEE NAME] "
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COST + "10.00 "
-            + PREFIX_DESCRIPTION + "Bought a book"
-            + PREFIX_NAME + "John Doe";
+            + PREFIX_DESCRIPTION + "Bought a book "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_TIMESTAMP + "2020-01-01 12:00";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
 
     public static final String MESSAGE_TRANSACTION_NOT_EDITED = "At least one field to edit must be provided.";
+
+    public static final String MESSAGE_TRANSACTION_NOT_RELEVANT =
+            "The edited transaction does not affect your balances. Please use the delete command instead.";
 
     private final Index index;
 
@@ -78,15 +82,20 @@ public class EditTransactionCommand extends Command {
         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
 
+        if (!editedTransaction.isRelevant()) {
+            throw new CommandException(MESSAGE_TRANSACTION_NOT_RELEVANT);
+        }
+
         model.setTransaction(transactionToEdit, editedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction)));
+                String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true)));
 
     }
     /**
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
      * edited with {@code editTransactionDescriptor}.
+     * Portions are not edited with this {@code EditTransactionCommand}
      */
     private static Transaction createEditedTransaction(Transaction transactionToEdit, EditTransactionDescriptor
             editTransactionDescriptor) {
@@ -96,14 +105,13 @@ public class EditTransactionCommand extends Command {
         Description updatedDescription = editTransactionDescriptor.getDescription().orElse(transactionToEdit
                 .getDescription());
         Name updatedPayeeName = editTransactionDescriptor.getPayeeName().orElse(transactionToEdit.getPayeeName());
-        Set<Portion> updatedPortions = editTransactionDescriptor.getPortions().orElse(transactionToEdit
-                .getPortions());
-
-        // Timestamp is edited here for testing purposes
         Timestamp updatedTimestamp = editTransactionDescriptor.getTimestamp().orElse(transactionToEdit
                 .getTimestamp());
 
-        return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, updatedPortions, updatedTimestamp);
+
+        Set<Portion> existingPortions = transactionToEdit.getPortions();
+
+        return new Transaction(updatedAmount, updatedDescription, updatedPayeeName, existingPortions, updatedTimestamp);
     }
 
     @Override
@@ -134,12 +142,12 @@ public class EditTransactionCommand extends Command {
      * Stores the details to edit the transaction with. Each non-empty field value will replace the
      * corresponding field value of the transaction.
      * Note that "cost" is represented by {@code Amount} named {@code amount} in the model.
+     * EditTransactionDescriptor does not edit and store portions.
      */
     public static class EditTransactionDescriptor {
         private Amount amount;
         private Description description;
         private Name payeeName;
-        private Set<Portion> portions;
         private Timestamp timestamp;
 
         public EditTransactionDescriptor() {}
@@ -153,17 +161,13 @@ public class EditTransactionCommand extends Command {
             setDescription(toCopy.description);
             setPayeeName(toCopy.payeeName);
             setTimestamp(toCopy.timestamp);
-
-            if (toCopy.portions != null) {
-                setPortions(toCopy.portions);
-            }
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, description, payeeName, timestamp, portions);
+            return CollectionUtil.isAnyNonNull(amount, description, payeeName, timestamp);
         }
 
         public void setAmount(Amount amount) {
@@ -190,27 +194,6 @@ public class EditTransactionCommand extends Command {
             return Optional.ofNullable(payeeName);
         }
 
-        /**
-         * Sets {@code portions} to this object's {@code portions}.
-         * A defensive copy of {@code portions} is used internally.
-         */
-        public void setPortions(Set<Portion> portions) {
-            if (!Objects.isNull(portions)) {
-                requireNonEmptyCollection(portions);
-                requireAllNonNull(portions);
-                this.portions = new HashSet<>(portions);
-            }
-            this.portions = null;
-        }
-
-        /**
-         * Returns an unmodifiable portion set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         */
-        public Optional<Set<Portion>> getPortions() {
-            return (portions != null) ? Optional.of(Collections.unmodifiableSet(portions)) : Optional.empty();
-        }
-
         public void setTimestamp(Timestamp timestamp) {
             this.timestamp = timestamp;
         }
@@ -234,7 +217,6 @@ public class EditTransactionCommand extends Command {
             return Objects.equals(amount, otherEditTransactionDescriptor.amount)
                     && Objects.equals(description, otherEditTransactionDescriptor.description)
                     && Objects.equals(payeeName, otherEditTransactionDescriptor.payeeName)
-                    && Objects.equals(portions, otherEditTransactionDescriptor.portions)
                     && Objects.equals(timestamp, otherEditTransactionDescriptor.timestamp);
         }
 
@@ -248,7 +230,6 @@ public class EditTransactionCommand extends Command {
                     .add("cost", amount)
                     .add("description", description)
                     .add("payeeName", payeeName)
-                    .add("portions", portions)
                     .toString();
         }
     }

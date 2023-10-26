@@ -152,7 +152,13 @@ public interface Model {
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
 
+    /**
+     * Sorts person list in ascending order of balance.
+     */
     void sortPersonAscending();
 
+    /**
+     * Sorts person list in descending order of balance.
+     */
     void sortPersonDescending();
 }

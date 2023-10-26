@@ -9,7 +9,21 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+We would like to acknowledge the following libraries for use in Spend n Split:
+
+* **[JavaFX](https://openjfx.io/)**: The GUI framework of Spend n Split.
+
+* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for Spend n Split.
+
+* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend n Split.
+
+* **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
+* 
+* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend n Split.
+
+* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The font used in Spend n Split.
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -121,8 +135,8 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object) and all `Transaction` objects (which are contained in a `UniqueTransactionList` object).
+* stores the currently 'selected' `Person` and `Transaction` objects (e.g., results of a search query) as separate _filtered_ lists which are exposed to outsiders as unmodifiable `ObservableList<Person>` and `ObservableList<Transaction>` lists that can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the lists change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -237,6 +251,26 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
+
+### Editing Transactions
+
+#### Implementation
+
+Editing transactions mechanism is facilitated by `EditTransactionCommand`. It extends `Command` with the ability to edit a transaction.
+
+It consists of the following classes:
+
+* `EditTransactionCommand`— Represents a command to edit a transaction.
+* `EditTransactionCommandParser`— Parses user input into a `EditTransactionCommand`.
+* `EditTransactionDescriptor`— Stores the details to edit the transaction with. Each non-empty field value will replace the corresponding field value of the transaction.
+
+<img src="images/EditTransactionCommandDiagram.png" width="550" />
+
+**Note**: The above class diagram is to be updated to reflect the new implementation, with the addition of `UpdateExpenseCommand`.
+
+Upon execution, `EditTransactionCommand` will retrieve the transaction to be edited from `filteredTransactionList` from `Model`, create a copy of the `Transaction` object with the new details, then replace the old `Transaction` object with the new one in `filteredTransactionList`.
+
+We chose this method of execution instead of directly editing the `Transaction` object in `filteredTransactionList` because `Model` re-renders the UI only when `filteredTransactionList` is updated. If we were to edit the `Transaction` object directly, `Model` would not be able to detect the change and re-render the UI.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -465,7 +499,9 @@ Extensions:
 * 1a. Person does not exist in the contact list.
   * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
   * 1a2. Use case resumes at step 2.
-
+* 1b. User does not have an outstanding balance with the person.
+  * 1b1. Spend n Split informs the user that there is no outstanding balance with that person.
+  * 1b2. Use case resumes at step 3.
 ---
 
 **Use Case: UC10 - Delete a Transaction**
@@ -514,6 +550,7 @@ Extensions:
   * **Negative Balance**: Indicates that you owe the contact money.
 * **Outstanding Balance**: The amount of unsettled money between you and your contact.
 * **Settle**: The action of clearing any outstanding balance between you and another contact via a new portion.
+* **Payee**: The person that paid the bill for that specific transaction
 
 **General**
 * **Mainstream OS**: Windows, Linux, Unix, OS-X.
@@ -564,6 +601,23 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Deleting a transaction
+
+1. Deleting a transaction while all transactions are being shown
+
+    1. Prerequisites: There already exist some transactions in the application.
+
+    1. Test case: `deleteTransaction 1`<br>
+       Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `delete 0`<br>
+       Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect delete commands to try: `deleteTransaction`, `deleteTransaction x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -571,3 +625,13 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+
+
+
+
+
+
+
+
