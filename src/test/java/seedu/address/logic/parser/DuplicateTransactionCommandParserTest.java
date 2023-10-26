@@ -1,20 +1,26 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DuplicateTransactionCommand;
+import seedu.address.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
+import seedu.address.testutil.EditTransactionDescriptorBuilder;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -84,6 +90,31 @@ public class DuplicateTransactionCommandParserTest {
         assertParseFailure(parser,
             "1" + " " + PREFIX_COST + INVALID_COST + " "
                 + PREFIX_DESCRIPTION + INVALID_DESCRIPTION, Description.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_noFieldSpecified_success() {
+        Index targetIndex = INDEX_FIRST_ELEMENT;
+        String userInput = targetIndex.getOneBased() + "";
+        DuplicateTransactionCommand expectedCommand = new DuplicateTransactionCommand(targetIndex,
+            new EditTransactionDescriptor());
+        try {
+            Command command = parser.parse(userInput);
+            assertNotNull(command);
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    @Test
+    public void parse_oneFieldSpecified_success() {
+        // timestamp
+        Index targetIndex = INDEX_FIRST_ELEMENT;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_TIMESTAMP + VALID_TIMESTAMP;
+        EditTransactionDescriptor descriptor =
+            new EditTransactionDescriptorBuilder().withTimestamp(VALID_TIMESTAMP).build();
+        DuplicateTransactionCommand expectedCommand = new DuplicateTransactionCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
