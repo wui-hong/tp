@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTransactionCommand;
 import seedu.address.logic.commands.SetShorthandCommand;
 import seedu.address.logic.commands.SettlePersonCommand;
+import seedu.address.logic.commands.UpdatePortionCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -50,6 +51,7 @@ public class CommandAliasMap {
             add(ListTransactionCommand.COMMAND_WORD);
             add(SetShorthandCommand.COMMAND_WORD);
             add(SettlePersonCommand.COMMAND_WORD);
+            add(UpdatePortionCommand.COMMAND_WORD);
         }};
 
     private Map<String, String> aliasToCommand;

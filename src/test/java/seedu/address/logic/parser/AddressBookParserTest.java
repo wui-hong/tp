@@ -146,7 +146,7 @@ public class AddressBookParserTest {
         UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(portion).build();
         UpdatePortionCommand command = (UpdatePortionCommand) parser.parseCommand(
                 UpdatePortionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
-                        + getUpdatePortionDescriptorDetails(descriptor));
+                        + getUpdatePortionDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
