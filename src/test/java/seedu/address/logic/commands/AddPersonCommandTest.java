@@ -215,7 +215,17 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public void sortPersonDescending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String setCommandAlias(String command, String alias) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPersonAscending() {
             throw new AssertionError("This method should not be called.");
         }
     }

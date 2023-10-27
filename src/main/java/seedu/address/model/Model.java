@@ -163,4 +163,14 @@ public interface Model {
      * Ties the alias to the command, and returns the previous alias for the command, if any.
      */
     String setCommandAlias(String command, String alias) throws CommandException;
+
+    /**
+     * Sorts person list in ascending order of balance.
+     */
+    void sortPersonAscending();
+
+    /**
+     * Sorts person list in descending order of balance.
+     */
+    void sortPersonDescending();
 }

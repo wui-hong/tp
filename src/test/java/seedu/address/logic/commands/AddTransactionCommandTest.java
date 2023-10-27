@@ -51,7 +51,7 @@ public class AddTransactionCommandTest {
     }
 
     @Test
-    public void execute_irrelevantTransaction_throwsParseException() throws Exception {
+    public void execute_irrelevantTransaction_throwsCommandException() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Transaction irrelevantTransaction = new TransactionBuilder()
                 .withPortions(Set.of(TypicalPortions.ALICE_PORTION)).build();
@@ -62,7 +62,7 @@ public class AddTransactionCommandTest {
     }
 
     @Test
-    public void execute_unknownTransaction_throwsParseException() throws Exception {
+    public void execute_unknownTransaction_throwsCommandException() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Transaction irrelevantTransaction = new TransactionBuilder().withPayeeName("Unknown").build();
         AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
@@ -236,7 +236,17 @@ public class AddTransactionCommandTest {
         }
 
         @Override
+        public void sortPersonDescending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String setCommandAlias(String command, String alias) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPersonAscending() {
             throw new AssertionError("This method should not be called.");
         }
     }

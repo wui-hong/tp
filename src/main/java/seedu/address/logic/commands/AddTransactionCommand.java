@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -26,13 +27,17 @@ public class AddTransactionCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_COST + "COST "
             + "["
+            + PREFIX_TIMESTAMP + "TIME"
+            + "] "
+            + "["
             + PREFIX_NAME + "NAME "
             + PREFIX_WEIGHT + "WEIGHT"
-            + "] "
+            + "]... "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "bread "
             + PREFIX_NAME + "John Doe "
             + PREFIX_COST + "25.00 "
+            + PREFIX_TIMESTAMP + "2020-10-10T12:00 "
             + PREFIX_NAME + "Self "
             + PREFIX_WEIGHT + "1.5 "
             + PREFIX_NAME + "John Doe "

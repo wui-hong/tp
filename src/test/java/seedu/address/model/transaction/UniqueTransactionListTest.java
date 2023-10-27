@@ -154,7 +154,6 @@ class UniqueTransactionListTest {
         transactionList.add(new TransactionBuilder().withAmount("3").withPayeeName(Name.SELF.fullName)
             .withPortions(Set.of(ALICE_PORTION, BENSON_PORTION)).build());
         assertTrue(transactionList.getBalance(ALICE.getName()).equals(BigFraction.ONE));
-        System.out.println(transactionList.getBalance(BENSON.getName()));
         assertTrue(UniqueTransactionList.getBalance(BENSON.getName(),
                 transactionList.asUnmodifiableObservableList()).equals(BigFraction.ONE.add(BigFraction.ONE)));
     }

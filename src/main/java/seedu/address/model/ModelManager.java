@@ -166,6 +166,14 @@ public class ModelManager implements Model {
         return addressBook.getBalance(name);
     }
 
+    public void sortPersonDescending() {
+        addressBook.setPersonDescendingBalance();
+    }
+
+    public void sortPersonAscending() {
+        addressBook.setPersonAscendingBalance();
+    }
+
     //=========== Filtered Person & Transaction List Accessors ===============================================
 
     /**

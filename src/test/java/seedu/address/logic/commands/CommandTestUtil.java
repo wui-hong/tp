@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM_HANDLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -70,6 +71,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String DESC_TIMESTAMP = " " + PREFIX_TIMESTAMP + VALID_TIMESTAMP;
 
     public static final String DESCRIPTION_DESC_LUNCH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_LUNCH;
 

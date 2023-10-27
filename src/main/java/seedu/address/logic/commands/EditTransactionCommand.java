@@ -39,6 +39,7 @@ public class EditTransactionCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COST + "COST] "
             + "[" + PREFIX_DESCRIPTION + "DETAILS] "
+            + "[" + PREFIX_TIMESTAMP + "TIME] "
             + "[" + PREFIX_NAME + "PAYEE NAME] "
             + "[" + PREFIX_TIMESTAMP + "TIMESTAMP] "
             + "Example: " + COMMAND_WORD + " 1 "
