@@ -50,7 +50,7 @@ public class AddTransactionCommandTest {
     }
 
     @Test
-    public void execute_irrelevantTransaction_throwsParseException() throws Exception {
+    public void execute_irrelevantTransaction_throwsCommandException() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Transaction irrelevantTransaction = new TransactionBuilder()
                 .withPortions(Set.of(TypicalPortions.ALICE_PORTION)).build();
@@ -61,7 +61,7 @@ public class AddTransactionCommandTest {
     }
 
     @Test
-    public void execute_unknownTransaction_throwsParseException() throws Exception {
+    public void execute_unknownTransaction_throwsCommandException() throws Exception {
         ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
         Transaction irrelevantTransaction = new TransactionBuilder().withPayeeName("Unknown").build();
         AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
