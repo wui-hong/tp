@@ -40,17 +40,27 @@ public class Messages {
      */
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
-            .append("; Phone: ")
-            .append(person.getPhone())
-            .append("; Telegram Handle: ")
-            .append(person.getTelegramHandle())
-            .append("; Email: ")
-            .append(person.getEmail())
-            .append("; Address: ")
-            .append(person.getAddress())
-            .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+        builder.append(person.getName());
+        if (person.getPhone() != null) {
+            builder.append("; Phone: ")
+                    .append(person.getPhone());
+        }
+        if (person.getTelegramHandle() != null) {
+            builder.append("; Telegram Handle: ")
+                    .append(person.getTelegramHandle());
+        }
+        if (person.getEmail() != null) {
+            builder.append("; Email: ")
+                    .append(person.getEmail());
+        }
+        if (person.getAddress() != null) {
+            builder.append("; Address: ")
+                    .append(person.getAddress());
+        }
+        if (person.getTags().size() > 0) {
+            builder.append("; Tags: ");
+            person.getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 
