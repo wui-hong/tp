@@ -344,13 +344,13 @@ Examples:
 * `editPerson 2 n=Betsy Crower t=`
     * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-  ![editPerson_success](C:\Users\khoow\Documents\tp\docs\images\user-guide\editPerson.PNG)
+![editPerson_success](images/user-guide/editPerson.png)
 
-### Locating persons by name: `find`
+### Locating persons by name: `findPerson`
 
 Finds persons whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `findPerson KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -361,9 +361,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`
-  ![find success](C:\Users\khoow\Documents\tp\docs\images\user-guide\find.PNG)
+* `findPerson John` returns `john` and `John Doe`
+* `findPerson alex david` returns `Alex Yeoh`, `David Li`
+
+* ![findPerson success](images/user-guide/findPerson.png)
 
 ### Deleting a person : `deletePerson`
 
@@ -378,16 +379,17 @@ Format: `deletePerson INDEX`
 Examples:
 
 * `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
+* `findPerson Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `findPerson` command.
 
-![](C:\Users\khoow\Documents\tp\docs\images\user-guide\deletePerson.PNG)
+![deletePerson success](images/user-guide/deletePerson.png)
 
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
-![](C:\Users\khoow\Documents\tp\docs\images\user-guide\clear.PNG)
+
+![clear success](images/user-guide/clear.png)
 
 ### Exiting the program : `exit`
 
