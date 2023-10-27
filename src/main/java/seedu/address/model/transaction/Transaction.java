@@ -141,9 +141,10 @@ public class Transaction implements Comparable<Transaction> {
         for (Name name : validNames) {
             nameMap.put(name, name);
         }
-        Name newPayee = nameMap.containsKey(payeeName) ? nameMap.get(payeeName) : payeeName;
+        nameMap.put(Name.SELF, Name.SELF);
+        Name newPayee = nameMap.containsKey(payeeName) ? nameMap.get(payeeName) : Name.OTHERS;
         Set<Portion> newPortions = portions.stream().map(x -> new Portion(
-                nameMap.containsKey(x.getPersonName()) ? nameMap.get(x.getPersonName()) : x.getPersonName(),
+                nameMap.containsKey(x.getPersonName()) ? nameMap.get(x.getPersonName()) : Name.OTHERS,
                 x.getWeight())).collect(Collectors.toSet());
         return new Transaction(amount, description, newPayee, newPortions, timestamp);
     }
