@@ -151,4 +151,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    /**
+     * Sorts person list in ascending order of balance.
+     */
+    void sortPersonAscending();
+
+    /**
+     * Sorts person list in descending order of balance.
+     */
+    void sortPersonDescending();
 }

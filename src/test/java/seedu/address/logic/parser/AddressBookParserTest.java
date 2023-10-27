@@ -32,6 +32,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTransactionCommand;
+import seedu.address.logic.commands.SortPersonCommand;
 import seedu.address.logic.commands.UpdatePortionCommand;
 import seedu.address.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -54,7 +55,7 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_addPerson() throws Exception {
         Person person = new PersonBuilder().build();
         AddPersonCommand command = (AddPersonCommand) parser.parseCommand(PersonUtil.getAddPersonCommand(person));
         assertEquals(new AddPersonCommand(person), command);
@@ -67,19 +68,27 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_deletePerson() throws Exception {
         DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
                 DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
         assertEquals(new DeletePersonCommand(INDEX_FIRST_ELEMENT), command);
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_editPerson() throws Exception {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditPersonCommand command = (EditPersonCommand) parser.parseCommand(EditPersonCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ELEMENT.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditPersonCommand(INDEX_FIRST_ELEMENT, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_sortPerson() throws Exception {
+        assertTrue(parser.parseCommand(SortPersonCommand.COMMAND_WORD
+                + " +") instanceof SortPersonCommand);
+        assertTrue(parser.parseCommand(SortPersonCommand.COMMAND_WORD
+                + " -") instanceof SortPersonCommand);
     }
 
     @Test
