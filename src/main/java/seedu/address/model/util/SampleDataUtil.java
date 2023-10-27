@@ -57,16 +57,16 @@ public class SampleDataUtil {
         return new Transaction[] {
             new Transaction(new Amount("60"), new Description("Group Project Lunch"), new Name("Self"), Set.of(
                 new Portion(new Name("Alex Yeoh"), new Weight("2")), new Portion(new Name("Bernice Yu"),
-                    new Weight("4"))), new Timestamp("13/10/2023 12:34")),
+                    new Weight("4"))), new Timestamp("13/10/2023 12:00")),
             new Transaction(new Amount("90"), new Description("Hall Dinner"), new Name("Bernice Yu"), Set.of(
                 new Portion(new Name("Self"), new Weight("8")), new Portion(new Name("Bernice Yu"), new Weight("4"))),
-                    new Timestamp("13/10/2023 12:34")),
+                    new Timestamp("13/10/2023 16:00")),
             new Transaction(new Amount("600"), new Description("Shared Dorm Rent"), new Name("Bernice Yu"), Set.of(
                 new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"), new Weight("1"))),
-                    new Timestamp("13/10/2023 12:34")),
+                    new Timestamp("13/10/2023 13:00")),
             new Transaction(new Amount("100"), new Description("Carpool Subscription"), new Name("Self"), Set.of(
                 new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"), new Weight("1"))),
-                    new Timestamp("13/10/2023 12:34")),
+                    new Timestamp("13/10/2023 04:00")),
         };
     }
 
