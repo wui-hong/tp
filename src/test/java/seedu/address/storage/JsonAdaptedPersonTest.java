@@ -15,6 +15,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TelegramHandle;
 import seedu.address.testutil.PersonBuilder;
@@ -38,8 +39,21 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        Person person = BENSON;
+        JsonAdaptedPerson jsonPerson = new JsonAdaptedPerson(person);
+        assertEquals(person, jsonPerson.toModelType());
+        person = new PersonBuilder(BENSON).withAddress(null).build();
+        jsonPerson = new JsonAdaptedPerson(person);
+        assertEquals(person, jsonPerson.toModelType());
+        person = new PersonBuilder(BENSON).withEmail(null).build();
+        jsonPerson = new JsonAdaptedPerson(person);
+        assertEquals(person, jsonPerson.toModelType());
+        person = new PersonBuilder(BENSON).withPhone(null).build();
+        jsonPerson = new JsonAdaptedPerson(person);
+        assertEquals(person, jsonPerson.toModelType());
+        person = new PersonBuilder(BENSON).withTelegramHandle(null).build();
+        jsonPerson = new JsonAdaptedPerson(person);
+        assertEquals(person, jsonPerson.toModelType());
     }
 
     @Test
