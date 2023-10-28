@@ -13,7 +13,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Timestamp {
     public static final String MESSAGE_CONSTRAINTS = "Date must be in DD/MM/YYYY format "
-            + "and time must be in HH:MM format; date should come before time if both are provided";
+            + "and time must be in HH:MM format; date should come before time"
+            + "with a single space separating them if both are provided";
 
     public static final String DATE_VALIDATION = "[0-9]{2}/[0-9]{2}/[0-9]{4}";
     public static final String TIME_VALIDATION = "[0-9]{2}:[0-9]{2}";
