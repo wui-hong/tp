@@ -166,7 +166,8 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         }
 
         UniqueTransactionList otherTransactionList = (UniqueTransactionList) other;
-        return internalList.equals(otherTransactionList.internalList);
+        return internalList.stream().collect(Collectors.toSet())
+                .equals(otherTransactionList.internalList.stream().collect(Collectors.toSet()));
     }
 
     @Override

@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.portion.Portion;
 import seedu.address.model.transaction.portion.Weight;
@@ -37,9 +38,14 @@ public class SettlePersonCommand extends Command {
     public static final String SETTLE_TRANSACTION_DESCRIPTION = "Settle balance with %1$s";
 
     private final Index targetIndex;
+    private final Timestamp time;
 
-    public SettlePersonCommand(Index targetIndex) {
+    /**
+     * Constructs a settle person command.
+     */
+    public SettlePersonCommand(Index targetIndex, Timestamp time) {
         this.targetIndex = targetIndex;
+        this.time = time;
     }
 
     @Override
@@ -81,7 +87,7 @@ public class SettlePersonCommand extends Command {
 
         // create transaction to cancel out outstanding balance
         model.addTransaction(new Transaction(
-                new Amount(balance.abs().toString()), description, name, portions));
+                new Amount(balance.abs().toString()), description, name, portions, time));
         return new CommandResult(String.format(MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()));
     }
 
@@ -97,13 +103,15 @@ public class SettlePersonCommand extends Command {
         }
 
         SettlePersonCommand otherSettlePersonCommand = (SettlePersonCommand) other;
-        return targetIndex.equals(otherSettlePersonCommand.targetIndex);
+        return targetIndex.equals(otherSettlePersonCommand.targetIndex)
+                && time.equals(otherSettlePersonCommand.time);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
+                .add("time", time)
                 .toString();
     }
 }

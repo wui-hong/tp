@@ -109,7 +109,8 @@ class TransactionTest {
         Transaction transaction = new TransactionBuilder().build();
         String expected = Transaction.class.getCanonicalName() + "{amount=" + transaction.getAmount()
             + ", description=" + transaction.getDescription() + ", payeeName=" + transaction.getPayeeName()
-            + ", portions=" + transaction.getPortions() + "}";
+            + ", portions=" + transaction.getPortions()
+            + ", timestamp=" + transaction.getTimestamp() + "}";
         assertEquals(expected, transaction.toString());
     }
 
