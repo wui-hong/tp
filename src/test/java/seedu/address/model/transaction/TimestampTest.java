@@ -36,6 +36,8 @@ public class TimestampTest {
 
         // valid timestamps
         assertTrue(Timestamp.isValidTimestamp("12/12/2020 12:00"));
+        assertTrue(Timestamp.isValidTimestamp("12:00"));
+        assertTrue(Timestamp.isValidTimestamp("12/12/2020"));
 
     }
 

@@ -44,7 +44,7 @@ public class Timestamp {
             return LocalDateTime.parse(timestamp, DATETIME_FORMATTER);
         }
         if (timestamp.matches(DATE_VALIDATION)) {
-            return LocalDateTime.parse(timestamp + " 00:00", DATE_FORMATTER);
+            return LocalDateTime.parse(timestamp + " 00:00", DATETIME_FORMATTER);
         }
         if (timestamp.matches(TIME_VALIDATION)) {
             String date = DATE_FORMATTER.format(LocalDateTime.now());
