@@ -50,7 +50,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Adds a transaction to the list.
+     * Adds a transaction to the list if it is valid based on the set of valid names.
      */
     public void add(Transaction toAdd, Set<Name> validNames) {
         requireNonNull(toAdd);
@@ -61,7 +61,8 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the transaction {@code target} in the list with {@code editedTransaction}.
+     * Replaces the transaction {@code target} in the list with {@code editedTransaction}
+     * given that the transaction is valid based on the set of valid names.
      * {@code target} must exist in the list.
      */
     public void setTransaction(Transaction target, Transaction editedTransaction, Set<Name> validNames) {
@@ -119,13 +120,18 @@ public class UniqueTransactionList implements Iterable<Transaction> {
                 .map(transaction -> transaction.setPerson(target, edited)).collect(Collectors.toList()));
     }
 
+    /**
+     *  Replaces the contents of this list with those in replacement
+     *  given that the transactions are valid based on the set of valid names.
+     */
     public void setTransactions(UniqueTransactionList replacement, Set<Name> validNames) {
         requireNonNull(replacement);
         setTransactions(replacement.internalList, validNames);
     }
 
     /**
-     * Replaces the contents of this list with {@code transactions}.
+     * Replaces the contents of this list with {@code transactions}
+     * given that the transactions are valid based on the set of valid names.
      * {@code transactions} must not contain duplicate transactions.
      */
     public void setTransactions(List<Transaction> transactions, Set<Name> validNames) {
