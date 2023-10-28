@@ -134,8 +134,8 @@ public class MainWindow extends UiPart<Stage> {
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
         primaryStage.setHeight(screenSize.getHeight());
         primaryStage.setWidth(screenSize.getWidth());
-        primaryStage.setMinHeight(screenSize.getHeight());
-        primaryStage.setMinWidth(screenSize.getWidth());
+        primaryStage.setMinHeight(screenSize.getHeight() * 0.9);
+        primaryStage.setMinWidth(screenSize.getWidth() * 0.9);
         primaryStage.setX(0);
         primaryStage.setY(0);
     }
