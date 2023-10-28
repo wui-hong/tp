@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -62,7 +64,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize();
 
         setAccelerators();
 
@@ -125,15 +127,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the default size based on {@code guiSettings}.
+     * Sets the default size based on the screen size.
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
+    private void setWindowDefaultSize() {
+        Rectangle screenSize =
+                GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        primaryStage.setHeight(screenSize.getHeight());
+        primaryStage.setWidth(screenSize.getWidth());
+        primaryStage.setMinHeight(screenSize.getHeight());
+        primaryStage.setMinWidth(screenSize.getWidth());
+        primaryStage.setX(0);
+        primaryStage.setY(0);
     }
 
     /**
