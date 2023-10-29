@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
+import java.time.chrono.IsoEra;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoField;
 
 /**
  * Represents a Transaction's timestamp in the address book.
@@ -13,7 +17,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Timestamp {
     public static final String MESSAGE_CONSTRAINTS = "Date must be in DD/MM/YYYY format "
-            + "and time must be in HH:MM format; date should come before time"
+            + "and time must be in HH:MM format; date should come before time "
             + "with a single space separating them if both are provided";
 
     public static final String DATE_VALIDATION = "[0-9]{2}/[0-9]{2}/[0-9]{4}";
@@ -24,8 +28,9 @@ public class Timestamp {
 
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
-    public static final DateTimeFormatter DATETIME_FORMATTER =
-            DateTimeFormatter.ofPattern(DATE_FORMAT + " " + TIME_FORMAT);
+    public static final DateTimeFormatter DATETIME_FORMATTER = new DateTimeFormatterBuilder()
+            .appendPattern(DATE_FORMAT + " " + TIME_FORMAT).parseDefaulting(ChronoField.ERA, IsoEra.CE.getValue())
+            .toFormatter().withResolverStyle(ResolverStyle.STRICT);
 
     public final LocalDateTime value;
 
@@ -68,6 +73,7 @@ public class Timestamp {
         try {
             return parse(test) != null;
         } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }

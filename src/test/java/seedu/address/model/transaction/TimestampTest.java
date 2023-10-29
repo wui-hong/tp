@@ -31,12 +31,18 @@ public class TimestampTest {
         assertFalse(Timestamp.isValidTimestamp(" ")); // spaces only
         assertFalse(Timestamp.isValidTimestamp("2023-10-13T12:34")); // incorrect format
         assertFalse(Timestamp.isValidTimestamp("12/13/2020 12:00")); // invalid date
+        assertFalse(Timestamp.isValidTimestamp("12/00/2020 12:00")); // invalid date
+        assertFalse(Timestamp.isValidTimestamp("00/12/2020")); // invalid date
+        assertFalse(Timestamp.isValidTimestamp("12/12/2020 24:00")); // invalid time
+        assertFalse(Timestamp.isValidTimestamp("23:60")); // invalid time
         assertFalse(Timestamp.isValidTimestamp("12/12/2020  12:00")); // extra space
         assertFalse(Timestamp.isValidTimestamp("12:00 12/12/2020")); // time before date
 
         // valid timestamps
         assertTrue(Timestamp.isValidTimestamp("12/12/2020 12:00"));
         assertTrue(Timestamp.isValidTimestamp("12:00"));
+        assertTrue(Timestamp.isValidTimestamp("00:00"));
+        assertTrue(Timestamp.isValidTimestamp("23:59"));
         assertTrue(Timestamp.isValidTimestamp("12/12/2020"));
 
     }
