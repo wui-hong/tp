@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import java.util.List;
@@ -28,8 +29,10 @@ import seedu.address.model.transaction.portion.Weight;
 public class SettlePersonCommand extends Command {
     public static final String COMMAND_WORD = "settlePerson";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Settle any outstanding balance with another person. "
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_TIMESTAMP + "TIME]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_TIMESTAMP + "10/10/2020 12:00";
 
     public static final String MESSAGE_SETTLE_PERSON_SUCCESS = "Balance settled: %1$s";
 
