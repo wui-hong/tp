@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SEVENTH_ELEMENT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
 
 import java.util.Set;
 
@@ -34,7 +34,7 @@ import seedu.address.testutil.TransactionBuilder;
  */
 public class SettlePersonCommandIntegrationTest {
 
-    private static final Timestamp TIME = new Timestamp(VALID_TIMESTAMP);
+    private static final Timestamp TIME = new Timestamp(new Timestamp(VALID_TIMESTAMP).value.plusDays(1));
 
     private Model model;
 
@@ -52,7 +52,7 @@ public class SettlePersonCommandIntegrationTest {
                 String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
                 .withAmount(expectedModel.getBalance(personToSettleName).toString())
                 .withPortions(Set.of(new PortionBuilder().withName(Name.SELF.fullName)
-                .withWeight("1").build())).withTimestamp(VALID_TIMESTAMP).build();
+                .withWeight("1").build())).withTimestamp(TIME.toString()).build();
         expectedModel.addTransaction(transaction);
 
         assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_FIRST_ELEMENT, TIME), model,
@@ -69,28 +69,21 @@ public class SettlePersonCommandIntegrationTest {
                 String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
                 .withAmount(expectedModel.getBalance(personToSettleName).abs().toString())
                 .withPortions(Set.of(new PortionBuilder().withName(personToSettleName.fullName)
-                .withWeight("1").build())).withTimestamp(VALID_TIMESTAMP).build();
+                .withWeight("1").build())).withTimestamp(TIME.toString()).build();
         expectedModel.addTransaction(transaction);
 
         assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_SEVENTH_ELEMENT, TIME), model,
                 String.format(SettlePersonCommand.MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()),
                 expectedModel);
     }
+
     @Test
     public void execute_noOutstandingBalance_throwsCommandException() {
-        Person personToSettle = new PersonBuilder(ELLE).build();
+        Person personToSettle = new PersonBuilder(FIONA).build();
         Name personToSettleName = personToSettle.getName();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Transaction transaction = new TransactionBuilder().withPayeeName(personToSettleName.toString()).withDescription(
-                String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
-                .withAmount(expectedModel.getBalance(personToSettleName).toString())
-                .withPortions(Set.of(new PortionBuilder().withName(Name.SELF.fullName)
-                .withWeight("1").build())).build();
-        expectedModel.addTransaction(transaction);
-
         assertCommandFailure(new SettlePersonCommand(INDEX_FIFTH_ELEMENT, TIME),
-                model, SettlePersonCommand.MESSAGE_NO_OUTSTANDING_BALANCE);
+                model, String.format(SettlePersonCommand.MESSAGE_NO_OUTSTANDING_BALANCE, personToSettleName, TIME));
     }
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {

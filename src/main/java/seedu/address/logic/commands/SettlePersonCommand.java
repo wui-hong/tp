@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import java.util.List;
 import java.util.Set;
@@ -28,7 +27,9 @@ import seedu.address.model.transaction.portion.Weight;
  */
 public class SettlePersonCommand extends Command {
     public static final String COMMAND_WORD = "settlePerson";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Settle any outstanding balance with another person. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Settle any outstanding balance with another person.\n"
+            + "If a timestamp is provided, the balance at the instant before the timestamp is used. "
+            + "Else, the balance at the instant before the current system time is used.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TIMESTAMP + "TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -36,7 +37,8 @@ public class SettlePersonCommand extends Command {
 
     public static final String MESSAGE_SETTLE_PERSON_SUCCESS = "Balance settled: %1$s";
 
-    public static final String MESSAGE_NO_OUTSTANDING_BALANCE = "There is no outstanding balance with this person.";
+    public static final String MESSAGE_NO_OUTSTANDING_BALANCE =
+            "There is no outstanding balance with %1$s before %2$s.";
 
     public static final String SETTLE_TRANSACTION_DESCRIPTION = "Settle balance with %1$s";
 
@@ -62,12 +64,11 @@ public class SettlePersonCommand extends Command {
 
         Person personToSettle = lastShownList.get(targetIndex.getZeroBased());
 
-        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
-
         // total money the person owes the user
-        BigFraction balance = model.getBalance(personToSettle.getName());
+        BigFraction balance = model.getBalance(personToSettle.getName(), time);
         if (balance.equals(BigFraction.ZERO)) {
-            throw new CommandException(MESSAGE_NO_OUTSTANDING_BALANCE);
+            throw new CommandException(String.format(MESSAGE_NO_OUTSTANDING_BALANCE,
+                    personToSettle.getName(), time));
         }
 
         Description description = new Description(String.format(

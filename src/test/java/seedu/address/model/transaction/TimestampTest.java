@@ -12,7 +12,7 @@ public class TimestampTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Timestamp(null));
+        assertThrows(NullPointerException.class, () -> new Timestamp((String) null));
     }
 
     @Test

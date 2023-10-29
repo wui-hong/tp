@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -34,10 +35,24 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
+     * Get balance for a person with a given name based on transactions before the given time within this list.
+     */
+    public BigFraction getBalance(Name name, Timestamp time) {
+        return UniqueTransactionList.getBalance(name, internalList,
+                transaction -> transaction.getTimestamp().compareTo(time) < 0);
+    }
+
+    /**
      * Get balance for a person with a given name, within a given list.
      */
     public static BigFraction getBalance(Name name, ObservableList<Transaction> transactionList) {
-        return transactionList.stream().map(transaction -> transaction.getPortionAmountOwedSelf(name))
+        return getBalance(name, transactionList, unused -> true);
+    }
+
+    private static BigFraction getBalance(
+                Name name, ObservableList<Transaction> transactionList, Predicate<Transaction> isApplicable) {
+        return transactionList.stream().filter(isApplicable)
+                .map(transaction -> transaction.getPortionAmountOwedSelf(name))
                 .reduce(BigFraction.ZERO, BigFraction::add);
     }
 

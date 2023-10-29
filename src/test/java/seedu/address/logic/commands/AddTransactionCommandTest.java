@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
@@ -196,6 +197,11 @@ public class AddTransactionCommandTest {
 
         @Override
         public BigFraction getBalance(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public BigFraction getBalance(Name name, Timestamp time) {
             throw new AssertionError("This method should not be called.");
         }
 

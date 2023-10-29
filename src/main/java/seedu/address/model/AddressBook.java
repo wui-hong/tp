@@ -13,6 +13,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
 
@@ -230,6 +231,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public BigFraction getBalance(Name name) {
         return transactions.getBalance(name);
+    }
+
+    /**
+     * Returns the total balance of all transaction before a stated time that the person has to pay the user.
+     *
+     * @param name the name of the person
+     * @param time the time before which transactions are accounted for
+     */
+    public BigFraction getBalance(Name name, Timestamp time) {
+        return transactions.getBalance(name, time);
     }
 
     @Override

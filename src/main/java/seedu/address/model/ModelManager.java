@@ -16,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -151,6 +152,12 @@ public class ModelManager implements Model {
     public BigFraction getBalance(Name name) {
         requireNonNull(name);
         return addressBook.getBalance(name);
+    }
+
+    @Override
+    public BigFraction getBalance(Name name, Timestamp time) {
+        requireAllNonNull(name, time);
+        return addressBook.getBalance(name, time);
     }
 
     public void sortPersonDescending() {

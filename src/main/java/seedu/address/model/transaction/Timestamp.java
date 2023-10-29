@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  * Represents a Transaction's timestamp in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTimestamp(String)}
  */
-public class Timestamp {
+public class Timestamp implements Comparable<Timestamp> {
     public static final String MESSAGE_CONSTRAINTS = "Timestamp must be in a valid ISO datetime format";
 
     public final LocalDateTime value;
@@ -27,6 +27,14 @@ public class Timestamp {
         value = LocalDateTime.parse(timestamp);
     }
 
+    /**
+     * Constructs a {@code Timestamp}.
+     *
+     * @param value A valid timestamp.
+     */
+    public Timestamp(LocalDateTime value) {
+        this.value = value;
+    }
 
     /**
      * Returns the timestamp for the current time.
@@ -64,7 +72,17 @@ public class Timestamp {
         }
 
         Timestamp otherTimestamp = (Timestamp) other;
-        return value.equals(otherTimestamp.value);
+        // Uses string format to get rid of floating point errors
+        return value.toString().equals(otherTimestamp.value.toString());
+    }
+
+    @Override
+    public int compareTo(Timestamp other) {
+        // Seconds are not compared
+        if (this.equals(other)) {
+            return 0;
+        }
+        return value.compareTo(other.value);
     }
 
     @Override
