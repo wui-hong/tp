@@ -15,7 +15,7 @@ import java.time.temporal.ChronoField;
  * Represents a Transaction's timestamp in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTimestamp(String)}
  */
-public class Timestamp {
+public class Timestamp implements Comparable<Timestamp> {
     public static final String MESSAGE_CONSTRAINTS = "Date must be in DD/MM/YYYY format "
             + "and time must be in HH:MM format; date should come before time "
             + "with a single space separating them if both are provided";
@@ -95,7 +95,17 @@ public class Timestamp {
         }
 
         Timestamp otherTimestamp = (Timestamp) other;
-        return value.equals(otherTimestamp.value);
+        // Uses string format to get rid of floating point errors
+        return value.toString().equals(otherTimestamp.value.toString());
+    }
+
+    @Override
+    public int compareTo(Timestamp other) {
+        // Seconds are not compared
+        if (this.equals(other)) {
+            return 0;
+        }
+        return value.compareTo(other.value);
     }
 
     @Override

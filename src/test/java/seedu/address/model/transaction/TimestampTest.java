@@ -73,4 +73,19 @@ public class TimestampTest {
         // different values -> returns false
         assertNotEquals(timestamp, new Timestamp("13/10/2023 12:33"));
     }
+
+    @Test
+    public void compareTo() {
+        Timestamp timestamp1 = new Timestamp("13/10/2023 12:34");
+        Timestamp timestamp2 = new Timestamp("13/10/2023");
+
+        // same value
+        assertTrue(timestamp1.compareTo(new Timestamp("13/10/2023 12:34")) == 0);
+
+        // smaller value
+        assertTrue(timestamp1.compareTo(timestamp2) > 0);
+
+        // larger value
+        assertTrue(timestamp2.compareTo(timestamp1) < 0);
+    }
 }
