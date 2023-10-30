@@ -100,8 +100,13 @@ class TransactionTest {
         assertNotEquals(transaction, new TransactionBuilder().withPayeeName(BOB.getName().fullName).build());
 
         // different portions -> returns false
-        Set<Portion> portions = Set.of(BENSON_PORTION);
+        Set<Portion> portions = Set.of(new PortionBuilder(BENSON_PORTION).withWeight("1").build());
         assertNotEquals(transaction, new TransactionBuilder().withPortions(portions).build());
+
+        // equivalent portions -> returns true
+        Set<Portion> portionsDuplicate = Set.of(new PortionBuilder(BENSON_PORTION).withWeight("2").build());
+        assertEquals(new TransactionBuilder().withPortions(portions).build(),
+                new TransactionBuilder().withPortions(portionsDuplicate).build());
     }
 
     @Test

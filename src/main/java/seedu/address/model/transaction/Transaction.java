@@ -52,7 +52,7 @@ public class Transaction implements Comparable<Transaction> {
         this.amount = amount;
         this.description = description;
         this.payeeName = payeeName;
-        this.portions.addAll(portions);
+        this.portions.addAll(normalisePortions(portions));
         this.timestamp = timestamp;
     }
 
@@ -70,6 +70,15 @@ public class Transaction implements Comparable<Transaction> {
 
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    private Set<Portion> normalisePortions(Set<Portion> portions) {
+        BigFraction totalWeight = sumWeights(portions);
+        if (totalWeight.signum() <= 0) {
+            return portions;
+        }
+        return portions.stream().map(portion -> new Portion(portion.getPersonName(),
+                new Weight(portion.getWeight().value.divide(totalWeight)))).collect(Collectors.toSet());
     }
 
     /**
@@ -336,9 +345,13 @@ public class Transaction implements Comparable<Transaction> {
             .toString();
     }
 
-    private BigFraction getTotalWeight() {
+    private static BigFraction sumWeights(Set<Portion> portions) {
         return portions.stream()
             .map(portion -> portion.getWeight().value)
             .reduce(BigFraction.ZERO, BigFraction::add);
+    }
+
+    private BigFraction getTotalWeight() {
+        return sumWeights(portions);
     }
 }
