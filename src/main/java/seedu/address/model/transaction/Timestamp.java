@@ -45,6 +45,15 @@ public class Timestamp implements Comparable<Timestamp> {
         value = parse(timestamp);
     }
 
+    /**
+     * Constructs a {@code Timestamp}.
+     *
+     * @param value A valid timestamp.
+     */
+    public Timestamp(LocalDateTime value) {
+        this.value = value;
+    }
+
     private static LocalDateTime parse(String timestamp) {
         if (timestamp.matches(DATE_VALIDATION + " " + TIME_VALIDATION)) {
             return LocalDateTime.parse(timestamp, DATETIME_FORMATTER);

@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandAliasMap;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -119,6 +120,14 @@ public interface Model {
      * @param name the name of the person
      */
     BigFraction getBalance(Name name);
+
+    /**
+     * Returns the total balance of all transaction before a stated time that the person has to pay the user.
+     *
+     * @param name the name of the person
+     * @param time the time before which transactions are accounted for
+     */
+    BigFraction getBalance(Name name, Timestamp time);
 
     /**
      * Gets all names in the model.
