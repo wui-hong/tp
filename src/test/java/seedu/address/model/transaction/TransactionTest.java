@@ -110,6 +110,23 @@ class TransactionTest {
     }
 
     @Test
+    public void compareTo() {
+        assertTrue(new TransactionBuilder().build().compareTo(new TransactionBuilder().build()) == 0);
+        assertTrue(new TransactionBuilder().withTimestamp("10/10/2020").build()
+                .compareTo(new TransactionBuilder().withTimestamp("10/10/1010").build()) < 0);
+        assertTrue(new TransactionBuilder().withAmount("1").build()
+                .compareTo(new TransactionBuilder().withAmount("2").build()) > 0);
+        assertTrue(new TransactionBuilder().withDescription("A").build()
+                .compareTo(new TransactionBuilder().withDescription("B").build()) < 0);
+        assertTrue(new TransactionBuilder().withPayeeName(Name.SELF.fullName).build()
+                .compareTo(new TransactionBuilder().withPayeeName("A").build()) < 0);
+        assertTrue(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, ALICE_PORTION, BENSON_PORTION)).build()
+                .compareTo(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, ALICE_PORTION)).build()) < 0);
+        assertTrue(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, BENSON_PORTION)).build()
+                .compareTo(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, ALICE_PORTION)).build()) > 0);
+    }
+
+    @Test
     public void toStringTest() {
         Transaction transaction = new TransactionBuilder().build();
         String expected = Transaction.class.getCanonicalName() + "{amount=" + transaction.getAmount()
