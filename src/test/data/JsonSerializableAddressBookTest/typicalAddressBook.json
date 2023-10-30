@@ -23,7 +23,7 @@
     "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "phone" : "87652533",
+    "phone" : "",
     "telegramHandle" : "@Daniel123",
     "email" : "cornelia@example.com",
     "address" : "10th street",
@@ -31,7 +31,7 @@
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
-    "telegramHandle" : "@Elle123",
+    "telegramHandle" : "",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tags" : [ ]
@@ -39,7 +39,7 @@
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "telegramHandle" : "@Fiona123",
-    "email" : "lydia@example.com",
+    "email" : "",
     "address" : "little tokyo",
     "tags" : [ ]
   }, {
@@ -47,7 +47,7 @@
     "phone" : "9482442",
     "telegramHandle" : "@George123",
     "email" : "anna@example.com",
-    "address" : "4th street",
+    "address" : "",
     "tags" : [ ]
   } ],
   "transactions" : [ {
