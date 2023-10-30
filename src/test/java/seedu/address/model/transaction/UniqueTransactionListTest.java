@@ -6,8 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPortions.ALICE_PORTION;
 import static seedu.address.testutil.TypicalPortions.BENSON_PORTION;
+import static seedu.address.testutil.TypicalPortions.SELF_PORTION;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -34,49 +36,53 @@ class UniqueTransactionListTest {
     private final TransactionWithBobStub transactionWithBobStub = new TransactionWithBobStub();
     @Test
     public void add_nullTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> transactionList.add(null));
+        assertThrows(NullPointerException.class, () -> transactionList.add(null, Set.of()));
     }
 
     @Test
     public void add_validTransaction_success() {
-        transactionList.add(transactionWithAliceStub);
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
         assertTrue(transactionList.contains(transactionWithAliceStub));
     }
 
     @Test
     public void setTransaction_nullTargetTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> transactionList.setTransaction(
-                null, new TransactionWithAliceStub()));
+                null, new TransactionWithAliceStub(), Set.of(ALICE.getName())));
     }
 
     @Test
     public void setTransaction_nullEditedTransaction_throwsNullPointerException() {
-        transactionList.add(transactionWithAliceStub);
-        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(transactionWithAliceStub, null));
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
+        assertThrows(NullPointerException.class, () ->
+                transactionList.setTransaction(transactionWithAliceStub, null, Set.of(ALICE.getName())));
     }
 
     @Test
     public void setTransaction_targetTransactionNotInList_throwsTransactionNotFoundException() {
-        transactionList.add(transactionWithAliceStub);
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
         assertThrows(TransactionNotFoundException.class, () ->
-                transactionList.setTransaction(transactionWithBobStub, transactionWithAliceStub));
+                transactionList.setTransaction(transactionWithBobStub, transactionWithAliceStub,
+                Set.of(ALICE.getName(), BOB.getName(), BENSON.getName())));
     }
 
     @Test
     public void setTransaction_editedTransactionIsSameTransaction_success() {
-        transactionList.add(transactionWithAliceStub);
-        transactionList.setTransaction(transactionWithAliceStub, transactionWithAliceStub);
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
+        transactionList.setTransaction(transactionWithAliceStub, transactionWithAliceStub,
+                Set.of(ALICE.getName(), BOB.getName(), BENSON.getName()));
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionWithAliceStub);
+        expectedTransactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransaction_editedTransactionIsDifferentTransaction_success() {
-        transactionList.add(transactionWithAliceStub);
-        transactionList.setTransaction(transactionWithAliceStub, transactionWithBobStub);
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
+        transactionList.setTransaction(transactionWithAliceStub, transactionWithBobStub,
+                Set.of(ALICE.getName(), BOB.getName(), BENSON.getName()));
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionWithBobStub);
+        expectedTransactionList.add(transactionWithBobStub, Set.of(BOB.getName(), BENSON.getName()));
         assertEquals(expectedTransactionList, transactionList);
     }
 
@@ -92,7 +98,7 @@ class UniqueTransactionListTest {
 
     @Test
     public void remove_existingTransaction_removesTransaction() {
-        transactionList.add(transactionWithAliceStub);
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
         transactionList.remove(transactionWithAliceStub);
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
         assertEquals(expectedTransactionList, transactionList);
@@ -100,25 +106,28 @@ class UniqueTransactionListTest {
 
     @Test
     public void setTransactions_nullTransactionList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> transactionList.setTransactions((UniqueTransactionList) null));
+        assertThrows(NullPointerException.class, () ->
+                transactionList.setTransactions((UniqueTransactionList) null, Set.of()));
     }
 
     @Test
     public void setTransactions_transactionList_replacesOwnListWithProvidedTransactionList() {
-        transactionList.add(transactionWithAliceStub);
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionWithBobStub);
-        transactionList.setTransactions(expectedTransactionList);
+        expectedTransactionList.add(transactionWithBobStub, Set.of(BOB.getName(), BENSON.getName()));
+        transactionList.setTransactions(expectedTransactionList,
+                Set.of(ALICE.getName(), BOB.getName(), BENSON.getName()));
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransactions_list_replacesOwnListWithProvidedList() {
-        transactionList.add(transactionWithAliceStub);
+        transactionList.add(transactionWithAliceStub, Set.of(ALICE.getName()));
         List<Transaction> transactionCollectionsList = Collections.singletonList(transactionWithBobStub);
-        transactionList.setTransactions(transactionCollectionsList);
+        transactionList.setTransactions(transactionCollectionsList,
+                Set.of(ALICE.getName(), BOB.getName(), BENSON.getName()));
         UniqueTransactionList expectedTransactionList = new UniqueTransactionList();
-        expectedTransactionList.add(transactionWithBobStub);
+        expectedTransactionList.add(transactionWithBobStub, Set.of(BOB.getName(), BENSON.getName()));
         assertEquals(expectedTransactionList, transactionList);
     }
 
@@ -152,7 +161,7 @@ class UniqueTransactionListTest {
     @Test
     void testGetBalance() {
         transactionList.add(new TransactionBuilder().withAmount("3").withPayeeName(Name.SELF.fullName)
-            .withPortions(Set.of(ALICE_PORTION, BENSON_PORTION)).build());
+            .withPortions(Set.of(ALICE_PORTION, BENSON_PORTION)).build(), Set.of(ALICE.getName(), BENSON.getName()));
         assertTrue(transactionList.getBalance(ALICE.getName()).equals(BigFraction.ONE));
         assertTrue(UniqueTransactionList.getBalance(BENSON.getName(),
                 transactionList.asUnmodifiableObservableList()).equals(BigFraction.ONE.add(BigFraction.ONE)));
@@ -160,9 +169,9 @@ class UniqueTransactionListTest {
 
     private static class TransactionWithAliceStub extends Transaction {
 
-        private static final Amount amount = new Amount("0");
+        private static final Amount amount = new Amount("1");
         private static final Description description = new Description("Stub");
-        private static final Name payeeName = TypicalPersons.ALICE.getName();
+        private static final Name payeeName = Name.SELF;
         private static final Set<Portion> portions = new HashSet<>(Collections.singletonList(ALICE_PORTION));
 
         public TransactionWithAliceStub() {
@@ -172,10 +181,10 @@ class UniqueTransactionListTest {
 
     private static class TransactionWithBobStub extends Transaction {
 
-        private static final Amount amount = new Amount("0");
+        private static final Amount amount = new Amount("1");
         private static final Description description = new Description("Stub");
         private static final Name payeeName = TypicalPersons.BOB.getName();
-        private static final Set<Portion> portions = new HashSet<>(Collections.singletonList(BENSON_PORTION));
+        private static final Set<Portion> portions = Set.of(SELF_PORTION, BENSON_PORTION);
 
         public TransactionWithBobStub() {
             super(amount, description, payeeName, portions);

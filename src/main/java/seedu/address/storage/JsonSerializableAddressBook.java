@@ -21,6 +21,8 @@ import seedu.address.model.transaction.Transaction;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "Persons list contains duplicate transaction(s).";
+    public static final String MESSAGE_INVALID_TRANSACTION = "Invalid transaction!";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
@@ -62,8 +64,11 @@ class JsonSerializableAddressBook {
         }
         for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
             Transaction transaction = jsonAdaptedTransaction.toModelType();
+            if (!transaction.isValid(addressBook.getAllNames())) {
+                throw new IllegalValueException(MESSAGE_INVALID_TRANSACTION);
+            }
             if (addressBook.hasTransaction(transaction)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
             addressBook.addTransaction(transaction);
         }

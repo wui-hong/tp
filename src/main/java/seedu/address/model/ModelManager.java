@@ -14,6 +14,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CommandAliasMap;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Timestamp;
@@ -81,6 +83,17 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public CommandAliasMap getCommandMap() {
+        return userPrefs.getCommandMap();
+    }
+
+    @Override
+    public String setCommandAlias(String command, String alias) throws CommandException {
+        requireAllNonNull(command, alias);
+        return userPrefs.setCommandAlias(command, alias);
     }
 
     //=========== AddressBook ================================================================================
