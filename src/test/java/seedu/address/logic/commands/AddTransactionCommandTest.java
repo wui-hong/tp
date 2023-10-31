@@ -59,7 +59,7 @@ public class AddTransactionCommandTest {
         AddTransactionCommand addTransactionCommand = new AddTransactionCommand(irrelevantTransaction);
 
         assertThrows(CommandException.class,
-                AddTransactionCommand.MESSAGE_IRRELEVANT_TRANSACTION, () -> addTransactionCommand.execute(modelStub));
+                AddTransactionCommand.MESSAGE_TRANSACTION_NOT_RELEVANT, () -> addTransactionCommand.execute(modelStub));
     }
 
     @Test

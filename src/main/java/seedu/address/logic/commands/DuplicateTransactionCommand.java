@@ -14,6 +14,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -41,8 +42,11 @@ public class DuplicateTransactionCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION_SUCCESS = "New duplicated transaction added: %1$s";
 
+    public static final String MESSAGE_DUPLICATE_TRANSACTION =
+            "The updated transaction with the same timestamp already exists in the address book";
+    public static final String MESSAGE_UNKNOWN_PAYEE = "The payee must either be you or someone in the address book";
     public static final String MESSAGE_TRANSACTION_NOT_RELEVANT =
-        "The duplicated transaction does not affect your balances";
+            "The duplicated transaction does not affect your balances";
 
     private final Index targetIndex;
     private final EditTransactionDescriptor duplicateTransactionDescriptor;
@@ -71,6 +75,15 @@ public class DuplicateTransactionCommand extends Command {
 
         if (!duplicateTransaction.isRelevant()) {
             throw new CommandException(MESSAGE_TRANSACTION_NOT_RELEVANT);
+        }
+
+        if (!(duplicateTransaction.getPayeeName().equals(Name.SELF)
+                || model.getAllNames().contains(duplicateTransaction.getPayeeName()))) {
+            throw new CommandException(MESSAGE_UNKNOWN_PAYEE);
+        }
+
+        if (model.hasTransaction(duplicateTransaction)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
         model.addTransaction(duplicateTransaction);

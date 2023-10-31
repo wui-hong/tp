@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_DINNER;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_LUNCH;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.address.logic.commands.EditTransactionCommand.MESSAGE_TRANSACTION_NOT_RELEVANT;
@@ -117,18 +118,11 @@ class EditTransactionCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_duplicateTransaction_failure() {
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT,
                 new EditTransactionDescriptor());
-        Transaction editedTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
-
-        String expectedMessage = String.format(
-                EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
-
-        assertTransactionCommandSuccess(editTransactionCommand, model, expectedMessage, expectedModel);
+        String expectedMessage = EditTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION;
+        assertCommandFailure(editTransactionCommand, model, expectedMessage);
     }
 
     @Test

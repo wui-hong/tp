@@ -52,6 +52,9 @@ public class EditTransactionCommand extends Command {
 
     public static final String MESSAGE_TRANSACTION_NOT_EDITED = "At least one field to edit must be provided.";
 
+    public static final String MESSAGE_DUPLICATE_TRANSACTION =
+            "The edited transaction already exists in the address book";
+    public static final String MESSAGE_UNKNOWN_PAYEE = "The payee must either be you or someone in the address book";
     public static final String MESSAGE_TRANSACTION_NOT_RELEVANT =
             "The edited transaction does not affect your balances. Please use the delete command instead.";
 
@@ -85,6 +88,15 @@ public class EditTransactionCommand extends Command {
 
         if (!editedTransaction.isRelevant()) {
             throw new CommandException(MESSAGE_TRANSACTION_NOT_RELEVANT);
+        }
+
+        if (!(editedTransaction.getPayeeName().equals(Name.SELF)
+                || model.getAllNames().contains(editedTransaction.getPayeeName()))) {
+            throw new CommandException(MESSAGE_UNKNOWN_PAYEE);
+        }
+
+        if (model.hasTransaction(editedTransaction)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
         model.setTransaction(transactionToEdit, editedTransaction);
