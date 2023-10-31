@@ -69,14 +69,12 @@ public class Messages {
     /**
      * Formats the {@code transaction} for display to the user.
      */
-    public static String format(Transaction transaction, boolean includeTimestamp) {
+    public static String format(Transaction transaction) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(transaction.getDescription());
-        if (includeTimestamp) {
-            builder.append("; Timestamp: ")
-                .append(transaction.getTimestamp());
-        }
-        builder.append("; Amount: ")
+        builder.append(transaction.getDescription())
+            .append("; Timestamp: ")
+            .append(transaction.getTimestamp())
+            .append("; Amount: ")
             .append(transaction.getAmount())
             .append("; Paid by: ")
             .append(transaction.getPayeeName())

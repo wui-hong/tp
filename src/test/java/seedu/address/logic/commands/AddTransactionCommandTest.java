@@ -46,7 +46,7 @@ public class AddTransactionCommandTest {
         Transaction validTransaction = new TransactionBuilder().build();
         CommandResult commandResult = new AddTransactionCommand(validTransaction).execute(modelStub);
 
-        assertEquals(String.format(AddTransactionCommand.MESSAGE_SUCCESS, Messages.format(validTransaction, true)),
+        assertEquals(String.format(AddTransactionCommand.MESSAGE_SUCCESS, Messages.format(validTransaction)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
     }

@@ -38,7 +38,7 @@ public class UpdatePortionCommand extends Command {
             + "Setting the weight of an existing portion will delete it.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_NAME + "NAME "
-            + PREFIX_WEIGHT + "WEIGHT "
+            + PREFIX_WEIGHT + "WEIGHT\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_WEIGHT + "1 / 2";
@@ -88,7 +88,7 @@ public class UpdatePortionCommand extends Command {
         model.setTransaction(transactionToEdit, transactionWithUpdatedPortions);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(
-                String.format(MESSAGE_UPDATE_PORTION_SUCCESS, Messages.format(transactionWithUpdatedPortions, true)));
+                String.format(MESSAGE_UPDATE_PORTION_SUCCESS, Messages.format(transactionWithUpdatedPortions)));
     }
 
     /**
