@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WEIGHT_HALF;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
@@ -60,6 +61,20 @@ class UpdatePortionCommandTest {
         expectedModel.setTransaction(model.getFilteredTransactionList().get(1), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_onlyPortion_failure() {
+        Transaction originalTransaction = model.getFilteredTransactionList().get(0);
+        Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
+
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+                .withWeight("1/2").build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        String expectedMessage = UpdatePortionCommand.MESSAGE_ONLY_PORTION;
+
+        assertCommandFailure(updatePortionCommand, model, expectedMessage);
     }
 
     @Test
@@ -135,6 +150,16 @@ class UpdatePortionCommandTest {
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_highWeight_failure() {
+        Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1").build();
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).withWeight("1").build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        String expectedMessage = UpdatePortionCommand.MESSAGE_INVALID_PROPORTION;
+        assertCommandFailure(updatePortionCommand, model, expectedMessage);
     }
 
     @Test
