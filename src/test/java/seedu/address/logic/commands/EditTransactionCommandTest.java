@@ -133,6 +133,9 @@ class EditTransactionCommandTest {
 
         CommandTestUtil.assertCommandFailure(editTransactionCommand, model,
                 MESSAGE_TRANSACTION_NOT_RELEVANT);
+        editTransactionCommand = new EditTransactionCommand(INDEX_SECOND_ELEMENT, descriptor);
+        CommandTestUtil.assertCommandFailure(editTransactionCommand, model,
+                EditTransactionCommand.MESSAGE_UNKNOWN_PAYEE);
     }
 
     @Test

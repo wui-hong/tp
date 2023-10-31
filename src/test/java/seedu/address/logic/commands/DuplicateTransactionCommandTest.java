@@ -138,6 +138,10 @@ public class DuplicateTransactionCommandTest {
             new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         assertCommandFailure(duplicateTransactionCommand, model, MESSAGE_TRANSACTION_NOT_RELEVANT);
+
+        duplicateTransactionCommand =
+            new DuplicateTransactionCommand(INDEX_SECOND_ELEMENT, descriptor);
+        assertCommandFailure(duplicateTransactionCommand, model, DuplicateTransactionCommand.MESSAGE_UNKNOWN_PAYEE);
     }
 
     @Test
