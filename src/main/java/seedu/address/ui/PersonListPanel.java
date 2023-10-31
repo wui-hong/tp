@@ -31,6 +31,13 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.setCellFactory(listView -> new PersonListViewCell(transactionList));
     }
 
+    public void focusOnFirstPerson() {
+        if (!personListView.getItems().isEmpty()) {
+            personListView.requestFocus();
+            personListView.getSelectionModel().select(0);
+        }
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
