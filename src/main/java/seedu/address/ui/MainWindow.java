@@ -78,7 +78,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-        setArrowKeyNavigation();
     }
 
     /**
@@ -111,13 +110,11 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    private void setArrowKeyNavigation() {
+    private void setKeyNavigations(UiPartFocusable<?> uiPartFocusable, KeyCode keyCode) {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.RIGHT) {
-                transactionListPanel.focusOnFirstTransaction();
-                event.consume();
-            } else if (event.getCode() == KeyCode.LEFT) {
-                personListPanel.focusOnFirstPerson();
+            logger.info("keyPressed" + event.getCode().toString());
+            if (event.getCode() == keyCode) {
+                uiPartFocusable.focus();
                 event.consume();
             }
         });
@@ -138,6 +135,15 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Sets up the key navigation for the UI.
+     */
+    void setKeyNavigations() {
+        setKeyNavigations(personListPanel, KeyCode.LEFT);
+        setKeyNavigations(transactionListPanel, KeyCode.RIGHT);
+        setKeyNavigations(commandBox, KeyCode.TAB);
     }
 
     /**

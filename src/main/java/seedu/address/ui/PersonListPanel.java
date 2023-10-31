@@ -15,7 +15,7 @@ import seedu.address.model.transaction.UniqueTransactionList;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class PersonListPanel extends UiPartFocusable<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
@@ -31,7 +31,7 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.setCellFactory(listView -> new PersonListViewCell(transactionList));
     }
 
-    public void focusOnFirstPerson() {
+    public void focus() {
         if (!personListView.getItems().isEmpty()) {
             personListView.requestFocus();
             personListView.getSelectionModel().select(0);
