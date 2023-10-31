@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.util.StringUtil.trimRegExp;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import java.util.HashMap;
@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.portion.Portion;
 import seedu.address.model.transaction.portion.Weight;
@@ -28,10 +29,9 @@ import seedu.address.model.transaction.portion.Weight;
  */
 public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
 
-    public static final String VALIDATION_REGEX = String.format("^%s%s %s%s %s%s (%s%s %s%s)+$",
-            PREFIX_DESCRIPTION, trimRegExp(Description.VALIDATION_REGEX),
-            PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_COST, trimRegExp(Amount.VALIDATION_REGEX),
-            PREFIX_NAME, trimRegExp(Name.VALIDATION_REGEX), PREFIX_WEIGHT, trimRegExp(Weight.VALIDATION_REGEX));
+    public static final String VALIDATION_REGEX = String.format("^%s%s %s%s %s%s( %s%s)?( %s%s %s%s)+$",
+            PREFIX_DESCRIPTION, "[^=]*", PREFIX_NAME, "[^=]*", PREFIX_COST, "[^=]*",
+            PREFIX_TIMESTAMP, "[^=]*", PREFIX_NAME, "[^=]*", PREFIX_WEIGHT, "[^=]*");
 
     public static final String MESSAGE_DUPLICATE_PORTION = "Name %s is duplicated in portion string";
 
@@ -41,8 +41,8 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTransactionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_WEIGHT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_WEIGHT, PREFIX_TIMESTAMP);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COST, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -84,7 +84,13 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         }
         Set<Portion> portions = portionMap.keySet().stream()
                 .map(x -> new Portion(x, portionMap.get(x))).collect(Collectors.toSet());
-        Transaction transaction = new Transaction(amount, description, payee, portions);
+        Timestamp timestamp;
+        if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
+            timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
+        } else {
+            timestamp = Timestamp.now();
+        }
+        Transaction transaction = new Transaction(amount, description, payee, portions, timestamp);
         return new AddTransactionCommand(transaction);
     }
 

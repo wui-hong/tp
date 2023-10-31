@@ -7,10 +7,10 @@ title: User Guide
 
 ***Taking care of your finances has never been easier!***
 
-Spend n Split (SnS) is a **desktop app for managing transactions from contacts, optimized for use via a Command Line
-Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SnS can
-get your contact transaction management tasks done faster than traditional GUI apps.
-
+Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students 
+that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between 
+yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as
+ well as the calculations of balances owed will be automatically handled by Spend n Split.
 * Table of Contents
 
 {:toc}
@@ -407,7 +407,7 @@ are welcome to update data directly by editing that data file.
 
 ## FAQ
 
-### Why do the portions in the log not add up exactly to the balance?
+### 1) Why do the portions in the log not add up exactly to the balance?
 
 The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences
 between the actual portions and what is displayed.
@@ -425,3 +425,39 @@ A:      0.12
 B:      0.22
 Total:  0.35
 ```
+### 2) What happens when I enter an invalid command?
+
+When an invalid command is input, an error message will be reflected at the 
+output panel at the top of Spend n Split. The error message will vary depending on the type of error.
+
+* Invalid command format. This occurs when the command word 
+is recognised but there are missing fields or the values provided in the fields are 
+not supported. 
+The error message reflected
+will state `Invalid command format!`, 
+before giving details on the command and 
+the fields required, along with an example of a correct command
+input with the fields required.
+    * Example: `settlePerson -1`
+      * Error message: 
+    ```
+    Invalid command format!
+    settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
+    Example: settlePerson 1
+    ```
+* Unknown command. This occurs when the command word is not recognised.
+The error message reflected will state `Unknown command`.
+  * Example: `settleTransaction n=Ryan tg=@ryanzzzzz`
+    * Error message:
+  ```
+  Unknown command
+  ```
+* Invalid command fields. This occurs when the invalid fields are provided
+for the valid command word. The error message reflected is dependent on the 
+valid command word.
+  * Example: `settlePerson 6` when there are only 5 people in the Persons List.
+    * Error message:
+  ```
+  The person index provided is invalid
+  ```
+  

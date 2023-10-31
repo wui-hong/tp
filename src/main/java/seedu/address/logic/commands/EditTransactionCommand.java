@@ -39,13 +39,14 @@ public class EditTransactionCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COST + "COST] "
             + "[" + PREFIX_DESCRIPTION + "DETAILS] "
+            + "[" + PREFIX_TIMESTAMP + "TIME] "
             + "[" + PREFIX_NAME + "PAYEE NAME] "
             + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COST + "10.00 "
             + PREFIX_DESCRIPTION + "Bought a book "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_TIMESTAMP + "2020-01-01 12:00";
+            + PREFIX_TIMESTAMP + "10/10/2020 12:00";
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
 

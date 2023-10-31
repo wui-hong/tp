@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.List;
 import java.util.Set;
@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.portion.Portion;
 import seedu.address.model.transaction.portion.Weight;
@@ -27,19 +28,29 @@ import seedu.address.model.transaction.portion.Weight;
 public class SettlePersonCommand extends Command {
     public static final String COMMAND_WORD = "settlePerson";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Settle any outstanding balance with another person.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "If a timestamp is provided, the balance at the instant before the timestamp is used. "
+            + "Else, the balance at the instant before the current system time is used.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_TIMESTAMP + "TIME]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_TIMESTAMP + "10/10/2020 12:00";
 
     public static final String MESSAGE_SETTLE_PERSON_SUCCESS = "Balance settled: %1$s";
 
-    public static final String MESSAGE_NO_OUTSTANDING_BALANCE = "There is no outstanding balance with this person.";
+    public static final String MESSAGE_NO_OUTSTANDING_BALANCE =
+            "There is no outstanding balance with %1$s before %2$s.";
 
     public static final String SETTLE_TRANSACTION_DESCRIPTION = "Settle balance with %1$s";
 
     private final Index targetIndex;
+    private final Timestamp time;
 
-    public SettlePersonCommand(Index targetIndex) {
+    /**
+     * Constructs a settle person command.
+     */
+    public SettlePersonCommand(Index targetIndex, Timestamp time) {
         this.targetIndex = targetIndex;
+        this.time = time;
     }
 
     @Override
@@ -53,12 +64,11 @@ public class SettlePersonCommand extends Command {
 
         Person personToSettle = lastShownList.get(targetIndex.getZeroBased());
 
-        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
-
         // total money the person owes the user
-        BigFraction balance = model.getBalance(personToSettle.getName());
+        BigFraction balance = model.getBalance(personToSettle.getName(), time);
         if (balance.equals(BigFraction.ZERO)) {
-            throw new CommandException(MESSAGE_NO_OUTSTANDING_BALANCE);
+            throw new CommandException(String.format(MESSAGE_NO_OUTSTANDING_BALANCE,
+                    personToSettle.getName(), time));
         }
 
         Description description = new Description(String.format(
@@ -81,7 +91,7 @@ public class SettlePersonCommand extends Command {
 
         // create transaction to cancel out outstanding balance
         model.addTransaction(new Transaction(
-                new Amount(balance.abs().toString()), description, name, portions));
+                new Amount(balance.abs().toString()), description, name, portions, time));
         return new CommandResult(String.format(MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()));
     }
 
@@ -97,13 +107,15 @@ public class SettlePersonCommand extends Command {
         }
 
         SettlePersonCommand otherSettlePersonCommand = (SettlePersonCommand) other;
-        return targetIndex.equals(otherSettlePersonCommand.targetIndex);
+        return targetIndex.equals(otherSettlePersonCommand.targetIndex)
+                && time.equals(otherSettlePersonCommand.time);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
+                .add("time", time)
                 .toString();
     }
 }
