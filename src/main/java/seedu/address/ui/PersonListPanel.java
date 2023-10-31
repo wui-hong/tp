@@ -31,6 +31,9 @@ public class PersonListPanel extends UiPartFocusable<Region> {
         personListView.setCellFactory(listView -> new PersonListViewCell(transactionList));
     }
 
+    /**
+     * Focuses on the person list.
+     */
     public void focus() {
         if (!personListView.getItems().isEmpty()) {
             personListView.requestFocus();

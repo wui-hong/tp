@@ -2,7 +2,10 @@ package seedu.address.ui;
 
 import java.net.URL;
 
-public abstract class UiPartFocusable<T> extends UiPart<T>{
+/**
+ * Represents a UiPart that can be focused on.
+ */
+public abstract class UiPartFocusable<T> extends UiPart<T> {
 
     /**
      * Constructs a UiPart with the specified FXML file URL.

@@ -110,7 +110,7 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    private void setKeyNavigations(UiPartFocusable<?> uiPartFocusable, KeyCode keyCode) {
+    private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCode keyCode) {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             logger.info("keyPressed" + event.getCode().toString());
             if (event.getCode() == keyCode) {
@@ -141,9 +141,9 @@ public class MainWindow extends UiPart<Stage> {
      * Sets up the key navigation for the UI.
      */
     void setKeyNavigations() {
-        setKeyNavigations(personListPanel, KeyCode.LEFT);
-        setKeyNavigations(transactionListPanel, KeyCode.RIGHT);
-        setKeyNavigations(commandBox, KeyCode.TAB);
+        setKeyNavigation(personListPanel, KeyCode.LEFT);
+        setKeyNavigation(transactionListPanel, KeyCode.RIGHT);
+        setKeyNavigation(commandBox, KeyCode.TAB);
     }
 
     /**

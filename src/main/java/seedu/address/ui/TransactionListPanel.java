@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.transaction.Transaction;
@@ -30,6 +29,9 @@ public class TransactionListPanel extends UiPartFocusable<Region> {
         transactionListView.setCellFactory(listView -> new TransactionListViewCell());
     }
 
+    /**
+     * Focuses on the transaction list.
+     */
     public void focus() {
         if (!transactionListView.getItems().isEmpty()) {
             transactionListView.requestFocus();
