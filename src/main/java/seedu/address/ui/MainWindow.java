@@ -112,7 +112,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCode keyCode) {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            logger.info("keyPressed" + event.getCode().toString());
             if (event.getCode() == keyCode) {
                 uiPartFocusable.focus();
                 event.consume();
