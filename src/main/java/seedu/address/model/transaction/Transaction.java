@@ -224,7 +224,6 @@ public class Transaction implements Comparable<Transaction> {
             );
     }
 
-
     /**
      * Returns the portion amount of the transaction that the person has to pay the user (self).
      * A positive amount indicates the amount the person owes the user.
@@ -336,9 +335,16 @@ public class Transaction implements Comparable<Transaction> {
             .toString();
     }
 
-    private BigFraction getTotalWeight() {
+    /**
+     * Returns the sum of all portion weights in the set.
+     */
+    public static BigFraction sumWeights(Set<Portion> portions) {
         return portions.stream()
             .map(portion -> portion.getWeight().value)
             .reduce(BigFraction.ZERO, BigFraction::add);
+    }
+
+    private BigFraction getTotalWeight() {
+        return sumWeights(portions);
     }
 }

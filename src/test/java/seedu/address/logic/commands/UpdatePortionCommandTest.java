@@ -41,24 +41,23 @@ class UpdatePortionCommandTest {
 
     @Test
     public void execute_editExistingPortionWeightNonZeroUnfilteredList_success() {
-        Transaction originalTransaction = model.getFilteredTransactionList().get(0);
+        Transaction originalTransaction = model.getFilteredTransactionList().get(1);
         Set<Portion> originalPortions = originalTransaction.getPortions();
         Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
-
-        Portion editedPortion = new PortionBuilder(originalPortion).withWeight("100").build();
+        Portion editedPortion = new PortionBuilder(originalPortion).withWeight("8").build();
         Set<Portion> editedPortions = originalPortions.stream().map(portion ->
                 portion.equals(originalPortion) ? editedPortion : portion).collect(Collectors.toSet());
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
                 .withPortions(editedPortions).build();
 
         UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
-                .withWeight("100").build();
-        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
+                .withWeight("1/2").build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_SECOND_ELEMENT, descriptor);
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(1), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
     }
@@ -127,7 +126,7 @@ class UpdatePortionCommandTest {
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
                 .withPortions(editedPortions).build();
 
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).build();
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).withWeight("1/3").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
@@ -152,7 +151,7 @@ class UpdatePortionCommandTest {
                 .withPortions(editedPortions).build();
 
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT,
-                new UpdatePortionDescriptorBuilder(newPortion).build());
+                new UpdatePortionDescriptorBuilder(newPortion).withWeight("1/3").build());
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
