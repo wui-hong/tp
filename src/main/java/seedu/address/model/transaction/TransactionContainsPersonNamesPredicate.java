@@ -1,8 +1,10 @@
 package seedu.address.model.transaction;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
 
@@ -12,17 +14,25 @@ import seedu.address.model.person.Name;
  */
 public class TransactionContainsPersonNamesPredicate implements Predicate<Transaction> {
     private final List<Name> personNames;
+    private final String partialDescription;
 
-    public TransactionContainsPersonNamesPredicate(List<Name> personNames) {
+    /**
+     * Constructs a predicate for transactions.
+     */
+    public TransactionContainsPersonNamesPredicate(String partialDescription, List<Name> personNames) {
         this.personNames = personNames;
-    }
-
-    public boolean isEmpty() {
-        return personNames.isEmpty();
+        this.partialDescription = partialDescription.trim();
     }
 
     @Override
     public boolean test(Transaction transaction) {
+        if (!(partialDescription.isEmpty()
+                || StringUtil.containsWordIgnoreCase(transaction.getDescription().value, partialDescription))) {
+            return false;
+        }
+        if (personNames.isEmpty()) {
+            return true;
+        }
         return personNames.stream().anyMatch(transaction::isPersonInvolved);
     }
 
@@ -39,11 +49,13 @@ public class TransactionContainsPersonNamesPredicate implements Predicate<Transa
 
         TransactionContainsPersonNamesPredicate otherPredicate =
             (TransactionContainsPersonNamesPredicate) other;
-        return personNames.equals(otherPredicate.personNames);
+        return partialDescription.equals(otherPredicate.partialDescription)
+                && Set.of(personNames).equals(Set.of(otherPredicate.personNames));
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("personNames", personNames).toString();
+        return new ToStringBuilder(this).add("personNames", personNames)
+                .add("partialDescription", partialDescription).toString();
     }
 }

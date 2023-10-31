@@ -127,8 +127,8 @@ public class AddressBookParserTest {
     public void parseCommand_listTransaction() throws Exception {
         ListTransactionCommand command = (ListTransactionCommand) parser.parseCommand(
             ListTransactionCommand.COMMAND_WORD + " " + NAME_DESC_AMY + " " + NAME_DESC_BOB, new CommandAliasMap());
-        TransactionContainsPersonNamesPredicate predicate = new TransactionContainsPersonNamesPredicate(
-            List.of(new Name(VALID_NAME_AMY), new Name(VALID_NAME_BOB)));
+        TransactionContainsPersonNamesPredicate predicate = new TransactionContainsPersonNamesPredicate("",
+                List.of(new Name(VALID_NAME_AMY), new Name(VALID_NAME_BOB)));
         assertEquals(new ListTransactionCommand(predicate), command);
     }
 

@@ -26,16 +26,16 @@ public class TransactionContainsPersonNamesPredicateTest {
         List<Name> secondPredicateNameList = List.of(new Name("first"), new Name("second"));
 
         TransactionContainsPersonNamesPredicate firstPredicate =
-            new TransactionContainsPersonNamesPredicate(firstPredicateNameList);
+            new TransactionContainsPersonNamesPredicate("", firstPredicateNameList);
         TransactionContainsPersonNamesPredicate secondPredicate =
-            new TransactionContainsPersonNamesPredicate(secondPredicateNameList);
+            new TransactionContainsPersonNamesPredicate("", secondPredicateNameList);
 
         // same object -> returns true
         assertEquals(firstPredicate, firstPredicate);
 
         // same values -> returns true
         TransactionContainsPersonNamesPredicate firstPredicateCopy =
-            new TransactionContainsPersonNamesPredicate(firstPredicateNameList);
+            new TransactionContainsPersonNamesPredicate("", firstPredicateNameList);
         assertEquals(firstPredicate, firstPredicateCopy);
 
         // different types -> returns false
@@ -52,12 +52,12 @@ public class TransactionContainsPersonNamesPredicateTest {
     public void test_transactionContainsPersonNames_returnsTrue() {
         // One name
         TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate(List.of(CARL.getName()));
+            new TransactionContainsPersonNamesPredicate("", List.of(CARL.getName()));
         assertTrue(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
         assertTrue(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
 
         // Multiple names
-        predicate = new TransactionContainsPersonNamesPredicate(List.of(BENSON.getName(), CARL.getName()));
+        predicate = new TransactionContainsPersonNamesPredicate("", List.of(BENSON.getName(), CARL.getName()));
         assertTrue(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
         assertTrue(predicate.test(new TransactionBuilder()
             .withPayeeName(ALICE.getName().fullName).withPortions(Set.of(BENSON_PORTION, CARL_PORTION)).build()));
@@ -66,15 +66,18 @@ public class TransactionContainsPersonNamesPredicateTest {
     }
 
     @Test
-    public void test_transactionDoesNotContainPersonNames_returnsFalse() {
-        // Zero names
+    public void test_transactionDoesNotContainNames_returnsTrue() {
         TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate(List.of());
-        assertFalse(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
-        assertFalse(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
+            new TransactionContainsPersonNamesPredicate("", List.of());
+        assertTrue(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
+        assertTrue(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
 
-        // Non-matching name
-        predicate = new TransactionContainsPersonNamesPredicate(List.of(new Name("Carol")));
+    }
+
+    @Test
+    public void test_transactionDoesNotContainPersonNames_returnsFalse() {
+        TransactionContainsPersonNamesPredicate predicate =
+                new TransactionContainsPersonNamesPredicate("", List.of(new Name("Carol")));
         assertFalse(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
         assertFalse(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
     }
@@ -83,10 +86,10 @@ public class TransactionContainsPersonNamesPredicateTest {
     public void toStringMethod() {
         List<Name> names = List.of(new Name("name1"), new Name("name2"));
         TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate(names);
+            new TransactionContainsPersonNamesPredicate("", names);
 
         String expected = TransactionContainsPersonNamesPredicate.class.getCanonicalName()
-            + "{personNames=" + names + "}";
+            + "{personNames=" + names + ", partialDescription=" + "}";
         assertEquals(expected, predicate.toString());
     }
 }

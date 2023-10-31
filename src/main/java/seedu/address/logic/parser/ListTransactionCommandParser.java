@@ -23,6 +23,7 @@ public class ListTransactionCommandParser implements Parser<ListTransactionComma
     public ListTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
         Set<Name> nameList = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
-        return new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(new ArrayList<>(nameList)));
+        return new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(
+                    argMultimap.getPreamble(), new ArrayList<>(nameList)));
     }
 }
