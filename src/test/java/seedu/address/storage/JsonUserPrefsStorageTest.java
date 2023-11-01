@@ -54,7 +54,7 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_invalidCommandMap_loads() {
-        assertDoesNotThrow(() -> readUserPrefs("InvalidVCommandMap.json"));
+        assertDoesNotThrow(() -> readUserPrefs("InvalidCommandMap.json"));
     }
 
     private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {

@@ -70,7 +70,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
             readValue.orElse(new UserPrefs()).resetCommandMap();
             return readValue;
         }
-        Set<String> keySet = aliasMap.keySet();
+        Set<String> keySet = aliasMap.keySet().stream().collect(Collectors.toSet());
         for (String key : keySet) {
             if (key == null || key.isEmpty() || aliasMap.get(key) == null || aliasMap.get(key).isEmpty()) {
                 logger.warning(MESSAGE_EMPTY_FIELD);
@@ -85,7 +85,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         }
         if (!CommandAliasMap.FULL_COMMANDS.containsAll(aliasMap.values())) {
             logger.warning(MESSAGE_UNKNOWN_COMMAND);
-            keySet = aliasMap.keySet();
+            keySet = aliasMap.keySet().stream().collect(Collectors.toSet());
             for (String key : keySet) {
                 if (!CommandAliasMap.FULL_COMMANDS.contains(aliasMap.get(key))) {
                     aliasMap.remove(key);
