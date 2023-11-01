@@ -474,6 +474,12 @@ Exits the program.
 
 Format: `exit`
 
+#### Navigating the app using only the keyboard
+
+Use <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the persons list and <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the transactions list. You can use the up and down arrows to navigate the lists after that.
+
+Use <kbd>TAB</kbd> to select the command bar.
+
 #### Saving the data
 
 Data is saved in the hard disk automatically after any command that changes the data. There is no need
