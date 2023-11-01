@@ -1,10 +1,13 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SettlePersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.transaction.Timestamp;
 
 /**
  * Parses input arguments and creates a new SettlePersonCommand object
@@ -17,13 +20,27 @@ public class SettlePersonCommandParser implements Parser<SettlePersonCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SettlePersonCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_TIMESTAMP);
+
+        Index index;
+
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new SettlePersonCommand(index);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SettlePersonCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, SettlePersonCommand.MESSAGE_USAGE), pe);
         }
+
+        Timestamp time = Timestamp.now();
+
+        if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
+            time = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
+        }
+
+        return new SettlePersonCommand(index, time);
+
     }
 
 }

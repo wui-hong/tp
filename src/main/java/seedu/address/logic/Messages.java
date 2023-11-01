@@ -20,6 +20,8 @@ public class Messages {
         "The transaction index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_TRANSACTIONS_LISTED_OVERVIEW = "%1$d transactions listed!";
+    public static final String MESSAGE_SHORTHAND_IS_COMMAND = "Cannot set shorthand %s as it is an existing command";
+    public static final String MESSAGE_DUPLICATE_ALIAS = "Command alias %s is used for %s";
     public static final String MESSAGE_DUPLICATE_FIELDS =
         "Multiple values specified for the following single-valued field(s): ";
 
@@ -40,31 +42,39 @@ public class Messages {
      */
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
-            .append("; Phone: ")
-            .append(person.getPhone())
-            .append("; Telegram Handle: ")
-            .append(person.getTelegramHandle())
-            .append("; Email: ")
-            .append(person.getEmail())
-            .append("; Address: ")
-            .append(person.getAddress())
-            .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+        builder.append(person.getName());
+        if (person.getPhone() != null) {
+            builder.append("; Phone: ")
+                    .append(person.getPhone());
+        }
+        if (person.getTelegramHandle() != null) {
+            builder.append("; Telegram Handle: ")
+                    .append(person.getTelegramHandle());
+        }
+        if (person.getEmail() != null) {
+            builder.append("; Email: ")
+                    .append(person.getEmail());
+        }
+        if (person.getAddress() != null) {
+            builder.append("; Address: ")
+                    .append(person.getAddress());
+        }
+        if (person.getTags().size() > 0) {
+            builder.append("; Tags: ");
+            person.getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 
     /**
      * Formats the {@code transaction} for display to the user.
      */
-    public static String format(Transaction transaction, boolean includeTimestamp) {
+    public static String format(Transaction transaction) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(transaction.getDescription());
-        if (includeTimestamp) {
-            builder.append("; Timestamp: ")
-                .append(transaction.getTimestamp());
-        }
-        builder.append("; Amount: ")
+        builder.append(transaction.getDescription())
+            .append("; Timestamp: ")
+            .append(transaction.getTimestamp())
+            .append("; Amount: ")
             .append(transaction.getAmount())
             .append("; Paid by: ")
             .append(transaction.getPayeeName())

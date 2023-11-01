@@ -21,7 +21,7 @@ public class AddTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "addTransaction";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the address book. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the address book.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_NAME + "NAME "
@@ -32,12 +32,12 @@ public class AddTransactionCommand extends Command {
             + "["
             + PREFIX_NAME + "NAME "
             + PREFIX_WEIGHT + "WEIGHT"
-            + "]... "
+            + "]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "bread "
             + PREFIX_NAME + "John Doe "
             + PREFIX_COST + "25.00 "
-            + PREFIX_TIMESTAMP + "2020-10-10T12:00 "
+            + PREFIX_TIMESTAMP + "10/10/2020 12:00 "
             + PREFIX_NAME + "Self "
             + PREFIX_WEIGHT + "1.5 "
             + PREFIX_NAME + "John Doe "
@@ -77,7 +77,7 @@ public class AddTransactionCommand extends Command {
         }
 
         model.addTransaction(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd, true)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
     @Override

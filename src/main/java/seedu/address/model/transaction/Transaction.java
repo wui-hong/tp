@@ -141,9 +141,10 @@ public class Transaction implements Comparable<Transaction> {
         for (Name name : validNames) {
             nameMap.put(name, name);
         }
-        Name newPayee = nameMap.containsKey(payeeName) ? nameMap.get(payeeName) : payeeName;
+        nameMap.put(Name.SELF, Name.SELF);
+        Name newPayee = nameMap.containsKey(payeeName) ? nameMap.get(payeeName) : Name.OTHERS;
         Set<Portion> newPortions = portions.stream().map(x -> new Portion(
-                nameMap.containsKey(x.getPersonName()) ? nameMap.get(x.getPersonName()) : x.getPersonName(),
+                nameMap.containsKey(x.getPersonName()) ? nameMap.get(x.getPersonName()) : Name.OTHERS,
                 x.getWeight())).collect(Collectors.toSet());
         return new Transaction(amount, description, newPayee, newPortions, timestamp);
     }
@@ -315,13 +316,13 @@ public class Transaction implements Comparable<Transaction> {
 
     @Override
     public int compareTo(Transaction other) {
-        return other.timestamp.value.compareTo(this.timestamp.value);
+        return other.timestamp.compareTo(this.timestamp);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(amount, description, payeeName, portions);
+        return Objects.hash(amount, description, payeeName, portions, timestamp);
     }
 
     @Override
@@ -331,6 +332,7 @@ public class Transaction implements Comparable<Transaction> {
             .add("description", description)
             .add("payeeName", payeeName)
             .add("portions", portions)
+            .add("timestamp", timestamp)
             .toString();
     }
 

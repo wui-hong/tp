@@ -101,6 +101,8 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_transactionInAddressBook_returnsTrue() {
+        modelManager.addPerson(ALICE);
+        modelManager.addPerson(BENSON);
         modelManager.addTransaction(DINNER);
         assertTrue(modelManager.hasTransaction(DINNER));
     }

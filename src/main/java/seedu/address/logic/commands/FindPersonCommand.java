@@ -40,7 +40,7 @@ public class FindPersonCommand extends Command {
             return true;
         }
 
-        // instanceof handles nulls
+        // handles nulls
         if (!(other instanceof FindPersonCommand)) {
             return false;
         }

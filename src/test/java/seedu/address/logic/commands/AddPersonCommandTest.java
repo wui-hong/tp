@@ -20,12 +20,14 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CommandAliasMap;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.PersonBuilder;
 
@@ -179,6 +181,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public BigFraction getBalance(Name name, Timestamp time) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -205,6 +212,26 @@ public class AddPersonCommandTest {
 
         @Override
         public Set<Name> getAllNames() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CommandAliasMap getCommandMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPersonDescending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String setCommandAlias(String command, String alias) throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPersonAscending() {
             throw new AssertionError("This method should not be called.");
         }
     }

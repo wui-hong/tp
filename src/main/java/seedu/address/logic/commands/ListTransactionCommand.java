@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
@@ -19,9 +18,8 @@ public class ListTransactionCommand extends Command {
     public static final String COMMAND_WORD = "listTransaction";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all transactions that involve some specified "
-        + "persons, either as a payer or a payee. If no persons are specified, list all transactions. "
+        + "persons, either as a payer or a payee. If no persons are specified, list all transactions.\n"
         + "Parameters: "
-        + PREFIX_ADDRESS + "ADDRESS "
         + "[" + PREFIX_NAME + "NAME]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe ";
