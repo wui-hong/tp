@@ -71,4 +71,19 @@ public class ListTransactionCommandParserTest {
                 List.of()));
         assertParseSuccess(parser, "Lunch Lunch", expectedListTransactionCommand);
     }
+
+    @Test
+    public void parse_validBothFields_success() {
+        // one keyword
+        ListTransactionCommand expectedListTransactionCommand =
+                new ListTransactionCommand(new TransactionContainsKeywordsAndPersonNamesPredicate(List.of("Lunch"),
+                List.of(new Name(VALID_NAME_AMY))));
+        assertParseSuccess(parser, "Lunch" + NAME_DESC_AMY, expectedListTransactionCommand);
+
+        // multiple different keywords
+        expectedListTransactionCommand =
+                new ListTransactionCommand(new TransactionContainsKeywordsAndPersonNamesPredicate(List
+                .of("Lunch", "Dinner"), List.of(new Name(VALID_NAME_AMY), new Name(VALID_NAME_BOB))));
+        assertParseSuccess(parser, "Lunch Dinner" + NAME_DESC_AMY + NAME_DESC_BOB, expectedListTransactionCommand);
+    }
 }
