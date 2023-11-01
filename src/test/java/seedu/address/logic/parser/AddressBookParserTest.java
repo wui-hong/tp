@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIGINAL_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SHORTHAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.PortionUtil.getUpdatePortionDescriptorDetails;
 import static seedu.address.testutil.TransactionUtil.getEditTransactionDescriptorDetails;
@@ -23,6 +25,7 @@ import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.DeleteTransactionCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.EditTransactionCommand;
@@ -31,6 +34,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTransactionCommand;
+import seedu.address.logic.commands.SetShorthandCommand;
 import seedu.address.logic.commands.SortPersonCommand;
 import seedu.address.logic.commands.UpdatePortionCommand;
 import seedu.address.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
@@ -94,13 +98,11 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, new CommandAliasMap()) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", new CommandAliasMap()) instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_listPerson() throws Exception {
+        assertTrue(parser.parseCommand(ListPersonCommand.COMMAND_WORD, new CommandAliasMap())
+            instanceof ListPersonCommand);
+        assertTrue(parser.parseCommand(ListPersonCommand.COMMAND_WORD + " Alice", new CommandAliasMap())
+            instanceof ListPersonCommand);
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         ListPersonCommand command = (ListPersonCommand) parser.parseCommand(
             ListPersonCommand.COMMAND_WORD + " " + keywords.stream()
@@ -109,17 +111,15 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD, new CommandAliasMap()) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3", new CommandAliasMap()) instanceof HelpCommand);
+    public void parseCommand_exit() throws Exception {
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, new CommandAliasMap()) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", new CommandAliasMap()) instanceof ExitCommand);
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListPersonCommand.COMMAND_WORD, new CommandAliasMap())
-            instanceof ListPersonCommand);
-        assertTrue(parser.parseCommand(ListPersonCommand.COMMAND_WORD + " 3", new CommandAliasMap())
-            instanceof ListPersonCommand);
+    public void parseCommand_help() throws Exception {
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD, new CommandAliasMap()) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3", new CommandAliasMap()) instanceof HelpCommand);
     }
 
     @Test
@@ -149,6 +149,22 @@ public class AddressBookParserTest {
             EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
                 + getEditTransactionDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_deleteTransaction() throws Exception {
+        DeleteTransactionCommand command = (DeleteTransactionCommand) parser.parseCommand(
+            DeleteTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased(), new CommandAliasMap());
+        assertEquals(new DeleteTransactionCommand(INDEX_FIRST_ELEMENT), command);
+    }
+
+    @Test
+    public void parseCommand_setShorthandCommand() throws Exception {
+        SetShorthandCommand command = (SetShorthandCommand) parser.parseCommand(
+            SetShorthandCommand.COMMAND_WORD + " "
+                + PREFIX_ORIGINAL_COMMAND + " " + DeleteTransactionCommand.COMMAND_WORD + " "
+                + PREFIX_SHORTHAND + " " + "dt", new CommandAliasMap());
+        assertEquals(new SetShorthandCommand(DeleteTransactionCommand.COMMAND_WORD, "dt"), command);
     }
 
     @Test

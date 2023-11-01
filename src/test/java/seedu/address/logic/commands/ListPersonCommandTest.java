@@ -39,24 +39,24 @@ public class ListPersonCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
             new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        ListPersonCommand findFirstCommand = new ListPersonCommand(firstPredicate);
-        ListPersonCommand findSecondCommand = new ListPersonCommand(secondPredicate);
+        ListPersonCommand listFirstCommand = new ListPersonCommand(firstPredicate);
+        ListPersonCommand listSecondCommand = new ListPersonCommand(secondPredicate);
 
         // same object -> returns true
-        assertEquals(findFirstCommand, findFirstCommand);
+        assertEquals(listFirstCommand, listFirstCommand);
 
         // same values -> returns true
-        ListPersonCommand findFirstCommandCopy = new ListPersonCommand(firstPredicate);
-        assertEquals(findFirstCommand, findFirstCommandCopy);
+        ListPersonCommand listFirstCommandCopy = new ListPersonCommand(firstPredicate);
+        assertEquals(listFirstCommand, listFirstCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, findFirstCommand);
+        assertNotEquals(1, listFirstCommand);
 
         // null -> returns false
-        assertNotEquals(null, findFirstCommand);
+        assertNotEquals(null, listFirstCommand);
 
         // different person -> returns false
-        assertNotEquals(findFirstCommand, findSecondCommand);
+        assertNotEquals(listFirstCommand, listSecondCommand);
     }
 
     @Test
@@ -83,9 +83,9 @@ public class ListPersonCommandTest {
     @Test
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(List.of("keyword"));
-        ListPersonCommand findPersonCommand = new ListPersonCommand(predicate);
+        ListPersonCommand listPersonCommand = new ListPersonCommand(predicate);
         String expected = ListPersonCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
-        assertEquals(expected, findPersonCommand.toString());
+        assertEquals(expected, listPersonCommand.toString());
     }
 
     /**
