@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.TransactionContainsPersonNamesPredicate;
+import seedu.address.model.transaction.TransactionContainsKeywordsAndPersonNamesPredicate;
 
 /**
  * List all transactions that involve some specified persons, either as a payer or a payee.
@@ -16,17 +16,19 @@ public class ListTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "listTransaction";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all transactions that involve some specified "
-        + "persons, either as a payer or a payee. If no persons are specified, list all transactions.\n"
-        + "Parameters: "
-        + "[KEYWORDS]... "
-        + "[" + PREFIX_NAME + "NAME]...\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + "John Doe ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all transactions with descriptions that "
+            + "contain any of the keywords or that involve any of the specified persons, either as a payer or a "
+            + " payee.\n If no persons are specified, filters only by keywords; if no keywords are specified, "
+            + "filters only by names. If neither are specified, lists all transactions.\n"
+            + "Parameters: "
+            + "[KEYWORDS]... "
+            + "[" + PREFIX_NAME + "NAME]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe ";
 
-    private final TransactionContainsPersonNamesPredicate predicate;
+    private final TransactionContainsKeywordsAndPersonNamesPredicate predicate;
 
-    public ListTransactionCommand(TransactionContainsPersonNamesPredicate predicate) {
+    public ListTransactionCommand(TransactionContainsKeywordsAndPersonNamesPredicate predicate) {
         this.predicate = predicate;
     }
 

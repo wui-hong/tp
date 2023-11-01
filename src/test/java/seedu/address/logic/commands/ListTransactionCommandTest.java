@@ -17,7 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Name;
-import seedu.address.model.transaction.TransactionContainsPersonNamesPredicate;
+import seedu.address.model.transaction.TransactionContainsKeywordsAndPersonNamesPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListTransactionCommand.
@@ -35,10 +35,12 @@ public class ListTransactionCommandTest {
 
     @Test
     public void equals() {
-        TransactionContainsPersonNamesPredicate firstPredicate =
-            new TransactionContainsPersonNamesPredicate(List.of(), Collections.singletonList(new Name("first")));
-        TransactionContainsPersonNamesPredicate secondPredicate =
-            new TransactionContainsPersonNamesPredicate(List.of(), Collections.singletonList(new Name("second")));
+        TransactionContainsKeywordsAndPersonNamesPredicate firstPredicate =
+                new TransactionContainsKeywordsAndPersonNamesPredicate(List.of(),
+                Collections.singletonList(new Name("first")));
+        TransactionContainsKeywordsAndPersonNamesPredicate secondPredicate =
+                new TransactionContainsKeywordsAndPersonNamesPredicate(List.of(),
+                Collections.singletonList(new Name("second")));
 
         ListTransactionCommand listFirstCommand = new ListTransactionCommand(firstPredicate);
         ListTransactionCommand listSecondCommand = new ListTransactionCommand(secondPredicate);
@@ -63,16 +65,16 @@ public class ListTransactionCommandTest {
     @Test
     public void execute_zeroNames_allTransactionsFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 5);
-        TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate(List.of(), Collections.emptyList());
+        TransactionContainsKeywordsAndPersonNamesPredicate predicate =
+            new TransactionContainsKeywordsAndPersonNamesPredicate(List.of(), Collections.emptyList());
         assertCommandSuccess(new ListTransactionCommand(predicate), model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_multipleNames_multipleTransactionsFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 5);
-        TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate(List.of(), Arrays.asList(
+        TransactionContainsKeywordsAndPersonNamesPredicate predicate =
+            new TransactionContainsKeywordsAndPersonNamesPredicate(List.of(), Arrays.asList(
                     new Name("Alice Pauline"), new Name("Benson Meier")));
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(new ListTransactionCommand(predicate), model, expectedMessage, expectedModel);
@@ -80,8 +82,9 @@ public class ListTransactionCommandTest {
 
     @Test
     public void toStringMethod() {
-        TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate(List.of(), Arrays.asList(new Name("Bob"), new Name("Carl")));
+        TransactionContainsKeywordsAndPersonNamesPredicate predicate =
+                new TransactionContainsKeywordsAndPersonNamesPredicate(List.of(),
+                Arrays.asList(new Name("Bob"), new Name("Carl")));
         ListTransactionCommand listTransactionCommand = new ListTransactionCommand(predicate);
         String expected = ListTransactionCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, listTransactionCommand.toString());

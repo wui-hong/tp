@@ -9,17 +9,17 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Name;
 
 /**
- * Tests that a {@code Transaction} contains any of the names of all the {@code Person}, either as a payer or a payee.
- * Name matching is exact and case-sensitive.
+ * Tests that a {@code Transaction} contains any of the keywords and any of the names of all the {@code Person},
+ * either as a payer or a payee. Name matching is exact and case-insensitive.
  */
-public class TransactionContainsPersonNamesPredicate implements Predicate<Transaction> {
+public class TransactionContainsKeywordsAndPersonNamesPredicate implements Predicate<Transaction> {
     private final List<Name> personNames;
     private final List<String> keywords;
 
     /**
      * Constructs a predicate for transactions.
      */
-    public TransactionContainsPersonNamesPredicate(List<String> keywords, List<Name> personNames) {
+    public TransactionContainsKeywordsAndPersonNamesPredicate(List<String> keywords, List<Name> personNames) {
         this.personNames = personNames;
         this.keywords = keywords;
     }
@@ -43,12 +43,12 @@ public class TransactionContainsPersonNamesPredicate implements Predicate<Transa
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TransactionContainsPersonNamesPredicate)) {
+        if (!(other instanceof TransactionContainsKeywordsAndPersonNamesPredicate)) {
             return false;
         }
 
-        TransactionContainsPersonNamesPredicate otherPredicate =
-            (TransactionContainsPersonNamesPredicate) other;
+        TransactionContainsKeywordsAndPersonNamesPredicate otherPredicate =
+            (TransactionContainsKeywordsAndPersonNamesPredicate) other;
         return keywords.stream().collect(Collectors.toSet())
                 .equals(otherPredicate.keywords.stream().collect(Collectors.toSet()))
                 && personNames.stream().collect(Collectors.toSet())
