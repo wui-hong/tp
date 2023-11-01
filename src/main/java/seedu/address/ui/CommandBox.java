@@ -40,6 +40,14 @@ public class CommandBox extends UiPartFocusable<Region> {
     }
 
     /**
+     * Un-focuses on the command box.
+     * Command box automatically un-focuses when another UI element is focused.
+     */
+    public void unFocus() {
+        // command box automatically un-focuses when another UI element is focused
+    }
+
+    /**
      * Handles the Enter button pressed event.
      */
     @FXML

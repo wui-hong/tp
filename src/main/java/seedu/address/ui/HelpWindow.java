@@ -90,6 +90,14 @@ public class HelpWindow extends UiPartFocusable<Stage> {
     }
 
     /**
+     * Un-focuses on the help window.
+     * Help window automatically un-focuses when another UI element is focused.
+     */
+    public void unFocus() {
+        // help window automatically un-focuses when another UI element is focused
+    }
+
+    /**
      * Copies the URL to the user guide to the clipboard.
      */
     @FXML

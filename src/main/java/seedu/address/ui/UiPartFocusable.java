@@ -53,4 +53,9 @@ public abstract class UiPartFocusable<T> extends UiPart<T> {
      * Focuses on the root node of UiPartFocusable.
      */
     public abstract void focus();
+
+    /**
+     * Un-focuses on the root node of UiPartFocusable.
+     */
+    public abstract void unFocus();
 }

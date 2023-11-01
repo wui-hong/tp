@@ -40,6 +40,14 @@ public class TransactionListPanel extends UiPartFocusable<Region> {
     }
 
     /**
+     * Un-focuses on the transaction list.
+     * This is done by clearing the selection in the list view.
+     */
+    public void unFocus() {
+        transactionListView.getSelectionModel().clearSelection();
+    }
+
+    /**
      * Custom {@code ListCell} that displays the graphics of a {@code Transaction} using a {@code TransactionCard}.
      */
     class TransactionListViewCell extends ListCell<Transaction> {

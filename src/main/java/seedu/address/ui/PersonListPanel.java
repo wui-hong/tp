@@ -42,6 +42,14 @@ public class PersonListPanel extends UiPartFocusable<Region> {
     }
 
     /**
+     * Un-focuses on the person list.
+     * This is done by clearing the selection in the list view.
+     */
+    public void unFocus() {
+        personListView.getSelectionModel().clearSelection();
+    }
+
+    /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {

@@ -31,6 +31,8 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private UiPartFocusable<?> focusedUiPart;
+
     // Independent Ui parts residing in this Ui container
     private TransactionListPanel transactionListPanel;
     private PersonListPanel personListPanel;
@@ -113,7 +115,12 @@ public class MainWindow extends UiPart<Stage> {
     private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCode keyCode) {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == keyCode) {
+                // un-focus everything first
+                if (focusedUiPart != null) {
+                    focusedUiPart.unFocus();
+                }
                 uiPartFocusable.focus();
+                focusedUiPart = uiPartFocusable;
                 event.consume();
             }
         });
