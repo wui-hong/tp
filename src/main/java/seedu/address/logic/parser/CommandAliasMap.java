@@ -38,7 +38,7 @@ public class CommandAliasMap {
 
     public static final String VALIDATION_REGEX = "^[a-zA-Z][a-zA-Z]*$";
 
-    private static final Set<String> fullCommands = new HashSet<>() {{
+    public static final Set<String> FULL_COMMANDS = new HashSet<>() {{
             add(AddPersonCommand.COMMAND_WORD);
             add(AddTransactionCommand.COMMAND_WORD);
             add(ClearCommand.COMMAND_WORD);
@@ -78,7 +78,7 @@ public class CommandAliasMap {
      * Gets to full input command from the alias.
      */
     public String getCommand(String inputCommand) throws ParseException {
-        if (fullCommands.contains(inputCommand)) {
+        if (FULL_COMMANDS.contains(inputCommand)) {
             return inputCommand;
         }
         if (aliasToCommand.containsKey(inputCommand)) {
@@ -88,13 +88,20 @@ public class CommandAliasMap {
     }
 
     /**
+     * Returns aliasToCommand map.
+     */
+    public Map<String, String> getMap() {
+        return aliasToCommand;
+    }
+
+    /**
      * Sets the alias of a given command to alias.
      */
     public String putAlias(String command, String alias) throws CommandException {
-        if (!fullCommands.contains(command)) {
+        if (!FULL_COMMANDS.contains(command)) {
             throw new CommandException(MESSAGE_UNKNOWN_COMMAND + " " + command);
         }
-        if (fullCommands.contains(alias)) {
+        if (FULL_COMMANDS.contains(alias)) {
             throw new CommandException(MESSAGE_SHORTHAND_IS_COMMAND + " " + command);
         }
         if (aliasToCommand.containsKey(alias)) {

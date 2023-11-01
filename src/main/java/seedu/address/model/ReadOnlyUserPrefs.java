@@ -15,6 +15,8 @@ public interface ReadOnlyUserPrefs {
 
     Path getAddressBookFilePath();
 
+    void resetCommandMap();
+
     CommandAliasMap getCommandMap();
 
     String setCommandAlias(String command, String alias) throws CommandException;
