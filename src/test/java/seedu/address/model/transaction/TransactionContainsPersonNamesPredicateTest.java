@@ -46,6 +46,10 @@ public class TransactionContainsPersonNamesPredicateTest {
 
         // different name list -> returns false
         assertNotEquals(firstPredicate, secondPredicate);
+
+        // different keywords list -> returns false
+        assertNotEquals(firstPredicate, new TransactionContainsPersonNamesPredicate(List.of("a"),
+                firstPredicateNameList));
     }
 
     @Test
@@ -66,6 +70,21 @@ public class TransactionContainsPersonNamesPredicateTest {
     }
 
     @Test
+    public void test_transactionContainsKeywords_returnsTrue() {
+        // One keyword
+        TransactionContainsPersonNamesPredicate predicate =
+            new TransactionContainsPersonNamesPredicate(List.of("A"), List.of());
+        assertTrue(predicate.test(new TransactionBuilder().withDescription("a").build()));
+        assertTrue(predicate.test(new TransactionBuilder().withDescription("b a").build()));
+
+        // Multiple keywords
+        predicate =
+                new TransactionContainsPersonNamesPredicate(List.of("A", "B"), List.of());
+        assertTrue(predicate.test(new TransactionBuilder().withDescription("b").build()));
+        assertTrue(predicate.test(new TransactionBuilder().withDescription("a b").build()));
+    }
+
+    @Test
     public void test_transactionDoesNotContainNames_returnsTrue() {
         TransactionContainsPersonNamesPredicate predicate =
             new TransactionContainsPersonNamesPredicate(List.of(), List.of());
@@ -80,6 +99,13 @@ public class TransactionContainsPersonNamesPredicateTest {
                 new TransactionContainsPersonNamesPredicate(List.of(), List.of(new Name("Carol")));
         assertFalse(predicate.test(new TransactionBuilder().withPayeeName(CARL.getName().fullName).build()));
         assertFalse(predicate.test(new TransactionBuilder().withPortions(Set.of(CARL_PORTION)).build()));
+    }
+
+    @Test
+    public void test_transactionDoesNotContainKeywords_returnsFalse() {
+        TransactionContainsPersonNamesPredicate predicate =
+                    new TransactionContainsPersonNamesPredicate(List.of("A"), List.of());
+        assertFalse(predicate.test(new TransactionBuilder().withDescription("B").build()));
     }
 
     @Test
