@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,9 +36,9 @@ public class ListTransactionCommandTest {
     @Test
     public void equals() {
         TransactionContainsPersonNamesPredicate firstPredicate =
-            new TransactionContainsPersonNamesPredicate("", Collections.singletonList(new Name("first")));
+            new TransactionContainsPersonNamesPredicate(List.of(), Collections.singletonList(new Name("first")));
         TransactionContainsPersonNamesPredicate secondPredicate =
-            new TransactionContainsPersonNamesPredicate("", Collections.singletonList(new Name("second")));
+            new TransactionContainsPersonNamesPredicate(List.of(), Collections.singletonList(new Name("second")));
 
         ListTransactionCommand listFirstCommand = new ListTransactionCommand(firstPredicate);
         ListTransactionCommand listSecondCommand = new ListTransactionCommand(secondPredicate);
@@ -63,7 +64,7 @@ public class ListTransactionCommandTest {
     public void execute_zeroNames_allTransactionsFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 5);
         TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate("", Collections.emptyList());
+            new TransactionContainsPersonNamesPredicate(List.of(), Collections.emptyList());
         assertCommandSuccess(new ListTransactionCommand(predicate), model, expectedMessage, expectedModel);
     }
 
@@ -71,7 +72,7 @@ public class ListTransactionCommandTest {
     public void execute_multipleNames_multipleTransactionsFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 5);
         TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate("", Arrays.asList(
+            new TransactionContainsPersonNamesPredicate(List.of(), Arrays.asList(
                     new Name("Alice Pauline"), new Name("Benson Meier")));
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(new ListTransactionCommand(predicate), model, expectedMessage, expectedModel);
@@ -80,7 +81,7 @@ public class ListTransactionCommandTest {
     @Test
     public void toStringMethod() {
         TransactionContainsPersonNamesPredicate predicate =
-            new TransactionContainsPersonNamesPredicate("", Arrays.asList(new Name("Bob"), new Name("Carl")));
+            new TransactionContainsPersonNamesPredicate(List.of(), Arrays.asList(new Name("Bob"), new Name("Carl")));
         ListTransactionCommand listTransactionCommand = new ListTransactionCommand(predicate);
         String expected = ListTransactionCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, listTransactionCommand.toString());

@@ -14,26 +14,26 @@ import seedu.address.model.person.Name;
  */
 public class TransactionContainsPersonNamesPredicate implements Predicate<Transaction> {
     private final List<Name> personNames;
-    private final String partialDescription;
+    private final List<String> keywords;
 
     /**
      * Constructs a predicate for transactions.
      */
-    public TransactionContainsPersonNamesPredicate(String partialDescription, List<Name> personNames) {
+    public TransactionContainsPersonNamesPredicate(List<String> keywords, List<Name> personNames) {
         this.personNames = personNames;
-        this.partialDescription = partialDescription.trim();
+        this.keywords = keywords;
     }
 
     @Override
     public boolean test(Transaction transaction) {
-        if (!(partialDescription.isEmpty()
-                || StringUtil.containsWordIgnoreCase(transaction.getDescription().value, partialDescription))) {
+        if (!(keywords.isEmpty() || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(transaction.getDescription().value, keyword)))) {
             return false;
         }
-        if (personNames.isEmpty()) {
-            return true;
+        if (!(personNames.isEmpty() || personNames.stream().anyMatch(transaction::isPersonInvolved))) {
+            return false;
         }
-        return personNames.stream().anyMatch(transaction::isPersonInvolved);
+        return true;
     }
 
     @Override
@@ -49,13 +49,15 @@ public class TransactionContainsPersonNamesPredicate implements Predicate<Transa
 
         TransactionContainsPersonNamesPredicate otherPredicate =
             (TransactionContainsPersonNamesPredicate) other;
-        return partialDescription.equals(otherPredicate.partialDescription)
-                && Set.of(personNames).equals(Set.of(otherPredicate.personNames));
+        return ((keywords.size() == 0 && otherPredicate.keywords.size() == 0)
+                || Set.of(keywords).equals(Set.of(otherPredicate.keywords)))
+                && ((personNames.size() == 0 && otherPredicate.personNames.size() == 0)
+                || Set.of(personNames).equals(Set.of(otherPredicate.personNames)));
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("personNames", personNames)
-                .add("partialDescription", partialDescription).toString();
+        return new ToStringBuilder(this).add("keywords", keywords)
+                .add("personNames", personNames).toString();
     }
 }

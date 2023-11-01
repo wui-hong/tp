@@ -19,7 +19,7 @@ public class ListTransactionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all transactions that involve some specified "
         + "persons, either as a payer or a payee. If no persons are specified, list all transactions.\n"
         + "Parameters: "
-        + "[PARTIAL DESCRIPTION] "
+        + "[KEYWORDS]... "
         + "[" + PREFIX_NAME + "NAME]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe ";

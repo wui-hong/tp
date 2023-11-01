@@ -21,7 +21,7 @@ public class ListTransactionCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero keywords
         ListTransactionCommand expectedListTransactionCommand =
-            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate("", List.of()));
+            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(List.of(), List.of()));
         assertParseSuccess(parser, "", expectedListTransactionCommand);
 
         // multiple whitespaces between keywords
@@ -32,13 +32,13 @@ public class ListTransactionCommandParserTest {
     public void parse_validOptionalFields_success() {
         // one keyword
         ListTransactionCommand expectedListTransactionCommand =
-            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate("",
+            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(List.of(),
             List.of(new Name(VALID_NAME_AMY))));
         assertParseSuccess(parser, NAME_DESC_AMY, expectedListTransactionCommand);
 
         // multiple different keywords
         expectedListTransactionCommand =
-            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate("", List.of(
+            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(List.of(), List.of(
                 new Name(VALID_NAME_AMY),
                 new Name(VALID_NAME_BOB)
             )));
@@ -46,7 +46,7 @@ public class ListTransactionCommandParserTest {
 
         // duplicate keywords
         expectedListTransactionCommand =
-            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate("",
+            new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(List.of(),
             List.of(new Name(VALID_NAME_AMY))));
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_AMY, expectedListTransactionCommand);
     }
