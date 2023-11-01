@@ -1,8 +1,8 @@
 package seedu.address.model.transaction;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -49,10 +49,10 @@ public class TransactionContainsPersonNamesPredicate implements Predicate<Transa
 
         TransactionContainsPersonNamesPredicate otherPredicate =
             (TransactionContainsPersonNamesPredicate) other;
-        return ((keywords.size() == 0 && otherPredicate.keywords.size() == 0)
-                || Set.of(keywords).equals(Set.of(otherPredicate.keywords)))
-                && ((personNames.size() == 0 && otherPredicate.personNames.size() == 0)
-                || Set.of(personNames).equals(Set.of(otherPredicate.personNames)));
+        return keywords.stream().collect(Collectors.toSet())
+                .equals(otherPredicate.keywords.stream().collect(Collectors.toSet()))
+                && personNames.stream().collect(Collectors.toSet())
+                .equals(otherPredicate.personNames.stream().collect(Collectors.toSet()));
     }
 
     @Override
