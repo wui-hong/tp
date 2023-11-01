@@ -1,15 +1,14 @@
 {
-    "guiSettings" : {
-      "windowWidth" : 1000.0,
-      "windowHeight" : 500.0,
-      "windowCoordinates" : {
-        "x" : 300,
-        "y" : 100
-      }
-    },
-    "addressBookFilePath" : null,
-    "commandMap" : {
-      "aliasToCommand" : { }
+  "guiSettings" : {
+    "windowWidth" : 1000.0,
+    "windowHeight" : 500.0,
+    "windowCoordinates" : {
+      "x" : 300,
+      "y" : 100
     }
+  },
+  "addressBookFilePath" : null,
+  "commandMap" : {
+    "aliasToCommand" : { }
   }
-  
+}

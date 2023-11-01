@@ -1,7 +1,7 @@
 {
-    "guiSettings" : null,
-    "addressBookFilePath" : "addressbook.json",
-    "commandMap" : {
-      "aliasToCommand" : { }
-    }
+  "guiSettings" : null,
+  "addressBookFilePath" : "addressbook.json",
+  "commandMap" : {
+    "aliasToCommand" : { }
   }
+}
