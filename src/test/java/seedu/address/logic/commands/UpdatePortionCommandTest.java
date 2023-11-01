@@ -66,6 +66,19 @@ class UpdatePortionCommandTest {
     }
 
     @Test
+    public void execute_duplicateTransaction_success() {
+        Transaction originalTransaction = model.getFilteredTransactionList().get(0);
+        Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
+
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+                .withWeight("2").build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        String expectedMessage = UpdatePortionCommand.MESSAGE_DUPLICATE_TRANSACTION;
+        assertCommandFailure(updatePortionCommand, model, expectedMessage);
+    }
+
+    @Test
     public void execute_deleteExistingPortionUnfilteredList_success() {
         Transaction originalTransaction = model.getFilteredTransactionList().get(2);
         Set<Portion> originalPortions = originalTransaction.getPortions();
