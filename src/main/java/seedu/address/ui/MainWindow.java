@@ -112,10 +112,9 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCode keyCode) {
+    private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCombination keyCombination) {
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == keyCode) {
-                // un-focus everything first
+            if (keyCombination.match(event)) {
                 if (focusedUiPart != null) {
                     focusedUiPart.unFocus();
                 }
@@ -147,9 +146,9 @@ public class MainWindow extends UiPart<Stage> {
      * Sets up the key navigation for the UI.
      */
     void setKeyNavigations() {
-        setKeyNavigation(personListPanel, KeyCode.LEFT);
-        setKeyNavigation(transactionListPanel, KeyCode.RIGHT);
-        setKeyNavigation(commandBox, KeyCode.TAB);
+        setKeyNavigation(personListPanel, KeyCombination.keyCombination("Shift+LEFT"));
+        setKeyNavigation(transactionListPanel, KeyCombination.keyCombination("Shift+RIGHT"));
+        setKeyNavigation(commandBox, KeyCombination.keyCombination("Tab"));
     }
 
     /**
