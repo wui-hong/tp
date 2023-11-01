@@ -62,6 +62,9 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         if (readValue.orElse(new UserPrefs()).getAddressBookFilePath() == null) {
             readValue.orElse(new UserPrefs()).setAddressBookFilePath(Paths.get("data" , "addressbook.json"));
         }
+        if (readValue.orElse(new UserPrefs()).getCommandMap() == null) {
+            readValue.orElse(new UserPrefs()).resetCommandMap();
+        }
         Map<String, String> aliasMap = readValue.orElse(new UserPrefs()).getCommandMap().getMap();
         if (aliasMap == null) {
             readValue.orElse(new UserPrefs()).resetCommandMap();

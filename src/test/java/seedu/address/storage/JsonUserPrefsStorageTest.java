@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -41,6 +42,14 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void readUserPrefs_notJsonFormat_exceptionThrown() {
         assertThrows(DataLoadingException.class, () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
+    }
+
+    @Test
+    public void readUserPrefs_nullValues_success() {
+        assertDoesNotThrow(() -> readUserPrefs("NullGuiPrefs.json"));
+        assertDoesNotThrow(() -> readUserPrefs("NullPathPrefs.json"));
+        assertDoesNotThrow(() -> readUserPrefs("NullCommandMap.json"));
+        assertDoesNotThrow(() -> readUserPrefs("NullAliasToCommand.json"));
     }
 
     private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
