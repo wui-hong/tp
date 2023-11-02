@@ -245,7 +245,7 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - Cost and weights have to be decimal numbers or fractions, and they must be positive.
 - The first name refers to the payee (that is the person whom everyone else now owes).
 - If the timestamp is not provided, the default time is the current system time.
-- If only the date is input, the default time is set as 00:00.
+- If only the date is given, the default time is set as 00:00.
 - If you want to create a weight for yourself, include `n=Self` to refer to yourself.
 - At least one pair of name and weight must be provided.
 - The cost for each person is calculated as follows:
