@@ -43,7 +43,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.TransactionContainsPersonNamesPredicate;
+import seedu.address.model.transaction.TransactionContainsKeywordsAndPersonNamesPredicate;
 import seedu.address.model.transaction.portion.Portion;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
@@ -126,8 +126,9 @@ public class AddressBookParserTest {
     public void parseCommand_listTransaction() throws Exception {
         ListTransactionCommand command = (ListTransactionCommand) parser.parseCommand(
             ListTransactionCommand.COMMAND_WORD + " " + NAME_DESC_AMY + " " + NAME_DESC_BOB, new CommandAliasMap());
-        TransactionContainsPersonNamesPredicate predicate = new TransactionContainsPersonNamesPredicate(
-            List.of(new Name(VALID_NAME_AMY), new Name(VALID_NAME_BOB)));
+        TransactionContainsKeywordsAndPersonNamesPredicate predicate =
+                new TransactionContainsKeywordsAndPersonNamesPredicate(List.of(),
+                List.of(new Name(VALID_NAME_AMY), new Name(VALID_NAME_BOB)));
         assertEquals(new ListTransactionCommand(predicate), command);
     }
 
