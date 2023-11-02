@@ -18,7 +18,6 @@ import seedu.address.logic.commands.DuplicateTransactionCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditTransactionCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.ListTransactionCommand;
@@ -74,11 +73,8 @@ public class AddressBookParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
         case ListPersonCommand.COMMAND_WORD:
-            return new ListPersonCommand();
+            return new ListPersonCommandParser().parse(arguments);
 
         case SettlePersonCommand.COMMAND_WORD:
             return new SettlePersonCommandParser().parse(arguments);
