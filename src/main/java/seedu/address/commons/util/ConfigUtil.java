@@ -13,7 +13,11 @@ import seedu.address.commons.exceptions.DataLoadingException;
 public class ConfigUtil {
 
     public static Optional<Config> readConfig(Path configFilePath) throws DataLoadingException {
-        return JsonUtil.readJsonFile(configFilePath, Config.class);
+        Optional<Config> readVal = JsonUtil.readJsonFile(configFilePath, Config.class);
+        if (!readVal.isPresent()) {
+            readVal.get().setUserPrefsFilePath();
+        }
+        return readVal;
     }
 
     public static void saveConfig(Config config, Path configFilePath) throws IOException {
