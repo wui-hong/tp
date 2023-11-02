@@ -52,7 +52,7 @@ public class UpdatePortionCommand extends Command {
             "The updated transaction does not affect your balances. Please use the delete command instead.";
 
     public static final String MESSAGE_INVALID_PROPORTION = "The weight should be a proportion of the total sum; "
-            + "it should be greater than or equal to 0 and less that 1.";
+            + "it should be greater than or equal to 0 and less than 1.";
 
     public static final String MESSAGE_ONLY_PORTION =
             "There is only one portion; its weight can only be 1 and cannot be updated.";
