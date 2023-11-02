@@ -477,10 +477,13 @@ Exits the program.
 Format: `exit`
 
 #### Navigating the app using only the keyboard
+You can use the following shortcuts to navigate our application:
+- Selecting Result Display: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>UP ARROW KEY</kbd>
+- Selecting Persons List: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>LEFT ARROW KEY</kbd>
+- Selecting Transactions List: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>RIGHT ARROW KEY</kbd>
+- Selecting Command Box: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>DOWN ARROW KEY</kbd>
 
-Use <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the persons list and <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the transactions list. You can use the up and down arrows to navigate the lists after that.
-
-Use <kbd>TAB</kbd> to select the command bar.
+For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
 #### Saving the data
 
