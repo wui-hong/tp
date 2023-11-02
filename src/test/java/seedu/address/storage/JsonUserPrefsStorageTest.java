@@ -56,6 +56,11 @@ public class JsonUserPrefsStorageTest {
     }
 
     @Test
+    public void readUserPrefs_emptyCommandMap_loads() {
+        assertDoesNotThrow(() -> readUserPrefs("EmptyCommandMap.json"));
+    }
+
+    @Test
     public void readUserPrefs_duplicateMap_exceptionThrown() {
         assertThrows(DataLoadingException.class, () -> readUserPrefs("DuplicateCommandMap.json"));
     }
