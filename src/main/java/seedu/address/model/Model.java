@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import org.apache.commons.numbers.fraction.BigFraction;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandAliasMap;
 import seedu.address.model.person.Name;
@@ -34,16 +33,6 @@ public interface Model {
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
-
-    /**
-     * Returns the user prefs' GUI settings.
-     */
-    GuiSettings getGuiSettings();
-
-    /**
-     * Sets the user prefs' GUI settings.
-     */
-    void setGuiSettings(GuiSettings guiSettings);
 
     /**
      * Returns the user prefs' address book file path.

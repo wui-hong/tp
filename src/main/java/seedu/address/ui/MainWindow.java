@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -10,7 +12,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -30,11 +31,15 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private UiPartFocusable<?> focusedUiPart;
+
     // Independent Ui parts residing in this Ui container
     private TransactionListPanel transactionListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -62,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize();
 
         setAccelerators();
 
@@ -107,6 +112,19 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCombination keyCombination) {
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (keyCombination.match(event)) {
+                if (focusedUiPart != null) {
+                    focusedUiPart.unFocus();
+                }
+                uiPartFocusable.focus();
+                focusedUiPart = uiPartFocusable;
+                event.consume();
+            }
+        });
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
@@ -120,20 +138,31 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
-     * Sets the default size based on {@code guiSettings}.
+     * Sets up the key navigation for the UI.
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
+    void setKeyNavigations() {
+        setKeyNavigation(personListPanel, KeyCombination.keyCombination("Shift+LEFT"));
+        setKeyNavigation(transactionListPanel, KeyCombination.keyCombination("Shift+RIGHT"));
+        setKeyNavigation(commandBox, KeyCombination.keyCombination("Tab"));
+    }
+
+    /**
+     * Sets the default size based on the screen size.
+     */
+    private void setWindowDefaultSize() {
+        Rectangle screenSize =
+                GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        primaryStage.setHeight(screenSize.getHeight());
+        primaryStage.setWidth(screenSize.getWidth());
+        primaryStage.setMinHeight(screenSize.getHeight() * 0.9);
+        primaryStage.setMinWidth(screenSize.getWidth() * 0.9);
+        primaryStage.setX(0);
+        primaryStage.setY(0);
     }
 
     /**
@@ -157,9 +186,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
