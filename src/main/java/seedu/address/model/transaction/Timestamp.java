@@ -32,6 +32,8 @@ public class Timestamp implements Comparable<Timestamp> {
             .appendPattern(DATE_FORMAT + " " + TIME_FORMAT).parseDefaulting(ChronoField.ERA, IsoEra.CE.getValue())
             .toFormatter().withResolverStyle(ResolverStyle.STRICT);
 
+    private static final String MIDNIGHT = "00:00";
+
     public final LocalDateTime value;
 
     /**
@@ -42,7 +44,19 @@ public class Timestamp implements Comparable<Timestamp> {
     public Timestamp(String timestamp) {
         requireNonNull(timestamp);
         checkArgument(isValidTimestamp(timestamp), MESSAGE_CONSTRAINTS);
-        value = parse(timestamp);
+        value = parse(timestamp, MIDNIGHT);
+    }
+
+    /**
+     * Constructs a {@code Timestamp}.
+     *
+     * @param timestamp A valid timestamp.
+     * @param defaultTime The default time if only a date is provided.
+     */
+    public Timestamp(String timestamp, String defaultTime) {
+        requireNonNull(timestamp);
+        checkArgument(isValidTimestamp(timestamp), MESSAGE_CONSTRAINTS);
+        value = parse(timestamp, defaultTime);
     }
 
     /**
@@ -54,12 +68,12 @@ public class Timestamp implements Comparable<Timestamp> {
         this.value = value;
     }
 
-    private static LocalDateTime parse(String timestamp) {
+    private static LocalDateTime parse(String timestamp, String defaultTime) {
         if (timestamp.matches(DATE_VALIDATION + " " + TIME_VALIDATION)) {
             return LocalDateTime.parse(timestamp, DATETIME_FORMATTER);
         }
         if (timestamp.matches(DATE_VALIDATION)) {
-            return LocalDateTime.parse(timestamp + " 00:00", DATETIME_FORMATTER);
+            return LocalDateTime.parse(timestamp + " " + defaultTime, DATETIME_FORMATTER);
         }
         if (timestamp.matches(TIME_VALIDATION)) {
             String date = DATE_FORMATTER.format(LocalDateTime.now());
@@ -80,7 +94,7 @@ public class Timestamp implements Comparable<Timestamp> {
      */
     public static boolean isValidTimestamp(String test) {
         try {
-            return parse(test) != null;
+            return parse(test, MIDNIGHT) != null;
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
             return false;
