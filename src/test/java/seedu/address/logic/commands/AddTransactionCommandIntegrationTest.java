@@ -38,8 +38,8 @@ public class AddTransactionCommandIntegrationTest {
         expectedModel.addTransaction(validTransaction);
 
         assertCommandSuccess(new AddTransactionCommand(validTransaction), model,
-            String.format(AddTransactionCommand.MESSAGE_SUCCESS, Messages.format(validTransaction, true)),
-            expectedModel);
+                String.format(AddTransactionCommand.MESSAGE_SUCCESS, Messages.format(validTransaction)),
+                expectedModel);
     }
 
     @Test

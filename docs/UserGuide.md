@@ -11,11 +11,70 @@ Spend n Split (SnS) is an application for managing transactions from your contac
 that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between 
 yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as
  well as the calculations of balances owed will be automatically handled by Spend n Split.
-* Table of Contents
 
-{:toc}
+## Table of Contents
+1. [Glossary](#glossary)
+    1. [Person](#person)
+    2. [Transaction](#transaction)
+    3. [Fields](#fields)
+2. [Quick Start](#quick-start)
+3. [Features](#features)
+4. [FAQ](#faq)
 
----
+## Glossary
+
+### Person
+
+Persons are the people with whom you track your balances against. To create a transaction with a person, they must first have been added to the app.
+
+A person has the following attributes:
+- Name
+- Balance (calculated by the app)
+- Tag(s)
+- Phone number
+- Telegram handle
+- Email Address
+- Address
+
+Persons are uniquely identified by their names. No two persons can have the same name and names are case-insensitive.
+
+Having a positive balance against a person means that they owe you money, conversely having a negative balance against a person means that you owe them money.
+
+### Transaction
+
+Transactions are events in which money is exchanged.
+
+A transaction has the following attributes:
+- Description
+- Payee
+- Amount
+- Timestamp
+- Portion(s)
+
+Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you, the user, and others refers to anyone not in the app.
+
+After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
+
+### Fields
+
+Inputs to fields should not contain the "=" sign.
+
+The following fields are used for commands:
+| Field | Prefix | Format |
+| --- | --- | --- |
+| Index | - | Must be a positive integer |
+| Keyword | - | Must not contain the = sign |
+| Name | n | Must be alphanumeric |
+| Phone number | p | Must be numeric and be at least 3 digits long |
+| Telegram handle | tg | Must start with @ and be followed by at least 5 alphanumeric symbols/ underscores |
+| Email address | e | Must be a valid email address |
+| Address | a | Must not contain the = sign |
+| Description | d | Must not contain the = sign |
+| Amount/ Cost | c | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
+| Timestamp | ts | Dates must be in DD/MM/YYYY format and time must be in HH:SS format; can provide one or both; if both are provided, date should come first, separated from time by a space |
+| Weight | w | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
+| Original command | o | One of the original command keywords listed in this user guide |
+| Shorthand | s | Must only be made up of characters from the English alphabet | 
 
 ## Quick Start
 
@@ -64,9 +123,119 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 
 ## Features
 
-### __v1.2__
+### Person-related features
 
-### Adding a transaction: `addTransaction`
+#### Adding a person: `addPerson`
+
+Adds a person to the address book.
+
+Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
+
+The order of the fields is flexible (e.g. phone number can come before name) but the command word (addPerson) must be in front.
+
+Examples:
+
+* `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
+* `addPerson  n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
+
+Note: Contact details are optional to add. They can also be added later using the editPerson command. However, once they are added, they cannot be removed through the app.
+
+#### Editing a person : `editPerson`
+
+Edits an existing person in the address book.
+
+Format: `editPerson INDEX [n=NAME] [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
+
+The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. phone number can come before name) but the command word (editPerson) and the index must be in front.
+
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+  The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing `t=` without
+  specifying any tags after it.
+
+Examples:
+
+* `editPerson 1 p=91234567 e=johndoe@example.com`
+    * Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com`
+      respectively.
+* `editPerson 2 n=Betsy Crower t=`
+    * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+  ![editPerson_success](images\user-guide\editPerson.PNG)
+
+#### Deleting a person : `deletePerson`
+
+Deletes the specified person from the address book.
+
+Format: `deletePerson INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+
+* `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
+
+![](images\user-guide\deletePerson.PNG)
+
+#### Locating persons by name: `listPerson`
+
+Finds persons whose names contain any of the given keywords. If no keywords are entered, lists all persons.
+
+Format: `listPerson [KEYWORD]...`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+
+* `listPerson John` returns `john` and `John Doe`
+* `listPerson alex david` returns `Alex Yeoh`, `David Li`
+![listPerson success](images/user-guide/listPerson.png)
+
+
+#### Sorting people by balance: `sortPerson`
+
+Sorts the list of people in your address book based on their outstanding balances in either ascending or descending
+order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
+own them money.
+
+Format: `sortPerson ORDER`
+
+Parameters:
+- `ORDER`: Specifies the order in which to sort the balances. Use `-` for ascending order (or most negative balance at the top) and `+` for descending order (or most positive balance at the top). Raise error for missing or unknown parameters.
+
+Examples:
+* `sortPerson -`
+    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
+        by others in increasing order of their outstanding balances.
+* `sortPerson +`
+    * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
+        followed by others in decreasing order of their outstanding balances.
+
+Sample execution:
+
+```
+$ sortPerson +
+All contacts balance in descending order. Negative balance means you own them money.
+1. John, +40.00
+2. Mary, +40.00
+3. Alice, +20.00
+```
+![sortPerson success](images/user-guide/sortPerson1.png)
+
+### Transaction-related features
+
+#### Adding a transaction: `addTransaction`
 
 Adds a Transaction.
 `addTransaction`
@@ -80,6 +249,8 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - At least one pair of name and weight must be provided.
 - The cost for each person is calculated as follows:
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
+
+The order of the fields is NOT flexible.
 
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
@@ -103,7 +274,7 @@ addTransaction: Adds a transaction to the address book.
 Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
 ```
 
-### Editing a Transaction: `editTransaction`
+#### Editing a Transaction: `editTransaction`
 
 Edits the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
 The index **must be a positive integer** 1, 2, 3, ...
@@ -114,7 +285,9 @@ Transaction details that can be edited:
 * Cost
 * Payee
 
-Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE]`
+Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
+
+The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (editTransaction) and the index must be in front.
 
 Examples:
 
@@ -132,17 +305,18 @@ editTransaction 1 n=Bob c=12.12
 
 ![editTransaction success](images/user-guide/editTransactionSuccess.png)
 
-### Updating a Portion of a Transaction: `updatePortion`
+#### Updating a Portion of a Transaction: `updatePortion`
 
 Updates the portion of a transaction at the specified `INDEX`. The index refers to the index number when viewing the
 TransactionList. The index **must be a positive integer** 1, 2, 3, ...
 
 Portion refers to the amount of money that a person owes you for a transaction. \
 The portion is calculated based on the cost of the transaction and the proportion of the transaction that the person has
-to pay for, which is determined by the `WEIGHT` of the person.
+to pay for, which is determined by the `WEIGHT` of the person. Hence the `WEIGHT` must be between 0 (inclusive) and 1 (exclusive).
 
 Format: `updatePortion INDEX n=NAME w=WEIGHT`
 
+The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. weight can come before name) but the command word (editTransaction) and the index must be in front.
 Examples:
 
 * To add a new person (e.g. Alice) to the transaction:
@@ -164,7 +338,7 @@ updatePortion 1 n=Alice w=0.5
 
 ![](images/user-guide/updatePortionSuccess.png)
 
-### Deleting a transaction: `deleteTransaction`
+#### Deleting a transaction: `deleteTransaction`
 
 Deletes the specified transaction based on index.
 
@@ -187,11 +361,31 @@ Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Am
 
 ![](images/user-guide/deleteTransaction.png)
 
-### Listing transactions: `listTransaction`
+#### Duplicating a Transaction: `duplicateTransaction`
 
-Shows a list of transactions that includes the specified people. If no people are specified, all transactions will be shown.
+Duplicates the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
+The index **must be a positive integer** 1, 2, 3, ...
 
-Format: `listTransaction [n=NAME]`
+Transaction details that can be changed when duplicating:
+
+* Description
+* Cost
+* Payee
+
+Format: `duplicateTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
+
+The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (duplicateTransaction) and the index must be in front.
+
+Examples:
+
+* `duplicateTransaction 1 c=12.12`
+* `duplicateTransaction 2 d=Potato n=Bob`
+
+#### Listing transactions: `listTransaction`
+
+Shows a list of transactions whose descriptions include any of the keywords and which include any of the specified people. If no keywords are specified, it filters only by names; if no names are specified, it filters only by keywords. If neither are specified, all transactions will be lised.
+
+Format: `listTransaction [KEYWORD]... [n=NAME]...`
 
 * The name refers to the name of the person in the transaction (either as a payee or a payer).
 * The name must contain only alphabets, numbers, and spaces. It cannot be empty and is case-insensitive.
@@ -223,10 +417,10 @@ $ listTransaction n=Alice Pauline n=Carl Kurz
 
 ### Settling transactions: `settlePerson`
 
-Fully settles the outstanding balance with the specified person.
-After settling, outstanding balance with the specified person will be 0.
+Settles the outstanding balance with a given person based on transactions that occur before the given time.
+If no timestamp is input, the default timestamp is the current system time.
 
-Format: `settlePerson INDEX`
+Format: `settlePerson INDEX [ts=TIME]`
 
 Example:
 
@@ -250,160 +444,52 @@ Balance settled: Alex Yeoh
 
 ![settle success](images/user-guide/settle2.jpeg)
 
-### Listing people: `listPerson`
+### Other features
 
-Shows the outstanding balances for each person, along with their contact information.
+#### Setting shorthands for commands : `setShorthand`
 
-Format: `listPerson`
-* The outstanding balance is calculated as follows:
-    * Outstanding balance = Total amount owed to you - Total amount you owe
-* The list is sorted by the outstanding balance in descending order:
-    * The person who owes you the most money will be shown first.
-    * The person who you owe the most money to will be shown last.
+Sets a shorthand for the original command. In the future, this shorthand can be used in place of the original command.
 
-Sample Execution:
+Format: `setShorthand o=[ORIGINAL_COMMAND] s=[SHORTHAND]`
 
-```
-$ listPerson
+Note: The order of the fields is flexible (e.g. sharthand can come before the original command) but the command word (setShorthand) must be in front.
 
-Listed all persons
-```
+Commands and shorthands are case-sensitive.
 
-![listPerson success](images/user-guide/listPerson.png)
+#### Getting help : `help`
 
-### Sorting people by balance: `sortPerson`
+Displays a URL that contains a link to this user guide.
 
-Sorts the list of people in your address book based on their outstanding balances in either ascending or descending
-order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
-own them money.
+Format: `help`
 
-Format: `sortPerson ORDER`
-
-Parameters:
-- `ORDER`: Specifies the order in which to sort the balances. Use `-` for ascending order (or most negative balance at the top) and `+` for descending order (or most positive balance at the top). Raise error for missing or unknown parameters.
-
-Examples:
-* `sortPerson -`
-    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
-        by others in increasing order of their outstanding balances.
-* `sortPerson +`
-    * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
-        followed by others in decreasing order of their outstanding balances.
-
-Sample execution:
-
-```
-$ sortPerson +
-All contacts balance in descending order. Negative balance means you own them money.
-1. John, +40.00
-2. Mary, +40.00
-3. Alice, +20.00
-```
-![sortPerson success](images/user-guide/sortPerson1.png)
-
-
-### __v1.1__
-
-### Adding a person: `addPerson`
-
-Adds a person to the address book.
-
-Format: `addPerson n=NAME p=PHONE_NUMBER e=EMAIL a=ADDRESS [t=TAG]…​`
-
-Examples:
-
-* `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
-* `addPerson  n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
-
-### Listing all persons : `list` (deprecated)
-
-**NOTE: The latest version of this command is in v1.2**
-Shows a list of all persons in the address book.
-
-Format: `list`
-
-### Editing a person : `editPerson`
-
-Edits an existing person in the address book.
-
-Format: `editPerson INDEX [n=NAME] [p=PHONE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
-  The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t=` without
-  specifying any tags after it.
-
-Examples:
-
-* `editPerson 1 p=91234567 e=johndoe@example.com`
-    * Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com`
-      respectively.
-* `editPerson 2 n=Betsy Crower t=`
-    * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-  ![editPerson_success](C:\Users\khoow\Documents\tp\docs\images\user-guide\editPerson.PNG)
-
-### Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`
-  ![find success](C:\Users\khoow\Documents\tp\docs\images\user-guide\find.PNG)
-
-### Deleting a person : `deletePerson`
-
-Deletes the specified person from the address book.
-
-Format: `deletePerson INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-
-* `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
-
-![](C:\Users\khoow\Documents\tp\docs\images\user-guide\deletePerson.PNG)
-
-### Clearing all entries : `clear`
+#### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
-![](C:\Users\khoow\Documents\tp\docs\images\user-guide\clear.PNG)
 
-### Exiting the program : `exit`
+![clear success](images/user-guide/clear.png)
+
+#### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+#### Navigating the app using only the keyboard
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need
+Use <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the persons list and <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the transactions list. You can use the up and down arrows to navigate the lists after that.
+
+Use <kbd>TAB</kbd> to select the command bar.
+
+#### Saving the data
+
+Data is saved in the hard disk automatically after any command that changes the data. There is no need
 to save manually.
 
-### Editing the data file
+#### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users
-are welcome to update data directly by editing that data file.
+Data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. The data is human-readble. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
 
 ## FAQ
 

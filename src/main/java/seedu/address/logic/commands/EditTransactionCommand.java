@@ -41,7 +41,7 @@ public class EditTransactionCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DETAILS] "
             + "[" + PREFIX_TIMESTAMP + "TIME] "
             + "[" + PREFIX_NAME + "PAYEE NAME] "
-            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP] "
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COST + "10.00 "
             + PREFIX_DESCRIPTION + "Bought a book "
@@ -90,7 +90,7 @@ public class EditTransactionCommand extends Command {
         model.setTransaction(transactionToEdit, editedTransaction);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction, true)));
+                String.format(MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction)));
 
     }
     /**
@@ -98,7 +98,7 @@ public class EditTransactionCommand extends Command {
      * edited with {@code editTransactionDescriptor}.
      * Portions are not edited with this {@code EditTransactionCommand}
      */
-    private static Transaction createEditedTransaction(Transaction transactionToEdit, EditTransactionDescriptor
+    public static Transaction createEditedTransaction(Transaction transactionToEdit, EditTransactionDescriptor
             editTransactionDescriptor) {
         assert transactionToEdit != null;
 

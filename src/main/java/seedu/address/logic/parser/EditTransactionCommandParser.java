@@ -36,6 +36,17 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
         }
 
+        EditTransactionDescriptor editTransactionDescriptor = getEditTransactionDescriptor(argMultimap);
+
+        if (!editTransactionDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED);
+        }
+
+        return new EditTransactionCommand(index, editTransactionDescriptor);
+    }
+
+    public static EditTransactionDescriptor getEditTransactionDescriptor(
+        ArgumentMultimap argMultimap) throws ParseException {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME, PREFIX_TIMESTAMP);
 
         EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
@@ -56,11 +67,6 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
             editTransactionDescriptor.setTimestamp(
                     ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()));
         }
-
-        if (!editTransactionDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED);
-        }
-
-        return new EditTransactionCommand(index, editTransactionDescriptor);
+        return editTransactionDescriptor;
     }
 }

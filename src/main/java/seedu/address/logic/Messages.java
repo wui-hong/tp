@@ -18,8 +18,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX =
         "The transaction index provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_TRANSACTIONS_LISTED_OVERVIEW = "%1$d transactions listed!";
+    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d person(s) listed!";
+    public static final String MESSAGE_TRANSACTIONS_LISTED_OVERVIEW = "%1$d transaction(s) listed!";
     public static final String MESSAGE_SHORTHAND_IS_COMMAND = "Cannot set shorthand %s as it is an existing command";
     public static final String MESSAGE_DUPLICATE_ALIAS = "Command alias %s is used for %s";
     public static final String MESSAGE_DUPLICATE_FIELDS =
@@ -69,14 +69,12 @@ public class Messages {
     /**
      * Formats the {@code transaction} for display to the user.
      */
-    public static String format(Transaction transaction, boolean includeTimestamp) {
+    public static String format(Transaction transaction) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(transaction.getDescription());
-        if (includeTimestamp) {
-            builder.append("; Timestamp: ")
-                .append(transaction.getTimestamp());
-        }
-        builder.append("; Amount: ")
+        builder.append(transaction.getDescription())
+            .append("; Timestamp: ")
+            .append(transaction.getTimestamp())
+            .append("; Amount: ")
             .append(transaction.getAmount())
             .append("; Paid by: ")
             .append(transaction.getPayeeName())
