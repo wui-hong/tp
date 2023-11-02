@@ -3,9 +3,12 @@ package seedu.address.model.transaction;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireNonEmptyCollection;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -52,7 +55,7 @@ public class Transaction implements Comparable<Transaction> {
         this.amount = amount;
         this.description = description;
         this.payeeName = payeeName;
-        this.portions.addAll(portions);
+        this.portions.addAll(normalisePortions(portions));
         this.timestamp = timestamp;
     }
 
@@ -70,6 +73,15 @@ public class Transaction implements Comparable<Transaction> {
 
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    private Set<Portion> normalisePortions(Set<Portion> portions) {
+        BigFraction totalWeight = sumWeights(portions);
+        if (totalWeight.signum() <= 0) {
+            return portions;
+        }
+        return portions.stream().map(portion -> new Portion(portion.getPersonName(),
+                new Weight(portion.getWeight().value.divide(totalWeight)))).collect(Collectors.toSet());
     }
 
     /**
@@ -315,7 +327,50 @@ public class Transaction implements Comparable<Transaction> {
 
     @Override
     public int compareTo(Transaction other) {
-        return other.timestamp.compareTo(this.timestamp);
+
+        // Order more recent items first
+        if (!timestamp.equals(other.timestamp)) {
+            return other.timestamp.compareTo(timestamp);
+        }
+
+        // Order higher transaction totals first
+        if (!amount.amount.equals(other.amount.amount)) {
+            return other.amount.amount.compareTo(amount.amount);
+        }
+
+        // Order items lexicographically by description
+        if (!description.equals(other.description)) {
+            return description.value.compareTo(other.description.value);
+        }
+
+        // Order items lexicographically by payee name
+        if (!payeeName.equals(other.payeeName)) {
+            return payeeName.compareTo(other.payeeName);
+        }
+
+        // Order items which involved more people first
+        if (portions.size() != other.portions.size()) {
+            return other.portions.size() - portions.size();
+        }
+
+        // Order items based on portions, first by lexicographical order of names, then by higher weights first
+        Comparator<Portion> comparator = (portion1, portion2) -> {
+            if (!portion1.getPersonName().equals(portion2.getPersonName())) {
+                return portion1.getPersonName().compareTo(portion2.getPersonName());
+            }
+            return portion2.getWeight().value.compareTo(portion1.getWeight().value);
+        };
+        List<Portion> sortedThis = new ArrayList<>(this.portions);
+        Collections.sort(sortedThis, comparator);
+        List<Portion> sortedOther = new ArrayList<>(other.portions);
+        Collections.sort(sortedOther, comparator);
+        for (int i = 0; i < portions.size(); i++) {
+            int comparision = comparator.compare(sortedThis.get(i), sortedOther.get(i));
+            if (comparision != 0) {
+                return comparision;
+            }
+        }
+        return portions.hashCode() - other.portions.hashCode();
     }
 
     @Override

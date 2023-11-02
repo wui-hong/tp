@@ -46,7 +46,7 @@ class UpdatePortionCommandTest {
         Transaction originalTransaction = model.getFilteredTransactionList().get(1);
         Set<Portion> originalPortions = originalTransaction.getPortions();
         Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
-        Portion editedPortion = new PortionBuilder(originalPortion).withWeight("8").build();
+        Portion editedPortion = new PortionBuilder(originalPortion).withWeight("2/3").build();
         Set<Portion> editedPortions = originalPortions.stream().map(portion ->
                 portion.equals(originalPortion) ? editedPortion : portion).collect(Collectors.toSet());
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
@@ -150,7 +150,7 @@ class UpdatePortionCommandTest {
     public void execute_addNewPortionUnfilteredList_success() {
         Transaction originalTransaction = model.getFilteredTransactionList().get(0);
 
-        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1").build();
+        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1/2").build();
         Set<Portion> editedPortions = originalTransaction.getPortionsCopy();
         editedPortions.add(newPortion);
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
@@ -179,7 +179,7 @@ class UpdatePortionCommandTest {
     }
 
     public void execute_highWeight_failure() {
-        Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1").build();
+        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1").build();
         UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).withWeight("1").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -194,7 +194,7 @@ class UpdatePortionCommandTest {
         Transaction transactionInFilteredList = model.getFilteredTransactionList()
                 .get(INDEX_FIRST_ELEMENT.getZeroBased());
 
-        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1").build();
+        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1/2").build();
         Set<Portion> editedPortions = transactionInFilteredList.getPortionsCopy();
         editedPortions.add(newPortion);
         Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList)

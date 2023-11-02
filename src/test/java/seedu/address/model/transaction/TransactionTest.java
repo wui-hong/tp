@@ -100,8 +100,30 @@ class TransactionTest {
         assertNotEquals(transaction, new TransactionBuilder().withPayeeName(BOB.getName().fullName).build());
 
         // different portions -> returns false
-        Set<Portion> portions = Set.of(BENSON_PORTION);
+        Set<Portion> portions = Set.of(new PortionBuilder(BENSON_PORTION).withWeight("1").build());
         assertNotEquals(transaction, new TransactionBuilder().withPortions(portions).build());
+
+        // equivalent portions -> returns true
+        Set<Portion> portionsDuplicate = Set.of(new PortionBuilder(BENSON_PORTION).withWeight("2").build());
+        assertEquals(new TransactionBuilder().withPortions(portions).build(),
+                new TransactionBuilder().withPortions(portionsDuplicate).build());
+    }
+
+    @Test
+    public void compareTo() {
+        assertTrue(new TransactionBuilder().build().compareTo(new TransactionBuilder().build()) == 0);
+        assertTrue(new TransactionBuilder().withTimestamp("10/10/2020").build()
+                .compareTo(new TransactionBuilder().withTimestamp("10/10/1010").build()) < 0);
+        assertTrue(new TransactionBuilder().withAmount("1").build()
+                .compareTo(new TransactionBuilder().withAmount("2").build()) > 0);
+        assertTrue(new TransactionBuilder().withDescription("A").build()
+                .compareTo(new TransactionBuilder().withDescription("B").build()) < 0);
+        assertTrue(new TransactionBuilder().withPayeeName(Name.SELF.fullName).build()
+                .compareTo(new TransactionBuilder().withPayeeName("A").build()) < 0);
+        assertTrue(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, ALICE_PORTION, BENSON_PORTION)).build()
+                .compareTo(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, ALICE_PORTION)).build()) < 0);
+        assertTrue(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, BENSON_PORTION)).build()
+                .compareTo(new TransactionBuilder().withPortions(Set.of(SELF_PORTION, ALICE_PORTION)).build()) > 0);
     }
 
     @Test
