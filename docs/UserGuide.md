@@ -245,6 +245,7 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - Cost and weights have to be decimal numbers or fractions, and they must be positive.
 - The first name refers to the payee (that is the person whom everyone else now owes).
 - If the timestamp is not provided, the default time is the current system time.
+- If only the date is input, the default time is set as 00:00.
 - If you want to create a weight for yourself, include `n=Self` to refer to yourself.
 - At least one pair of name and weight must be provided.
 - The cost for each person is calculated as follows:
@@ -289,6 +290,9 @@ Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 
 The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (editTransaction) and the index must be in front.
 
+If no timestamp is input, the default timestamp is the current system time.
+If only the date is input, the default time is set as 00:00.
+
 Examples:
 
 * `editTransaction 1 c=12.12`
@@ -317,6 +321,7 @@ to pay for, which is determined by the `WEIGHT` of the person. Hence the `WEIGHT
 Format: `updatePortion INDEX n=NAME w=WEIGHT`
 
 The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. weight can come before name) but the command word (editTransaction) and the index must be in front.
+
 Examples:
 
 * To add a new person (e.g. Alice) to the transaction:
@@ -417,8 +422,9 @@ $ listTransaction n=Alice Pauline n=Carl Kurz
 
 ### Settling transactions: `settlePerson`
 
-Settles the outstanding balance with a given person based on transactions that occur before the given time.
+Settles the outstanding balance with a given person based on transactions that occur before or at the given time.
 If no timestamp is input, the default timestamp is the current system time.
+If only the date is input, the default time is set as 23:59.
 
 Format: `settlePerson INDEX [ts=TIME]`
 
