@@ -185,7 +185,7 @@
 }
 
 #portionListView .list-cell:filled:odd {
-    -fx-background-color: #dbeafe;
+    -fx-background-color: #e0f2fe;
 }
 
 #portionListView .list-cell:filled:selected {
