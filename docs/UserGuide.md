@@ -60,21 +60,22 @@ After a transaction, each payer in the list of portions owes the payee a fractio
 Inputs to fields should not contain the "=" sign.
 
 The following fields are used for commands:
-| Field | Prefix | Format |
-| --- | --- | --- |
-| Index | - | Must be a positive integer |
-| Keyword | - | Must not contain the = sign |
-| Name | n | Must be alphanumeric |
-| Phone number | p | Must be numeric and be at least 3 digits long |
-| Telegram handle | tg | Must start with @ and be followed by at least 5 alphanumeric symbols/ underscores |
-| Email address | e | Must be a valid email address |
-| Address | a | Must not contain the = sign |
-| Description | d | Must not contain the = sign |
-| Amount/ Cost | c | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
-| Timestamp | ts | Dates must be in DD/MM/YYYY format and time must be in HH:SS format; can provide one or both; if both are provided, date should come first, separated from time by a space |
-| Weight | w | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
-| Original command | o | One of the original command keywords listed in this user guide |
-| Shorthand | s | Must only be made up of characters from the English alphabet | 
+
+| Field | Prefix | Format | Example |
+| --- | --- | --- | --- |
+| Index | - | Must be a positive integer | `1`, `2`, `3` |
+| Keyword | - | Must not contain the = sign | `Bob`, `Lunch` |
+| Name | n | Must be alphanumeric | `Bob`, `Alice` |
+| Phone number | p | Must be numeric and be at least 3 digits long | `99999999`, `88888888` |
+| Telegram handle | tg | Must start with @ and be followed by at least 5 alphanumeric symbols/ underscores | `@nus_cs2103` , `@spend_n_split` |
+| Email address | e | Must be a valid email address | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address | a | Must not contain the = sign | `Kent Ridge Hall`, `RC4` |
+| Description | d | Must not contain the = sign | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost | c | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces | `12`, `.5`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp | ts | Dates must be in DD/MM/YYYY format and time must be in HH:SS format; can provide one or both; if both are provided, date should come first, separated from time by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight | w | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces | `12`, `.5`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | One of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
+| Shorthand | s | Must only be made up of characters from the English alphabet | `s`, `aT` |
 
 ## Quick Start
 
