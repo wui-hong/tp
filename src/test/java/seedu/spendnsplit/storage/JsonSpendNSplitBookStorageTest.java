@@ -3,6 +3,7 @@ package seedu.spendnsplit.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.spendnsplit.testutil.Assert.assertThrows;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalPersons.ALICE;
 import static seedu.spendnsplit.testutil.TypicalPersons.HOON;
 import static seedu.spendnsplit.testutil.TypicalPersons.IDA;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.spendnsplit.commons.exceptions.DataLoadingException;
 import seedu.spendnsplit.model.SpendNSplit;
+import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
 
 public class JsonSpendNSplitBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSpendNSplitBookStorageTest");

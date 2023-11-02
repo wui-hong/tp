@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.spendnsplit.commons.core.LogsCenter;
 import seedu.spendnsplit.commons.exceptions.DataLoadingException;
 import seedu.spendnsplit.model.ReadOnlyUserPrefs;
+import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
 import seedu.spendnsplit.model.UserPrefs;
 
 /**

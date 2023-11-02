@@ -22,6 +22,7 @@ import seedu.spendnsplit.logic.commands.exceptions.CommandException;
 import seedu.spendnsplit.logic.parser.CommandAliasMap;
 import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.Model;
+import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
 import seedu.spendnsplit.model.ReadOnlyUserPrefs;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.person.Person;

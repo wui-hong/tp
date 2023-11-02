@@ -14,7 +14,7 @@ import seedu.spendnsplit.logic.parser.CommandAliasMap;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
 
-    private Path spendNSplitBookFilePath = Paths.get("data" , "spendNSplitbook.json");
+    private Path spendNSplitBookFilePath = Paths.get("data" , "spendnsplitbook.json");
     private CommandAliasMap commandMap = new CommandAliasMap();
 
     /**
