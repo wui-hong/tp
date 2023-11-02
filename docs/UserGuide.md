@@ -479,10 +479,10 @@ Format: `exit`
 
 #### Navigating the app using only the keyboard
 You can use the following shortcuts to navigate our application:
-- Selecting Result Display: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>UP ARROW KEY</kbd>
-- Selecting Persons List: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>LEFT ARROW KEY</kbd>
-- Selecting Transactions List: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>RIGHT ARROW KEY</kbd>
-- Selecting Command Box: <kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac) + <kbd>DOWN ARROW KEY</kbd>
+- Selecting Result Display: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>UP ARROW KEY</kbd>
+- Selecting Persons List: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>LEFT ARROW KEY</kbd>
+- Selecting Transactions List: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>RIGHT ARROW KEY</kbd>
+- Selecting Command Box: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>DOWN ARROW KEY</kbd>
 
 For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
