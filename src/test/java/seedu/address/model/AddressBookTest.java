@@ -115,8 +115,9 @@ public class AddressBookTest {
 
     @Test
     public void hasTransaction_transactionInAddressBook_returnsTrue() {
-        addressBook.addTransaction(LUNCH);
-        assertTrue(addressBook.hasTransaction(LUNCH));
+        AddressBook testBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        testBook.addTransaction(LUNCH);
+        assertTrue(testBook.hasTransaction(LUNCH));
     }
 
     @Test

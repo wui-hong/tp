@@ -31,11 +31,15 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private UiPartFocusable<?> focusedUiPart;
+
     // Independent Ui parts residing in this Ui container
     private TransactionListPanel transactionListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -108,6 +112,19 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCombination keyCombination) {
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (keyCombination.match(event)) {
+                if (focusedUiPart != null) {
+                    focusedUiPart.unFocus();
+                }
+                uiPartFocusable.focus();
+                focusedUiPart = uiPartFocusable;
+                event.consume();
+            }
+        });
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
@@ -121,8 +138,17 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Sets up the key navigation for the UI.
+     */
+    void setKeyNavigations() {
+        setKeyNavigation(personListPanel, KeyCombination.keyCombination("Shift+LEFT"));
+        setKeyNavigation(transactionListPanel, KeyCombination.keyCombination("Shift+RIGHT"));
+        setKeyNavigation(commandBox, KeyCombination.keyCombination("Tab"));
     }
 
     /**

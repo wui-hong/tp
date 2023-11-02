@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Controller for a help page
+ * Controller for a help page.
  */
-public class HelpWindow extends UiPart<Stage> {
+public class HelpWindow extends UiPartFocusable<Stage> {
 
     public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
@@ -87,6 +87,14 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Un-focuses on the help window.
+     * Help window automatically un-focuses when another UI element is focused.
+     */
+    public void unFocus() {
+        // help window automatically un-focuses when another UI element is focused
     }
 
     /**

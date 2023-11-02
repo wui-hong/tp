@@ -38,7 +38,7 @@ public class UpdatePortionCommand extends Command {
             + "Setting the weight of an existing portion will delete it.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_NAME + "NAME "
-            + PREFIX_WEIGHT + "WEIGHT "
+            + PREFIX_WEIGHT + "WEIGHT\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_WEIGHT + "1 / 2";
@@ -50,6 +50,12 @@ public class UpdatePortionCommand extends Command {
 
     public static final String MESSAGE_IRRELEVANT_UPDATED_TRANSACTION =
             "The updated transaction does not affect your balances. Please use the delete command instead.";
+
+    public static final String MESSAGE_INVALID_PROPORTION = "The weight should be a proportion of the total sum; "
+            + "it should be greater than or equal to 0 and less than 1.";
+
+    public static final String MESSAGE_ONLY_PORTION =
+            "There is only one portion; its weight can only be 1 and cannot be updated.";
 
     // TODO: add message for invalid pair of name and weight
 
@@ -88,7 +94,7 @@ public class UpdatePortionCommand extends Command {
         model.setTransaction(transactionToEdit, transactionWithUpdatedPortions);
         model.updateFilteredTransactionList(Model.PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(
-                String.format(MESSAGE_UPDATE_PORTION_SUCCESS, Messages.format(transactionWithUpdatedPortions, true)));
+                String.format(MESSAGE_UPDATE_PORTION_SUCCESS, Messages.format(transactionWithUpdatedPortions)));
     }
 
     /**
@@ -109,6 +115,10 @@ public class UpdatePortionCommand extends Command {
         Name personName = updatePortionDescriptor.getPersonName();
         Weight updatedWeight = updatePortionDescriptor.getWeight();
 
+        if (updatedWeight.value.compareTo(BigFraction.ONE) >= 0) {
+            throw new CommandException(MESSAGE_INVALID_PROPORTION);
+        }
+
         // remove existing portion, if exists
         newPortions.removeIf(portion -> portion.getPersonName().equals(personName));
 
@@ -118,6 +128,12 @@ public class UpdatePortionCommand extends Command {
                 throw new CommandException(MESSAGE_DELETE_ONLY_PORTION_FAILURE);
             }
         } else {
+            if (newPortions.isEmpty()) {
+                throw new CommandException(MESSAGE_ONLY_PORTION);
+            }
+            BigFraction originalWeights = Transaction.sumWeights(newPortions);
+            updatedWeight = new Weight(originalWeights.multiply(updatedWeight.value)
+                    .divide(BigFraction.ONE.subtract(updatedWeight.value)));
             newPortions.add(new Portion(personName, updatedWeight));
         }
 

@@ -13,8 +13,11 @@ import org.apache.commons.numbers.fraction.BigFraction;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CommandAliasMap;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -68,6 +71,17 @@ public class ModelManager implements Model {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
+    }
+
+    @Override
+    public CommandAliasMap getCommandMap() {
+        return userPrefs.getCommandMap();
+    }
+
+    @Override
+    public String setCommandAlias(String command, String alias) throws CommandException {
+        requireAllNonNull(command, alias);
+        return userPrefs.setCommandAlias(command, alias);
     }
 
     //=========== AddressBook ================================================================================
@@ -139,6 +153,12 @@ public class ModelManager implements Model {
     public BigFraction getBalance(Name name) {
         requireNonNull(name);
         return addressBook.getBalance(name);
+    }
+
+    @Override
+    public BigFraction getBalance(Name name, Timestamp time) {
+        requireAllNonNull(name, time);
+        return addressBook.getBalance(name, time);
     }
 
     public void sortPersonDescending() {

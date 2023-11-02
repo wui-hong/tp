@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
-public class CommandBox extends UiPart<Region> {
+public class CommandBox extends UiPartFocusable<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
@@ -29,6 +29,22 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+    }
+
+
+    /**
+     * Focuses on the command box.
+     */
+    public void focus() {
+        commandTextField.requestFocus();
+    }
+
+    /**
+     * Un-focuses on the command box.
+     * Command box automatically un-focuses when another UI element is focused.
+     */
+    public void unFocus() {
+        // command box automatically un-focuses when another UI element is focused
     }
 
     /**

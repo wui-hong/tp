@@ -134,7 +134,8 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         UniquePersonList otherUniquePersonList = (UniquePersonList) other;
-        return internalList.equals(otherUniquePersonList.internalList);
+        return internalList.stream().collect(Collectors.toSet())
+                .equals(otherUniquePersonList.internalList.stream().collect(Collectors.toSet()));
     }
 
     @Override
