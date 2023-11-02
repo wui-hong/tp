@@ -43,7 +43,11 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-
+            Platform.runLater(() -> {
+                    primaryStage.setIconified(true);
+                    primaryStage.setIconified(false);
+                    primaryStage.setMaximized(true);
+                });
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
