@@ -37,6 +37,7 @@ public class SettlePersonCommand extends Command {
 
     public static final String MESSAGE_SETTLE_PERSON_SUCCESS = "Balance settled: %1$s";
 
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
     public static final String MESSAGE_NO_OUTSTANDING_BALANCE =
             "There is no outstanding balance with %1$s before %2$s.";
 
@@ -89,9 +90,15 @@ public class SettlePersonCommand extends Command {
             portions = Set.of(new Portion(personToSettle.getName(), weight));
         }
 
+        Transaction settleTransaction = new Transaction(
+                new Amount(balance.abs().toString()), description, name, portions, time);
+
+        if (model.hasTransaction(settleTransaction)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+        }
+
         // create transaction to cancel out outstanding balance
-        model.addTransaction(new Transaction(
-                new Amount(balance.abs().toString()), description, name, portions, time));
+        model.addTransaction(settleTransaction);
         return new CommandResult(String.format(MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()));
     }
 

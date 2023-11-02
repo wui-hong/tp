@@ -49,7 +49,7 @@ public class AddTransactionCommandIntegrationTest {
             .withPortions(Set.of(TypicalPortions.ALICE_PORTION))
             .build();
         assertCommandFailure(new AddTransactionCommand(irrelevantTransaction), model,
-            AddTransactionCommand.MESSAGE_IRRELEVANT_TRANSACTION);
+            AddTransactionCommand.MESSAGE_TRANSACTION_NOT_RELEVANT);
     }
 
     @Test

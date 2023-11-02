@@ -46,7 +46,7 @@ public class AddTransactionCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
-    public static final String MESSAGE_IRRELEVANT_TRANSACTION = "This transaction does not affect your balances";
+    public static final String MESSAGE_TRANSACTION_NOT_RELEVANT = "This transaction does not affect your balances";
     public static final String MESSAGE_UNKNOWN_PARTY =
             "This transaction involves unknown parties; please set them to 'Others'";
 
@@ -65,7 +65,7 @@ public class AddTransactionCommand extends Command {
         requireNonNull(model);
 
         if (!toAdd.isRelevant()) {
-            throw new CommandException(MESSAGE_IRRELEVANT_TRANSACTION);
+            throw new CommandException(MESSAGE_TRANSACTION_NOT_RELEVANT);
         }
 
         if (!toAdd.isKnown(model.getAllNames())) {

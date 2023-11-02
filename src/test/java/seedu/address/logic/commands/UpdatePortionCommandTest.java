@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ELEMENT;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ class UpdatePortionCommandTest {
         Transaction originalTransaction = model.getFilteredTransactionList().get(1);
         Set<Portion> originalPortions = originalTransaction.getPortions();
         Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
-        Portion editedPortion = new PortionBuilder(originalPortion).withWeight("8").build();
+        Portion editedPortion = new PortionBuilder(originalPortion).withWeight("2/3").build();
         Set<Portion> editedPortions = originalPortions.stream().map(portion ->
                 portion.equals(originalPortion) ? editedPortion : portion).collect(Collectors.toSet());
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
@@ -73,6 +74,20 @@ class UpdatePortionCommandTest {
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = UpdatePortionCommand.MESSAGE_ONLY_PORTION;
+
+        assertCommandFailure(updatePortionCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_duplicatePortion_failure() {
+        Transaction originalTransaction = model.getFilteredTransactionList().get(1);
+        Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
+
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+                .withWeight("1/3").build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_SECOND_ELEMENT, descriptor);
+
+        String expectedMessage = UpdatePortionCommand.MESSAGE_DUPLICATE_TRANSACTION;
 
         assertCommandFailure(updatePortionCommand, model, expectedMessage);
     }
@@ -135,7 +150,7 @@ class UpdatePortionCommandTest {
     public void execute_addNewPortionUnfilteredList_success() {
         Transaction originalTransaction = model.getFilteredTransactionList().get(0);
 
-        Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1").build();
+        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1/2").build();
         Set<Portion> editedPortions = originalTransaction.getPortionsCopy();
         editedPortions.add(newPortion);
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
@@ -153,8 +168,18 @@ class UpdatePortionCommandTest {
     }
 
     @Test
+    public void execute_unknownName_failure() {
+        Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1/2").build();
+
+        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).build();
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
+
+        String expectedMessage = UpdatePortionCommand.MESSAGE_UNKNOWN_PARTY;
+        assertCommandFailure(updatePortionCommand, model, expectedMessage);
+    }
+
     public void execute_highWeight_failure() {
-        Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1").build();
+        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1").build();
         UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).withWeight("1").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -169,7 +194,7 @@ class UpdatePortionCommandTest {
         Transaction transactionInFilteredList = model.getFilteredTransactionList()
                 .get(INDEX_FIRST_ELEMENT.getZeroBased());
 
-        Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1").build();
+        Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1/2").build();
         Set<Portion> editedPortions = transactionInFilteredList.getPortionsCopy();
         editedPortions.add(newPortion);
         Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList)
@@ -191,7 +216,7 @@ class UpdatePortionCommandTest {
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder()
-                .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
+                .withPersonName(CARL.getName().fullName).withWeight(VALID_WEIGHT_HALF).build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(outOfBoundIndex, descriptor);
 
         CommandTestUtil.assertCommandFailure(updatePortionCommand, model,
@@ -202,7 +227,7 @@ class UpdatePortionCommandTest {
     public void execute_invalidTransactionIndexFilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder()
-                .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
+                .withPersonName(CARL.getName().fullName).withWeight(VALID_WEIGHT_HALF).build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(outOfBoundIndex, descriptor);
 
         CommandTestUtil.assertCommandFailure(updatePortionCommand, model,
