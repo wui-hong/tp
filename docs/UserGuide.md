@@ -291,7 +291,7 @@ Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (editTransaction) and the index must be in front.
 
 If no timestamp is given, the default timestamp is the current system time.
-If only the date is input, the default time is set as 00:00.
+If only the date is given, the default time is set as 00:00.
 
 Examples:
 
