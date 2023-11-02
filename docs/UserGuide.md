@@ -422,7 +422,7 @@ $ listTransaction n=Alice Pauline n=Carl Kurz
 
 ### Settling transactions: `settlePerson`
 
-Settles the outstanding balance with a given person based on transactions that occur before or at the given time.
+Settles the outstanding balance with a given person based on transactions that occur before or at the given timestamp.
 If no timestamp is given, the default timestamp is the current system time.
 If only the date is given, the default time is set as 23:59.
 
