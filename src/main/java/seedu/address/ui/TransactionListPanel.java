@@ -13,7 +13,7 @@ import seedu.address.model.transaction.Transaction;
 /**
  * Panel containing the list of transactions.
  */
-public class TransactionListPanel extends UiPart<Region> {
+public class TransactionListPanel extends UiPartFocusable<Region> {
     private static final String FXML = "TransactionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(TransactionListPanel.class);
 
@@ -27,6 +27,24 @@ public class TransactionListPanel extends UiPart<Region> {
         super(FXML);
         transactionListView.setItems(transactionList);
         transactionListView.setCellFactory(listView -> new TransactionListViewCell());
+    }
+
+    /**
+     * Focuses on the transaction list.
+     */
+    public void focus() {
+        if (!transactionListView.getItems().isEmpty()) {
+            transactionListView.requestFocus();
+            transactionListView.getSelectionModel().select(0);
+        }
+    }
+
+    /**
+     * Un-focuses on the transaction list.
+     * This is done by clearing the selection in the list view.
+     */
+    public void unFocus() {
+        transactionListView.getSelectionModel().clearSelection();
     }
 
     /**

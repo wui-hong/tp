@@ -15,7 +15,7 @@ import seedu.address.model.transaction.UniqueTransactionList;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class PersonListPanel extends UiPartFocusable<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
@@ -29,6 +29,24 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell(transactionList));
+    }
+
+    /**
+     * Focuses on the person list.
+     */
+    public void focus() {
+        if (!personListView.getItems().isEmpty()) {
+            personListView.requestFocus();
+            personListView.getSelectionModel().select(0);
+        }
+    }
+
+    /**
+     * Un-focuses on the person list.
+     * This is done by clearing the selection in the list view.
+     */
+    public void unFocus() {
+        personListView.getSelectionModel().clearSelection();
     }
 
     /**

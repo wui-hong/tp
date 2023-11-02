@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.JsonUtil;
@@ -55,9 +54,6 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         Optional<UserPrefs> readValue = JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
         if (!readValue.isPresent()) {
             return readValue;
-        }
-        if (readValue.orElse(new UserPrefs()).getGuiSettings() == null) {
-            readValue.orElse(new UserPrefs()).setGuiSettings(new GuiSettings());
         }
         if (readValue.orElse(new UserPrefs()).getAddressBookFilePath() == null) {
             readValue.orElse(new UserPrefs()).setAddressBookFilePath(Paths.get("data" , "addressbook.json"));

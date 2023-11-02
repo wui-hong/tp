@@ -3,12 +3,14 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.logic.commands.ListTransactionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
-import seedu.address.model.transaction.TransactionContainsPersonNamesPredicate;
+import seedu.address.model.transaction.TransactionContainsKeywordsAndPersonNamesPredicate;
 
 /**
  * Parses input arguments and creates a new ListTransactionCommand object
@@ -23,6 +25,9 @@ public class ListTransactionCommandParser implements Parser<ListTransactionComma
     public ListTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
         Set<Name> nameList = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
-        return new ListTransactionCommand(new TransactionContainsPersonNamesPredicate(new ArrayList<>(nameList)));
+        List<String> keywords = argMultimap.getPreamble().trim().isEmpty() ? List.of()
+                : Arrays.asList(argMultimap.getPreamble().trim().split("\\s+"));
+        return new ListTransactionCommand(new TransactionContainsKeywordsAndPersonNamesPredicate(
+                keywords, new ArrayList<>(nameList)));
     }
 }
