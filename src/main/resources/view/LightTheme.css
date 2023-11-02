@@ -420,6 +420,10 @@
     -fx-background-radius: 0;
 }
 
+#resultDisplay:focused {
+    -fx-background-color: #3b82f6, #3b82f6, #3b82f6, #3b82f6;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
