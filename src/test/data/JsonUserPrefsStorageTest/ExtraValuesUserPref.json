@@ -1,4 +1,4 @@
 {
-  "addressBookFilePath" : "addressbook.json",
+  "spendNSplitBookFilePath" : "spendnsplit.json",
   "extra" : "extra"
 }
