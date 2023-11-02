@@ -1,6 +1,6 @@
 {
   "addressBookFilePath" : "addressbook.json",
   "commandMap" : {
-    "aliasToCommand" : { }
+    "aliasToCommand" : null
   }
 }
