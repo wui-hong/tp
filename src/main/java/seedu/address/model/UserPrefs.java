@@ -54,6 +54,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     @Override
+    public void resetCommandMap() {
+        commandMap = new CommandAliasMap();
+    }
+
+    @Override
     public CommandAliasMap getCommandMap() {
         return commandMap;
     }
