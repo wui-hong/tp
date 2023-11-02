@@ -424,7 +424,7 @@ $ listTransaction n=Alice Pauline n=Carl Kurz
 
 Settles the outstanding balance with a given person based on transactions that occur before or at the given time.
 If no timestamp is input, the default timestamp is the current system time.
-If only the date is input, the default time is set as 23:59.
+If only the date is given, the default time is set as 23:59.
 
 Format: `settlePerson INDEX [ts=TIME]`
 
