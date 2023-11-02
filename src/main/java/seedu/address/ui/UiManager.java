@@ -45,7 +45,6 @@ public class UiManager implements Ui {
             mainWindow.fillInnerParts();
             mainWindow.setKeyNavigations();
             Platform.runLater(() -> {
-                primaryStage.setIconified(true);
                 primaryStage.setIconified(false);
                 primaryStage.setMaximized(true);
             });
