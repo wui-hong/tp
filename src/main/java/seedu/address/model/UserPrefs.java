@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandAliasMap;
 
@@ -15,7 +14,6 @@ import seedu.address.logic.parser.CommandAliasMap;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
 
-    private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private CommandAliasMap commandMap = new CommandAliasMap();
 
@@ -37,18 +35,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
-        setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         this.commandMap = new CommandAliasMap(newUserPrefs.getCommandMap());
-    }
-
-    public GuiSettings getGuiSettings() {
-        return guiSettings;
-    }
-
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        this.guiSettings = guiSettings;
     }
 
     public Path getAddressBookFilePath() {
@@ -82,20 +70,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         }
 
         UserPrefs otherUserPrefs = (UserPrefs) other;
-        return guiSettings.equals(otherUserPrefs.guiSettings)
-                && addressBookFilePath.equals(otherUserPrefs.addressBookFilePath)
+        return addressBookFilePath.equals(otherUserPrefs.addressBookFilePath)
                 && commandMap.equals(otherUserPrefs.commandMap);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, commandMap);
+        return Objects.hash(addressBookFilePath, commandMap);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nCommand map: " + commandMap);
         return sb.toString();
