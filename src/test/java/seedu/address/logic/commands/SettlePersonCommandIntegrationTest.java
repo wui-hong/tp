@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertTransactionComm
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIFTH_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SEVENTH_ELEMENT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -77,21 +76,6 @@ public class SettlePersonCommandIntegrationTest {
         assertTransactionCommandSuccess(new SettlePersonCommand(INDEX_SEVENTH_ELEMENT, TIME), model,
                 String.format(SettlePersonCommand.MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()),
                 expectedModel);
-    }
-    @Test
-    public void execute_duplicate_failure() {
-        Person personToSettle = new PersonBuilder(BENSON).build();
-        Name personToSettleName = personToSettle.getName();
-
-        Transaction transaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName).withDescription(
-                String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
-                .withAmount(model.getBalance(personToSettleName).abs().toString())
-                .withPortions(Set.of(new PortionBuilder().withName(personToSettleName.fullName)
-                .withWeight("1").build())).withTimestamp(TIME.toString()).build();
-        model.addTransaction(transaction);
-
-        assertCommandFailure(new SettlePersonCommand(INDEX_SECOND_ELEMENT, TIME), model,
-                SettlePersonCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test

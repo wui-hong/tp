@@ -219,6 +219,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String timestamp} into a {@code Timestamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @ throws ParseException if the given {@code timestamp} is invalid.
+     */
+    public static Timestamp parseTimestamp(String timestamp, String defaultTime) throws ParseException {
+        requireNonNull(timestamp, defaultTime);
+        String trimmedTimestamp = timestamp.trim();
+        if (!Timestamp.isValidTimestamp(trimmedTimestamp)) {
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS);
+        }
+        return new Timestamp(trimmedTimestamp, defaultTime);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
