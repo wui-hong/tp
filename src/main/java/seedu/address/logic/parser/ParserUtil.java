@@ -222,7 +222,7 @@ public class ParserUtil {
      * Parses a {@code String timestamp} into a {@code Timestamp}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @ throws ParseException if the given {@code timestamp} is invalid.
+     * @throws ParseException if the given {@code timestamp} is invalid.
      */
     public static Timestamp parseTimestamp(String timestamp, String defaultTime) throws ParseException {
         requireNonNull(timestamp, defaultTime);

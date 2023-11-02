@@ -190,7 +190,7 @@
 }
 
 #portionListView .list-cell:filled:odd {
-    -fx-background-color: #dbeafe;
+    -fx-background-color: #e0f2fe;
 }
 
 #portionListView .list-cell:filled:selected {
@@ -428,6 +428,10 @@
     -fx-background-color: #f8fafc, #f8fafc, #f8fafc, #f8fafc;
     -fx-radius: 5;
     -fx-background-radius: 0;
+}
+
+#resultDisplay:focused {
+    -fx-background-color: #3b82f6, #3b82f6, #3b82f6, #3b82f6;
 }
 
 #tags {

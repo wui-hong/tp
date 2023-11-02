@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */
-public class ResultDisplay extends UiPart<Region> {
+public class ResultDisplay extends UiPartFocusable<Region> {
 
     private static final String FXML = "ResultDisplay.fxml";
 
@@ -25,6 +25,18 @@ public class ResultDisplay extends UiPart<Region> {
         resultDisplay.setText(feedbackToUser);
     }
 
+    /**
+     * Focuses on the result display.
+     */
+    public void focus() {
+        resultDisplay.requestFocus();
+    }
 
-
+    /**
+     * Un-focuses on the result display.
+     * Command box automatically un-focuses when another UI element is focused.
+     */
+    public void unFocus() {
+        // result display automatically un-focuses when another UI element is focused
+    }
 }
