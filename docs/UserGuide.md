@@ -468,6 +468,8 @@ Clears all entries from the address book.
 
 Format: `clear`
 
+![clear success](images/user-guide/clear.png)
+
 #### Exiting the program : `exit`
 
 Exits the program.
