@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandAliasMap;
 

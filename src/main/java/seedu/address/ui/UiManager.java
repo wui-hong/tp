@@ -45,10 +45,10 @@ public class UiManager implements Ui {
             mainWindow.fillInnerParts();
             mainWindow.setKeyNavigations();
             Platform.runLater(() -> {
-                    primaryStage.setIconified(true);
-                    primaryStage.setIconified(false);
-                    primaryStage.setMaximized(true);
-                });
+                primaryStage.setIconified(true);
+                primaryStage.setIconified(false);
+                primaryStage.setMaximized(true);
+            });
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
