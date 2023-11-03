@@ -1,4 +1,7 @@
 {
   "spendNSplitBookFilePath" : "spendnsplitbook.json",
-  "extra" : "extra"
+  "extra" : "extra",
+  "commandMap" : {
+    "aliasToCommand" : { }
+  }
 }

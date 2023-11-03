@@ -6,12 +6,6 @@
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
     -fx-background: transparent;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
-    -fx-pref-height: 0;
-    -fx-scale-x: 0;
-    -fx-scale-y: 0;
-    -fx-padding: 0;
 }
 
 .tag-selector {

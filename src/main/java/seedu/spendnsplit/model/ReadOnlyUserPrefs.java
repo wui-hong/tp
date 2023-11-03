@@ -12,6 +12,8 @@ public interface ReadOnlyUserPrefs {
 
     Path getSpendNSplitBookFilePath();
 
+    void resetCommandMap();
+
     CommandAliasMap getCommandMap();
 
     String setCommandAlias(String command, String alias) throws CommandException;

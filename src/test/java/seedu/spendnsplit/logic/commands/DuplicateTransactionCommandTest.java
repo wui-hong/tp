@@ -121,18 +121,13 @@ public class DuplicateTransactionCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_duplicateTransaction_failure() {
         DuplicateTransactionCommand duplicateTransactionCommand = new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT,
             new EditTransactionDescriptor());
-        Transaction duplicateTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_ELEMENT.getZeroBased());
 
-        String expectedMessage = String.format(
-            DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
+        String expectedMessage = DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION;
 
-        expectedModel.addTransaction(duplicateTransaction);
-
-        assertTransactionCommandSuccess(duplicateTransactionCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(duplicateTransactionCommand, model, expectedMessage);
     }
 
     @Test
@@ -143,6 +138,10 @@ public class DuplicateTransactionCommandTest {
             new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         assertCommandFailure(duplicateTransactionCommand, model, MESSAGE_TRANSACTION_NOT_RELEVANT);
+
+        duplicateTransactionCommand =
+            new DuplicateTransactionCommand(INDEX_SECOND_ELEMENT, descriptor);
+        assertCommandFailure(duplicateTransactionCommand, model, DuplicateTransactionCommand.MESSAGE_UNKNOWN_PAYEE);
     }
 
     @Test

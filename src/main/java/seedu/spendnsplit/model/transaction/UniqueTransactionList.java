@@ -39,7 +39,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      */
     public BigFraction getBalance(Name name, Timestamp time) {
         return UniqueTransactionList.getBalance(name, internalList,
-                transaction -> transaction.getTimestamp().compareTo(time) < 0);
+                transaction -> transaction.getTimestamp().compareTo(time) <= 0);
     }
 
     /**

@@ -1,5 +1,6 @@
 package seedu.spendnsplit.storage;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.spendnsplit.testutil.Assert.assertThrows;
@@ -40,6 +41,28 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void readUserPrefs_notJsonFormat_exceptionThrown() {
         assertThrows(DataLoadingException.class, () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
+    }
+
+    @Test
+    public void readUserPrefs_nullValues_success() {
+        assertDoesNotThrow(() -> readUserPrefs("NullPathPrefs.json"));
+        assertDoesNotThrow(() -> readUserPrefs("NullCommandMap.json"));
+        assertDoesNotThrow(() -> readUserPrefs("NullAliasToCommand.json"));
+    }
+
+    @Test
+    public void readUserPrefs_invalidCommandMap_loads() {
+        assertDoesNotThrow(() -> readUserPrefs("InvalidCommandMap.json"));
+    }
+
+    @Test
+    public void readUserPrefs_emptyCommandMap_loads() {
+        assertDoesNotThrow(() -> readUserPrefs("EmptyCommandMap.json"));
+    }
+
+    @Test
+    public void readUserPrefs_duplicateMap_exceptionThrown() {
+        assertThrows(DataLoadingException.class, () -> readUserPrefs("DuplicateCommandMap.json"));
     }
 
     private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {

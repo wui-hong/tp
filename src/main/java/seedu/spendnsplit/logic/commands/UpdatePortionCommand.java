@@ -43,10 +43,16 @@ public class UpdatePortionCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_WEIGHT + "1 / 2";
 
+    public static final String MESSAGE_DUPLICATE_TRANSACTION =
+            "The updated transaction already exists in the address book";
+
     // TODO: Message should also include details about the transaction
     public static final String MESSAGE_UPDATE_PORTION_SUCCESS = "Updated Portion: %1$s";
 
     public static final String MESSAGE_DELETE_ONLY_PORTION_FAILURE = "Cannot delete the only portion in a transaction.";
+
+    public static final String MESSAGE_UNKNOWN_PARTY =
+            "The portion involves unknown parties; please set them to 'Others'";
 
     public static final String MESSAGE_IRRELEVANT_UPDATED_TRANSACTION =
             "The updated transaction does not affect your balances. Please use the delete command instead.";
@@ -87,8 +93,16 @@ public class UpdatePortionCommand extends Command {
         Transaction transactionWithUpdatedPortions =
                 createTransactionWithUpdatedPortions(transactionToEdit, updatePortionDescriptor);
 
+        if (!transactionWithUpdatedPortions.isKnown(model.getAllNames())) {
+            throw new CommandException(MESSAGE_UNKNOWN_PARTY);
+        }
+
         if (!transactionWithUpdatedPortions.isRelevant()) {
             throw new CommandException(MESSAGE_IRRELEVANT_UPDATED_TRANSACTION);
+        }
+
+        if (model.hasTransaction(transactionWithUpdatedPortions)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
         model.setTransaction(transactionToEdit, transactionWithUpdatedPortions);

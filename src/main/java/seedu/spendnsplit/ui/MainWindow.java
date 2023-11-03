@@ -146,9 +146,10 @@ public class MainWindow extends UiPart<Stage> {
      * Sets up the key navigation for the UI.
      */
     void setKeyNavigations() {
-        setKeyNavigation(personListPanel, KeyCombination.keyCombination("Shift+LEFT"));
-        setKeyNavigation(transactionListPanel, KeyCombination.keyCombination("Shift+RIGHT"));
-        setKeyNavigation(commandBox, KeyCombination.keyCombination("Tab"));
+        setKeyNavigation(personListPanel, KeyCombination.keyCombination("Alt+LEFT"));
+        setKeyNavigation(transactionListPanel, KeyCombination.keyCombination("Alt+RIGHT"));
+        setKeyNavigation(resultDisplay, KeyCombination.keyCombination("Alt+UP"));
+        setKeyNavigation(commandBox, KeyCombination.keyCombination("Alt+DOWN"));
     }
 
     /**

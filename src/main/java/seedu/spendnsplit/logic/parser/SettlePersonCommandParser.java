@@ -36,7 +36,7 @@ public class SettlePersonCommandParser implements Parser<SettlePersonCommand> {
         Timestamp time = Timestamp.now();
 
         if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
-            time = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
+            time = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get(), "23:59");
         }
 
         return new SettlePersonCommand(index, time);

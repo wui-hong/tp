@@ -59,6 +59,7 @@ public class SettlePersonCommandIntegrationTest {
                 String.format(SettlePersonCommand.MESSAGE_SETTLE_PERSON_SUCCESS, personToSettle.getName()),
                 expectedModel);
     }
+
     @Test
     public void execute_settleNegativeBalance_success() {
         Person personToSettle = new PersonBuilder(BENSON).build();

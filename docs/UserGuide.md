@@ -60,21 +60,22 @@ After a transaction, each payer in the list of portions owes the payee a fractio
 Inputs to fields should not contain the "=" sign.
 
 The following fields are used for commands:
-| Field | Prefix | Format |
-| --- | --- | --- |
-| Index | - | Must be a positive integer |
-| Keyword | - | Must not contain the = sign |
-| Name | n | Must be alphanumeric |
-| Phone number | p | Must be numeric and be at least 3 digits long |
-| Telegram handle | tg | Must start with @ and be followed by at least 5 alphanumeric symbols/ underscores |
-| Email address | e | Must be a valid email address |
-| Address | a | Must not contain the = sign |
-| Description | d | Must not contain the = sign |
-| Amount/ Cost | c | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
-| Timestamp | ts | Dates must be in DD/MM/YYYY format and time must be in HH:SS format; can provide one or both; if both are provided, date should come first, separated from time by a space |
-| Weight | w | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
-| Original command | o | One of the original command keywords listed in this user guide |
-| Shorthand | s | Must only be made up of characters from the English alphabet | 
+
+| Field | Prefix | Format | Example |
+| --- | --- | --- | --- |
+| Index | - | Must be a positive integer | `1`, `2`, `3` |
+| Keyword | - | Must not contain the = sign | `Bob`, `Lunch` |
+| Name | n | Must be alphanumeric | `Bob`, `Alice` |
+| Phone number | p | Must be numeric and be at least 3 digits long | `99999999`, `88888888` |
+| Telegram handle | tg | Must start with @ and be followed by at least 5 alphanumeric symbols/ underscores | `@nus_cs2103` , `@spend_n_split` |
+| Email address | e | Must be a valid email address | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address | a | Must not contain the = sign | `Kent Ridge Hall`, `RC4` |
+| Description | d | Must not contain the = sign | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost | c | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces | `12`, `.5`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp | ts | Dates must be in DD/MM/YYYY format and time must be in HH:SS format; can provide one or both; if both are provided, date should come first, separated from time by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight | w | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces | `12`, `.5`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | One of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
+| Shorthand | s | Must only be made up of characters from the English alphabet | `s`, `aT` |
 
 ## Quick Start
 
@@ -245,6 +246,7 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - Cost and weights have to be decimal numbers or fractions, and they must be positive.
 - The first name refers to the payee (that is the person whom everyone else now owes).
 - If the timestamp is not provided, the default time is the current system time.
+- If only the date is given, the default time is set as 00:00.
 - If you want to create a weight for yourself, include `n=Self` to refer to yourself.
 - At least one pair of name and weight must be provided.
 - The cost for each person is calculated as follows:
@@ -289,6 +291,9 @@ Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 
 The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (editTransaction) and the index must be in front.
 
+If no timestamp is given, the default timestamp is the current system time.
+If only the date is given, the default time is set as 00:00.
+
 Examples:
 
 * `editTransaction 1 c=12.12`
@@ -317,6 +322,7 @@ to pay for, which is determined by the `WEIGHT` of the person. Hence the `WEIGHT
 Format: `updatePortion INDEX n=NAME w=WEIGHT`
 
 The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. weight can come before name) but the command word (editTransaction) and the index must be in front.
+
 Examples:
 
 * To add a new person (e.g. Alice) to the transaction:
@@ -417,8 +423,9 @@ $ listTransaction n=Alice Pauline n=Carl Kurz
 
 ### Settling transactions: `settlePerson`
 
-Settles the outstanding balance with a given person based on transactions that occur before the given time.
-If no timestamp is input, the default timestamp is the current system time.
+Settles the outstanding balance with a given person based on transactions that occur before or at the given timestamp.
+If no timestamp is given, the default timestamp is the current system time.
+If only the date is given, the default time is set as 23:59.
 
 Format: `settlePerson INDEX [ts=TIME]`
 
@@ -477,10 +484,13 @@ Exits the program.
 Format: `exit`
 
 #### Navigating the app using only the keyboard
+You can use the following shortcuts to navigate our application:
+- Selecting Result Display: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>UP ARROW KEY</kbd>
+- Selecting Persons List: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>LEFT ARROW KEY</kbd>
+- Selecting Transactions List: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>RIGHT ARROW KEY</kbd>
+- Selecting Command Box: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>DOWN ARROW KEY</kbd>
 
-Use <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the persons list and <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the transactions list. You can use the up and down arrows to navigate the lists after that.
-
-Use <kbd>TAB</kbd> to select the command bar.
+For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
 #### Saving the data
 

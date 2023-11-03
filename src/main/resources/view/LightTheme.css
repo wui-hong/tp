@@ -170,7 +170,12 @@
     -fx-background-color: #dbeafe;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:selected #personCardPane {
+    -fx-border-color: #2563eb;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled:selected #transactionCardPane {
     -fx-border-color: #2563eb;
     -fx-border-width: 1;
 }
@@ -185,7 +190,7 @@
 }
 
 #portionListView .list-cell:filled:odd {
-    -fx-background-color: #dbeafe;
+    -fx-background-color: #e0f2fe;
 }
 
 #portionListView .list-cell:filled:selected {
@@ -380,7 +385,12 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#personCardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#transactionCardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
@@ -418,6 +428,10 @@
     -fx-background-color: #f8fafc, #f8fafc, #f8fafc, #f8fafc;
     -fx-radius: 5;
     -fx-background-radius: 0;
+}
+
+#resultDisplay:focused {
+    -fx-background-color: #3b82f6, #3b82f6, #3b82f6, #3b82f6;
 }
 
 #tags {
