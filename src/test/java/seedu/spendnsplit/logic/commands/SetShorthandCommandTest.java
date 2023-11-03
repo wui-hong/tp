@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +16,11 @@ import seedu.spendnsplit.model.UserPrefs;
 
 public class SetShorthandCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
 
     @Test
     public void execute() {
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()),
                 new UserPrefs(model.getUserPrefs()));
         try {
             expectedModel.setCommandAlias(SetShorthandCommand.COMMAND_WORD, "a");

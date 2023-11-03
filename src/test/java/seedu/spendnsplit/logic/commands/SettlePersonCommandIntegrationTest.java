@@ -3,7 +3,7 @@ package seedu.spendnsplit.logic.commands;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_TIMESTAMP;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIFTH_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_SEVENTH_ELEMENT;
@@ -40,14 +40,14 @@ public class SettlePersonCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
     }
     @Test
     public void execute_settlePositiveBalance_success() {
         Person personToSettle = new PersonBuilder(ALICE).build();
         Name personToSettleName = personToSettle.getName();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSpendNSplitBook(), new UserPrefs());
         Transaction transaction = new TransactionBuilder().withPayeeName(personToSettleName.fullName).withDescription(
                 String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
                 .withAmount(expectedModel.getBalance(personToSettleName).toString())
@@ -64,7 +64,7 @@ public class SettlePersonCommandIntegrationTest {
         Person personToSettle = new PersonBuilder(BENSON).build();
         Name personToSettleName = personToSettle.getName();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSpendNSplitBook(), new UserPrefs());
         Transaction transaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName).withDescription(
                 String.format(SettlePersonCommand.SETTLE_TRANSACTION_DESCRIPTION, personToSettleName.fullName))
                 .withAmount(expectedModel.getBalance(personToSettleName).abs().toString())

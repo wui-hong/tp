@@ -8,7 +8,7 @@ import seedu.spendnsplit.commons.exceptions.DataLoadingException;
 import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
 
 /**
- * Represents a storage for {@link seedu.spendnsplit.model.SpendNSplitBook}.
+ * Represents a storage for {@link seedu.spendnsplit.model.SpendNSplit}.
  */
 public interface SpendNSplitBookStorage {
 

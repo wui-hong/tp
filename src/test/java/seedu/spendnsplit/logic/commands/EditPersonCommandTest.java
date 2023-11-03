@@ -11,7 +11,7 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 
@@ -34,7 +34,7 @@ import seedu.spendnsplit.testutil.PersonBuilder;
  */
 public class EditPersonCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -45,7 +45,7 @@ public class EditPersonCommandTest {
         String expectedMessage = String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class EditPersonCommandTest {
         String expectedMessage = String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
@@ -81,7 +81,7 @@ public class EditPersonCommandTest {
         String expectedMessage = String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
 
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
     }
@@ -98,7 +98,7 @@ public class EditPersonCommandTest {
         String expectedMessage = String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS,
                 Messages.format(editedPerson));
 
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editPersonCommand, model, expectedMessage, expectedModel);
@@ -128,7 +128,7 @@ public class EditPersonCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_ELEMENT);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_ELEMENT.getZeroBased());
+        Person personInList = model.getSpendNSplitBook().getPersonList().get(INDEX_SECOND_ELEMENT.getZeroBased());
         EditPersonCommand editPersonCommand = new EditPersonCommand(INDEX_FIRST_ELEMENT,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -153,7 +153,7 @@ public class EditPersonCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_ELEMENT);
         Index outOfBoundIndex = INDEX_SECOND_ELEMENT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getSpendNSplitBook().getPersonList().size());
 
         EditPersonCommand editPersonCommand = new EditPersonCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

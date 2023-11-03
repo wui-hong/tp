@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.spendnsplit.logic.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,8 +29,8 @@ public class ListTransactionCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
     }
 
     @Test

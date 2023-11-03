@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.spendnsplit.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalPersons.ALICE;
 import static seedu.spendnsplit.testutil.TypicalPersons.BENSON;
 import static seedu.spendnsplit.testutil.TypicalPersons.CARL;
@@ -29,8 +29,8 @@ import seedu.spendnsplit.model.person.Person;
  * Contains integration tests (interaction with the Model) for {@code FindPersonCommand}.
  */
 public class ListPersonCommandTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
 
     @Test
     public void equals() {

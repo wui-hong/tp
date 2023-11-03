@@ -1,0 +1,10 @@
+{
+  "addressBookFilePath" : "addressbook.json",
+  "commandMap" : {
+    "aliasToCommand" : {
+      "" : "",
+      "setShorthand" : "setShorthand",
+      "a" : "b"
+    }
+  }
+}

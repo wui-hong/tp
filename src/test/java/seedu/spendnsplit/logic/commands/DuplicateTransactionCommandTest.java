@@ -9,7 +9,7 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFail
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.spendnsplit.logic.commands.DuplicateTransactionCommand.MESSAGE_TRANSACTION_NOT_RELEVANT;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 
@@ -32,7 +32,7 @@ import seedu.spendnsplit.testutil.TransactionBuilder;
  */
 public class DuplicateTransactionCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -47,7 +47,7 @@ public class DuplicateTransactionCommandTest {
 
         String expectedMessage = String.format(
             DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
 
         expectedModel.addTransaction(duplicateTransaction);
 
@@ -69,7 +69,7 @@ public class DuplicateTransactionCommandTest {
 
         String expectedMessage = String.format(
             DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
 
         expectedModel.addTransaction(duplicateTransaction);
 
@@ -91,7 +91,7 @@ public class DuplicateTransactionCommandTest {
 
         String expectedMessage = String.format(
             DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
 
         expectedModel.addTransaction(duplicateTransaction);
 
@@ -113,7 +113,7 @@ public class DuplicateTransactionCommandTest {
 
         String expectedMessage = String.format(
             DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
 
         expectedModel.addTransaction(duplicateTransaction);
 
@@ -128,7 +128,7 @@ public class DuplicateTransactionCommandTest {
 
         String expectedMessage = String.format(
             DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
 
         expectedModel.addTransaction(duplicateTransaction);
 
@@ -159,7 +159,7 @@ public class DuplicateTransactionCommandTest {
         String expectedMessage = String.format(
             DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
 
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.addTransaction(duplicateTransaction);
 
         assertTransactionCommandSuccess(duplicateTransactionCommand, model, expectedMessage, expectedModel);
@@ -185,7 +185,7 @@ public class DuplicateTransactionCommandTest {
         showTransactionAtIndex(model, INDEX_FIRST_ELEMENT);
         Index outOfBoundIndex = INDEX_SECOND_ELEMENT;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getTransactionList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getSpendNSplitBook().getTransactionList().size());
 
         DuplicateTransactionCommand duplicateTransactionCommand = new DuplicateTransactionCommand(outOfBoundIndex,
             new EditTransactionDescriptorBuilder().withAmount("123.21").build());

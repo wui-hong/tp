@@ -9,7 +9,7 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_WEIGHT_HALF
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.showTransactionAtIndex;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_THIRD_ELEMENT;
@@ -38,7 +38,7 @@ import seedu.spendnsplit.testutil.UpdatePortionDescriptorBuilder;
  */
 class UpdatePortionCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
 
     @Test
     public void execute_editExistingPortionWeightNonZeroUnfilteredList_success() {
@@ -57,7 +57,7 @@ class UpdatePortionCommandTest {
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(1), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
@@ -94,7 +94,7 @@ class UpdatePortionCommandTest {
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(2), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
@@ -146,7 +146,7 @@ class UpdatePortionCommandTest {
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);
@@ -181,7 +181,7 @@ class UpdatePortionCommandTest {
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
 
-        Model expectedModel = new ModelManager(new SpendNSplit(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new SpendNSplit(model.getSpendNSplitBook()), new UserPrefs());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertTransactionCommandSuccess(updatePortionCommand, model, expectedMessage, expectedModel);

@@ -2,7 +2,7 @@ package seedu.spendnsplit.logic.commands;
 
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalAddressBook;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalPortions.ALICE_PORTION;
 
 import java.util.Set;
@@ -26,7 +26,7 @@ public class AddTransactionCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalSpendNSplitBook(), new UserPrefs());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class AddTransactionCommandIntegrationTest {
         Transaction validTransaction = new TransactionBuilder().withPayeeName(Name.SELF.fullName)
             .withPortions(Set.of(ALICE_PORTION)).build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getSpendNSplitBook(), new UserPrefs());
         expectedModel.addTransaction(validTransaction);
 
         assertCommandSuccess(new AddTransactionCommand(validTransaction), model,
@@ -64,7 +64,7 @@ public class AddTransactionCommandIntegrationTest {
 
     @Test
     public void execute_duplicateTransaction_throwsCommandException() {
-        Transaction transactionInList = model.getAddressBook().getTransactionList().get(0);
+        Transaction transactionInList = model.getSpendNSplitBook().getTransactionList().get(0);
         assertCommandFailure(new AddTransactionCommand(transactionInList), model,
             AddTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
