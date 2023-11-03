@@ -34,6 +34,15 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
+    /**
+     * If userPrefsFilePath is null, set it to default.
+     */
+    public void setUserPrefsFilePath() {
+        if (userPrefsFilePath == null) {
+            userPrefsFilePath = Paths.get("preferences.json");
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

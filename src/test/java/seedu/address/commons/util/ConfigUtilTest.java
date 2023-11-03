@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -36,6 +37,11 @@ public class ConfigUtilTest {
     @Test
     public void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataLoadingException.class, () -> read("NotJsonFormatConfig.json"));
+    }
+
+    @Test
+    public void read_nullPath_successfullyRead() {
+        assertDoesNotThrow(() -> read("NullPathConfig.json"));
     }
 
     @Test
