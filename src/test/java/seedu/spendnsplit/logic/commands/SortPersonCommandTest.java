@@ -7,9 +7,9 @@ import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendN
 
 import org.junit.jupiter.api.Test;
 
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.ModelManager;
+import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.UserPrefs;
 
 

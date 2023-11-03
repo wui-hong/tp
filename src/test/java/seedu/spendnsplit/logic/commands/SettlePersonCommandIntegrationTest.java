@@ -3,13 +3,13 @@ package seedu.spendnsplit.logic.commands;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_TIMESTAMP;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIFTH_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_SEVENTH_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalPersons.ALICE;
 import static seedu.spendnsplit.testutil.TypicalPersons.BENSON;
 import static seedu.spendnsplit.testutil.TypicalPersons.FIONA;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 
 import java.util.Set;
 

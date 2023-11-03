@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.spendnsplit.testutil.Assert.assertThrows;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalPersons.ALICE;
 import static seedu.spendnsplit.testutil.TypicalPersons.BENSON;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalTransactions.LUNCH;
 
 import java.util.Arrays;
@@ -24,8 +24,8 @@ import seedu.spendnsplit.model.person.Person;
 import seedu.spendnsplit.model.person.exceptions.DuplicatePersonException;
 import seedu.spendnsplit.model.transaction.Transaction;
 import seedu.spendnsplit.model.transaction.exceptions.DuplicateTransactionException;
-import seedu.spendnsplit.testutil.SpendNSplitBookBuilder;
 import seedu.spendnsplit.testutil.PersonBuilder;
+import seedu.spendnsplit.testutil.SpendNSplitBookBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
 
 public class SpendNSplitTest {
@@ -127,7 +127,8 @@ public class SpendNSplitTest {
 
     @Test
     public void sort() {
-        SpendNSplit ab = new SpendNSplitBookBuilder().withPerson(ALICE).withPerson(BENSON).withTransaction(LUNCH).build();
+        SpendNSplit ab = new SpendNSplitBookBuilder().withPerson(ALICE).withPerson(BENSON)
+                .withTransaction(LUNCH).build();
         ab.setPersonAscendingBalance();
         assertTrue(ALICE.equals(ab.getPersonList().get(0)));
         ab.setPersonDescendingBalance();

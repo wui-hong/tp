@@ -9,18 +9,18 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFail
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertTransactionCommandSuccess;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.spendnsplit.logic.commands.EditTransactionCommand.MESSAGE_TRANSACTION_NOT_RELEVANT;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.ModelManager;
+import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.UserPrefs;
 import seedu.spendnsplit.model.transaction.Transaction;
 import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;

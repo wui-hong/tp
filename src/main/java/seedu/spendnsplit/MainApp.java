@@ -15,16 +15,16 @@ import seedu.spendnsplit.commons.util.ConfigUtil;
 import seedu.spendnsplit.commons.util.StringUtil;
 import seedu.spendnsplit.logic.Logic;
 import seedu.spendnsplit.logic.LogicManager;
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.ModelManager;
 import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
 import seedu.spendnsplit.model.ReadOnlyUserPrefs;
+import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.UserPrefs;
 import seedu.spendnsplit.model.util.SampleDataUtil;
 import seedu.spendnsplit.storage.JsonSpendNSplitBookStorage;
-import seedu.spendnsplit.storage.SpendNSplitBookStorage;
 import seedu.spendnsplit.storage.JsonUserPrefsStorage;
+import seedu.spendnsplit.storage.SpendNSplitBookStorage;
 import seedu.spendnsplit.storage.Storage;
 import seedu.spendnsplit.storage.StorageManager;
 import seedu.spendnsplit.storage.UserPrefsStorage;
@@ -57,7 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        SpendNSplitBookStorage spendNSplitBookStorage = new JsonSpendNSplitBookStorage(userPrefs.getSpendNSplitBookFilePath());
+        SpendNSplitBookStorage spendNSplitBookStorage = new JsonSpendNSplitBookStorage(userPrefs
+                .getSpendNSplitBookFilePath());
         storage = new StorageManager(spendNSplitBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
@@ -68,9 +69,11 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s spendNSplit book and {@code userPrefs}. <br>
-     * The data from the sample spendNSplit book will be used instead if {@code storage}'s spendNSplit book is not found,
-     * or an empty spendNSplit book will be used instead if errors occur when reading {@code storage}'s spendNSplit book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s spendNSplit book
+     * and {@code userPrefs}. <br>
+     * The data from the sample spendNSplit book will be used instead if {@code storage}'s spendNSplit book
+     * is not found, or an empty spendNSplit book will be used instead if errors occur when reading
+     * {@code storage}'s spendNSplit book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getSpendNSplitBookFilePath());

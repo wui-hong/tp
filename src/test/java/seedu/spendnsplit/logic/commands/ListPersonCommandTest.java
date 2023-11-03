@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.spendnsplit.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalPersons.ALICE;
 import static seedu.spendnsplit.testutil.TypicalPersons.BENSON;
 import static seedu.spendnsplit.testutil.TypicalPersons.CARL;
@@ -12,6 +11,7 @@ import static seedu.spendnsplit.testutil.TypicalPersons.DANIEL;
 import static seedu.spendnsplit.testutil.TypicalPersons.ELLE;
 import static seedu.spendnsplit.testutil.TypicalPersons.FIONA;
 import static seedu.spendnsplit.testutil.TypicalPersons.GEORGE;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 
 import java.util.Arrays;
 import java.util.Collections;

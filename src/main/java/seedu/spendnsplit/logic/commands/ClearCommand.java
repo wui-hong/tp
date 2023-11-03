@@ -2,8 +2,8 @@ package seedu.spendnsplit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.Model;
+import seedu.spendnsplit.model.SpendNSplit;
 
 /**
  * Clears the address book.

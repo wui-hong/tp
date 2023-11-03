@@ -6,7 +6,7 @@ import static seedu.spendnsplit.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class SpendNSplitTest {
+public class AddressTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
+import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.person.Address;
 import seedu.spendnsplit.model.person.Email;
 import seedu.spendnsplit.model.person.Name;

@@ -20,8 +20,8 @@ import java.util.List;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.commands.exceptions.CommandException;
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.Model;
+import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.person.NameContainsKeywordsPredicate;
 import seedu.spendnsplit.model.person.Person;
 import seedu.spendnsplit.model.transaction.Transaction;

@@ -3,10 +3,10 @@ package seedu.spendnsplit.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.spendnsplit.testutil.Assert.assertThrows;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalPersons.ALICE;
 import static seedu.spendnsplit.testutil.TypicalPersons.HOON;
 import static seedu.spendnsplit.testutil.TypicalPersons.IDA;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalTransactions.GROCERIES;
 
 import java.io.IOException;
@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.spendnsplit.commons.exceptions.DataLoadingException;
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
+import seedu.spendnsplit.model.SpendNSplit;
 
 public class JsonSpendNSplitBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSpendNSplitBookStorageTest");
@@ -32,7 +32,8 @@ public class JsonSpendNSplitBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlySpendNSplitBook> readSpendNSplitBook(String filePath) throws Exception {
-        return new JsonSpendNSplitBookStorage(Paths.get(filePath)).readSpendNSplitBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonSpendNSplitBookStorage(Paths.get(filePath))
+                .readSpendNSplitBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -58,7 +59,8 @@ public class JsonSpendNSplitBookStorageTest {
 
     @Test
     public void readSpendNSplitBook_invalidAndValidPersonSpendNSplitBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readSpendNSplitBook("invalidAndValidPersonSpendNSplitBook.json"));
+        assertThrows(DataLoadingException.class, ()
+                -> readSpendNSplitBook("invalidAndValidPersonSpendNSplitBook.json"));
     }
 
     @Test

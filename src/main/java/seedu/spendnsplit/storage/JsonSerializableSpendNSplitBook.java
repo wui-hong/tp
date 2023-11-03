@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.spendnsplit.commons.exceptions.IllegalValueException;
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.ReadOnlySpendNSplitBook;
+import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.person.Person;
 import seedu.spendnsplit.model.transaction.Transaction;
 

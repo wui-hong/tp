@@ -11,18 +11,18 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
+import static seedu.spendnsplit.testutil.TypicalSpendNSplitBook.getTypicalSpendNSplitBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.EditPersonCommand.EditPersonDescriptor;
-import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.ModelManager;
+import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.UserPrefs;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.person.Person;

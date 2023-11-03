@@ -15,11 +15,14 @@ import seedu.spendnsplit.testutil.TypicalSpendNSplitBook;
 
 public class JsonSerializableSpendNSplitTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableSpendNSplitBookTest");
+    private static final Path TEST_DATA_FOLDER = Paths
+            .get("src", "test", "data", "JsonSerializableSpendNSplitBookTest");
     private static final Path TYPICAL_SPEND_N_SPLIT_BOOK_FILE = TEST_DATA_FOLDER.resolve("typicalSpendNSplitBook.json");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonSpendNSplitBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonSpendNSplitBook.json");
-    private static final Path INVALID_TRANSACTION_FILE = TEST_DATA_FOLDER.resolve("invalidTransactionSpendNSplitBook.json");
+    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER
+            .resolve("duplicatePersonSpendNSplitBook.json");
+    private static final Path INVALID_TRANSACTION_FILE = TEST_DATA_FOLDER
+            .resolve("invalidTransactionSpendNSplitBook.json");
     private static final Path DUPLICATE_TRANSACTION_FILE =
             TEST_DATA_FOLDER.resolve("duplicateTransactionSpendNSplitBook.json");
 
