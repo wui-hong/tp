@@ -7,7 +7,7 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json",
+  "SpendNSplitBookFilePath" : "spendnsplitbook.json",
   "commandMap" : {
     "aliasToCommand" : {
       "a" : "setShorthand",
