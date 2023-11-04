@@ -1,5 +1,5 @@
 {
-  "_comment": "SpendNSplitBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "SpendNSplitBook save file which contains the same Person values as in TypicalPersons#getTypicalSpendNSplitBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",

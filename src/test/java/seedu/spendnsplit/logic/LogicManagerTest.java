@@ -48,7 +48,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonSpendNSplitBookStorage spendNSplitBookStorage =
-                new JsonSpendNSplitBookStorage(temporaryFolder.resolve("spendNSplitBook.json"));
+                new JsonSpendNSplitBookStorage(temporaryFolder.resolve("spendnsplitbook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(spendNSplitBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
