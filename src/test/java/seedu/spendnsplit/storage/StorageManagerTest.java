@@ -63,4 +63,9 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getSpendNSplitBookFilePath());
     }
 
+    @Test
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
+    }
+
 }
