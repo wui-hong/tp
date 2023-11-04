@@ -57,7 +57,8 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
             return readValue;
         }
         if (readValue.orElse(new UserPrefs()).getSpendNSplitBookFilePath() == null) {
-            readValue.orElse(new UserPrefs()).setSpendNSplitBookFilePath(Paths.get("data" , "addressbook.json"));
+            readValue.orElse(new UserPrefs()).setSpendNSplitBookFilePath(Paths
+                    .get("data" , "spendnsplitbook.json"));
         }
         if (readValue.orElse(new UserPrefs()).getCommandMap() == null) {
             readValue.orElse(new UserPrefs()).resetCommandMap();
