@@ -128,7 +128,7 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 
 #### Adding a person: `addPerson`
 
-Adds a person to the address book.
+Adds a person to the spendnsplit book.
 
 Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -143,7 +143,7 @@ Note: Contact details are optional to add. They can also be added later using th
 
 #### Editing a person : `editPerson`
 
-Edits an existing person in the address book.
+Edits an existing person in the spendnsplit book.
 
 Format: `editPerson INDEX [n=NAME] [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -169,7 +169,7 @@ Examples:
 
 #### Deleting a person : `deletePerson`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the spendnsplit book.
 
 Format: `deletePerson INDEX`
 
@@ -179,7 +179,7 @@ Format: `deletePerson INDEX`
 
 Examples:
 
-* `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
+* `list` followed by `deletePerson 2` deletes the 2nd person in the spendnsplit book.
 * `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
 ![](images\user-guide\deletePerson.PNG)
@@ -206,7 +206,7 @@ Examples:
 
 #### Sorting people by balance: `sortPerson`
 
-Sorts the list of people in your address book based on their outstanding balances in either ascending or descending
+Sorts the list of people in your spendnsplit book based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
@@ -272,7 +272,7 @@ $ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
 $ addTransaction c=200 d=Textbooks
 
 Invalid command format! 
-addTransaction: Adds a transaction to the address book. 
+addTransaction: Adds a transaction to the spendnsplit book. 
 Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
 ```
 
@@ -459,7 +459,7 @@ Sets a shorthand for the original command. In the future, this shorthand can be 
 
 Format: `setShorthand o=[ORIGINAL_COMMAND] s=[SHORTHAND]`
 
-Note: The order of the fields is flexible (e.g. sharthand can come before the original command) but the command word (setShorthand) must be in front.
+Note: The order of the fields is flexible (e.g. shorthand can come before the original command) but the command word (setShorthand) must be in front.
 
 Commands and shorthands are case-sensitive.
 
@@ -471,7 +471,7 @@ Format: `help`
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the spendnsplit book.
 
 Format: `clear`
 
@@ -499,7 +499,7 @@ to save manually.
 
 #### Editing the data file
 
-Data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. The data is human-readble. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
+Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
 
 ## FAQ
 
