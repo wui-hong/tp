@@ -369,7 +369,8 @@ Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Am
 
 #### Duplicating a Transaction: `duplicateTransaction`
 
-Duplicates the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
+Duplicates the transaction at the specified `INDEX`. The duplicated transaction's timestamp will be the time at which
+this command is executed. The index refers to the index number when viewing the TransactionList.
 The index **must be a positive integer** 1, 2, 3, ...
 
 Transaction details that can be changed when duplicating:
@@ -385,7 +386,13 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. d
 Examples:
 
 * `duplicateTransaction 1 c=12.12`
+  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel, 
+  except for the timestamp of the new transaction being the time at which this command was executed 
+  and the cost bring 12.12 instead.
 * `duplicateTransaction 2 d=Potato n=Bob`
+  * Creates a new transaction that is identical to the current transaction at index two in the Transaction panel,
+    except for the timestamp of the new transaction being the time at which this command was executed, the 
+    description of the new transaction being "Potato" and the payee of the new transaction being Bob.
 
 #### Listing transactions: `listTransaction`
 
