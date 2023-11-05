@@ -223,16 +223,8 @@ Examples:
     * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
         followed by others in decreasing order of their outstanding balances.
 
-Sample execution:
 
-```
-$ sortPerson +
-All contacts balance in descending order. Negative balance means you own them money.
-1. John, +40.00
-2. Mary, +40.00
-3. Alice, +20.00
-```
-![sortPerson success](images/user-guide/sortPerson1.png)
+![sortPerson success](images/user-guide/sortPerson.png)
 
 ### Transaction-related features
 
