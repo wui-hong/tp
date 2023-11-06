@@ -21,7 +21,11 @@ public class PortionBuilder {
      */
     public PortionBuilder() {
         name = new Name(DEFAULT_NAME);
-        weight = new Weight(DEFAULT_WEIGHT);
+        try {
+            weight = new Weight(DEFAULT_WEIGHT);
+        } catch (Exception e) {
+            weight = null;
+        }
     }
 
     /**
@@ -44,7 +48,11 @@ public class PortionBuilder {
      * Sets the {@code Weight} of the {@code Portion} that we are building.
      */
     public PortionBuilder withWeight(String weight) {
-        this.weight = new Weight(weight);
+        try {
+            this.weight = new Weight(weight);
+        } catch (Exception e) {
+            this.weight = null;
+        }
         return this;
     }
 

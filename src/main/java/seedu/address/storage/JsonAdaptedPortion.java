@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.portion.Portion;
 import seedu.address.model.transaction.portion.Weight;
@@ -52,7 +54,12 @@ public class JsonAdaptedPortion {
         if (!Weight.isValidWeight(weight)) {
             throw new IllegalValueException(Weight.MESSAGE_CONSTRAINTS);
         }
-        final Weight modelWeight = new Weight(weight);
+        final Weight modelWeight;
+        try {
+            modelWeight = ParserUtil.parseWeight(weight);
+        } catch (ParseException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
         return new Portion(modelName, modelWeight);
     }
 }

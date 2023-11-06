@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
@@ -54,20 +55,24 @@ public class SampleDataUtil {
     }
 
     public static Transaction[] getSampleTransactions() {
-        return new Transaction[] {
-            new Transaction(new Amount("60"), new Description("Group Project Lunch"), new Name("Self"), Set.of(
-                new Portion(new Name("Alex Yeoh"), new Weight("2")), new Portion(new Name("Bernice Yu"),
-                    new Weight("4"))), new Timestamp("13/10/2023 12:00")),
-            new Transaction(new Amount("90"), new Description("Hall Dinner"), new Name("Bernice Yu"), Set.of(
-                new Portion(new Name("Self"), new Weight("8")), new Portion(new Name("Bernice Yu"), new Weight("4"))),
-                    new Timestamp("13/10/2023 16:00")),
-            new Transaction(new Amount("600"), new Description("Shared Dorm Rent"), new Name("Bernice Yu"), Set.of(
-                new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"), new Weight("1"))),
-                    new Timestamp("13/10/2023 13:00")),
-            new Transaction(new Amount("100"), new Description("Carpool Subscription"), new Name("Self"), Set.of(
-                new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"), new Weight("1"))),
-                    new Timestamp("13/10/2023 04:00")),
-        };
+        try {
+            return new Transaction[] {
+                new Transaction(new Amount("60"), new Description("Group Project Lunch"), new Name("Self"), Set.of(
+                    new Portion(new Name("Alex Yeoh"), new Weight("2")), new Portion(new Name("Bernice Yu"),
+                        new Weight("4"))), new Timestamp("13/10/2023 12:00")),
+                new Transaction(new Amount("90"), new Description("Hall Dinner"), new Name("Bernice Yu"), Set.of(
+                    new Portion(new Name("Self"), new Weight("8")), new Portion(new Name("Bernice Yu"),
+                        new Weight("4"))), new Timestamp("13/10/2023 16:00")),
+                new Transaction(new Amount("600"), new Description("Shared Dorm Rent"), new Name("Bernice Yu"), Set.of(
+                    new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"),
+                        new Weight("1"))), new Timestamp("13/10/2023 13:00")),
+                new Transaction(new Amount("100"), new Description("Carpool Subscription"), new Name("Self"), Set.of(
+                    new Portion(new Name("Self"), new Weight("1")), new Portion(new Name("Bernice Yu"),
+                        new Weight("1"))), new Timestamp("13/10/2023 04:00"))
+            };
+        } catch (ParseException e) {
+            return new Transaction[0];
+        }
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {

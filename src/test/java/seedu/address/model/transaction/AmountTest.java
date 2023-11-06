@@ -47,7 +47,7 @@ class AmountTest {
     }
 
     @Test
-    public void equals() {
+    public void equals() throws Exception {
         Amount amount = new Amount("1.23");
 
         // same values -> returns true

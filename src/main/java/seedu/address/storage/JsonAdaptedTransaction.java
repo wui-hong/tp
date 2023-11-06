@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
@@ -81,7 +83,12 @@ public class JsonAdaptedTransaction {
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
-        final Amount modelAmount = new Amount(amount);
+        final Amount modelAmount;
+        try {
+            modelAmount = ParserUtil.parseAmount(amount);
+        } catch (ParseException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
 
         if (description == null) {
             throw new IllegalValueException(String.format(

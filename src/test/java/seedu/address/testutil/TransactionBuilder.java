@@ -14,7 +14,6 @@ import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Timestamp;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.portion.Portion;
-import seedu.address.model.transaction.portion.Weight;
 
 /**
  * A utility class to help with building Transaction objects.
@@ -29,7 +28,7 @@ public class TransactionBuilder {
     public static final String DEFAULT_TIMESTAMP = "12/10/2023 12:34";
 
     public static final Set<Portion> DEFAULT_PORTIONS = new HashSet<>(
-            List.of(new Portion(TypicalPersons.BOB.getName(), new Weight("1.0"))));
+            List.of(new PortionBuilder().withName(TypicalPersons.BOB.getName().fullName).withWeight("1.0").build()));
 
     private Amount amount;
     private Description description;
@@ -41,7 +40,11 @@ public class TransactionBuilder {
      * Creates a {@code TransactionBuilder} with the default details.
      */
     public TransactionBuilder() {
-        amount = new Amount(DEFAULT_AMOUNT);
+        try {
+            amount = new Amount(DEFAULT_AMOUNT);
+        } catch (Exception e) {
+            amount = null;
+        }
         description = new Description(DEFAULT_DESCRIPTION);
         payeeName = new Name(DEFAULT_PAYEE_NAME);
         portions = Set.of(ALICE_PORTION, SELF_PORTION);
@@ -63,7 +66,11 @@ public class TransactionBuilder {
      * Sets the {@code Amount} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withAmount(String amount) {
-        this.amount = new Amount(amount);
+        try {
+            this.amount = new Amount(amount);
+        } catch (Exception e) {
+            this.amount = null;
+        }
         return this;
     }
 

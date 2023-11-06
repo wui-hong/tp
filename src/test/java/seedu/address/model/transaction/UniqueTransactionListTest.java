@@ -29,11 +29,28 @@ import seedu.address.testutil.TypicalPersons;
 class UniqueTransactionListTest {
 
     // ==================== Unit Tests ====================
+    private static TransactionWithAliceStub transactionWithAliceStub;
+
+    static {
+        try {
+            transactionWithAliceStub = new TransactionWithAliceStub();
+        } catch (Exception e) {
+            //
+        }
+    }
+
+    private static TransactionWithBobStub transactionWithBobStub;
+
+    static {
+        try {
+            transactionWithBobStub = new TransactionWithBobStub();
+        } catch (Exception e) {
+            //
+        }
+    }
+
     private final UniqueTransactionList transactionList = new UniqueTransactionList();
 
-    private final TransactionWithAliceStub transactionWithAliceStub = new TransactionWithAliceStub();
-
-    private final TransactionWithBobStub transactionWithBobStub = new TransactionWithBobStub();
     @Test
     public void add_nullTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> transactionList.add(null, Set.of()));
@@ -169,25 +186,23 @@ class UniqueTransactionListTest {
 
     private static class TransactionWithAliceStub extends Transaction {
 
-        private static final Amount amount = new Amount("1");
         private static final Description description = new Description("Stub");
         private static final Name payeeName = Name.SELF;
         private static final Set<Portion> portions = new HashSet<>(Collections.singletonList(ALICE_PORTION));
 
-        public TransactionWithAliceStub() {
-            super(amount, description, payeeName, portions);
+        public TransactionWithAliceStub() throws Exception {
+            super(new Amount("1"), description, payeeName, portions);
         }
     }
 
     private static class TransactionWithBobStub extends Transaction {
 
-        private static final Amount amount = new Amount("1");
         private static final Description description = new Description("Stub");
         private static final Name payeeName = TypicalPersons.BOB.getName();
         private static final Set<Portion> portions = Set.of(SELF_PORTION, BENSON_PORTION);
 
-        public TransactionWithBobStub() {
-            super(amount, description, payeeName, portions);
+        public TransactionWithBobStub() throws Exception {
+            super(new Amount("1"), description, payeeName, portions);
         }
     }
 }

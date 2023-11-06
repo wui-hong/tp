@@ -41,7 +41,11 @@ public class UpdatePortionDescriptorBuilder {
      * Sets the {@code Weight} of the {@code UpdatePortionDescriptor} that we are building.
      */
     public UpdatePortionDescriptorBuilder withWeight(String weight) {
-        descriptor.setWeight(new Weight(weight));
+        try {
+            descriptor.setWeight(new Weight(weight));
+        } catch (Exception e) {
+            //
+        }
         return this;
     }
 

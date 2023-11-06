@@ -8,10 +8,14 @@ import java.util.List;
 
 import org.apache.commons.numbers.fraction.BigFraction;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Class representing precise numbers.
  */
 public class FractionUtil {
+
+    public static final String ZERO_DIVISION = "Divisor cannot be zero!";
 
     /**
      * Creates new fraction from decimal string.
@@ -19,13 +23,17 @@ public class FractionUtil {
      * @param s Decimal string input in the form decimal / decimal.
      * @return Fraction created.
      */
-    public static BigFraction parseFraction(String s) {
+    public static BigFraction parseFraction(String s) throws ParseException {
         String[] parts = s.replace(" ", "").split("/", -1);
         switch (parts.length) {
         case 1:
             return parseDecimal(parts[0]);
         case 2:
-            return parseDecimal(parts[0]).divide(parseDecimal(parts[1]));
+            BigFraction divisor = parseDecimal(parts[1]);
+            if (divisor.signum() == 0) {
+                throw new ParseException(ZERO_DIVISION);
+            }
+            return parseDecimal(parts[0]).divide(divisor);
         default:
             throw new NumberFormatException();
         }

@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import org.apache.commons.numbers.fraction.BigFraction;
 
 import seedu.address.commons.util.FractionUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a Transaction's amount in the address book.
@@ -28,7 +29,7 @@ public class Amount {
      *
      * @param amount A valid amount.
      */
-    public Amount(String amount) {
+    public Amount(String amount) throws ParseException {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         this.amount = FractionUtil.parseFraction(amount);

@@ -46,7 +46,11 @@ public class EditTransactionDescriptorBuilder {
      * Sets the {@code Amount} of the {@code EditTransactionDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withAmount(String amount) {
-        descriptor.setAmount(new Amount(amount));
+        try {
+            descriptor.setAmount(new Amount(amount));
+        } catch (Exception e) {
+            //
+        }
         return this;
     }
 

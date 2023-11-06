@@ -48,7 +48,7 @@ class WeightTest {
     }
 
     @Test
-    public void hashcode() {
+    public void hashcode() throws Exception {
         Weight weight = new Weight("21.50");
         Weight otherWeight = new Weight("21.50");
 
@@ -56,7 +56,7 @@ class WeightTest {
     }
 
     @Test
-    public void equals() {
+    public void equals() throws Exception {
         Weight weight = new Weight("21.50");
 
         // same values -> returns true
