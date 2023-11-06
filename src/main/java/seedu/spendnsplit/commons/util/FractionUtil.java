@@ -59,6 +59,23 @@ public class FractionUtil {
     }
 
     /**
+     * Compare 2 fractions by both magnitude and polarity.
+     *
+     * @param fraction1 The first fraction to be compared.
+     * @param fraction2 The second fraction to be compared.
+     * @return Positive if the first is larger, negative if the second is larger, zero if equal.
+     */
+    public static int compare(BigFraction fraction1, BigFraction fraction2) {
+        if (fraction1.signum() > 0 && fraction2.signum() > 0) {
+            return fraction1.abs().compareTo(fraction2.abs());
+        }
+        if (fraction1.signum() < 0 && fraction2.signum() < 0) {
+            return fraction2.abs().compareTo(fraction1.abs());
+        }
+        return fraction1.signum() - fraction2.signum();
+    }
+
+    /**
      * Returns the sum of a list of fractions.
      *
      * @param list The list of fractions to be summed.
