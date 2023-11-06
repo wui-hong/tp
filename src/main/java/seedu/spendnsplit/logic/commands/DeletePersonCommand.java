@@ -12,7 +12,7 @@ import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using it's displayed index from the app.
  */
 public class DeletePersonCommand extends Command {
 

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.spendnsplit.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's telegram handle in the address book.
+ * Represents a Person's telegram handle.
  * Guarantees: immutable; is valid as declared in {@link #isValidTelegramHandle(String)}
  */
 public class TelegramHandle {

@@ -15,13 +15,13 @@ import seedu.spendnsplit.model.transaction.Transaction;
 
 
 /**
- * Adds a transaction to the address book.
+ * Adds a transaction to the spendnsplit book.
  */
 public class AddTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "addTransaction";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the address book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_NAME + "NAME "
@@ -45,7 +45,7 @@ public class AddTransactionCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the app";
     public static final String MESSAGE_TRANSACTION_NOT_RELEVANT = "This transaction does not affect your balances";
     public static final String MESSAGE_UNKNOWN_PARTY =
             "This transaction involves unknown parties; please set them to 'Others'";

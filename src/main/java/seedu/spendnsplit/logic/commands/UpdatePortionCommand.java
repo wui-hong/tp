@@ -44,7 +44,7 @@ public class UpdatePortionCommand extends Command {
             + PREFIX_WEIGHT + "1 / 2";
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION =
-            "The updated transaction already exists in the address book";
+            "The updated transaction already exists in the app";
 
     // TODO: Message should also include details about the transaction
     public static final String MESSAGE_UPDATE_PORTION_SUCCESS = "Updated Portion: %1$s";
