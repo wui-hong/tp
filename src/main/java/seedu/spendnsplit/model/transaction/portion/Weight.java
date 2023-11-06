@@ -6,7 +6,7 @@ import static seedu.spendnsplit.commons.util.AppUtil.checkArgument;
 import org.apache.commons.numbers.fraction.BigFraction;
 
 import seedu.spendnsplit.commons.util.FractionUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a Weight in an Portion.

@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.commons.numbers.fraction.BigFraction;
 
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 
 /**
  * Class representing precise numbers.
