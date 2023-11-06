@@ -176,6 +176,9 @@ Format: `deletePerson INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* Transactions involving the deleted person will have the deleted person's name changed to "Others". In the event that
+ this results in the transaction becoming irrelevant, the transaction will be automatically deleted. All transactions involving
+ the deleted person as a payee will also be automatically deleted. 
 
 Examples:
 
