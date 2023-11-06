@@ -8,6 +8,7 @@ import static seedu.spendnsplit.testutil.TypicalPortions.ALICE_PORTION;
 import org.junit.jupiter.api.Test;
 
 import seedu.spendnsplit.commons.exceptions.IllegalValueException;
+import seedu.spendnsplit.commons.util.FractionUtil;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.transaction.portion.Weight;
 
@@ -47,6 +48,12 @@ public class JsonAdaptedPortionTest {
         assertThrows(IllegalValueException.class, expectedMessage, portion::toModelType);
     }
 
+    @Test
+    public void toModelType_zeroDivWeight_throwsIllegalValueException() {
+        JsonAdaptedPortion portion = new JsonAdaptedPortion(VALID_NAME, "1/0");
+        String expectedMessage = FractionUtil.ZERO_DIVISION;
+        assertThrows(IllegalValueException.class, expectedMessage, portion::toModelType);
+    }
 
     @Test
     public void toModelType_nullWeight_throwsIllegalValueException() {
