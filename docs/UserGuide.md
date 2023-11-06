@@ -505,17 +505,19 @@ Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplit
 ### 1) Why do the portions in the log not add up exactly to the balance?
 
 The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences
-between the actual portions and what is displayed.
+between the actual portions and what is displayed. Values are rounded to 2 decimal places (i.e. 0.149 will be rounded down to 0.14, 
+and 0.145 will be rounded up to 0.15). The positive and negative signs will still be kept (i.e. -0.0000001 will be rounded
+down to -0.00, and -1.015 will be rounded up to -1.02).
 
 Example:
 
 ```
 If these are the logs stored:
-A:      0.122
-B:      0.223
-Total:  0.345
+A:      0.122345
+B:      0.223231
+Total:  0.345123
 
-This is displayed instead when the app is set to show 2 decimal places:
+This is displayed instead in the application due to rounding off to 2 decimal places:
 A:      0.12
 B:      0.22
 Total:  0.35
