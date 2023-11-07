@@ -626,12 +626,30 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+--------------------------------------------------------------------------------------------------------------------
 
+## **Appendix: Planned Enhancements**
 
+### Stronger List Command Input Validation
 
+- **Background**: Currently, the `Name` of our `Person` is currently validated.
+For example, it cannot contain symbols and cannot begin with a whitespace.
+However, the `listPerson` validation on input arguments is insufficient.
 
+- **Issue**: Executing `listPerson $$$` shows "0 person(s) listed" with no error.
+This is not the right behaviour as `$$$` will never be included in a `Name`, and an
+error message should be shown instead.
 
+- **Enhancement**: We plan on ensuring `listPerson` performs stronger validation on
+its input, invalidating any arguments cannot exist in a `Name`. For instance, each
+command argument in `listPerson` should be validated to be alphanumeric. Similarly,
+`listTransaction` should also validate the arguments in a similar fashion. Should
+the input arguments fail validation, we plan to show an error message as shown below.
 
+Sample Execution:
+```
+$ listPerson $$$
 
-
-
+Names in should only contain alphanumeric characters
+Example: listPerson Alex David
+```
