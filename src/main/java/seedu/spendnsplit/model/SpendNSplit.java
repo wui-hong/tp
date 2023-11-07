@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.commons.numbers.fraction.BigFraction;
 
 import javafx.collections.ObservableList;
+import seedu.spendnsplit.commons.util.FractionUtil;
 import seedu.spendnsplit.commons.util.ToStringBuilder;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.person.Person;
@@ -182,7 +183,8 @@ public class SpendNSplit implements ReadOnlySpendNSplitBook {
      */
     public void setPersonDescendingBalance() {
         personComparator = (p1, p2) -> {
-            int balCompare = -transactions.getBalance(p1.getName()).compareTo(transactions.getBalance(p2.getName()));
+            int balCompare = -FractionUtil.compare(transactions.getBalance(p1.getName()),
+                    transactions.getBalance(p2.getName()));
             if (balCompare == 0) {
                 return p1.getName().compareTo(p2.getName());
             }
@@ -196,7 +198,8 @@ public class SpendNSplit implements ReadOnlySpendNSplitBook {
      */
     public void setPersonAscendingBalance() {
         personComparator = (p1, p2) -> {
-            int balCompare = transactions.getBalance(p1.getName()).compareTo(transactions.getBalance(p2.getName()));
+            int balCompare = FractionUtil.compare(transactions.getBalance(p1.getName()),
+                    transactions.getBalance(p2.getName()));
             if (balCompare == 0) {
                 return p1.getName().compareTo(p2.getName());
             }
