@@ -7,8 +7,8 @@ title: User Guide
 
 ***Taking care of your finances has never been easier!***
 
-Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students 
-that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between 
+Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students
+that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between
 yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as
  well as the calculations of balances owed will be automatically handled by Spend n Split.
 
@@ -217,10 +217,10 @@ Parameters:
 
 Examples:
 * `sortPerson -`
-    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
+    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed
         by others in increasing order of their outstanding balances.
 * `sortPerson +`
-    * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
+    * This command will rearrange the list to show the person with the highest outstanding balance at the top,
         followed by others in decreasing order of their outstanding balances.
 
 Sample execution:
@@ -271,8 +271,8 @@ $ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
 ```
 $ addTransaction c=200 d=Textbooks
 
-Invalid command format! 
-addTransaction: Adds a transaction to the address book. 
+Invalid command format!
+addTransaction: Adds a transaction to the address book.
 Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
 ```
 
@@ -304,7 +304,7 @@ Examples:
 
 Sample Execution:
 
-``` 
+```
 editTransaction 1 n=Bob c=12.12
 ```
 
@@ -436,15 +436,15 @@ Example:
 Sample Execution:
 
 ```
-$ settlePerson 
+$ settlePerson
 
-Invalid command format! 
+Invalid command format!
 settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
 Example: settlePerson 1
 
 $ settlePerson 1
 
-Balance settled: Alex Yeoh 
+Balance settled: Alex Yeoh
 ```
 
 ![settle error](images/user-guide/settle1.jpeg)
@@ -523,19 +523,19 @@ Total:  0.35
 ```
 ### 2) What happens when I enter an invalid command?
 
-When an invalid command is input, an error message will be reflected at the 
+When an invalid command is input, an error message will be reflected at the
 output panel at the top of Spend n Split. The error message will vary depending on the type of error.
 
-* Invalid command format. This occurs when the command word 
-is recognised but there are missing fields or the values provided in the fields are 
-not supported. 
+* Invalid command format. This occurs when the command word
+is recognised but there are missing fields or the values provided in the fields are
+not supported.
 The error message reflected
-will state `Invalid command format!`, 
-before giving details on the command and 
+will state `Invalid command format!`,
+before giving details on the command and
 the fields required, along with an example of a correct command
 input with the fields required.
     * Example: `settlePerson -1`
-      * Error message: 
+      * Error message:
     ```
     Invalid command format!
     settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
@@ -549,7 +549,7 @@ The error message reflected will state `Unknown command`.
   Unknown command
   ```
 * Invalid command fields. This occurs when the invalid fields are provided
-for the valid command word. The error message reflected is dependent on the 
+for the valid command word. The error message reflected is dependent on the
 valid command word.
   * Example: `settlePerson 6` when there are only 5 people in the Persons List.
     * Error message:

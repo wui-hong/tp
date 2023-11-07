@@ -18,7 +18,7 @@ We would like to acknowledge the following libraries for use in Spend n Split:
 * **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend n Split.
 
 * **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
-* 
+
 * **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend n Split.
 
 * **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The font used in Spend n Split.
@@ -467,7 +467,7 @@ Preconditions: Transaction exists in the transaction list.
 1. User requests to view the transaction list.
 2. Spend n Split shows a list of transaction.
 3. User requests to edit a transaction.
-4. Spend n Split informs the user that the transaction has been edited. 
+4. Spend n Split informs the user that the transaction has been edited.
 5. Spend n Split shows the updated transaction list.
 
 Use case ends.
@@ -489,8 +489,8 @@ Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to settle with a person. 
-2. Spend n Split informs the user that all the outstanding balance with the person have been settled. 
+1. User requests to settle with a person.
+2. Spend n Split informs the user that all the outstanding balance with the person have been settled.
 3. Spend n Split shows the list of contacts.
 
 Use case ends.
