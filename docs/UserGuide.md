@@ -46,6 +46,40 @@ Note: There are 2 special names when adding transactions - "Self" and "Others". 
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
 
+#### Relevant Transactions
+
+A transaction is only considered **relevant** if it involves you owing or being owed money
+by someone from your contacts list. In a relevant transaction:
+1. "Self" must be either the payee, a payer, or both: you must be involved in the transaction.
+2. Include at least one person stored in the app (not "Self" or "Others") as either
+the payee, a payer, or both: someone else in your contacts list must be involved in the transaction.
+
+If these conditions are not met, it means that the transaction does not affect your balance
+with anyone on your contract list, and hence is considered **irrelevant**.
+
+Examples of relevant transactions:
+- You are the payee for dinner. The payers are you, Alice and Bob.
+- Bob pays for transport. You and Alice are riders, and hence are the payers.
+
+In both these cases, you were involved as the payee or payer of the transaction,
+and so was another person in your contacts.
+
+Examples of irrelevant transactions:
+- Bob was the payee for dinner. The payers are Alice and Bob. You are not involved
+and hence, this transaction is irrelevant.
+- You pay for transport for Zack. Zack is the only payer. Zack was then deleted
+contacts list afterwards, resulting in him being considered as "Others" in the transaction.
+This transaction becomes irrelevant and is automatically deleted from the transactions
+list when Zack is deleted.
+
+Note:
+- If you delete payers such that no one else from your contacts are involved in the
+transaction, **SnS will block this**. You are advised to delete the transaction if
+it no longer concerns you or anyone from your contacts list.
+- If you delete a person, some transactions may be considered irrelevant as highlighted
+in the second example of an irrelevant transaction. **SnS will automatically delete
+these irrelevant transactions**.
+
 ### Fields
 
 Inputs to fields should not contain the "=" sign.
@@ -237,10 +271,10 @@ Parameters:
 
 Examples:
 * `sortPerson -`
-    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
+    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed
         by others in increasing order of their outstanding balances.
 * `sortPerson +`
-    * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
+    * This command will rearrange the list to show the person with the highest outstanding balance at the top,
         followed by others in decreasing order of their outstanding balances.
 
 
@@ -283,8 +317,9 @@ $ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
 ```
 $ addTransaction c=200 d=Textbooks
 
-Invalid command format! 
-addTransaction: Adds a transaction to the spendnsplit book. 
+
+Invalid command format!
+addTransaction: Adds a transaction to the spendnsplit book.
 Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
 ```
 
@@ -316,7 +351,7 @@ Examples:
 
 Sample Execution:
 
-``` 
+```
 editTransaction 1 n=Bob c=12.12
 ```
 
@@ -455,15 +490,15 @@ Example:
 Sample Execution:
 
 ```
-$ settlePerson 
+$ settlePerson
 
-Invalid command format! 
+Invalid command format!
 settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
 Example: settlePerson 1
 
 $ settlePerson 1
 
-Balance settled: Alex Yeoh 
+Balance settled: Alex Yeoh
 ```
 
 ![settle error](images/user-guide/settle1.jpeg)
@@ -546,19 +581,19 @@ Total:  0.35
 ```
 ### 2) What happens when I enter an invalid command?
 
-When an invalid command is input, an error message will be reflected at the 
+When an invalid command is input, an error message will be reflected at the
 output panel at the top of Spend n Split. The error message will vary depending on the type of error.
 
-* Invalid command format. This occurs when the command word 
-is recognised but there are missing fields or the values provided in the fields are 
-not supported. 
+* Invalid command format. This occurs when the command word
+is recognised but there are missing fields or the values provided in the fields are
+not supported.
 The error message reflected
-will state `Invalid command format!`, 
-before giving details on the command and 
+will state `Invalid command format!`,
+before giving details on the command and
 the fields required, along with an example of a correct command
 input with the fields required.
     * Example: `settlePerson -1`
-      * Error message: 
+      * Error message:
     ```
     Invalid command format!
     settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
@@ -572,7 +607,7 @@ The error message reflected will state `Unknown command`.
   Unknown command
   ```
 * Invalid command fields. This occurs when the invalid fields are provided
-for the valid command word. The error message reflected is dependent on the 
+for the valid command word. The error message reflected is dependent on the
 valid command word.
   * Example: `settlePerson 6` when there are only 5 people in the Persons List.
     * Error message:

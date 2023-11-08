@@ -46,7 +46,6 @@ public class UpdatePortionCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TRANSACTION =
             "The updated transaction already exists in the app";
 
-    // TODO: Message should also include details about the transaction
     public static final String MESSAGE_UPDATE_PORTION_SUCCESS = "Updated Portion: %1$s";
 
     public static final String MESSAGE_DELETE_ONLY_PORTION_FAILURE = "Cannot delete the only portion in a transaction.";
@@ -62,8 +61,6 @@ public class UpdatePortionCommand extends Command {
 
     public static final String MESSAGE_ONLY_PORTION =
             "There is only one portion; its weight can only be 1 and cannot be updated.";
-
-    // TODO: add message for invalid pair of name and weight
 
     private final Index index;
 
