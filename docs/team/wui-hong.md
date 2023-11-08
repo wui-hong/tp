@@ -19,7 +19,7 @@ Given below are my contributions to the project.
 
 * **Enhancements to existing features**:
     * To be added soon
-  
+
 * **Documentation**:
     * User Guide:
         * To be added soon
