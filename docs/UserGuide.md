@@ -70,6 +70,7 @@ The following fields are used for commands:
 | Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores | `@nus_cs2103` , `@spend_n_split` |
 | Email address | e | Valid email format required | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
 | Address | a | No `=` sign allowed | `Kent Ridge Hall`, `RC4` |
+| Tag | t | Single-word, alphanumeric | `friend`, `colleague` |
 | Description | d | No `=` sign allowed | `Lunch`, `Dinner @ UTown` |
 | Amount/ Cost | c | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
 | Timestamp | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
