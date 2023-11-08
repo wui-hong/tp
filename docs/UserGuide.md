@@ -227,7 +227,8 @@ Examples:
         followed by others in decreasing order of their outstanding balances.
 
 
-![sortPerson success](images/user-guide/sortPerson.png)
+![sortPersonDescending success](images/user-guide/sortPersonDescending.png)
+![sortPersonAscending success](images/user-guide/sortPersonAscending.png)
 
 ### Transaction-related features
 
