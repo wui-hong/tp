@@ -67,7 +67,7 @@ The following fields are used for commands:
 | Timestamp | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
 | Weight | w | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
 | Original command | o | Use one of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
-| Shorthand | s | English alphabet characters only | `s`, `aT` |
+| Shorthand | s | Single-word, English alphabet characters only | `s`, `aT` |
 
 --------------------------------------------------------------------------------------------------------------------
 
