@@ -19,6 +19,9 @@ yourself and your peers. All you need to do, is to record your transactions in S
     3. [Fields](#fields)
 2. [Quick Start](#quick-start)
 3. [Features](#features)
+   1. [Person-related features](#person-related-features)
+   2. [Transaction-related features](#transaction-related-features)
+   3. [Other features](#other-features)
 4. [FAQ](#faq)
 
 ## Glossary
