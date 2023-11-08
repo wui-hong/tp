@@ -8,7 +8,7 @@ import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in app whose name contains any of the argument keywords.
  * Keyword matching is case-insensitive.
  * If no keywords are specified, all persons will be listed.
  */

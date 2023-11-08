@@ -128,7 +128,7 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 
 #### Adding a person: `addPerson`
 
-Adds a person to the address book.
+Adds a person to the spendnsplit book.
 
 Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -143,7 +143,7 @@ Note: Contact details are optional to add. They can also be added later using th
 
 #### Editing a person : `editPerson`
 
-Edits an existing person in the address book.
+Edits an existing person in the spendnsplit book.
 
 Format: `editPerson INDEX [n=NAME] [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -165,24 +165,27 @@ Examples:
 * `editPerson 2 n=Betsy Crower t=`
     * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-  ![editPerson_success](images\user-guide\editPerson.PNG)
+  ![editPerson_success](images/user-guide/editPerson.PNG)
 
 #### Deleting a person : `deletePerson`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the spendnsplit book.
 
 Format: `deletePerson INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* Transactions involving the deleted person will have the deleted person's name changed to "Others". In the event that
+ this results in the transaction becoming irrelevant, the transaction will be automatically deleted. All transactions involving
+ the deleted person as a payee will also be automatically deleted. 
 
 Examples:
 
-* `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
+* `list` followed by `deletePerson 2` deletes the 2nd person in the spendnsplit book.
 * `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
-![](images\user-guide\deletePerson.PNG)
+![deletePerson_success](images/user-guide/deletePerson.PNG)
 
 #### Locating persons by name: `listPerson`
 
@@ -206,7 +209,7 @@ Examples:
 
 #### Sorting people by balance: `sortPerson`
 
-Sorts the list of people in your address book based on their outstanding balances in either ascending or descending
+Sorts the list of people in your spendnsplit book based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
@@ -223,16 +226,8 @@ Examples:
     * This command will rearrange the list to show the person with the highest outstanding balance at the top,
         followed by others in decreasing order of their outstanding balances.
 
-Sample execution:
 
-```
-$ sortPerson +
-All contacts balance in descending order. Negative balance means you own them money.
-1. John, +40.00
-2. Mary, +40.00
-3. Alice, +20.00
-```
-![sortPerson success](images/user-guide/sortPerson1.png)
+![sortPerson success](images/user-guide/sortPerson.png)
 
 ### Transaction-related features
 
@@ -271,8 +266,9 @@ $ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
 ```
 $ addTransaction c=200 d=Textbooks
 
+
 Invalid command format!
-addTransaction: Adds a transaction to the address book.
+addTransaction: Adds a transaction to the spendnsplit book.
 Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
 ```
 
@@ -369,7 +365,8 @@ Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Am
 
 #### Duplicating a Transaction: `duplicateTransaction`
 
-Duplicates the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
+Duplicates the transaction at the specified `INDEX`. The duplicated transaction's timestamp will be the time at which
+this command is executed. The index refers to the index number when viewing the TransactionList.
 The index **must be a positive integer** 1, 2, 3, ...
 
 Transaction details that can be changed when duplicating:
@@ -385,7 +382,13 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. d
 Examples:
 
 * `duplicateTransaction 1 c=12.12`
+  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel, 
+  except for the timestamp of the new transaction being the time at which this command was executed 
+  and the cost bring 12.12 instead.
 * `duplicateTransaction 2 d=Potato n=Bob`
+  * Creates a new transaction that is identical to the current transaction at index two in the Transaction panel,
+    except for the timestamp of the new transaction being the time at which this command was executed, the 
+    description of the new transaction being "Potato" and the payee of the new transaction being Bob.
 
 #### Listing transactions: `listTransaction`
 
@@ -459,7 +462,7 @@ Sets a shorthand for the original command. In the future, this shorthand can be 
 
 Format: `setShorthand o=[ORIGINAL_COMMAND] s=[SHORTHAND]`
 
-Note: The order of the fields is flexible (e.g. sharthand can come before the original command) but the command word (setShorthand) must be in front.
+Note: The order of the fields is flexible (e.g. shorthand can come before the original command) but the command word (setShorthand) must be in front.
 
 Commands and shorthands are case-sensitive.
 
@@ -471,7 +474,7 @@ Format: `help`
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the spendnsplit book.
 
 Format: `clear`
 
@@ -499,24 +502,26 @@ to save manually.
 
 #### Editing the data file
 
-Data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. The data is human-readble. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
+Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
 
 ## FAQ
 
 ### 1) Why do the portions in the log not add up exactly to the balance?
 
 The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences
-between the actual portions and what is displayed.
+between the actual portions and what is displayed. Values are rounded to 2 decimal places (i.e. 0.149 will be rounded down to 0.14, 
+and 0.145 will be rounded up to 0.15). The positive and negative signs will still be kept (i.e. -0.0000001 will be rounded
+down to -0.00, and -1.015 will be rounded up to -1.02).
 
 Example:
 
 ```
 If these are the logs stored:
-A:      0.122
-B:      0.223
-Total:  0.345
+A:      0.122345
+B:      0.223231
+Total:  0.345123
 
-This is displayed instead when the app is set to show 2 decimal places:
+This is displayed instead in the application due to rounding off to 2 decimal places:
 A:      0.12
 B:      0.22
 Total:  0.35

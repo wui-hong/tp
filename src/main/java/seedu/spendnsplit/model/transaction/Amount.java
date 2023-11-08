@@ -8,7 +8,7 @@ import org.apache.commons.numbers.fraction.BigFraction;
 import seedu.spendnsplit.commons.util.FractionUtil;
 
 /**
- * Represents a Transaction's amount in the address book.
+ * Represents a Transaction's amount.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class Amount {

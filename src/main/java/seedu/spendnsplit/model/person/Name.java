@@ -6,7 +6,7 @@ import static seedu.spendnsplit.commons.util.AppUtil.checkArgument;
 import java.util.Set;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's name.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name implements Comparable<Name> {
@@ -21,7 +21,7 @@ public class Name implements Comparable<Name> {
     public static final String RESERVED_CONSTRAINTS = "The name %s is reserved";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum} ]*$";

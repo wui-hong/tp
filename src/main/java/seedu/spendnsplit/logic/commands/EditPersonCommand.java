@@ -31,7 +31,7 @@ import seedu.spendnsplit.model.person.TelegramHandle;
 import seedu.spendnsplit.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the app.
  */
 public class EditPersonCommand extends Command {
 

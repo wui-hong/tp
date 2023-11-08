@@ -53,8 +53,8 @@ public class EditTransactionCommand extends Command {
     public static final String MESSAGE_TRANSACTION_NOT_EDITED = "At least one field to edit must be provided.";
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION =
-            "The edited transaction already exists in the address book";
-    public static final String MESSAGE_UNKNOWN_PAYEE = "The payee must either be you or someone in the address book";
+            "The edited transaction already exists in the app";
+    public static final String MESSAGE_UNKNOWN_PAYEE = "The payee must either be you or someone in the person list";
     public static final String MESSAGE_TRANSACTION_NOT_RELEVANT =
             "The edited transaction does not affect your balances. Please use the delete command instead.";
 

@@ -22,7 +22,7 @@ import seedu.spendnsplit.model.transaction.portion.Portion;
 import seedu.spendnsplit.model.transaction.portion.Weight;
 
 /**
- * Represents a Transaction in the address book.
+ * Represents a Transaction.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Transaction implements Comparable<Transaction> {
