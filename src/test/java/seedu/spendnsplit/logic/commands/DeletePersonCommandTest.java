@@ -71,7 +71,7 @@ public class DeletePersonCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_ELEMENT);
 
         Index outOfBoundIndex = INDEX_SECOND_ELEMENT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of the spendnsplit list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getSpendNSplitBook().getPersonList().size());
 
         DeletePersonCommand deleteCommand = new DeletePersonCommand(outOfBoundIndex);

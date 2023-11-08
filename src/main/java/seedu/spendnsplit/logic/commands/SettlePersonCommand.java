@@ -37,7 +37,7 @@ public class SettlePersonCommand extends Command {
 
     public static final String MESSAGE_SETTLE_PERSON_SUCCESS = "Balance settled: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists";
     public static final String MESSAGE_NO_OUTSTANDING_BALANCE =
             "There is no outstanding balance with %1$s before %2$s.";
 

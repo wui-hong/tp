@@ -18,7 +18,7 @@ import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.transaction.Transaction;
 
 /**
- * Duplicates a transaction identified using its displayed index from the address book.
+ * Duplicates a transaction identified using its displayed index from the app.
  * Optional edits can be made to the duplicated transaction.
  * Timestamp will be set to the current time if not specified.
  */
@@ -43,8 +43,8 @@ public class DuplicateTransactionCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TRANSACTION_SUCCESS = "New duplicated transaction added: %1$s";
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION =
-            "The updated transaction with the same timestamp already exists in the address book";
-    public static final String MESSAGE_UNKNOWN_PAYEE = "The payee must either be you or someone in the address book";
+            "The updated transaction with the same timestamp already exists in the app";
+    public static final String MESSAGE_UNKNOWN_PAYEE = "The payee must either be you or someone in the person list";
     public static final String MESSAGE_TRANSACTION_NOT_RELEVANT =
             "The duplicated transaction does not affect your balances";
 

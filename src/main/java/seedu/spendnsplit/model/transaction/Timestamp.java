@@ -12,7 +12,7 @@ import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
 
 /**
- * Represents a Transaction's timestamp in the address book.
+ * Represents a Transaction's timestamp.
  * Guarantees: immutable; is valid as declared in {@link #isValidTimestamp(String)}
  */
 public class Timestamp implements Comparable<Timestamp> {
