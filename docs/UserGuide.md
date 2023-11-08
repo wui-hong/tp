@@ -3,23 +3,14 @@ layout: page
 title: User Guide
 ---
 
-## Welcome to Spend n Split!
-
 ***Taking care of your finances has never been easier!***
 
-Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students
-that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between
-yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as
- well as the calculations of balances owed will be automatically handled by Spend n Split.
+Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend n Split.
 
-## Table of Contents
-1. [Glossary](#glossary)
-    1. [Person](#person)
-    2. [Transaction](#transaction)
-    3. [Fields](#fields)
-2. [Quick Start](#quick-start)
-3. [Features](#features)
-4. [FAQ](#faq)
+* Table of Contents
+{:toc}
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
 
@@ -97,19 +88,22 @@ The following fields are used for commands:
 
 | Field | Prefix | Format | Example |
 | --- | --- | --- | --- |
-| Index | - | Must be a positive integer | `1`, `2`, `3` |
-| Keyword | - | Must not contain the = sign | `Bob`, `Lunch` |
-| Name | n | Must be alphanumeric | `Bob`, `Alice` |
-| Phone number | p | Must be numeric and be at least 3 digits long | `99999999`, `88888888` |
-| Telegram handle | tg | Must start with @ and be followed by at least 5 alphanumeric symbols/ underscores | `@nus_cs2103` , `@spend_n_split` |
-| Email address | e | Must be a valid email address | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
-| Address | a | Must not contain the = sign | `Kent Ridge Hall`, `RC4` |
-| Description | d | Must not contain the = sign | `Lunch`, `Dinner @ UTown` |
-| Amount/ Cost | c | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces | `12`, `.5`, `1.25 / 1.56`, `12 000 000` |
-| Timestamp | ts | Dates must be in DD/MM/YYYY format and time must be in HH:SS format; can provide one or both; if both are provided, date should come first, separated from time by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
-| Weight | w | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces | `12`, `.5`, `1.25 / 1.56`, `12 000 000` |
-| Original command | o | One of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
-| Shorthand | s | Must only be made up of characters from the English alphabet | `s`, `aT` |
+| Index | - | Positive integers only | `1`, `2`, `3` |
+| Keyword | - | No `=` sign allowed | `Bob`, `Lunch` |
+| Name | n | Alphanumeric, can contain multiple words | `Bob`, `Alex Yeoh` |
+| Phone number | p | Numeric, minimum length of 3 digits | `99999999`, `88888888` |
+| Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores | `@nus_cs2103` , `@spend_n_split` |
+| Email address | e | Valid email format required | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address | a | No `=` sign allowed | `Kent Ridge Hall`, `RC4` |
+| Tag | t | Single-word, alphanumeric | `friend`, `colleague` |
+| Description | d | No `=` sign allowed | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost | c | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight | w | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | Use one of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
+| Shorthand | s | Single-word, English alphabet characters only | `s`, `aT` |
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Quick Start
 
@@ -137,7 +131,7 @@ The following fields are used for commands:
 6. Learn more about navigating the app in the [Navigating the App](#navigating-the-app) section below.
 7. Learn more about the commands in the [Features](#features) section below.
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## Navigating the App
 
@@ -154,9 +148,32 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 | **Person List**            | Shows a list of persons. <br/> The list can be filtered and sorted by the user.                                            |
 | **Person Card**            | Shows the details of a person. <br/> Details include name, balance, phone number, etc.                                     |
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the command format:**<br>
+
+- Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `addPerson n=NAME`, `NAME` is a parameter which can be used as `addPerson n=John Doe`.
+
+- Items in square brackets are optional.<br>
+  e.g `n=NAME [t=TAG]` can be used as `n=John Doe t=friend` or as `n=John Doe`.
+
+- Items with `…`​ after them can be used multiple times including zero times.<br>
+  e.g. `[t=TAG]…​` can be used as ` ` (i.e. 0 times), `t=friend`, `t=friend t=family` etc.
+
+- Parameters can be in any order.<br>
+  e.g. if the command specifies `n=NAME p=PHONE_NUMBER`, `p=PHONE_NUMBER n=NAME` is also acceptable.
+
+- Extraneous parameters for commands that do not take in parameters (such as `listPerson`, `listTransaction`, `help`, `clear`, `exit`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+</div>
 
 ### Person-related features
 
@@ -538,6 +555,8 @@ to save manually.
 
 Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## FAQ
 
 ### 1) Why do the portions in the log not add up exactly to the balance?
@@ -595,4 +614,3 @@ valid command word.
   ```
   The person index provided is invalid
   ```
-  
