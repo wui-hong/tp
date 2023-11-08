@@ -12,11 +12,16 @@ public class Address {
     public static final String MESSAGE_CONSTRAINTS =
             "Addresses should not be blank and should not contain the equal sign";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^=]*$";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+
+    /**
+     * Must not contain the equal sign anywhere in the address.
+     */
+    public static final String VALIDATION_REGEX_NO_EQUAL_SIGN = "^[^=]*$";
 
     public final String value;
 
@@ -35,7 +40,7 @@ public class Address {
      * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.matches(VALIDATION_REGEX_NO_EQUAL_SIGN);
     }
 
     @Override
