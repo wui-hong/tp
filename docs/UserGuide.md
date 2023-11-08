@@ -3,26 +3,14 @@ layout: page
 title: User Guide
 ---
 
-## Welcome to Spend n Split!
-
 ***Taking care of your finances has never been easier!***
 
-Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students 
-that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between 
-yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as
- well as the calculations of balances owed will be automatically handled by Spend n Split.
+Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend n Split.
 
-## Table of Contents
-1. [Glossary](#glossary)
-    1. [Person](#person)
-    2. [Transaction](#transaction)
-    3. [Fields](#fields)
-2. [Quick Start](#quick-start)
-3. [Features](#features)
-   1. [Person-related features](#person-related-features)
-   2. [Transaction-related features](#transaction-related-features)
-   3. [Other features](#other-features)
-4. [FAQ](#faq)
+* Table of Contents
+{:toc}
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
 
@@ -81,6 +69,8 @@ The following fields are used for commands:
 | Original command | o | Use one of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
 | Shorthand | s | English alphabet characters only | `s`, `aT` |
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -107,7 +97,7 @@ The following fields are used for commands:
 6. Learn more about navigating the app in the [Navigating the App](#navigating-the-app) section below.
 7. Learn more about the commands in the [Features](#features) section below.
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## Navigating the App
 
@@ -124,7 +114,7 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 | **Person List**            | Shows a list of persons. <br/> The list can be filtered and sorted by the user.                                            |
 | **Person Card**            | Shows the details of a person. <br/> Details include name, balance, phone number, etc.                                     |
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -279,7 +269,7 @@ The order of the fields is NOT flexible.
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
     * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
-* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
+* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary =w1`
     * Rent costed $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
 
 Sample execution:
@@ -460,7 +450,7 @@ Format: `settlePerson INDEX [ts=TIME]`
 
 Example:
 
-*  `settlePerson 1` settles the outstanding balance with the 1st person in the displayed list.
+*  `settlePerson 1` settles the outstanding balance with the 2nd person in the displayed list.
 
 Sample Execution:
 
@@ -529,6 +519,8 @@ to save manually.
 #### Editing the data file
 
 Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
