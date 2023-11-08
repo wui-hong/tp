@@ -100,7 +100,7 @@ public class CommandAliasMap {
             throw new CommandException(MESSAGE_UNKNOWN_COMMAND + " " + command);
         }
         if (FULL_COMMANDS.contains(alias)) {
-            throw new CommandException(MESSAGE_SHORTHAND_IS_COMMAND + " " + command);
+            throw new CommandException(String.format(MESSAGE_SHORTHAND_IS_COMMAND, alias));
         }
         if (aliasToCommand.containsKey(alias)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_ALIAS, alias, aliasToCommand.get(alias)));
