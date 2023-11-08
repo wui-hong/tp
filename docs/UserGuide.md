@@ -58,10 +58,10 @@ After a transaction, each payer in the list of portions owes the payee a fractio
 #### Relevant Transactions
 
 A transaction is only considered **relevant** if it involves you owing or being owed money
-by someone from your contacts list. For that, a transaction must:
-1. Include "Self" in at least the payee or payer: you must be involved in the transaction.
-2. Include at least one other person (not "Others") in at least the payee or payer:
-someone else in your contacts list must be involved in the transaction.
+by someone from your contacts list. In a relevant transaction:
+1. "Self" must be either the payee, a payer, or both: you must be involved in the transaction.
+2. Include at least one person stored in the app (not "Self" or "Others") as either
+the payee, a payer, or both: someone else in your contacts list must be involved in the transaction.
 
 If these conditions are not met, it means that the transaction does not affect your balance
 with anyone on your contract list, and hence is considered **irrelevant**.
