@@ -567,64 +567,211 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
-### Launch and shutdown
+### Launch
 
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file 
+      * Expected output: Shows the GUI with a set of sample contacts and transactions. The window size may not be optimum.
 
-1. Saving window preferences
+### Adding a Person
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+`addPerson n=John Doe p=98765432 tg=@asdad123 e=johnd@example.com a=Sentosa Cove t=friends t=owesMoney`
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+Expected Output in the Person List Panel: New person is added into the list.
 
-1. _{ more test cases …​ }_
+Expected Output in the Command Output Panel: New person added message is shown along with the person's details.
 
-### Deleting a person
+`addPerson`
 
-1. Deleting a person while all persons are being shown
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+### Deleting a Person
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+Prerequisite: There is at least 1 person in the Person List Panel.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+`deletePerson 1`
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+Expected Output in the Person List Panel: The first person in the list is deleted.
 
-1. _{ more test cases …​ }_
+Expected Output in the Command Output Panel: Deleted person message is shown along with the person's details.
 
-### Deleting a transaction
+`deletePerson 0`
 
-1. Deleting a transaction while all transactions are being shown
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+### Editing a Person's details
 
-    1. Prerequisites: There already exist some transactions in the application.
+Prerequisite: There is at least 1 person in the Person List Panel.
 
-    1. Test case: `deleteTransaction 1`<br>
-       Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+`editPerson 1 n=Ryan`
 
-    1. Test case: `delete 0`<br>
-       Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+Expected Output in the Person List Panel: The first person in the list has their name changed to "Ryan", and retains
+ the rest of their details.
 
-    1. Other incorrect delete commands to try: `deleteTransaction`, `deleteTransaction x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+Expected Output in the Command Output Panel: Edit person message is shown along with the person's details.
 
-1. _{ more test cases …​ }_
+`editPerson 0`
 
-### Saving data
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
 
-1. Dealing with missing/corrupted data files
+### Listing multiple people with matching names
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+Prerequisite: There is only 1 person stored in Spend N Split. Their name is
+ "Roy Tan".
 
-1. _{ more test cases …​ }_
+`listPerson Roy`
+
+Expected Output in the Person List Panel: The person Roy Tan is displayed.
+
+Expected Output in the Command Output Panel: List person message is shown and states "1 person(s) listed".
+
+`listPerson Tan`
+
+Expected Output in the Person List Panel: Nothing is displayed.
+
+Expected Output in the Command Output Panel: List person message is shown and states "0 person(s) listed".
+
+### Settling an outstanding balance with a Person
+
+Prerequisite: There is only 1 person stored in Spend N Split. Their name is "Alex" and their balance shown is +20.00.
+
+`settlePerson 1`
+
+Expected Output in the Transaction List Panel: A new transaction is created that is named "Settle balance with Alex".
+
+Expected Outp t in the Person List Panel: The balance of Alex is now "0.00"
+
+Expected Output in the Command Output Panel: Balance settled message is shown along with the name of Alex.
+
+### Sorting people by their balances
+
+Prerequisite: There are a few people stored in Spend N Split with varying balances.
+
+`sortPerson +`
+
+Expected Output in the Person List Panel: The people displayed are sorted in descending order of balance.
+
+Expected Output in the Command Output Panel: A message stating that the Person list is sorted in descending order of 
+balance is shown.
+
+`sortPerson -`
+
+Expected Output in the Person List Panel: The people displayed are sorted in ascending order of balance.
+
+Expected Output in the Command Output Panel: A message stating that the Person list is sorted in ascending order of
+balance is shown.
+
+### Adding a transaction
+
+Prerequisite: There is only 1 person stored in Spend N Split. Their name is "Roy".
+
+`addTransaction d=bread n=Alex Yeoh c=25.00 n=Self w=1 n=Alex Yeoh w=1`
+
+Expected Output in the Transaction List Panel: New transaction is added into the list.
+
+Expected Output in the Command Output Panel: New transaction added message is shown along with the transaction's details.
+
+
+### Deleting a Transaction
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+
+`deleteTransaction 1`
+
+Expected Output in the Transaction List Panel: The first transaction in the list is deleted.
+
+Expected Output in the Command Output Panel: Delete transaction message is shown along with the transaction's details.
+
+`deleteTransaction 0`
+
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+### Editing a Transaction's details
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+
+`editTransaction 1 c=20`
+
+Expected Output in the Transaction List Panel: The first transaction in the list has their cost changed to 20.00, and retains
+the rest of their details.
+
+Expected Output in the Command Output Panel: Edit transaction message is shown along with the transaction's details.
+
+`editTransaction 0`
+
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+
+### Listing multiple transactions with matching payers and payees.
+
+Prerequisite: There is only 1 transaction stored in Spend N Split. The payer is "Roy".
+
+`listTransaction Roy`
+
+Expected Output in the Transaction List Panel: The transaction is displayed.
+
+Expected Output in the Command Output Panel: List transaction message is shown and states "1 transaction(s) listed".
+
+`listTransaction Tan`
+
+Expected Output in the Transaction List Panel: Nothing is displayed.
+
+Expected Output in the Command Output Panel: List transaction message is shown and states "0 transaction(s) listed".
+
+### Duplicating a Transaction
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+
+`duplicateTransaction 1 c=20`
+
+Expected Output in the Transaction List Panel: A new transaction is created with identical details to the transaction
+ at index 1, with the only difference being that the new transaction's cost is 20.00.
+
+Expected Output in the Command Output Panel: Duplicate transaction message is shown along with the transaction's details.
+
+`duplicateTransaction 0`
+
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+
+### Updating a Portion of a Transaction
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+
+`updatePortion 1 n=David w=0.5`
+
+Expected Output in the Transaction List Panel: A new payer (David) is added to the transaction at index 1. David's 
+subtotal will be half of the cost of the transaction.
+
+Expected Output in the Command Output Panel: Update portion message is shown along with the transaction's details.
+
+### Setting a Shorthand command
+
+`setShorthand o=addTransaction s=ad`
+
+Expected Output in the Command Output Panel: A message stating that a shorthand has been set for the command
+with the shorthand specified by the user.
+
+### Clearing the application data
+
+`clear`
+
+Expected Output in the Transaction List Panel: Nothing is displayed.
+
+Expected Output in the Person List Panel: Nothing is displayed.
+
+Expected Output in the Command Output Panel: A message stating that app data has been cleared is shown.
+
+### Help
+
+`help`
+
+Expected Output: A window shows up and provides the link to the User Guide.
+
+### Exit
+
+`exit`
+
+Expected Output: The Spend N Split application closes.
 
 --------------------------------------------------------------------------------------------------------------------
 
