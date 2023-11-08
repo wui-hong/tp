@@ -165,7 +165,7 @@ Examples:
 * `editPerson 2 n=Betsy Crower t=`
     * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-  ![editPerson_success](images\user-guide\editPerson.PNG)
+  ![editPerson_success](images/user-guide/editPerson.PNG)
 
 #### Deleting a person : `deletePerson`
 
@@ -185,7 +185,7 @@ Examples:
 * `list` followed by `deletePerson 2` deletes the 2nd person in the spendnsplit book.
 * `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
-![](images\user-guide\deletePerson.PNG)
+![deletePerson_success](images/user-guide/deletePerson.PNG)
 
 #### Locating persons by name: `listPerson`
 
