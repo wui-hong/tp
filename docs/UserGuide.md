@@ -55,6 +55,40 @@ Note: There are 2 special names when adding transactions - "Self" and "Others". 
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
 
+#### Relevant Transactions
+
+A transaction is only considered **relevant** if it involves you owing or being owed money
+by someone from your contacts list. For that, a transaction must:
+1. Include "Self" in at least the payee or payer: you must be involved in the transaction.
+2. Include at least one other person (not "Others") in at least the payee or payer:
+someone else in your contacts list must be involved in the transaction.
+
+If these conditions are not met, it means that the transaction does not affect your balance
+with anyone on your contract list, and hence is considered **irrelevant**.
+
+Examples of relevant transactions:
+- You are the payee for dinner. The payers are you, Alice and Bob.
+- Bob pays for transport. You and Alice are riders, and hence are the payers.
+
+In both these cases, you were involved as the payee or payer of the transaction,
+and so was another person in your contacts.
+
+Examples of irrelevant transactions:
+- Bob was the payee for dinner. The payers are Alice and Bob. You are not involved
+and hence, this transaction is irrelevant.
+- You pay for transport for Zack. Zack is the only payer. Zack was then deleted
+contacts list afterwards, resulting in him being considered as "Others" in the transaction.
+This transaction becomes irrelevant and is automatically deleted from the transactions
+list when Zack is deleted.
+
+Note:
+- If you delete payers such that no one else from your contacts are involved in the
+transaction, **SnS will block this**. You are advised to delete the transaction if
+it no longer concerns you or anyone from your contacts list.
+- If you delete a person, some transactions may be considered irrelevant as highlighted
+in the second example of an irrelevant transaction. **SnS will automatically delete
+these irrelevant transactions**.
+
 ### Fields
 
 Inputs to fields should not contain the "=" sign.
