@@ -27,7 +27,6 @@ import seedu.spendnsplit.logic.commands.ClearCommand;
 import seedu.spendnsplit.logic.commands.DeletePersonCommand;
 import seedu.spendnsplit.logic.commands.DeleteTransactionCommand;
 import seedu.spendnsplit.logic.commands.EditPersonCommand;
-import seedu.spendnsplit.logic.commands.EditPersonCommand.EditPersonDescriptor;
 import seedu.spendnsplit.logic.commands.EditTransactionCommand;
 import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.spendnsplit.logic.commands.ExitCommand;
@@ -38,6 +37,7 @@ import seedu.spendnsplit.logic.commands.SetShorthandCommand;
 import seedu.spendnsplit.logic.commands.SortPersonCommand;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
+import seedu.spendnsplit.logic.descriptors.PersonDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.person.NameContainsKeywordsPredicate;
@@ -45,9 +45,9 @@ import seedu.spendnsplit.model.person.Person;
 import seedu.spendnsplit.model.transaction.Transaction;
 import seedu.spendnsplit.model.transaction.TransactionContainsKeywordsAndPersonNamesPredicate;
 import seedu.spendnsplit.model.transaction.portion.Portion;
-import seedu.spendnsplit.testutil.EditPersonDescriptorBuilder;
 import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
 import seedu.spendnsplit.testutil.PersonBuilder;
+import seedu.spendnsplit.testutil.PersonDescriptorBuilder;
 import seedu.spendnsplit.testutil.PersonUtil;
 import seedu.spendnsplit.testutil.PortionBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
@@ -82,10 +82,10 @@ public class SpendNSplitParserTest {
     @Test
     public void parseCommand_editPerson() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        PersonDescriptor descriptor = new PersonDescriptorBuilder(person).build();
         EditPersonCommand command = (EditPersonCommand) parser.parseCommand(EditPersonCommand.COMMAND_WORD + " "
             + INDEX_FIRST_ELEMENT.getOneBased() + " "
-            + PersonUtil.getEditPersonDescriptorDetails(descriptor), new CommandAliasMap());
+            + PersonUtil.getPersonDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new EditPersonCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
