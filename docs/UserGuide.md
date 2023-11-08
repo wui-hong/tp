@@ -56,7 +56,7 @@ The following fields are used for commands:
 | --- | --- | --- | --- |
 | Index | - | Positive integers only | `1`, `2`, `3` |
 | Keyword | - | No `=` sign allowed | `Bob`, `Lunch` |
-| Name | n | Alphanumeric characters only | `Bob`, `Alice` |
+| Name | n | Alphanumeric, can contain multiple words | `Bob`, `Alex Yeoh` |
 | Phone number | p | Numeric, minimum length of 3 digits | `99999999`, `88888888` |
 | Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores | `@nus_cs2103` , `@spend_n_split` |
 | Email address | e | Valid email format required | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
