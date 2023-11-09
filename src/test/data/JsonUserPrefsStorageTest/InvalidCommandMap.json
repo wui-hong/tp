@@ -1,0 +1,10 @@
+{
+  "spendNSplitBookFilePath" : "spendnsplitbook.json",
+  "commandMap" : {
+    "aliasToCommand" : {
+      "" : "",
+      "setShorthand" : "setShorthand",
+      "a" : "b"
+    }
+  }
+}

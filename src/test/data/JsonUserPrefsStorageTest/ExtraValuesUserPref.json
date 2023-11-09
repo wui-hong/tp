@@ -1,4 +1,7 @@
 {
-  "addressBookFilePath" : "addressbook.json",
-  "extra" : "extra"
+  "spendNSplitBookFilePath" : "spendnsplitbook.json",
+  "extra" : "extra",
+  "commandMap" : {
+    "aliasToCommand" : { }
+  }
 }

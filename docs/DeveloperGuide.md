@@ -18,7 +18,7 @@ We would like to acknowledge the following libraries for use in Spend n Split:
 * **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend n Split.
 
 * **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
-* 
+
 * **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend n Split.
 
 * **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The font used in Spend n Split.
@@ -467,7 +467,7 @@ Preconditions: Transaction exists in the transaction list.
 1. User requests to view the transaction list.
 2. Spend n Split shows a list of transaction.
 3. User requests to edit a transaction.
-4. Spend n Split informs the user that the transaction has been edited. 
+4. Spend n Split informs the user that the transaction has been edited.
 5. Spend n Split shows the updated transaction list.
 
 Use case ends.
@@ -489,8 +489,8 @@ Preconditions: Person exists in the contact list.
 
 **MSS**
 
-1. User requests to settle with a person. 
-2. Spend n Split informs the user that all the outstanding balance with the person have been settled. 
+1. User requests to settle with a person.
+2. Spend n Split informs the user that all the outstanding balance with the person have been settled.
 3. Spend n Split shows the list of contacts.
 
 Use case ends.
@@ -626,12 +626,30 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+--------------------------------------------------------------------------------------------------------------------
 
+## **Appendix: Planned Enhancements**
 
+### Stronger List Command Input Validation
 
+- **Background**: Currently, the `Name` of our `Person` is currently validated.
+For example, it cannot contain symbols and cannot begin with a whitespace.
+However, the `listPerson` validation on input arguments is insufficient.
 
+- **Issue**: Executing `listPerson $$$` shows "0 person(s) listed" with no error.
+This is not the right behaviour as `$$$` will never be included in a `Name`, and an
+error message should be shown instead.
 
+- **Enhancement**: We plan on ensuring `listPerson` performs stronger validation on
+its input, invalidating any arguments cannot exist in a `Name`. For instance, each
+command argument in `listPerson` should be validated to be alphanumeric. Similarly,
+`listTransaction` should also validate the arguments in a similar fashion. Should
+the input arguments fail validation, we plan to show an error message as shown below.
 
+Sample Execution:
+```
+$ listPerson $$$
 
-
-
+Names in should only contain alphanumeric characters
+Example: listPerson Alex David
+```

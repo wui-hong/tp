@@ -3,23 +3,14 @@ layout: page
 title: User Guide
 ---
 
-## Welcome to Spend n Split!
-
 ***Taking care of your finances has never been easier!***
 
-Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students 
-that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between 
-yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as
- well as the calculations of balances owed will be automatically handled by Spend n Split.
+Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend n Split.
 
-## Table of Contents
-1. [Glossary](#glossary)
-    1. [Person](#person)
-    2. [Transaction](#transaction)
-    3. [Fields](#fields)
-2. [Quick Start](#quick-start)
-3. [Features](#features)
-4. [FAQ](#faq)
+* Table of Contents
+{:toc}
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
 
@@ -55,26 +46,64 @@ Note: There are 2 special names when adding transactions - "Self" and "Others". 
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
 
+#### Relevant Transactions
+
+A transaction is only considered **relevant** if it involves you owing or being owed money
+by someone from your contacts list. In a relevant transaction:
+1. "Self" must be either the payee, a payer, or both: you must be involved in the transaction.
+2. Include at least one person stored in the app (not "Self" or "Others") as either
+the payee, a payer, or both: someone else in your contacts list must be involved in the transaction.
+
+If these conditions are not met, it means that the transaction does not affect your balance
+with anyone on your contract list, and hence is considered **irrelevant**.
+
+Examples of relevant transactions:
+- You are the payee for dinner. The payers are you, Alice and Bob.
+- Bob pays for transport. You and Alice are riders, and hence are the payers.
+
+In both these cases, you were involved as the payee or payer of the transaction,
+and so was another person in your contacts.
+
+Examples of irrelevant transactions:
+- Bob was the payee for dinner. The payers are Alice and Bob. You are not involved
+and hence, this transaction is irrelevant.
+- You pay for transport for Zack. Zack is the only payer. Zack was then deleted
+contacts list afterwards, resulting in him being considered as "Others" in the transaction.
+This transaction becomes irrelevant and is automatically deleted from the transactions
+list when Zack is deleted.
+
+Note:
+- If you delete payers such that no one else from your contacts are involved in the
+transaction, **SnS will block this**. You are advised to delete the transaction if
+it no longer concerns you or anyone from your contacts list.
+- If you delete a person, some transactions may be considered irrelevant as highlighted
+in the second example of an irrelevant transaction. **SnS will automatically delete
+these irrelevant transactions**.
+
 ### Fields
 
 Inputs to fields should not contain the "=" sign.
 
 The following fields are used for commands:
-| Field | Prefix | Format |
-| --- | --- | --- |
-| Index | - | Must be a positive integer |
-| Keyword | - | Must not contain the = sign |
-| Name | n | Must be alphanumeric |
-| Phone number | p | Must be numeric and be at least 3 digits long |
-| Telegram handle | tg | Must start with @ and be followed by at least 5 alphanumeric symbols/ underscores |
-| Email address | e | Must be a valid email address |
-| Address | a | Must not contain the = sign |
-| Description | d | Must not contain the = sign |
-| Amount/ Cost | c | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
-| Timestamp | ts | Dates must be in DD/MM/YYYY format and time must be in HH:SS format; can provide one or both; if both are provided, date should come first, separated from time by a space |
-| Weight | w | Must be a rational number (i.e. can be a decimal number or a decimal number divided by another decimal number, represented by a slash); must be positive; can contain spaces |
-| Original command | o | One of the original command keywords listed in this user guide |
-| Shorthand | s | Must only be made up of characters from the English alphabet | 
+
+| Field | Prefix | Format | Example |
+| --- | --- | --- | --- |
+| Index | - | Positive integers only | `1`, `2`, `3` |
+| Keyword | - | No `=` sign allowed | `Bob`, `Lunch` |
+| Name | n | Alphanumeric, can contain multiple words | `Bob`, `Alex Yeoh` |
+| Phone number | p | Numeric, minimum length of 3 digits | `99999999`, `88888888` |
+| Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores | `@nus_cs2103` , `@spend_n_split` |
+| Email address | e | Valid email format required | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address | a | No `=` sign allowed | `Kent Ridge Hall`, `RC4` |
+| Tag | t | Single-word, alphanumeric | `friend`, `colleague` |
+| Description | d | No `=` sign allowed | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost | c | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight | w | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | Use one of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
+| Shorthand | s | Single-word, English alphabet characters only | `s`, `aT` |
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Quick Start
 
@@ -102,7 +131,7 @@ The following fields are used for commands:
 6. Learn more about navigating the app in the [Navigating the App](#navigating-the-app) section below.
 7. Learn more about the commands in the [Features](#features) section below.
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## Navigating the App
 
@@ -119,15 +148,38 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 | **Person List**            | Shows a list of persons. <br/> The list can be filtered and sorted by the user.                                            |
 | **Person Card**            | Shows the details of a person. <br/> Details include name, balance, phone number, etc.                                     |
 
----
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the command format:**<br>
+
+- Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `addPerson n=NAME`, `NAME` is a parameter which can be used as `addPerson n=John Doe`.
+
+- Items in square brackets are optional.<br>
+  e.g `n=NAME [t=TAG]` can be used as `n=John Doe t=friend` or as `n=John Doe`.
+
+- Items with `…`​ after them can be used multiple times including zero times.<br>
+  e.g. `[t=TAG]…​` can be used as ` ` (i.e. 0 times), `t=friend`, `t=friend t=family` etc.
+
+- Parameters can be in any order.<br>
+  e.g. if the command specifies `n=NAME p=PHONE_NUMBER`, `p=PHONE_NUMBER n=NAME` is also acceptable.
+
+- Extraneous parameters for commands that do not take in parameters (such as `listPerson`, `listTransaction`, `help`, `clear`, `exit`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+</div>
 
 ### Person-related features
 
 #### Adding a person: `addPerson`
 
-Adds a person to the address book.
+Adds a person to the spendnsplit book.
 
 Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -142,7 +194,7 @@ Note: Contact details are optional to add. They can also be added later using th
 
 #### Editing a person : `editPerson`
 
-Edits an existing person in the address book.
+Edits an existing person in the spendnsplit book.
 
 Format: `editPerson INDEX [n=NAME] [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -164,24 +216,27 @@ Examples:
 * `editPerson 2 n=Betsy Crower t=`
     * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-  ![editPerson_success](images\user-guide\editPerson.PNG)
+  ![editPerson_success](images/user-guide/editPerson.PNG)
 
 #### Deleting a person : `deletePerson`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the spendnsplit book.
 
 Format: `deletePerson INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* Transactions involving the deleted person will have the deleted person's name changed to "Others". In the event that
+ this results in the transaction becoming irrelevant, the transaction will be automatically deleted. All transactions involving
+ the deleted person as a payee will also be automatically deleted. 
 
 Examples:
 
-* `list` followed by `deletePerson 2` deletes the 2nd person in the address book.
+* `list` followed by `deletePerson 2` deletes the 2nd person in the spendnsplit book.
 * `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
-![](images\user-guide\deletePerson.PNG)
+![deletePerson_success](images/user-guide/deletePerson.PNG)
 
 #### Locating persons by name: `listPerson`
 
@@ -205,7 +260,7 @@ Examples:
 
 #### Sorting people by balance: `sortPerson`
 
-Sorts the list of people in your address book based on their outstanding balances in either ascending or descending
+Sorts the list of people in your spendnsplit book based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
@@ -216,22 +271,14 @@ Parameters:
 
 Examples:
 * `sortPerson -`
-    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed 
+    * This command will rearrange the list to show the person with the lowest outstanding balance at the top, followed
         by others in increasing order of their outstanding balances.
 * `sortPerson +`
-    * This command will rearrange the list to show the person with the highest outstanding balance at the top, 
+    * This command will rearrange the list to show the person with the highest outstanding balance at the top,
         followed by others in decreasing order of their outstanding balances.
 
-Sample execution:
 
-```
-$ sortPerson +
-All contacts balance in descending order. Negative balance means you own them money.
-1. John, +40.00
-2. Mary, +40.00
-3. Alice, +20.00
-```
-![sortPerson success](images/user-guide/sortPerson1.png)
+![sortPerson success](images/user-guide/sortPerson.png)
 
 ### Transaction-related features
 
@@ -245,6 +292,7 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - Cost and weights have to be decimal numbers or fractions, and they must be positive.
 - The first name refers to the payee (that is the person whom everyone else now owes).
 - If the timestamp is not provided, the default time is the current system time.
+- If only the date is given, the default time is set as 00:00.
 - If you want to create a weight for yourself, include `n=Self` to refer to yourself.
 - At least one pair of name and weight must be provided.
 - The cost for each person is calculated as follows:
@@ -269,8 +317,9 @@ $ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
 ```
 $ addTransaction c=200 d=Textbooks
 
-Invalid command format! 
-addTransaction: Adds a transaction to the address book. 
+
+Invalid command format!
+addTransaction: Adds a transaction to the spendnsplit book.
 Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
 ```
 
@@ -289,6 +338,9 @@ Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 
 The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (editTransaction) and the index must be in front.
 
+If no timestamp is given, the default timestamp is the current system time.
+If only the date is given, the default time is set as 00:00.
+
 Examples:
 
 * `editTransaction 1 c=12.12`
@@ -299,7 +351,7 @@ Examples:
 
 Sample Execution:
 
-``` 
+```
 editTransaction 1 n=Bob c=12.12
 ```
 
@@ -317,6 +369,7 @@ to pay for, which is determined by the `WEIGHT` of the person. Hence the `WEIGHT
 Format: `updatePortion INDEX n=NAME w=WEIGHT`
 
 The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. weight can come before name) but the command word (editTransaction) and the index must be in front.
+
 Examples:
 
 * To add a new person (e.g. Alice) to the transaction:
@@ -363,7 +416,8 @@ Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Am
 
 #### Duplicating a Transaction: `duplicateTransaction`
 
-Duplicates the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
+Duplicates the transaction at the specified `INDEX`. The duplicated transaction's timestamp will be the time at which
+this command is executed. The index refers to the index number when viewing the TransactionList.
 The index **must be a positive integer** 1, 2, 3, ...
 
 Transaction details that can be changed when duplicating:
@@ -379,7 +433,13 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. d
 Examples:
 
 * `duplicateTransaction 1 c=12.12`
+  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel, 
+  except for the timestamp of the new transaction being the time at which this command was executed 
+  and the cost bring 12.12 instead.
 * `duplicateTransaction 2 d=Potato n=Bob`
+  * Creates a new transaction that is identical to the current transaction at index two in the Transaction panel,
+    except for the timestamp of the new transaction being the time at which this command was executed, the 
+    description of the new transaction being "Potato" and the payee of the new transaction being Bob.
 
 #### Listing transactions: `listTransaction`
 
@@ -417,8 +477,9 @@ $ listTransaction n=Alice Pauline n=Carl Kurz
 
 ### Settling transactions: `settlePerson`
 
-Settles the outstanding balance with a given person based on transactions that occur before the given time.
-If no timestamp is input, the default timestamp is the current system time.
+Settles the outstanding balance with a given person based on transactions that occur before or at the given timestamp.
+If no timestamp is given, the default timestamp is the current system time.
+If only the date is given, the default time is set as 23:59.
 
 Format: `settlePerson INDEX [ts=TIME]`
 
@@ -429,15 +490,15 @@ Example:
 Sample Execution:
 
 ```
-$ settlePerson 
+$ settlePerson
 
-Invalid command format! 
+Invalid command format!
 settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
 Example: settlePerson 1
 
 $ settlePerson 1
 
-Balance settled: Alex Yeoh 
+Balance settled: Alex Yeoh
 ```
 
 ![settle error](images/user-guide/settle1.jpeg)
@@ -452,7 +513,7 @@ Sets a shorthand for the original command. In the future, this shorthand can be 
 
 Format: `setShorthand o=[ORIGINAL_COMMAND] s=[SHORTHAND]`
 
-Note: The order of the fields is flexible (e.g. sharthand can come before the original command) but the command word (setShorthand) must be in front.
+Note: The order of the fields is flexible (e.g. shorthand can come before the original command) but the command word (setShorthand) must be in front.
 
 Commands and shorthands are case-sensitive.
 
@@ -464,7 +525,7 @@ Format: `help`
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the spendnsplit book.
 
 Format: `clear`
 
@@ -477,10 +538,13 @@ Exits the program.
 Format: `exit`
 
 #### Navigating the app using only the keyboard
+You can use the following shortcuts to navigate our application:
+- Selecting Result Display: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>UP ARROW KEY</kbd>
+- Selecting Persons List: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>LEFT ARROW KEY</kbd>
+- Selecting Transactions List: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>RIGHT ARROW KEY</kbd>
+- Selecting Command Box: [<kbd>ALT</kbd> (Windows/Linux) / <kbd>OPTION</kbd> (Mac)] + <kbd>DOWN ARROW KEY</kbd>
 
-Use <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the persons list and <kbd>SHIFT</kbd> + <kbd>LEFT ARROW KEY</kbd> to select the transactions list. You can use the up and down arrows to navigate the lists after that.
-
-Use <kbd>TAB</kbd> to select the command bar.
+For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
 #### Saving the data
 
@@ -489,43 +553,47 @@ to save manually.
 
 #### Editing the data file
 
-Data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. The data is human-readble. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
+Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 ### 1) Why do the portions in the log not add up exactly to the balance?
 
 The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences
-between the actual portions and what is displayed.
+between the actual portions and what is displayed. Values are rounded to 2 decimal places (i.e. 0.149 will be rounded down to 0.14, 
+and 0.145 will be rounded up to 0.15). The positive and negative signs will still be kept (i.e. -0.0000001 will be rounded
+down to -0.00, and -1.015 will be rounded up to -1.02).
 
 Example:
 
 ```
 If these are the logs stored:
-A:      0.122
-B:      0.223
-Total:  0.345
+A:      0.122345
+B:      0.223231
+Total:  0.345123
 
-This is displayed instead when the app is set to show 2 decimal places:
+This is displayed instead in the application due to rounding off to 2 decimal places:
 A:      0.12
 B:      0.22
 Total:  0.35
 ```
 ### 2) What happens when I enter an invalid command?
 
-When an invalid command is input, an error message will be reflected at the 
+When an invalid command is input, an error message will be reflected at the
 output panel at the top of Spend n Split. The error message will vary depending on the type of error.
 
-* Invalid command format. This occurs when the command word 
-is recognised but there are missing fields or the values provided in the fields are 
-not supported. 
+* Invalid command format. This occurs when the command word
+is recognised but there are missing fields or the values provided in the fields are
+not supported.
 The error message reflected
-will state `Invalid command format!`, 
-before giving details on the command and 
+will state `Invalid command format!`,
+before giving details on the command and
 the fields required, along with an example of a correct command
 input with the fields required.
     * Example: `settlePerson -1`
-      * Error message: 
+      * Error message:
     ```
     Invalid command format!
     settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
@@ -539,11 +607,10 @@ The error message reflected will state `Unknown command`.
   Unknown command
   ```
 * Invalid command fields. This occurs when the invalid fields are provided
-for the valid command word. The error message reflected is dependent on the 
+for the valid command word. The error message reflected is dependent on the
 valid command word.
   * Example: `settlePerson 6` when there are only 5 people in the Persons List.
     * Error message:
   ```
   The person index provided is invalid
   ```
-  
