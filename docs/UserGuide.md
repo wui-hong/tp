@@ -171,6 +171,8 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 - Extraneous parameters for commands that do not take in parameters (such as `listPerson`, `listTransaction`, `help`, `clear`, `exit`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+- Commands are case-sensitive. `addPerson` is a valid command, while `ADDPERSON` or `addperson` are not.
+
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 </div>
