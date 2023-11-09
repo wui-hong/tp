@@ -665,7 +665,7 @@ balance is shown.
 
 ### Adding a transaction
 
-Prerequisite: There is only 1 person stored in Spend N Split. Their name is "Roy".
+Prerequisite: There is only 1 person stored in Spend N Split. Their name is "Alex Yeoh".
 
 `addTransaction d=bread n=Alex Yeoh c=25.00 n=Self w=1 n=Alex Yeoh w=1`
 
