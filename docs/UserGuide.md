@@ -307,9 +307,6 @@ The order of the fields is NOT flexible.
 
 
 {% include note.html content="This is my note. All the content I type here is treated as a single paragraph." %}
-{% include tip.html content="This is my tip. All the content I type here is treated as a single paragraph." %}
-{% include warning.html content="This is my warning. All the content I type here is treated as a single paragraph." %}
-{% include important.html content="This is my important. All the content I type here is treated as a single paragraph." %}
 
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
