@@ -295,6 +295,7 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - If only the date is given, the default time is set as 00:00.
 - If you want to create a weight for yourself, include `n=Self` to refer to yourself.
 - At least one pair of name and weight must be provided.
+- Payer names should not repeat; however, you are allowed to key in multiple portions for "Others" - the final weight for "Others" will be the sum of all the weights of the "Others" portions keyed in.
 - The cost for each person is calculated as follows:
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
