@@ -305,6 +305,9 @@ The order of the fields is NOT flexible.
 > Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
 {: .block-tip }
 
+
+{% include note.html content="This is my note. All the content I type here is treated as a single paragraph." %}
+
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
     * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
