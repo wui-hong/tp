@@ -300,13 +300,13 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 
 The order of the fields is NOT flexible.
 
-> ##### NOTE
->
-> Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
-{: .block-tip }
+<div markdown="block" class="alert alert-info">
 
+**:information_source: Note:**<br>
 
-{% include note.html content="This is my note. All the content I type here is treated as a single paragraph." %}
+Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+
+</div>
 
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
@@ -352,10 +352,14 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. c
 * If no timestamp is given, the default timestamp is the current system time.
 * If only the date is given, the default time is set as 00:00.
 
-> ##### NOTE
->
-> Transactions after the edit must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
-{: .block-tip }
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Note:**<br>
+
+After editing, the transaction must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+
+</div>
+
 
 Examples:
 
