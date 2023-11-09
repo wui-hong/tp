@@ -653,3 +653,22 @@ $ listPerson $$$
 Names in should only contain alphanumeric characters
 Example: listPerson Alex David
 ```
+
+### Improved Space Sensitivity in Names
+
+- **Background**: Currently, the `Name` of our `Person` is currently able to trim
+leading and trailing spaces, allowing us to treat `Alex Yeoh` and `&nbsp;&nbsp;Alex Yeoh&nbsp;&nbsp;`
+as the same `Name`. However, the `Name` is sensitive to spaces in between. This results
+in `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh` being treated as different names.
+
+- **Issue**: Suppose a `Person` named `Alex Yeoh` exists in our application
+  (and no one is named `Alex&nbsp;&nbsp;&nbsp;Yeoh` with the additional spaces in between).
+Executing `addTransaction d= n=Alex&nbsp;&nbsp;&nbsp;Yeoh ...` will show an error of
+"This transaction involves unknown parties; please set them to 'Others'" even if all
+other names correctly refer to people in the application. This is not the right behaviour
+as our application should be able to detect that `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh`
+are equivalent.
+
+- **Enhancement**: We plan on ensuring that our application collapses multiple spaces
+between individual names such that names like `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh`
+can be considered to refer to the same `Name`.
