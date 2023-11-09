@@ -300,6 +300,11 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 
 The order of the fields is NOT flexible.
 
+> ##### NOTE
+> 
+> Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+{: .block-tip }
+
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
     * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
@@ -325,8 +330,7 @@ Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransactio
 
 #### Editing a Transaction: `editTransaction`
 
-Edits the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
-The index **must be a positive integer** 1, 2, 3, ...
+Edits the transaction at the specified `INDEX`.
 
 Transaction details that can be edited:
 
@@ -336,10 +340,19 @@ Transaction details that can be edited:
 
 Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 
-The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (editTransaction) and the index must be in front.
+The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. cost can come before details) but the command word (editTransaction) and the index must be in front.
 
-If no timestamp is given, the default timestamp is the current system time.
-If only the date is given, the default time is set as 00:00.
+* Edits the transaction at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list.
+  The index **must be a positive integer** 1, 2, 3, …
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* If no timestamp is given, the default timestamp is the current system time.
+* If only the date is given, the default time is set as 00:00.
+
+> ##### NOTE
+>
+> Transactions after the edit must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details. 
+{: .block-tip }
 
 Examples:
 
