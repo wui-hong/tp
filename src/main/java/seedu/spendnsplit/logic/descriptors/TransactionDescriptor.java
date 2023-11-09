@@ -14,7 +14,7 @@ import seedu.spendnsplit.model.transaction.Timestamp;
  * Stores the details to edit the transaction with. Each non-empty field value will replace the
  * corresponding field value of the transaction.
  * Note that "cost" is represented by {@code Amount} named {@code amount} in the model.
- * TransactionDescriptor does not edit and store portions.
+ * TransactionDescriptor do not store portions.
  */
 public class TransactionDescriptor {
     private Amount amount;

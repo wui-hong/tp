@@ -39,7 +39,7 @@ public class DuplicateTransactionCommandParser implements Parser<DuplicateTransa
         }
 
         TransactionDescriptor duplicateTransactionDescriptor =
-            EditTransactionCommandParser.getEditTransactionDescriptor(argMultimap);
+            EditTransactionCommandParser.getTransactionDescriptor(argMultimap);
 
         // Set timestamp to current time if not specified
         if (duplicateTransactionDescriptor.getTimestamp().isEmpty()) {

@@ -11,8 +11,8 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_ORIGINAL_COMMAND;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_SHORTHAND;
 import static seedu.spendnsplit.testutil.Assert.assertThrows;
-import static seedu.spendnsplit.testutil.PortionUtil.getUpdatePortionDescriptorDetails;
-import static seedu.spendnsplit.testutil.TransactionUtil.getEditTransactionDescriptorDetails;
+import static seedu.spendnsplit.testutil.PortionUtil.getPortionDescriptorDetails;
+import static seedu.spendnsplit.testutil.TransactionUtil.getTransactionDescriptorDetails;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import java.util.Arrays;
@@ -35,8 +35,8 @@ import seedu.spendnsplit.logic.commands.ListTransactionCommand;
 import seedu.spendnsplit.logic.commands.SetShorthandCommand;
 import seedu.spendnsplit.logic.commands.SortPersonCommand;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand;
-import seedu.spendnsplit.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
 import seedu.spendnsplit.logic.descriptors.PersonDescriptor;
+import seedu.spendnsplit.logic.descriptors.PortionDescriptor;
 import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.person.Name;
@@ -49,9 +49,9 @@ import seedu.spendnsplit.testutil.PersonBuilder;
 import seedu.spendnsplit.testutil.PersonDescriptorBuilder;
 import seedu.spendnsplit.testutil.PersonUtil;
 import seedu.spendnsplit.testutil.PortionBuilder;
+import seedu.spendnsplit.testutil.PortionDescriptorBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
 import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
-import seedu.spendnsplit.testutil.UpdatePortionDescriptorBuilder;
 
 public class SpendNSplitParserTest {
 
@@ -148,7 +148,7 @@ public class SpendNSplitParserTest {
             .withoutTimestamp().build();
         EditTransactionCommand command = (EditTransactionCommand) parser.parseCommand(
             EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
-                + getEditTransactionDescriptorDetails(descriptor), new CommandAliasMap());
+                + getTransactionDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
@@ -171,10 +171,10 @@ public class SpendNSplitParserTest {
     @Test
     public void parseCommand_updatePortion() throws Exception {
         Portion portion = new PortionBuilder().build();
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(portion).build();
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(portion).build();
         UpdatePortionCommand command = (UpdatePortionCommand) parser.parseCommand(
             UpdatePortionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
-                + getUpdatePortionDescriptorDetails(descriptor), new CommandAliasMap());
+                + getPortionDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 

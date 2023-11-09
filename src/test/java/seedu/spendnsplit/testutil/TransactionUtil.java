@@ -16,7 +16,7 @@ public class TransactionUtil {
     /**
      * Returns the part of command string for the given {@code TransactionDescriptor}'s details.
      */
-    public static String getEditTransactionDescriptorDetails(TransactionDescriptor descriptor) {
+    public static String getTransactionDescriptorDetails(TransactionDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getAmount().ifPresent(amount ->
                 sb.append(PREFIX_COST).append(amount).append(" "));
