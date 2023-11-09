@@ -5,7 +5,8 @@ import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
+
 
 /**
  * A utility class to help with building Transaction objects.
@@ -13,9 +14,9 @@ import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDe
 public class TransactionUtil {
 
     /**
-     * Returns the part of command string for the given {@code EditTransactionDescriptor}'s details.
+     * Returns the part of command string for the given {@code TransactionDescriptor}'s details.
      */
-    public static String getEditTransactionDescriptorDetails(EditTransactionDescriptor descriptor) {
+    public static String getEditTransactionDescriptorDetails(TransactionDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getAmount().ifPresent(amount ->
                 sb.append(PREFIX_COST).append(amount).append(" "));

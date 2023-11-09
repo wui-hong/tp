@@ -17,14 +17,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.ModelManager;
 import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.UserPrefs;
 import seedu.spendnsplit.model.transaction.Transaction;
-import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
+import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
 
 
 
@@ -42,7 +42,7 @@ class EditTransactionCommandTest {
                 .withPayeeName(originalTransaction.getPayeeName().toString())
                 .withTimestamp(originalTransaction.getTimestamp().toString())
                 .withPortions(originalTransaction.getPortions()).build();
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedTransaction).build();
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder(editedTransaction).build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(
@@ -62,7 +62,7 @@ class EditTransactionCommandTest {
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
         Transaction editedTransaction = transactionInList.withDescription(descriptionString).build();
 
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
                 .withDescription(descriptionString).build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -83,7 +83,7 @@ class EditTransactionCommandTest {
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
         Transaction editedTransaction = transactionInList.withAmount(costString).build();
 
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
                 .withAmount(costString).build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -104,7 +104,7 @@ class EditTransactionCommandTest {
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
         Transaction editedTransaction = transactionInList.withTimestamp(timestampString).build();
 
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
                 .withTimestamp(timestampString).build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -120,14 +120,14 @@ class EditTransactionCommandTest {
     @Test
     public void execute_duplicateTransaction_failure() {
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT,
-                new EditTransactionDescriptor());
+                new TransactionDescriptor());
         String expectedMessage = EditTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION;
         assertCommandFailure(editTransactionCommand, model, expectedMessage);
     }
 
     @Test
     public void execute_invalidTransactionUnfilteredList_failure() {
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
                 .withPayeeName("Alice").build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -147,7 +147,7 @@ class EditTransactionCommandTest {
         Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList)
                 .withAmount("123.21").build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(INDEX_FIRST_ELEMENT,
-                new EditTransactionDescriptorBuilder().withAmount("123.21").build());
+                new TransactionDescriptorBuilder().withAmount("123.21").build());
 
         String expectedMessage = String.format(
                 EditTransactionCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, Messages.format(editedTransaction));
@@ -161,7 +161,7 @@ class EditTransactionCommandTest {
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
                 .withAmount("123.21").build();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(outOfBoundIndex, descriptor);
 
@@ -181,7 +181,7 @@ class EditTransactionCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getSpendNSplitBook().getTransactionList().size());
 
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(outOfBoundIndex,
-                new EditTransactionDescriptorBuilder().withAmount("123.21").build());
+                new TransactionDescriptorBuilder().withAmount("123.21").build());
 
         CommandTestUtil.assertCommandFailure(editTransactionCommand, model,
                 Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
@@ -193,7 +193,7 @@ class EditTransactionCommandTest {
                 INDEX_FIRST_ELEMENT, DESC_LUNCH);
 
         // same values -> returns true
-        EditTransactionDescriptor copyDescriptor = new EditTransactionDescriptor(DESC_LUNCH);
+        TransactionDescriptor copyDescriptor = new TransactionDescriptor(DESC_LUNCH);
         EditTransactionCommand commandWithSameValues = new EditTransactionCommand(INDEX_FIRST_ELEMENT,
                 copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
@@ -217,11 +217,11 @@ class EditTransactionCommandTest {
     @Test
     public void toStringMethod() {
         Index index = INDEX_FIRST_ELEMENT;
-        EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
+        TransactionDescriptor editTransactionDescriptor = new TransactionDescriptor();
         EditTransactionCommand editTransactionCommand = new EditTransactionCommand(index, editTransactionDescriptor);
         String expectedString = EditTransactionCommand.class.getCanonicalName()
                 + "{index=" + index
-                + ", editTransactionDescriptor=" + editTransactionDescriptor + "}";
+                + ", transactionDescriptor=" + editTransactionDescriptor + "}";
         assertEquals(expectedString, editTransactionCommand.toString());
     }
 }

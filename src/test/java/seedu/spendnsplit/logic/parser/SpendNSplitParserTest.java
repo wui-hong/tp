@@ -28,7 +28,6 @@ import seedu.spendnsplit.logic.commands.DeletePersonCommand;
 import seedu.spendnsplit.logic.commands.DeleteTransactionCommand;
 import seedu.spendnsplit.logic.commands.EditPersonCommand;
 import seedu.spendnsplit.logic.commands.EditTransactionCommand;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.spendnsplit.logic.commands.ExitCommand;
 import seedu.spendnsplit.logic.commands.HelpCommand;
 import seedu.spendnsplit.logic.commands.ListPersonCommand;
@@ -38,6 +37,7 @@ import seedu.spendnsplit.logic.commands.SortPersonCommand;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
 import seedu.spendnsplit.logic.descriptors.PersonDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.person.NameContainsKeywordsPredicate;
@@ -45,12 +45,12 @@ import seedu.spendnsplit.model.person.Person;
 import seedu.spendnsplit.model.transaction.Transaction;
 import seedu.spendnsplit.model.transaction.TransactionContainsKeywordsAndPersonNamesPredicate;
 import seedu.spendnsplit.model.transaction.portion.Portion;
-import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
 import seedu.spendnsplit.testutil.PersonBuilder;
 import seedu.spendnsplit.testutil.PersonDescriptorBuilder;
 import seedu.spendnsplit.testutil.PersonUtil;
 import seedu.spendnsplit.testutil.PortionBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
+import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
 import seedu.spendnsplit.testutil.UpdatePortionDescriptorBuilder;
 
 public class SpendNSplitParserTest {
@@ -144,7 +144,7 @@ public class SpendNSplitParserTest {
     @Test
     public void parseCommand_editTransaction() throws Exception {
         Transaction transaction = new TransactionBuilder().build();
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction)
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder(transaction)
             .withoutTimestamp().build();
         EditTransactionCommand command = (EditTransactionCommand) parser.parseCommand(
             EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "

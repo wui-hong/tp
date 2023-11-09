@@ -9,7 +9,7 @@ import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.commands.EditTransactionCommand;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 
 /**
@@ -36,37 +36,37 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     MESSAGE_INVALID_COMMAND_FORMAT, EditTransactionCommand.MESSAGE_USAGE), pe);
         }
 
-        EditTransactionDescriptor editTransactionDescriptor = getEditTransactionDescriptor(argMultimap);
+        TransactionDescriptor transactionDescriptor = getEditTransactionDescriptor(argMultimap);
 
-        if (!editTransactionDescriptor.isAnyFieldEdited()) {
+        if (!transactionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditTransactionCommand.MESSAGE_TRANSACTION_NOT_EDITED);
         }
 
-        return new EditTransactionCommand(index, editTransactionDescriptor);
+        return new EditTransactionCommand(index, transactionDescriptor);
     }
 
-    public static EditTransactionDescriptor getEditTransactionDescriptor(
+    public static TransactionDescriptor getEditTransactionDescriptor(
         ArgumentMultimap argMultimap) throws ParseException {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COST, PREFIX_DESCRIPTION, PREFIX_NAME, PREFIX_TIMESTAMP);
 
-        EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
+        TransactionDescriptor transactionDescriptor = new TransactionDescriptor();
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editTransactionDescriptor.setDescription(
+            transactionDescriptor.setDescription(
                     ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-            editTransactionDescriptor.setAmount(
+            transactionDescriptor.setAmount(
                     ParserUtil.parseAmount(argMultimap.getValue(PREFIX_COST).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editTransactionDescriptor.setPayeeName(
+            transactionDescriptor.setPayeeName(
                     ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_TIMESTAMP).isPresent()) {
-            editTransactionDescriptor.setTimestamp(
+            transactionDescriptor.setTimestamp(
                     ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()));
         }
-        return editTransactionDescriptor;
+        return transactionDescriptor;
     }
 }

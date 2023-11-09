@@ -9,7 +9,7 @@ import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.commands.DuplicateTransactionCommand;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.transaction.Timestamp;
 
@@ -38,7 +38,7 @@ public class DuplicateTransactionCommandParser implements Parser<DuplicateTransa
                 MESSAGE_INVALID_COMMAND_FORMAT, DuplicateTransactionCommand.MESSAGE_USAGE), pe);
         }
 
-        EditTransactionDescriptor duplicateTransactionDescriptor =
+        TransactionDescriptor duplicateTransactionDescriptor =
             EditTransactionCommandParser.getEditTransactionDescriptor(argMultimap);
 
         // Set timestamp to current time if not specified
