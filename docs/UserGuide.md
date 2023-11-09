@@ -229,7 +229,7 @@ Format: `deletePerson INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 * Transactions involving the deleted person will have the deleted person's name changed to "Others". In the event that
  this results in the transaction becoming irrelevant, the transaction will be automatically deleted. All transactions involving
- the deleted person as a payee will also be automatically deleted. 
+ the deleted person as a payee will also be automatically deleted.
 
 Examples:
 
@@ -301,7 +301,7 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 The order of the fields is NOT flexible.
 
 > ##### NOTE
-> 
+>
 > Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
 {: .block-tip }
 
@@ -354,7 +354,7 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. c
 
 > ##### NOTE
 >
-> Transactions after the edit must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details. 
+> Transactions after the edit must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
 {: .block-tip }
 
 Examples:
@@ -449,12 +449,12 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. d
 Examples:
 
 * `duplicateTransaction 1 c=12.12`
-  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel, 
-  except for the timestamp of the new transaction being the time at which this command was executed 
+  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel,
+  except for the timestamp of the new transaction being the time at which this command was executed
   and the cost bring 12.12 instead.
 * `duplicateTransaction 2 d=Potato n=Bob`
   * Creates a new transaction that is identical to the current transaction at index two in the Transaction panel,
-    except for the timestamp of the new transaction being the time at which this command was executed, the 
+    except for the timestamp of the new transaction being the time at which this command was executed, the
     description of the new transaction being "Potato" and the payee of the new transaction being Bob.
 
 #### Listing transactions: `listTransaction`
@@ -578,7 +578,7 @@ Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplit
 ### 1) Why do the portions in the log not add up exactly to the balance?
 
 The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences
-between the actual portions and what is displayed. Values are rounded to 2 decimal places (i.e. 0.149 will be rounded down to 0.14, 
+between the actual portions and what is displayed. Values are rounded to 2 decimal places (i.e. 0.149 will be rounded down to 0.14,
 and 0.145 will be rounded up to 0.15). The positive and negative signs will still be kept (i.e. -0.0000001 will be rounded
 down to -0.00, and -1.015 will be rounded up to -1.02).
 

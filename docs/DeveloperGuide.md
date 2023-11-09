@@ -476,7 +476,7 @@ Extensions:
 * 4a. Transaction does not exist in the portion list.
   * 4a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
   * 4a2. Use case resumes at step 3.
-  
+
 * 4b. Spend n Split detects an error in the request.
   * 4b1. Spend n Split informs the user that request is invalid.
   * 4b2. Use case resumes at step 3.
