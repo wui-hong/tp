@@ -86,22 +86,27 @@ Inputs to fields should not contain the "=" sign.
 
 The following fields are used for commands:
 
-| Field | Prefix | Format | Example |
-| --- | --- | --- | --- |
-| Index | - | Positive integers only | `1`, `2`, `3` |
-| Keyword | - | No `=` sign allowed | `Bob`, `Lunch` |
-| Name | n | Alphanumeric, can contain multiple words | `Bob`, `Alex Yeoh` |
-| Phone number | p | Numeric, minimum length of 3 digits | `99999999`, `88888888` |
-| Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores | `@nus_cs2103` , `@spend_n_split` |
-| Email address | e | Valid email format required | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
-| Address | a | No `=` sign allowed | `Kent Ridge Hall`, `RC4` |
-| Tag | t | Single-word, alphanumeric | `friend`, `colleague` |
-| Description | d | No `=` sign allowed | `Lunch`, `Dinner @ UTown` |
-| Amount/ Cost | c | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Timestamp | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
-| Weight | w | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Original command | o | Use one of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
-| Shorthand | s | Single-word, English alphabet characters only | `s`, `aT` |
+| Field          | Prefix | Format                                                                                                                             | Example |
+|----------------| --- |------------------------------------------------------------------------------------------------------------------------------------| --- |
+| Index          | - | Positive integers only                                                                                                             | `1`, `2`, `3` |
+| Keyword        | - | No `=` sign allowed                                                                                                                | `Bob`, `Lunch` |
+| Name           | n | Alphanumeric, can contain multiple words                                                                                           | `Bob`, `Alex Yeoh` |
+| Phone number   | p | Numeric, minimum length of 3 digits                                                                                                | `99999999`, `88888888` |
+| Telegram handle&ast; | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores                                                   | `@nus_cs2103` , `@spend_n_split` |
+| Email address&ast; | e | Valid email format required.                                                                                                       | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address        | a | No `=` sign allowed                                                                                                                | `Kent Ridge Hall`, `RC4` |
+| Tag            | t | Single-word, alphanumeric                                                                                                          | `friend`, `colleague` |
+| Description    | d | No `=` sign allowed                                                                                                                | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost   | c | Positive rational numbers; can be a decimal or a fraction; spaces allowed                                                          | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp      | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight         | w | Positive rational numbers; can be a decimal or a fraction; spaces allowed                                                          | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | Use one of the original command keywords listed in this user guide                                                                 | `setShorthand`, `addTransaction` |
+| Shorthand      | s | Single-word, English alphabet characters only                                                                                      | `s`, `aT` |
+
+&ast; SnS checks the validity of Telegram handles and email addresses using general formats.
+SnS is able to reject any Telegram handles or email addresses it detects as invalid.
+However, it is not able to detect *all* invalid Telegram handles or email addresses as
+format does not strictly enforce that a Telegram handle or email address is valid.
 
 --------------------------------------------------------------------------------------------------------------------
 
