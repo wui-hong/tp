@@ -5,18 +5,35 @@ title: User Guide
 
 ***Taking care of your finances has never been easier!***
 
-Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend n Split.
+Spend N Split (SnS) is an application for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend n Split.
 
 * Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+## How to use the User Guide
 
-## Glossary
+1. If Spend N Split is not yet installed, kindly navigate to the Quick Start section, which includes steps for installation
+as well as sample commands for you to try.
+
+2. If you are not yet familiar with Spend N Split and want a refresher, we highly recommend heading to the Navigating the
+App section.
+
+3. Already an experienced user? Well, all you need is probably just the Features section for a quick
+refresher on what Spend N Split can do for you!
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Key Terms
+
+Spend N Split is built on linking transactions and people. As such, it is pivotal that you familarise yourself
+with the structure of each person and each transaction in our application.
 
 ### Person
 
-Persons are the people with whom you track your balances against. To create a transaction with a person, they must first have been added to the app.
+A person is someone that you track your balance against. Before creating a transaction involving a specific
+ person, that person has to exist in the application. If not, the person has to be added to the application before the transaction
+ is created.
 
 A person has the following attributes:
 - Name
@@ -27,9 +44,11 @@ A person has the following attributes:
 - Email Address
 - Address
 
-Persons are uniquely identified by their names. No two persons can have the same name and names are case-insensitive.
+Every person is uniquely identified by their name. Names are case-insensitive and the application does not support
+adding people with the same names.
 
-Having a positive balance against a person means that they owe you money, conversely having a negative balance against a person means that you owe them money.
+If a positive balance is displayed on a person, it means that they owe you money. Conversely, if the balance displayed is
+negative, you owe that person money instead. 
 
 ### Transaction
 
@@ -45,40 +64,6 @@ A transaction has the following attributes:
 Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you, the user, and others refers to anyone not in the app.
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
-
-#### Relevant Transactions
-
-A transaction is only considered **relevant** if it involves you owing or being owed money
-by someone from your contacts list. In a relevant transaction:
-1. "Self" must be either the payee, a payer, or both: you must be involved in the transaction.
-2. Include at least one person stored in the app (not "Self" or "Others") as either
-the payee, a payer, or both: someone else in your contacts list must be involved in the transaction.
-
-If these conditions are not met, it means that the transaction does not affect your balance
-with anyone on your contract list, and hence is considered **irrelevant**.
-
-Examples of relevant transactions:
-- You are the payee for dinner. The payers are you, Alice and Bob.
-- Bob pays for transport. You and Alice are riders, and hence are the payers.
-
-In both these cases, you were involved as the payee or payer of the transaction,
-and so was another person in your contacts.
-
-Examples of irrelevant transactions:
-- Bob was the payee for dinner. The payers are Alice and Bob. You are not involved
-and hence, this transaction is irrelevant.
-- You pay for transport for Zack. Zack is the only payer. Zack was then deleted
-contacts list afterwards, resulting in him being considered as "Others" in the transaction.
-This transaction becomes irrelevant and is automatically deleted from the transactions
-list when Zack is deleted.
-
-Note:
-- If you delete payers such that no one else from your contacts are involved in the
-transaction, **SnS will block this**. You are advised to delete the transaction if
-it no longer concerns you or anyone from your contacts list.
-- If you delete a person, some transactions may be considered irrelevant as highlighted
-in the second example of an irrelevant transaction. **SnS will automatically delete
-these irrelevant transactions**.
 
 ### Fields
 
@@ -638,3 +623,42 @@ valid command word.
   ```
   The person index provided is invalid
   ```
+
+### What is considered a relevant transaction?
+
+A transaction is only considered **relevant** if it involves you owing or being owed money
+by someone from your contacts list. In a relevant transaction:
+1. "Self" must be either the payee, a payer, or both: you must be involved in the transaction.
+2. Include at least one person stored in the app (not "Self" or "Others") as either
+   the payee, a payer, or both: someone else in your contacts list must be involved in the transaction.
+
+If these conditions are not met, it means that the transaction does not affect your balance
+with anyone on your contract list, and hence is considered **irrelevant**.
+
+Examples of relevant transactions:
+- You are the payee for dinner. The payers are you, Alice and Bob.
+- Bob pays for transport. You and Alice are riders, and hence are the payers.
+
+In both these cases, you were involved as the payee or payer of the transaction,
+and so was another person in your contacts.
+
+Examples of irrelevant transactions:
+- Bob was the payee for dinner. The payers are Alice and Bob. You are not involved
+  and hence, this transaction is irrelevant.
+- You pay for transport for Zack. Zack is the only payer. Zack was then deleted
+  contacts list afterwards, resulting in him being considered as "Others" in the transaction.
+  This transaction becomes irrelevant and is automatically deleted from the transactions
+  list when Zack is deleted.
+
+Note:
+- If you delete payers such that no one else from your contacts are involved in the
+  transaction, **SnS will block this**. You are advised to delete the transaction if
+  it no longer concerns you or anyone from your contacts list.
+- If you delete a person, some transactions may be considered irrelevant as highlighted
+  in the second example of an irrelevant transaction. **SnS will automatically delete
+  these irrelevant transactions**.
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+### Apple
