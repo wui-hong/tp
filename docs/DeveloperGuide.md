@@ -689,8 +689,8 @@ the `Timestamp` input in the transaction-related commands.
 - **Enhancement**: We plan to make our `Timestamp` validation error messages
 more specific in order to let the user know how they can correct their input. Specifically,
 we plan on covering these 5 cases:
-1. Incorrect Date Format (e.g. `25-06-2023` used dashes instead of slashes)
-2. Incorrect Time Format (e.g. `25/06/2023 11.30` used a dot for time instead of colon)
+1. Incorrect Date Format
+2. Incorrect Time Format
 3. Incorrect Date and Time Format (e.g. `25/06/2023 + 11:30` didn't separate the date and time
 with a single space)
 4. Invalid Date (e.g. `32/13/2023` has an invalid day and month)
@@ -700,10 +700,11 @@ If there are multiple issues in the input, the error message will be prioritised
 on the order above.
 
 Below are examples of the enhanced error messages in commands with `Timestamp` input.
+The `Timestamp` input comes after `ts=` in the `addTransaction` command.
 
 Example 1: Incorrect Date Format
 ```
-$ addTransaction d=Bread n=John c=10 ts=25-06-2023 n=Self w=1
+$ addTransaction d=Bread n=John c=10 ts=abcd n=Self w=1
 
 Date must be in DD/MM/YYYY format with leading zeroes in the date, month and year,
 and forward slashes as separators (e.g. 25/06/2020).
@@ -712,7 +713,7 @@ Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 n=Self w=1
 
 Example 2: Incorrect Time Format
 ```
-$ addTransaction d=Bread n=John c=10 ts=25/06/2023 11.30 n=Self w=1
+$ addTransaction d=Bread n=John c=10 ts=25/06/2023 abcd n=Self w=1
 
 Time must be in HH:MM format with leading zeroes in the hours and minutes,
 and a colon separating the hours and minutes (e.g. 09:05).
