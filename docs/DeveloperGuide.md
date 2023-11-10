@@ -654,8 +654,51 @@ Names in should only contain alphanumeric characters
 Example: listPerson Alex David
 ```
 
-### Improved Space Sensitivity in Names
+### Stronger Email Input Validation
+- **Background**: Currently, the `Email` of our `Person` is currently validated
+with the format of `local-part@domain`. The local-part and domain have their own
+restrictions with the aim of allowing SnS to reject invalid emails.
 
+- **Issue**: This validation does not strictly comply with the IETF standards for email
+addresses, resulting in invalid emails to be considered as valid by our application.
+For example, `a@12.34` has an invalid domain that does not comply with IETF standards
+but will be considered valid in our application.
+
+- **Enhancement**: We plan on ensuring that `Email` uses stronger validation to comply
+with IETF standards and the following (non-exhaustive) list of RFCs:
+[RFC3696](https://datatracker.ietf.org/doc/html/rfc3696),
+[RFC5322](https://datatracker.ietf.org/doc/html/rfc5322) and
+[RFC6854](https://datatracker.ietf.org/doc/html/rfc6854). As such, SnS will be able
+to more accurately detect invalid email addresses.
+
+### Stronger Telegram Handle Input Validation
+- **Background**: Currently, the `TelegramHandle` of our `Person` is currently validated.
+A Telegram Handle in our application must:
+    - begin with `@`.
+    - be at least 5-characters long (exclusive of `@`).
+    - not contain any spaces.
+    - ensure all characters other than the first `@` are alphanumeric or underscores.
+
+- **Issue**: This validation does not strictly follow the actual requirements of a
+  Telegram handle, resulting in invalid Telegram handles to be considered as valid by
+  our application. On top of the restrictions stated above, an actual Telegram Handle must also:
+    1. contain at least 3 alphanumeric characters (Additional Restriction 1).
+    2. not start with an underscore or number (Additional Restriction 2).
+    3. not end with an underscore (Additional Restriction 3).
+    4. not contain consecutive underscores (Additional Restriction 4).
+
+- Here are some examples of invalid Telegram handles that SnS will wrongly as valid.
+    - `@a_a__` (violates Additional Restriction 1, 3, 4)
+    - `@1john` (violates Additional Restriction 2)
+    - `@_john` (violates Additional Restriction 2)
+    - `@john_` (violates Additional Restriction 3)
+    - `@_____` (violates Additional Restriction 1, 2, 3, 4)
+
+- **Enhancement**: We plan on ensuring that `TelegramHandle` requires the 4 additional
+  restrictions above to accurately reflect to validity of Telegram handles so that
+  SnS can correctly reject invalid input such that the examples above.
+
+### Improved Space Sensitivity in Names
 - **Background**: Currently, the `Name` of our `Person` is currently able to trim
 leading and trailing spaces, allowing us to treat `Alex Yeoh` and `&nbsp;&nbsp;Alex Yeoh&nbsp;&nbsp;`
 as the same `Name`. However, the `Name` is sensitive to spaces in between. This results
