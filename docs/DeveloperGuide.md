@@ -672,3 +672,75 @@ are equivalent.
 - **Enhancement**: We plan on ensuring that our application collapses multiple spaces
 between individual names such that names like `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh`
 can be considered to refer to the same `Name`.
+
+### Enhanced Timestamp Validation Messages
+- **Background**: Many of the transaction-related commands, such as `addTransaction` and `editTransaction`
+may involve a `Timestamp` input. Currently, we validate our `Timestamp` through a combination of regex
+and checking of `DateTimeParseException` from `LocalDateTime.parse(datetime)`. Currently, if
+any validation fails, we show the following error message.
+
+> Date must be in DD/MM/YYYY format and time must be in HH:MM format; date should
+come before time with a single space separating them if both are provided
+
+- **Issue**: This error message is too general, and does not effectively communicate
+to the user why the date is invalid, making it difficult for the user to correct
+the `Timestamp` input in the transaction-related commands. 
+
+- **Enhancement**: We plan to make our `Timestamp` validation error messages
+more specific in order to let the user know how they can correct their input. Specifically,
+we plan on covering these 5 cases:
+1. Incorrect Date Format (e.g. `25-06-2023` used dashes instead of slashes)
+2. Incorrect Time Format (e.g. `25/06/2023 11.30` used a dot for time instead of colon)
+3. Incorrect Date and Time Format (e.g. `25/06/2023 + 11:30` didn't separate the date and time
+with a single space)
+4. Invalid Date (e.g. `32/13/2023` has an invalid day and month)
+5. Invalid Time (e.g. `25/06/2023 25:61` has an invalid time)
+
+If there are multiple issues in the input, the error message will be prioritised based
+on the order above.
+
+Below are examples of the enhanced error messages in commands with `Timestamp` input.
+
+Example 1: Incorrect Date Format
+```
+$ addTransaction d=Bread n=John c=10 ts=25-06-2023 n=Self w=1
+
+Date must be in DD/MM/YYYY format with leading zeroes in the date, month and year,
+and forward slashes as separators (e.g. 25/06/2020).
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 n=Self w=1
+```
+
+Example 2: Incorrect Time Format
+```
+$ addTransaction d=Bread n=John c=10 ts=25/06/2023 11.30 n=Self w=1
+
+Time must be in HH:MM format with leading zeroes in the hours and minutes,
+and a colon separating the hours and minutes (e.g. 09:05).
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
+```
+
+Example 3: Incorrect Date and Time Format
+```
+$ addTransaction d=Bread n=John c=10 ts=25/06/2023 + 11:30 n=Self w=1
+
+The date and time must be in the format 'DD/MM/YYYY HH:MM' with a single space
+between the date and time (e.g. 25/06/2020 09:05).
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
+```
+
+Example 4: Invalid Date
+```
+$ addTransaction d=Bread n=John c=10 ts=32/13/2023 n=Self w=1
+
+The date entered does not exist. Please use a valid date in DD/MM/YYYY format.
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 n=Self w=1
+```
+
+Example 5: Invalid Time
+```
+$ addTransaction d=Bread n=John c=10 ts=25/06/2023 25:61 n=Self w=1
+
+The time you entered does not exist. Please use a valid time in HH:MM format between
+00:00 to 23:59.
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
+```
