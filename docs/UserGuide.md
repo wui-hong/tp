@@ -638,3 +638,41 @@ valid command word.
   ```
   The person index provided is invalid
   ```
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+We would like to acknowledge the following third-party libraries, frameworks and sources for their use in Spend n Split:
+
+**Development**
+
+* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for SnS.
+
+* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of SnS.
+
+* **[Apache Common Numbers](https://github.com/apache/commons-numbers/tree/master)**: The Java numbers library that enhance SnS' precision.
+
+**Gradle**
+
+* **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
+
+* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for SnS.
+
+* **[Jacoco](https://github.com/palantir/gradle-jacoco-coverage)**: The Gradle plugin for generating code coverage reports.
+
+**User Interface**
+
+* **[JavaFX](https://openjfx.io/)**: The GUI framework of SnS.
+
+* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The primary font used in SnS.
+
+* **[Tailwind CSS Colors](https://tailwindcss.com/docs/customizing-colors)**: The colour palette that inspired the SnS colour scheme.
+
+**Others**
+
+* **[Address Book 3](https://se-education.org/addressbook-level3/)**: The project SnS is based on.
+
+* **[Jekyll](https://github.com/jekyll/jekyll)**: The static site generator that converts SnS markdown documentation into web pages.
+
+--------------------------------------------------------------------------------------------------------------------
