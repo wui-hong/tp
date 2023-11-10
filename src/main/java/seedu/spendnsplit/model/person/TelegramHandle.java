@@ -12,7 +12,7 @@ public class TelegramHandle {
     public static final String MESSAGE_CONSTRAINTS = "Telegram Handles adhere to the following constraints:\n"
             + "Begin with a @ and be of minimum length 5 characters, exclusive of @ symbol.\n"
             + "The characters after @ can only be alphanumeric or underscores.\n"
-            + "Example: @123han_dle123";
+            + "Example: @han_dle123";
 
     // begins with @, and only contains at least 5 alphanumeric and underscores after
     private static final String VALIDATION_REGEX = "^@[a-zA-Z0-9_]{5,}$";
