@@ -10,13 +10,50 @@ Spend n Split (SnS) is a **desktop app for managing expense from contacts, optim
 If you can type fast, SnS can get your contact expense management tasks done faster than traditional GUI apps.
 
 ### Summary of Contributions
+
+#### Code Constribution
+
+##### General
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=nathanielcalimag&)
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-    * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-    * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-    * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-    * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+##### Extend focus-state shortcuts
+- **What it does**: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+- **Justification**: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+- **Highlights**: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+##### Enhanced UI from dark-theme to light-theme
+- **What it does**: What it does
+- **Justification**: Justification
+- **Highlights**: Highlights
+
+##### Added sample transaction data
+- **What it does**: What it does
+- **Justification**: Justification
+- **Highlights**: Highlights
+
+##### Added Expense Model
+- **What it does**: What it does
+- **Justification**: Justification
+- **Highlights**: Highlights
+
+##### Updated Storage to Support Transactions
+- **What it does**: What it does
+- **Justification**: Justification
+- **Highlights**: Highlights
+
+##### Settle Person Commmand
+- **What it does**: What it does
+- **Justification**: Justification
+- **Highlights**: Highlights
+
+
+#### Project Management
+
+
+#### Documentation
+
+
+#### Others
 
 * **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
 
@@ -43,5 +80,3 @@ If you can type fast, SnS can get your contact expense management tasks done fas
 * **Tools**:
     * Integrated a third party library (Natty) to the project ([\#42]())
     * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
