@@ -280,7 +280,8 @@ Examples:
         followed by others in decreasing order of their outstanding balances.
 
 
-![sortPerson success](images/user-guide/sortPerson.png)
+![sortPersonDescending success](images/user-guide/sortPersonDescending.png)
+![sortPersonAscending success](images/user-guide/sortPersonAscending.png)
 
 ### Transaction-related features
 
@@ -303,15 +304,18 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 
 The order of the fields is NOT flexible.
 
-> ##### NOTE
->
-> Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
-{: .block-tip }
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Note:**<br>
+
+Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+
+</div>
 
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
     * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
-* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary =w1`
+* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
     * Rent costed $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
 
 Sample execution:
@@ -352,10 +356,14 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. c
 * If no timestamp is given, the default timestamp is the current system time.
 * If only the date is given, the default time is set as 00:00.
 
-> ##### NOTE
->
-> Transactions after the edit must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
-{: .block-tip }
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Note:**<br>
+
+After editing, the transaction must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+
+</div>
+
 
 Examples:
 
