@@ -632,7 +632,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Stronger List Command Input Validation
 
-- **Background**: Currently, the `Name` of our `Person` is currently validated.
+- **Background**: Currently, the `Name` of our `Person` is validated.
 For example, it cannot contain symbols and cannot begin with a whitespace.
 However, the `listPerson` validation on input arguments is insufficient.
 
@@ -655,21 +655,23 @@ Example: listPerson Alex David
 ```
 
 ### Stronger Email Input Validation
-- **Background**: Currently, the `Email` of our `Person` is currently validated
-with the format of `local-part@domain`. The local-part and domain have their own
+- **Background**: Currently, the `Email` of our `Person` is validated with the
+format `local-part@domain`. The local-part and domain have their own
 restrictions with the aim of allowing SnS to reject invalid emails.
 
 - **Issue**: This validation does not strictly comply with the IETF standards for email
 addresses, resulting in invalid emails to be considered as valid by our application.
 For example, `a@12.34` has an invalid domain that does not comply with IETF standards
-but will be considered valid in our application.
+but will be considered valid in our application. Additionally, while our validation
+supports the format of many major email service providers such as Google, Outlook,
+Hotmail and Yahoo, IETF's format is more general and may allow formats.
 
 - **Enhancement**: We plan on ensuring that `Email` uses stronger validation to comply
 with IETF standards and the following (non-exhaustive) list of RFCs:
 [RFC3696](https://datatracker.ietf.org/doc/html/rfc3696),
 [RFC5322](https://datatracker.ietf.org/doc/html/rfc5322) and
 [RFC6854](https://datatracker.ietf.org/doc/html/rfc6854). As such, SnS will be able
-to more accurately detect invalid email addresses.
+to more accurately detect invalid email addresses and support more domains' formats.
 
 ### Stronger Telegram Handle Input Validation
 - **Background**: Currently, the `TelegramHandle` of our `Person` is currently validated.
