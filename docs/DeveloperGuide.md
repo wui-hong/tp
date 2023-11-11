@@ -584,7 +584,7 @@ testers are expected to do more *exploratory* testing.
 SpendNSplit is a brownfield software project based on the contacts-management application
 [AddressBook Level-3 (AB3)](https://se-education.org/addressbook-level3/). Our dedicated team
 has spent nearly 2 months evolving AB3 into a complex personal finance-tracking application
-for NUS Hall students. This section describes some key challenges our team has faced.
+for university Hall students. This section describes some key challenges our team has faced.
 
 ### The relationship between transactions and persons
 
