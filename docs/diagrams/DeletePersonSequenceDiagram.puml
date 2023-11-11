@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":DeletePersonCommandParser" as DeletePersonCommandParser LOGIC_COLOR
+participant "dp:DeletePersonCommand" as DeletePersonCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deletePerson 1")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("deletePerson 1", commandMap)
+activate SpendNSplitParser
+
+create DeletePersonCommandParser
+SpendNSplitParser -> DeletePersonCommandParser
+activate DeletePersonCommandParser
+
+DeletePersonCommandParser --> SpendNSplitParser
+deactivate DeletePersonCommandParser
+
+SpendNSplitParser -> DeletePersonCommandParser : parse("1")
+activate DeletePersonCommandParser
+
+create DeletePersonCommand
+DeletePersonCommandParser -> DeletePersonCommand
+activate DeletePersonCommand
+
+DeletePersonCommand --> DeletePersonCommandParser : dp
+deactivate DeletePersonCommand
+
+DeletePersonCommandParser --> SpendNSplitParser : dp
+deactivate DeletePersonCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeletePersonCommandParser -[hidden]-> SpendNSplitParser
+destroy DeletePersonCommandParser
+
+SpendNSplitParser --> LogicManager : dp
+deactivate SpendNSplitParser
+
+LogicManager -> DeletePersonCommand : execute()
+activate DeletePersonCommand
+
+DeletePersonCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> DeletePersonCommand
+deactivate Model
+
+DeletePersonCommand -> Model : deletePerson(personToDelete)
+activate Model
+
+Model --> DeletePersonCommand
+deactivate Model
+
+create CommandResult
+DeletePersonCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeletePersonCommand
+deactivate CommandResult
+
+DeletePersonCommand --> LogicManager : result
+deactivate DeletePersonCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

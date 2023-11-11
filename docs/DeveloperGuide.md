@@ -215,7 +215,21 @@ The overall flow of the `editPerson` command is as follows:
 4. The `EditPersonCommand` is executed by the `LogicManager`, which attempts to edit the person in the model through `Model::setPerson(personToEdit, editedPerson)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()` or if the edited person already exists in the model (duplicate name).
 5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
-#### Deleting Persons
+#### Deleting a Person
+
+The `deletePerson` command deletes an existing `Person` object.
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `deletePerson` command:
+
+![Interactions Inside the Logic Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram.png)
+
+The overall flow of the `deletePerson` command is as follows:
+
+1. The user specifies the index of the person to be deleted.
+2. The parsers check for the presence of the mandatory index field. Errors are raised if the index is invalid.
+3. Upon successful parsing, the `DeletePersonCommand` is created with the index of the person to be deleted.
+4. The `DeletePersonCommand` is executed by the `LogicManager`, which attempts to delete the person from the model through `Model::deletePerson(personToDelete)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 #### Filtering Persons
 
