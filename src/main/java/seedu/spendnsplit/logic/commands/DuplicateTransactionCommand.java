@@ -52,8 +52,8 @@ public class DuplicateTransactionCommand extends Command {
     private final TransactionDescriptor transactionDescriptor;
 
     /**
-     * @param targetIndex                    of the transaction in the filtered transaction list to duplicate
-     * @param transactionDescriptor          details to edit the duplicated transaction with
+     * @param targetIndex           of the transaction in the filtered transaction list to duplicate
+     * @param transactionDescriptor details to edit the duplicated transaction with
      */
     public DuplicateTransactionCommand(Index targetIndex, TransactionDescriptor transactionDescriptor) {
         this.targetIndex = targetIndex;
