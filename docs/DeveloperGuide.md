@@ -238,37 +238,44 @@ We chose this method of execution instead of directly editing the `Transaction` 
 
 ### Product scope
 
-
 **Target User Profile**: University students who live in hall
-* Needs to manage a significant number of contacts
-* Often splits expenses with other hallmates (for groceries, meals etc.)
-* Have friend groups with whom they hang out more frequently
-* Often has their laptop on hand and prefer desktop apps
-* Used to typing fast on their laptop
-* Is reasonably comfortable using CLI apps
+* needs to manage a significant number of contacts and transactions
+* often splits expenses with other hallmates (for groceries, meals, events etc.)
+* often has their laptop on hand and prefer desktop apps
+* used to typing fast on their laptop
+* is reasonably comfortable using CLI apps
 
-**Value Proposition**: The app will allow users to seamlessly keep track of the money they owe/are owed, with regards to borrowers/lenders and their expenses. It is CLI-based and manages contacts faster than a typical mouse/GUI driven app.
-
+**Value Proposition**: The app will allow users to seamlessly keep track of the
+money they owe/are owed across their contacts, in regard to borrowers/lenders and
+their expenses. It is CLI-based and manages contacts faster than a typical mouse/GUI driven app.
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                    | So that I can…​                                                        |
-|----------|--------------------------------------------|-------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions                          | refer to instructions when I forget how to use the app                 |
-| `* * *`  | user                                       | add a new person                                |                                                                        |
-| `* * *`  | user                                       | delete a person                                 | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name                           | locate details of persons without having to go through the entire list |
-| `* * *`  | user                                       | add transactions under a specific person        |                                                                        |
-| `* * *`  | user                                       | add group transactions                          | easily add transactions that are split among a group                   |
-| `* *`    | user                                       | edit transactions                               | change incorrectly added entries                                       |
-| `* * *`  | user                                       | delete transactions                             | remove incorrectly added entries                                       |
-| `* * *`  | user                                       | view balance with each person                   | know how much they owe me                                              |
-| `* *`    | user                                       | settle balances                                 | simulate clearing of debt                                              |
-| `* * *`  | user                                       | list all my transactions with a specific person | remind myself of why a specific person's balance is the way it is      |
-| `* *`    | user with many persons in the address book | sort persons by balance                         | know from whom I should collect money                                  |
-| `*`      | user                                       | hide private contact details                    | minimise chance of someone else seeing them by accident                |
+| Priority | As a …​       | I want to …​                            | So that I can…​                                                         |
+|----------|---------------|-----------------------------------------|-------------------------------------------------------------------------|
+| `* * *`  | new user      | see usage instructions                  | learn how to use the application easily                                 |
+| `* * *`  | new user      | view sample contacts and transactions   | familiarise myself with the application's data                          |
+| `* * *`  | user          | add a new person                        | save new contacts for expense tracking                                  |
+| `* * *`  | user          | delete a person                         | remove contacts that I no longer need to track                          |
+| `* * *`  | user          | edit a person                           | update the details of a contact                                         |
+| `* *`    | user          | find a person by name                   | locate contact details quickly without searching through all contacts   |
+| `* * *`  | user          | add a transaction involving my contacts | track shared expenses with my contacts                                  |
+| `* * *`  | user          | delete a transaction                    | remove transactions that I no longer need to track                      |
+| `* * *`  | user          | edit a transaction                      | update the details of a transaction                                     |
+| `* *`    | user          | duplicate a transaction                 | recreate similar transactions easily                                    |
+| `* *`    | user          | add recurring transactions              | automatically create regular transactions                               |
+| `* * *`  | user          | view balances with a person             | track how much I owe or am owed from a person                           |
+| `* * *`  | user          | settle my balance with a person         | clear any outstanding debts with a person from all transactions at once |
+| `* * *`  | user          | find transactions by a person's name    | view transactions that involve a specific person                        |
+| `* *`    | user          | sort my contacts by balance             | view the largest outstanding balances within my contacts                |
+| `*`      | advanced user | add a command alias                     | type common commands quickly through shorthands                         |
+| `*`      | advanced user | delete a command alias                  | remove shorthands that I no longer need                                 |
+| `*`      | advanced user | edit a command alias                    | update shorthands                                                       |
+| `*`      | user          | add attachments to transactions         | verify my transactions using receipts that I can refer to               |
+| `*`      | user          | undo my last command                    | recover from a command I have ran by mistake                            |
+| `*`      | user          | redo my last undo                       | reverse an undo command I ran by mistake                                |
 
 *{More to be added}*
 
