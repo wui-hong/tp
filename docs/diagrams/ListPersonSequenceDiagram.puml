@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":ListPersonCommandParser" as ListPersonCommandParser LOGIC_COLOR
+participant "predicate:NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate LOGIC_COLOR
+participant "lp:ListPersonCommand" as ListPersonCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("listPerson keyword")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("listPerson keyword", commandMap)
+activate SpendNSplitParser
+
+create ListPersonCommandParser
+SpendNSplitParser -> ListPersonCommandParser
+activate ListPersonCommandParser
+
+ListPersonCommandParser --> SpendNSplitParser
+deactivate ListPersonCommandParser
+
+SpendNSplitParser -> ListPersonCommandParser : parse("keyword")
+activate ListPersonCommandParser
+
+create NameContainsKeywordsPredicate
+ListPersonCommandParser -> NameContainsKeywordsPredicate
+activate NameContainsKeywordsPredicate
+
+NameContainsKeywordsPredicate --> ListPersonCommandParser : predicate
+deactivate NameContainsKeywordsPredicate
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+NameContainsKeywordsPredicate -[hidden]-> ListPersonCommandParser
+destroy NameContainsKeywordsPredicate
+
+create ListPersonCommand
+ListPersonCommandParser -> ListPersonCommand
+activate ListPersonCommand
+
+ListPersonCommand --> ListPersonCommandParser : lp
+deactivate ListPersonCommand
+
+ListPersonCommandParser --> SpendNSplitParser : lp
+deactivate ListPersonCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ListPersonCommandParser -[hidden]-> SpendNSplitParser
+destroy ListPersonCommandParser
+
+SpendNSplitParser --> LogicManager : lp
+deactivate SpendNSplitParser
+
+LogicManager -> ListPersonCommand : execute()
+activate ListPersonCommand
+
+ListPersonCommand -> Model : updateFilteredPersonList(predicate)
+activate Model
+
+Model --> ListPersonCommand
+deactivate Model
+
+create CommandResult
+ListPersonCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ListPersonCommand
+deactivate CommandResult
+
+ListPersonCommand --> LogicManager : result
+deactivate ListPersonCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

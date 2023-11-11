@@ -231,7 +231,21 @@ The overall flow of the `deletePerson` command is as follows:
 4. The `DeletePersonCommand` is executed by the `LogicManager`, which attempts to delete the person from the model through `Model::deletePerson(personToDelete)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()`.
 5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
-#### Filtering Persons
+#### Listing Persons
+
+The `listPerson` command lists existing `Person` objects with names matching the keywords provided by the user. If no keywords are provided, all `Person` objects are listed.
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `listPerson` command:
+
+![Interactions Inside the Logic Component for the `listPerson` Command](images/ListPersonSequenceDiagram.png)
+
+The overall flow of the `listPerson` command is as follows:
+
+1. The user specifies the keywords to be matched.
+2. The parsers check for the validity of the provided keywords. Errors are raised if the keywords are invalid.
+3. Upon successful parsing, the `ListPersonCommand` is created with the keywords to be matched expressed as a `NameContainsKeywordsPredicate` object which implements the `Predicate<Person>` interface.
+4. The `ListPersonCommand` is executed by the `LogicManager`, which attempts to update the displayed list of persons through `Model::updateFilteredPersonList(predicate)`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 #### Sorting Persons
 
