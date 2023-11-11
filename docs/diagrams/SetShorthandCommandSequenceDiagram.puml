@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":SetShorthandCommandParser" as SetShorthandCommandParser LOGIC_COLOR
+participant "ss:SetShorthandCommand" as SetShorthandCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("setShorthand o=... s=...")
+activate LogicManager
+
+LogicManager -> SpendNSplitParser : parseCommand("setShorthand o=... s=...")
+activate SpendNSplitParser
+
+create SetShorthandCommandParser
+SpendNSplitParser -> SetShorthandCommandParser
+activate SetShorthandCommandParser
+
+SetShorthandCommandParser --> SpendNSplitParser
+deactivate SetShorthandCommandParser
+
+SpendNSplitParser -> SetShorthandCommandParser : parse("o=... s=...")
+activate SetShorthandCommandParser
+
+create SetShorthandCommand
+SetShorthandCommandParser -> SetShorthandCommand
+activate SetShorthandCommand
+
+SetShorthandCommand --> SetShorthandCommandParser : ss
+deactivate SetShorthandCommand
+
+SetShorthandCommandParser --> SpendNSplitParser : ss
+deactivate SetShorthandCommandParser
+''Hidden arrow to position the destroy marker below the end of the activation bar.
+'SetShorthandCommandParser -[hidden]-> SpendNSplitParser
+'destroy SetShorthandCommandParser
+
+SpendNSplitParser --> LogicManager : ss
+deactivate SpendNSplitParser
+
+LogicManager -> SetShorthandCommand : execute()
+activate SetShorthandCommand
+
+SetShorthandCommand -> Model : setCommandAlias()
+activate Model
+
+Model --> SetShorthandCommand
+deactivate Model
+
+create CommandResult
+SetShorthandCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SetShorthandCommand
+deactivate CommandResult
+
+SetShorthandCommand --> LogicManager : result
+deactivate SetShorthandCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
