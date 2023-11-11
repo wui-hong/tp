@@ -170,7 +170,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Person-related Features
 
-<img src="images/PersonClassDiagram.png" width="450" />
+![Overview of Person Class](images/PersonClassDiagram.png)
 
 The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the address book and is composed of the following classes:
 
@@ -183,7 +183,21 @@ The `Person` class is the main class in the `seedu.addressbook.person` package. 
 
 All `Person` objects are stored in `UniquePersonList` in `Model`.
 
-#### Adding Persons
+#### Adding a Person
+
+The `addPerson` command creates a new `Person` object with the details provided by the user.
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `addPerson` command:
+
+![Interactions Inside the Logic Component for the `addPerson` Command](images/AddPersonSequenceDiagram.png)
+
+The overall flow of the `addPerson` command is as follows:
+
+1. The user specifies the details of the person to be added. Note that name is the only mandatory field.
+2. The parsers check for the presence of the mandatory name field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
+3. Upon successful parsing, the `AddPersonCommand` is created with the person object to be added to the model.
+4. The `AddPersonCommand` is executed by the `LogicManager`, which attempts to add the person to the model. Errors are raised if the person already exists in the model.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 #### Editing Persons
 
