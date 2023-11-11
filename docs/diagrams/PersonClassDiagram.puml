@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+UniquePersonList -> "~* all" Person
+
+Person *--> "1" Name
+Person *--> "1" Phone
+Person *--> "1" Email
+Person *--> "1" Address
+Person *--> "1" TelegramHandle
+Person *--> "*" Tag
+@enduml

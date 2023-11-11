@@ -170,6 +170,19 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Person-related Features
 
+<img src="images/PersonClassDiagram.png" width="450" />
+
+The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the address book and is composed of the following classes:
+
+* `Name`: The name of the person.
+* `Phone`: The phone number of the person.
+* `Email`: The email address of the person.
+* `Address`: The address of the person.
+* `TelegramHandle`: The telegram handle of the person.
+* `Tags`: The tags associated with the person.
+
+All `Person` objects are stored in `UniquePersonList` in `Model`.
+
 #### Adding Persons
 
 #### Editing Persons
