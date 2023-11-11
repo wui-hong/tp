@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant "hc:HelpCommand" as HelpCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> MainWindow : executeCommand("help")
+
+activate MainWindow
+MainWindow -> LogicManager : execute("help")
+activate LogicManager
+
+LogicManager -> SpendNSplitParser : parseCommand("help")
+activate SpendNSplitParser
+
+create HelpCommand
+SpendNSplitParser -> HelpCommand
+activate HelpCommand
+
+HelpCommand --> SpendNSplitParser : hc
+deactivate HelpCommand
+
+
+SpendNSplitParser --> LogicManager : hc
+deactivate SpendNSplitParser
+
+LogicManager -> HelpCommand : execute()
+activate HelpCommand
+
+create CommandResult
+HelpCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> HelpCommand
+deactivate CommandResult
+
+HelpCommand --> LogicManager : result
+deactivate HelpCommand
+
+MainWindow <-- LogicManager : result
+deactivate LogicManager
+
+MainWindow --> MainWindow : handleHelp()
+activate MainWindow
+deactivate MainWindow
+
+[<-- MainWindow
+deactivate MainWindow
+
+@enduml
