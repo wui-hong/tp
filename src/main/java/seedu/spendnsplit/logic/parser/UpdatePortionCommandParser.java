@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand;
-import seedu.spendnsplit.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
+import seedu.spendnsplit.logic.descriptors.PortionDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 
 /**
@@ -44,13 +44,13 @@ public class UpdatePortionCommandParser implements Parser<UpdatePortionCommand> 
         }
 
 
-        UpdatePortionDescriptor updatePortionDescriptor = new UpdatePortionDescriptor();
-        updatePortionDescriptor.setPersonName(
+        PortionDescriptor portionDescriptor = new PortionDescriptor();
+        portionDescriptor.setPersonName(
                 ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
-        updatePortionDescriptor.setWeight(
+        portionDescriptor.setWeight(
                 ParserUtil.parseZeroableWeight(argMultimap.getValue(CliSyntax.PREFIX_WEIGHT).get()));
 
-        return new UpdatePortionCommand(index, updatePortionDescriptor);
+        return new UpdatePortionCommand(index, portionDescriptor);
     }
 
     /**
