@@ -196,10 +196,24 @@ The overall flow of the `addPerson` command is as follows:
 1. The user specifies the details of the person to be added. Note that name is the only mandatory field.
 2. The parsers check for the presence of the mandatory name field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
 3. Upon successful parsing, the `AddPersonCommand` is created with the person object to be added to the model.
-4. The `AddPersonCommand` is executed by the `LogicManager`, which attempts to add the person to the model. Errors are raised if the person already exists in the model.
+4. The `AddPersonCommand` is executed by the `LogicManager`, which attempts to add the person to the model through `Model::addPerson(newPerson)`. Errors are raised if the person already exists in the model (duplicate name).
 5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
-#### Editing Persons
+#### Editing a Person
+
+The `editPerson` command edits an existing `Person` object with the details provided by the user.
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `editPerson` command:
+
+![Interactions Inside the Logic Component for the `editPerson` Command](images/EditPersonSequenceDiagram.png)
+
+The overall flow of the `editPerson` command is as follows:
+
+1. The user specifies the index of the person to be edited and the details to be edited.
+2. The parsers check for the presence of the mandatory index field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
+3. Upon successful parsing, the `EditPersonCommand` is created with the index of the person to be edited and the details to be edited expressed as an `PersonDescriptor` object.
+4. The `EditPersonCommand` is executed by the `LogicManager`, which attempts to edit the person in the model through `Model::setPerson(personToEdit, editedPerson)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()` or if the edited person already exists in the model (duplicate name).
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 #### Deleting Persons
 
