@@ -2,50 +2,68 @@
 layout: page
 title: User Guide
 ---
-
+## Introduction
 ***Taking care of your finances has never been easier!***
 
-Spend N Split (SnS) is an application for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend n Split.
+Spend N Split (SnS) is an application meant for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend N Split.
 
-* Table of Contents
-{:toc}
+Spend N Split is perfect for **you** if you are
+1. A university student staying on campus
+2. A fast typist
+3. Comfortable using a keyboard to make full use of the application
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Table of Contents](#table-of-contents)
+2. [How to use the User guide](#how-to-use-the-user-guide)
+3. [Key Terms](#key-terms)
+4. [Quick Start](#quick-start)
+5. [Navigating the App](#navigating-the-app)
+   1. [Navigating the app using only the keyboard](#navigating-the-app-using-only-the-keyboard)
+6. [Parameters](#parameters)
+7. [Features](#features)
+8. [Saving the data file](#saving-the-data)
+9. [Editing the data file](#editing-the-data-file)
+10. [FAQ](#faq)
+11. [Glossary](#glossary)
+
 
 --------------------------------------------------------------------------------------------------------------------
 ## How to use the User Guide
 
-1. If Spend N Split is not yet installed, kindly navigate to the Quick Start section, which includes steps for installation
+1. If Spend N Split is not yet installed, kindly navigate to the [Quick Start](#quick-start) section, which includes steps for installation
 as well as sample commands for you to try.
 
-2. If you are not yet familiar with Spend N Split and want a refresher, we highly recommend heading to the Navigating the
-App section.
+2. If you are not yet familiar with Spend N Split and want a refresher, we highly recommend heading to the [Navigating the App](#navigating-the-app) section.
 
-3. Already an experienced user? Well, all you need is probably just the Features section for a quick
+3. Already an experienced user? Well, head to the [Features](#features) section for a quick
 refresher on what Spend N Split can do for you!
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Key Terms
 
-Spend N Split is built on linking transactions and people. As such, it is pivotal that you familarise yourself
+The Spend N Split application links transactions and people. As such, it is important that you familarise yourself
 with the structure of each person and each transaction in our application.
 
 ### Person
 
 A person is someone that you track your balance against. Before creating a transaction involving a specific
- person, that person has to exist in the application. If not, the person has to be added to the application before the transaction
- is created.
+person, that person has to exist in the application. If not, the person has to be added to the application before the transaction
+is created.
 
 A person has the following attributes:
-- Name
-- Balance (calculated by the app)
-- Tag(s)
-- Phone number
-- Telegram handle
-- Email Address
-- Address
+- Name (Compulsory)
+- Balance (Calculated by the application)
+- Tag(s) (Optional)
+- Phone number (Optional)
+- Telegram handle (Optional)
+- Email Address (Optional)
+- Address (Optional)
 
-Every person is uniquely identified by their name. Names are case-insensitive and the application does not support
-adding people with the same names.
+Every person is identified by their name. Names are case-insensitive and the application does not support
+adding people with the same names. This means that you cannot add two or more people with the same name.
 
 If a positive balance is displayed on a person, it means that they owe you money. Conversely, if the balance displayed is
 negative, you owe that person money instead. 
@@ -55,38 +73,16 @@ negative, you owe that person money instead.
 Transactions are events in which money is exchanged.
 
 A transaction has the following attributes:
-- Description
-- Payee
-- Amount
-- Timestamp
-- Portion(s)
+- Description (Compulsory)
+- Payee (Compulsory)
+- Payer (Compulsory) 
+- Amount (Compulsory)
+- Timestamp (Optional. If this is not provided, the application will use the current system time of the computer for the Timestamp) 
+- Portion(s) 
 
-Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you, the user, and others refers to anyone not in the app.
+Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you, the user, and "Others" refers to anyone not in the app.
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
-
-### Fields
-
-Inputs to fields should not contain the "=" sign.
-
-The following fields are used for commands:
-
-| Field | Prefix | Format | Example |
-| --- | --- | --- | --- |
-| Index | - | Positive integers only | `1`, `2`, `3` |
-| Keyword | - | No `=` sign allowed | `Bob`, `Lunch` |
-| Name | n | Alphanumeric, can contain multiple words | `Bob`, `Alex Yeoh` |
-| Phone number | p | Numeric, minimum length of 3 digits | `99999999`, `88888888` |
-| Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores | `@nus_cs2103` , `@spend_n_split` |
-| Email address | e | Valid email format required | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
-| Address | a | No `=` sign allowed | `Kent Ridge Hall`, `RC4` |
-| Tag | t | Single-word, alphanumeric | `friend`, `colleague` |
-| Description | d | No `=` sign allowed | `Lunch`, `Dinner @ UTown` |
-| Amount/ Cost | c | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Timestamp | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
-| Weight | w | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Original command | o | Use one of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
-| Shorthand | s | Single-word, English alphabet characters only | `s`, `aT` |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -94,7 +90,7 @@ The following fields are used for commands:
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `spendnsplit.jar` from [here](https://github.com). (Coming soon)
+2. Download the latest `spendnsplit.jar` from [here](https://github.com/AY2324S1-CS2103T-W17-3/tp/releases/tag/v1.4).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your Spend N Split.
 
@@ -135,30 +131,50 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Parameters
+
+Some of our commands require parameters, which have specific formats and constraints applied on them. Before heading to the features section, we recommend taking a look at the type of parameters required by commands.
+<br> Note: **All inputs** to parameters should not contain the "=" sign.
+
+The following parameters are used for commands:
+
+| Parameter        | Prefix | Format                                                                                                                                                                                                     | Example |
+|------------------| --- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| Index            | - | Positive integers only                                                                                                                                                                                     | `1`, `2`, `3` |
+| Keyword          | - |                                                                                                                                                                                                            | `Bob`, `Lunch` |
+| Name             | n | Alphanumeric, can contain multiple words                                                                                                                                                                   | `Bob`, `Alex Yeoh` |
+| Phone number     | p | Numeric, minimum length of 3 digits                                                                                                                                                                        | `99999999`, `88888888` |
+| Telegram handle  | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores                                                                                                                           | `@nus_cs2103` , `@spend_n_split` |
+| Email address    | e | Valid email format required                                                                                                                                                                                | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address          | a |                                                                                                                                                                                                            | `Kent Ridge Hall`, `RC4` |
+| Tag              | t | Single-word, alphanumeric                                                                                                                                                                                  | `friend`, `colleague` |
+| Description      | d |                                                                                                                                                                                                            | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost     | c | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                         | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp        | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:SS. You have the option to include only the date or time, or both. When providing both, ensure the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight           | w | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                         | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | One of the original command keywords listed in this user guide                                                                                                                                             | `setShorthand`, `addTransaction` |
+| Shorthand        | s | Single-word, English alphabet characters only                                                                                                                                                              | `s`, `aT` |
+
 ## Features
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Notes about the command format:**<br>
+**Notes about the command format:**<br>
 
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `addPerson n=NAME`, `NAME` is a parameter which can be used as `addPerson n=John Doe`.
+  E.g. in `addPerson n=NAME`, `NAME` is a parameter to be provided by the user. <br>Example usage: `addPerson n=John Doe`.
 
 - Items in square brackets are optional.<br>
-  e.g `n=NAME [t=TAG]` can be used as `n=John Doe t=friend` or as `n=John Doe`.
+  E.g for `n=NAME [t=TAG]`: <br> Example usage `n=John Doe t=friend` or `n=John Doe`.
 
-- Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t=TAG]…​` can be used as ` ` (i.e. 0 times), `t=friend`, `t=friend t=family` etc.
+- Items followed by `…` are optional and can be listed multiple times.<br>
+  E.g. for `[t=TAG]…​`: <br> Example usage:` ` (0 tags), or `t=friend` (1 tag) or `t=friend t=family` (2 tags).
 
 - Parameters can be in any order.<br>
-  e.g. if the command specifies `n=NAME p=PHONE_NUMBER`, `p=PHONE_NUMBER n=NAME` is also acceptable.
+  E.g. for `n=NAME p=PHONE_NUMBER` <br> Example usage: `n=Bob p=91722828` or `p=91722828 n=Bob` are both accepted and will be treated as equivalent inputs by the application.
+- Unnecessary parameters provided for commands (such as `help`, `clear`, `exit`) that do not accept them will be disregarded. <br> E.g. for the command `help` which does not accept any parameters, entering the command `help 123` will be interpreted by the application as `help`.
 
-- Extraneous parameters for commands that do not take in parameters (such as `listPerson`, `listTransaction`, `help`, `clear`, `exit`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-- Commands are case-sensitive. `addPerson` is a valid command, while `ADDPERSON` or `addperson` are not.
-
-- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+- If you are using a PDF version of this document, be careful when copying and pasting commands. Space characters such as ` ` may result in errors. It is recommended that commands are manually copied and typed into the application.
 
 </div>
 
@@ -177,8 +193,7 @@ Examples:
 * `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
 * `addPerson  n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
 
-Note: Contact details are optional to add. They can also be added later using the editPerson command. However, once they are added, they cannot be removed through the app.
-
+Note: Only the name is compulsory when adding a person. More attributes to a person can be added using the `editPerson` command. Once an attribute has been added, it can only be edited and cannot be deleted, except for the tags of a person (as elaborated below).
 #### Editing a person : `editPerson`
 
 Edits an existing person in the spendnsplit book.
@@ -555,12 +570,13 @@ You can use the following shortcuts to navigate our application:
 
 For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
-#### Saving the data
+
+## Saving the data
 
 Data is saved in the hard disk automatically after any command that changes the data. There is no need
 to save manually.
 
-#### Editing the data file
+## Editing the data file
 
 Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
 
@@ -661,4 +677,35 @@ Note:
 
 ## Glossary
 
-### Apple
+### Address
+The particulars of the place where a person lives.
+### Alphanumeric
+Consisting of only letters (a-z, A-Z) or numbers or both.
+### Amount
+### Balance
+### Card
+### Command
+### Cost
+### Description
+### Email address
+### Field
+### Flag
+### Gui
+### Index
+### Integer
+### Keyword
+### Name
+### Parameter
+### Payee
+### Payer
+### Person
+### Phone number
+### Portion
+### Positive
+### Settle
+### Shorthand
+### Tag
+### Telegram handle
+### Timestamp
+### Transaction
+### Weight
