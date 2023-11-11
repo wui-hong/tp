@@ -627,7 +627,7 @@ Expected Output in the Person List Panel: The person Roy Tan is displayed.
 
 Expected Output in the Command Output Panel: List person message is shown and states "1 person(s) listed".
 
-`listPerson Tan`
+`listPerson Lim`
 
 Expected Output in the Person List Panel: Nothing is displayed.
 
@@ -641,7 +641,7 @@ Prerequisite: There is only 1 person stored in Spend N Split. Their name is "Ale
 
 Expected Output in the Transaction List Panel: A new transaction is created that is named "Settle balance with Alex".
 
-Expected Outp t in the Person List Panel: The balance of Alex is now "0.00"
+Expected Output in the Person List Panel: The balance of Alex is now "0.00"
 
 Expected Output in the Command Output Panel: Balance settled message is shown along with the name of Alex.
 
@@ -706,13 +706,13 @@ Expected Output in the Command Output Panel: Error message stating that there is
 
 Prerequisite: There is only 1 transaction stored in Spend N Split. The payer is "Roy".
 
-`listTransaction Roy`
+`listTransaction n=Roy`
 
 Expected Output in the Transaction List Panel: The transaction is displayed.
 
 Expected Output in the Command Output Panel: List transaction message is shown and states "1 transaction(s) listed".
 
-`listTransaction Tan`
+`listTransaction Lim`
 
 Expected Output in the Transaction List Panel: Nothing is displayed.
 
@@ -735,7 +735,8 @@ Expected Output in the Command Output Panel: Error message stating that there is
 
 ### Updating a Portion of a Transaction
 
-Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+Prerequisite: There is at least 1 transaction in the Transaction List Panel. A person named "David" is stored in Spend N Split.
+David is not part of the transaction at index 1 of the Transaction List Panel.
 
 `updatePortion 1 n=David w=0.5`
 
