@@ -28,3 +28,11 @@ Given below are my contributions to the project.
     * Some parts of the history feature I added was adopted by several other class mates (to be added soon)
 
 * **Tools**: to be added soon
+
+* **New Feature**: Added new command `duplicateTransaction`.
+* **What it does**: Allows the user to create a new transaction based on an existing transaction with optional changes.
+* **Justification**: This feature allows the user to create a new transaction based on an existing transaction, which is useful for recurring transactions or transactions with similar details.
+
+* **New Feature**: Added new command `deleteTransaction`.
+* **What it does**: Allows the user to delete an existing transaction in the transaction list.
+* **Justification**: This feature allows the user to delete the transactions they have made, in case they made a mistake or would like to remove the transaction.

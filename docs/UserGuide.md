@@ -171,6 +171,8 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 - Extraneous parameters for commands that do not take in parameters (such as `listPerson`, `listTransaction`, `help`, `clear`, `exit`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+- Commands are case-sensitive. `addPerson` is a valid command, while `ADDPERSON` or `addperson` are not.
+
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 </div>
@@ -229,7 +231,7 @@ Format: `deletePerson INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 * Transactions involving the deleted person will have the deleted person's name changed to "Others". In the event that
  this results in the transaction becoming irrelevant, the transaction will be automatically deleted. All transactions involving
- the deleted person as a payee will also be automatically deleted. 
+ the deleted person as a payee will also be automatically deleted.
 
 Examples:
 
@@ -278,7 +280,8 @@ Examples:
         followed by others in decreasing order of their outstanding balances.
 
 
-![sortPerson success](images/user-guide/sortPerson.png)
+![sortPersonDescending success](images/user-guide/sortPersonDescending.png)
+![sortPersonAscending success](images/user-guide/sortPersonAscending.png)
 
 ### Transaction-related features
 
@@ -295,15 +298,24 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - If only the date is given, the default time is set as 00:00.
 - If you want to create a weight for yourself, include `n=Self` to refer to yourself.
 - At least one pair of name and weight must be provided.
+- Payer names should not repeat; however, you are allowed to key in multiple portions for "Others" - the final weight for "Others" will be the sum of all the weights of the "Others" portions keyed in.
 - The cost for each person is calculated as follows:
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
 The order of the fields is NOT flexible.
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Note:**<br>
+
+Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+
+</div>
+
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
     * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
-* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary =w1`
+* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
     * Rent costed $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
 
 Sample execution:
@@ -325,8 +337,7 @@ Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransactio
 
 #### Editing a Transaction: `editTransaction`
 
-Edits the transaction at the specified `INDEX`. The index refers to the index number when viewing the TransactionList.
-The index **must be a positive integer** 1, 2, 3, ...
+Edits the transaction at the specified `INDEX`.
 
 Transaction details that can be edited:
 
@@ -336,10 +347,23 @@ Transaction details that can be edited:
 
 Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 
-The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. description can come after cost) but the command word (editTransaction) and the index must be in front.
+The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. cost can come before details) but the command word (editTransaction) and the index must be in front.
 
-If no timestamp is given, the default timestamp is the current system time.
-If only the date is given, the default time is set as 00:00.
+* Edits the transaction at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list.
+  The index **must be a positive integer** 1, 2, 3, …
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* If no timestamp is given, the default timestamp is the current system time.
+* If only the date is given, the default time is set as 00:00.
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Note:**<br>
+
+After editing, the transaction must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+
+</div>
+
 
 Examples:
 
@@ -433,12 +457,12 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. d
 Examples:
 
 * `duplicateTransaction 1 c=12.12`
-  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel, 
-  except for the timestamp of the new transaction being the time at which this command was executed 
+  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel,
+  except for the timestamp of the new transaction being the time at which this command was executed
   and the cost bring 12.12 instead.
 * `duplicateTransaction 2 d=Potato n=Bob`
   * Creates a new transaction that is identical to the current transaction at index two in the Transaction panel,
-    except for the timestamp of the new transaction being the time at which this command was executed, the 
+    except for the timestamp of the new transaction being the time at which this command was executed, the
     description of the new transaction being "Potato" and the payee of the new transaction being Bob.
 
 #### Listing transactions: `listTransaction`
@@ -562,7 +586,7 @@ Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplit
 ### 1) Why do the portions in the log not add up exactly to the balance?
 
 The portions displayed are rounded to a fixed number of decimal places. This means there may be fractional differences
-between the actual portions and what is displayed. Values are rounded to 2 decimal places (i.e. 0.149 will be rounded down to 0.14, 
+between the actual portions and what is displayed. Values are rounded to 2 decimal places (i.e. 0.149 will be rounded down to 0.14,
 and 0.145 will be rounded up to 0.15). The positive and negative signs will still be kept (i.e. -0.0000001 will be rounded
 down to -0.00, and -1.015 will be rounded up to -1.02).
 

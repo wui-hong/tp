@@ -168,93 +168,25 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Person-related Features
 
-#### Proposed Implementation
+#### Adding Persons
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+#### Editing Persons
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+#### Deleting Persons
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+#### Filtering Persons
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+#### Sorting Persons
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+### Transaction-related Features
 
-![UndoRedoState0](images/UndoRedoState0.png)
+#### Adding Transactions
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+##### Settling Balances
 
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n=David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n=David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-### Editing Transactions
-
-#### Implementation
+#### Editing Transactions
 
 Editing transactions mechanism is facilitated by `EditTransactionCommand`. It extends `Command` with the ability to edit a transaction.
 
@@ -272,6 +204,23 @@ Upon execution, `EditTransactionCommand` will retrieve the transaction to be edi
 
 We chose this method of execution instead of directly editing the `Transaction` object in `filteredTransactionList` because `Model` re-renders the UI only when `filteredTransactionList` is updated. If we were to edit the `Transaction` object directly, `Model` would not be able to detect the change and re-render the UI.
 
+##### Updating Portions
+
+#### Deleting Transactions
+
+#### Duplicating Transactions
+
+#### Filtering Transactions
+
+### Other Features
+
+#### Setting Shorthands
+
+#### Clearing App Data
+
+#### Accessing Help
+
+#### Exiting the App
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -476,7 +425,7 @@ Extensions:
 * 4a. Transaction does not exist in the portion list.
   * 4a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
   * 4a2. Use case resumes at step 3.
-  
+
 * 4b. Spend n Split detects an error in the request.
   * 4b1. Spend n Split informs the user that request is invalid.
   * 4b2. Use case resumes at step 3.
@@ -652,4 +601,96 @@ $ listPerson $$$
 
 Names in should only contain alphanumeric characters
 Example: listPerson Alex David
+```
+
+### Improved Space Sensitivity in Names
+
+- **Background**: Currently, the `Name` of our `Person` is currently able to trim
+leading and trailing spaces, allowing us to treat `Alex Yeoh` and `&nbsp;&nbsp;Alex Yeoh&nbsp;&nbsp;`
+as the same `Name`. However, the `Name` is sensitive to spaces in between. This results
+in `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh` being treated as different names.
+
+- **Issue**: Suppose a `Person` named `Alex Yeoh` exists in our application
+  (and no one is named `Alex&nbsp;&nbsp;&nbsp;Yeoh` with the additional spaces in between).
+Executing `addTransaction d= n=Alex&nbsp;&nbsp;&nbsp;Yeoh ...` will show an error of
+"This transaction involves unknown parties; please set them to 'Others'" even if all
+other names correctly refer to people in the application. This is not the right behaviour
+as our application should be able to detect that `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh`
+are equivalent.
+
+- **Enhancement**: We plan on ensuring that our application collapses multiple spaces
+between individual names such that names like `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh`
+can be considered to refer to the same `Name`.
+
+### Enhanced Timestamp Validation Messages
+- **Background**: Many of the transaction-related commands, such as `addTransaction` and `editTransaction`
+may involve a `Timestamp` input. Currently, we validate our `Timestamp` through a combination of regex
+and checking of `DateTimeParseException` from `LocalDateTime.parse(datetime)`. Currently, if
+any validation fails, we show the following error message.
+
+> Date must be in DD/MM/YYYY format and time must be in HH:MM format; date should
+come before time with a single space separating them if both are provided
+
+- **Issue**: This error message is too general, and does not effectively communicate
+to the user why the date is invalid, making it difficult for the user to correct
+the `Timestamp` input in the transaction-related commands.
+
+- **Enhancement**: We plan to make our `Timestamp` validation error messages
+more specific in order to let the user know how they can correct their input. Specifically,
+we plan on covering these 5 cases:
+1. Incorrect Date Format
+2. Incorrect Time Format
+3. Incorrect Date and Time Format (e.g. `25/06/2023 + 11:30` didn't separate the date and time
+with a single space)
+4. Invalid Date (e.g. `32/13/2023` has an invalid day and month)
+5. Invalid Time (e.g. `25/06/2023 25:61` has an invalid time)
+
+If there are multiple issues in the input, the error message will be prioritised based
+on the order above.
+
+Below are examples of the enhanced error messages in commands with `Timestamp` input.
+The `Timestamp` input comes after `ts=` in the `addTransaction` command.
+
+Example 1: Incorrect Date Format
+```
+$ addTransaction d=Bread n=John c=10 ts=abcd n=Self w=1
+
+Date must be in DD/MM/YYYY format with leading zeroes in the date, month and year,
+and forward slashes as separators (e.g. 25/06/2020).
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 n=Self w=1
+```
+
+Example 2: Incorrect Time Format
+```
+$ addTransaction d=Bread n=John c=10 ts=25/06/2023 abcd n=Self w=1
+
+Time must be in HH:MM format with leading zeroes in the hours and minutes,
+and a colon separating the hours and minutes (e.g. 09:05).
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
+```
+
+Example 3: Incorrect Date and Time Format
+```
+$ addTransaction d=Bread n=John c=10 ts=25/06/2023 + 11:30 n=Self w=1
+
+The date and time must be in the format 'DD/MM/YYYY HH:MM' with a single space
+between the date and time (e.g. 25/06/2020 09:05).
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
+```
+
+Example 4: Invalid Date
+```
+$ addTransaction d=Bread n=John c=10 ts=32/13/2023 n=Self w=1
+
+The date entered does not exist. Please use a valid date in DD/MM/YYYY format.
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 n=Self w=1
+```
+
+Example 5: Invalid Time
+```
+$ addTransaction d=Bread n=John c=10 ts=25/06/2023 25:61 n=Self w=1
+
+The time you entered does not exist. Please use a valid time in HH:MM format between
+00:00 to 23:59.
+Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
 ```

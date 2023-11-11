@@ -20,9 +20,9 @@ public class TelegramHandle {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code TelegramHandle}.
      *
-     * @param address A valid address.
+     * @param telegramHandle A valid telegramHandle.
      */
     public TelegramHandle(String telegramHandle) {
         requireNonNull(telegramHandle);
