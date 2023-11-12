@@ -9,7 +9,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Jed
 
-<img src="images/jedkohjk.png" width="200px">
+<img src="images/developers/jedkohjk.png" width="200px">
 
 [[github](https://github.com/jedkohjk)]
 [[portfolio](team/jedkohjk.md)]
@@ -19,7 +19,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Nguyen Cao Duy
 
-<img src="images/ncduy0303.png" width="200px">
+<img src="images/developers/ncduy0303.png" width="200px">
 
 [[github](https://github.com/ncduy0303)]
 [[portfolio](team/ncduy0303.md)]
@@ -29,7 +29,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Nathaniel Calimag
 
-<img src="images/nathanielcalimag.png" width="200px">
+<img src="images/developers/nathanielcalimag.png" width="200px">
 
 [[github](http://github.com/nathanielcalimag)]
 [[portfolio](team/nathanielcalimag.md)]
@@ -39,7 +39,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Khoo Wui Hong
 
-<img src="images/wui-hong.png" width="200px">
+<img src="images/developers/wui-hong.png" width="200px">
 
 [[github](http://github.com/wui-hong)]
 [[portfolio](team/wui-hong.md)]
@@ -49,7 +49,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Jeffrey Jian
 
-<img src="images/jeffrey-jian.png" width="200px">
+<img src="images/developers/jeffrey-jian.png" width="200px">
 
 [[github](http://github.com/jeffrey-jian)]
 [[portfolio](team/jeffrey-jian.md)]
