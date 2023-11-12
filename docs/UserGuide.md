@@ -21,12 +21,11 @@ Spend N Split is perfect for **you** if you are
 5. [Key Terms](#key-terms)
 6. [Quick Start](#quick-start)
 7. [Navigating the App](#navigating-the-app)
-   1. [Navigating the app using only the keyboard](#navigating-the-app-using-only-the-keyboard)
 8. [Parameters](#parameters)
 9. [Features](#features)
-10. [Saving the data file](#saving-the-data)
-11. [Editing the data file](#editing-the-data-file)
-12. [FAQ](#faq)
+10. [Data](#data)
+11. [FAQ](#faq)
+12. [Acknowledgements](#acknowledgements)
 13. [Glossary](#glossary)
 
 
@@ -101,12 +100,12 @@ A transaction has the following attributes:
 - Portion(s) 
 
 <div markdown="block" class="alert alert-primary">
-Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
+:warning: Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
 </div>
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
 
-Note: Spend N Split will only keep track of transactions that are considered [relevant](#what-is-considered-a-relevant-transaction).
+Note: Spend N Split will only keep track of transactions that are considered [relevant](#3-what-is-considered-a-relevant-transaction).
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -220,6 +219,7 @@ Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADD
 
 The command word (addPerson) has to be at the front of the command. The order of the remaining parameters is flexible.
 
+After the command has been executed, every person in the application will be displayed in the Person List.
 Examples:
 
 * `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
@@ -236,13 +236,15 @@ Format: `editPerson INDEX [n=NAME] [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=A
 
 The command word (editPerson) and the index has to be at the front of the command. The order of the remaining parameters is flexible.
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed Person List.
   The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t=` without
   specifying any tags after it.
+
+After the command has been executed, every person in the application will be displayed in the Person List.
 
 Examples:
 
@@ -261,7 +263,7 @@ Deletes the specified person from the application.
 Format: `deletePerson INDEX`
 
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed Person List.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Transactions involving the deleted person will have the deleted person's name changed to "Others". In the event that
  this results in the transaction becoming irrelevant, the transaction will be automatically deleted. All transactions involving
@@ -306,9 +308,9 @@ Parameters:
 
 Examples:
 * `sortPerson -`
-    * This command will rearrange the person list in ascending order.
+    * This command will rearrange the Person List in ascending order.
 * `sortPerson +`
-    * This command will rearrange the person list in descending order.
+    * This command will rearrange the Person List in descending order.
 
 
 ![sortPersonDescending success](images/user-guide/sortPersonDescending.png)
@@ -331,6 +333,9 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - The cost for each person is calculated as follows:
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
+After the command has been executed, every transaction in the application will be displayed in the transaction list.
+
+
 <div markdown="span" class="alert alert-danger">
 :heavy_exclamation_mark: Note: The order of the parameters is NOT flexible.
 </div>
@@ -339,19 +344,20 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 
 **:warning: Note:**<br>
 
-Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
 
 </div>
 
 Examples:
 * `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
-    * A transaction for rent that cost $600 is added. John paid for this transaction at 12 o'clock on 10 October 2020. Yoou (`Self`) and Mary both owe John $200 (1/3 of $600) each.
+    * A transaction for rent that cost $600 is added. John paid for this transaction at 12 o'clock on 10 October 2020. You (`Self`) and Mary both owe John $200 (1/3 of $600) each.
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
     * A transaction for Dinner that cost $100 is added. You (`Self`) paid for this transaction. John and Mary both owe you (`Self`) $40 (2/5 of $100) each, while Alice owes you (`Self`) $20 (1/5 of $100.
 
 Sample execution:
 ```
-$ addTransaction d=Dinner n=self c=100 n=John w=2 n=Mary w=2 n=Alice w=1
+$ addTransaction d=Dinner n=self c=100
+  n=John w=2 n=Mary w=2 n=Alice w=1
 
 ```
 ![addTransaction success](images/user-guide/addTransaction1.png)
@@ -363,7 +369,10 @@ $ addTransaction c=200 d=Textbooks
 
 Invalid command format!
 addTransaction: Adds a transaction to the spendnsplit book.
-Parameters: d=DESCRIPTION n=NAME c=COST [n=NAME w=WEIGHT] Example: addTransaction d=bread n=John Doe c=25.00 n=Self w=1.5 n=John Doe w=1
+Parameters: d=DESCRIPTION n=NAME c=COST
+[n=NAME w=WEIGHT] Example: addTransaction 
+d=bread n=John Doe c=25.00 n=Self w=1.5 
+n=John Doe w=1
 ```
 
 #### Editing a Transaction: `editTransaction`
@@ -386,6 +395,9 @@ The command word (editTransaction) and the index has to be at the front of the c
 * Existing values will be updated to the input values.
 * If the Timestamp is provided as a parameter but only the date is given, the default time will be set to 00:00.
 * A transaction cannot be edited to be irrelevant.
+
+After the command has been executed, every transaction in the application will be displayed in the transaction list.
+
 
 <div markdown="block" class="alert alert-primary">
 
@@ -418,6 +430,9 @@ Updates the portion of a transaction at the specified `INDEX`. The index refers 
 Portion refers to the amount of money that a payer owes the payee for a transaction. \
 The portion is calculated based on the cost of the transaction and the proportion of the transaction that the person has
 to pay for, which is determined by the `WEIGHT` of the person. Hence the `WEIGHT` must be between 0 (inclusive) and 1 (exclusive).
+
+After the command has been executed, every transaction in the application will be displayed in the transaction list.
+
 
 Format: `updatePortion INDEX n=NAME w=WEIGHT`
 
@@ -461,7 +476,9 @@ Sample Execution:
 ```
 $ deleteTransaction 4
 
-Deleted Transaction: bread; Timestamp: 12/11/2023 11:24; Amount: 20.00; Paid by: Alex; Portions: [name: Self, weight: 1.00]
+Deleted Transaction: bread; Timestamp: 12/11/2023 11:24; 
+Amount: 20.00; Paid by: Alex; 
+Portions: [name: Self, weight: 1.00]
 ```
 
 ![](images/user-guide/deleteTransaction.png)
@@ -553,7 +570,8 @@ Sample Execution:
 $ settlePerson
 
 Invalid command format!
-settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
+settlePerson: Settle any outstanding balance with another person. 
+Parameters: INDEX (must be a positive integer)
 Example: settlePerson 1
 
 $ settlePerson 1
@@ -605,13 +623,14 @@ You can use the following shortcuts to navigate our application:
 
 For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
+## Data
 
-## Saving the data
+### Saving the data
 
 Data is saved in the hard disk automatically after any command that changes the data. There is no need
 to save manually.
 
-## Editing the data file
+### Editing the data file
 
 Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. 
 <br>
@@ -647,7 +666,7 @@ B:     -10.22
 When an invalid command is input, an error message will be reflected at the
 output panel at the top of Spend N Split. The error message will vary depending on the type of error.
 
-* Invalid command format. This occurs when the command word
+* Execution error caused by invalid command format. This occurs when the command word
 is recognised but there are missing parameters or parameters are
 not supported.
 The error message reflected
@@ -659,9 +678,18 @@ input with the parameters required.
       * Error message:
     ```
     Invalid command format!
-    settlePerson: Settle any outstanding balance with another person. Parameters: INDEX (must be a positive integer)
+    settlePerson: Settle any outstanding balance with another person.
+    Parameters: INDEX (must be a positive integer)
     Example: settlePerson 1
     ```
+  
+<div markdown="block" class="alert alert-info">
+:bulb: Note the differences between Execution errors and Input errors. An execution error refers to errors that will occur
+regardless of the state of the application or its data, whereas input errors are errors that occur when certain conditions in the application
+are met. E.g. Attempting to settle the balance of a person at index 6 when there are only 5 people in the Person List, or attempting
+to add a person that has an identical name to someone that already exists in the Person List are both input errors.
+</div>
+
 * Unknown command. This occurs when the command word is not recognised.
 The error message reflected will state `Unknown command`.
   * Example: `settleTransaction n=Ryan tg=@ryanzzzzz`
@@ -669,14 +697,15 @@ The error message reflected will state `Unknown command`.
   ```
   Unknown command
   ```
-* Invalid parameter values. This occurs when invalid parameter values are provided
+* Input errors caused by invalid parameter values. This occurs when invalid parameter values are provided
 for the valid command word. The error message reflected is dependent on the
 valid command word.
-  * Example: `settlePerson 6` when there are only 5 people in the Persons List.
+  * Example: `settlePerson 6` when there are only 5 people in the Person List.
     * Error message:
   ```
   The person index provided is invalid
   ```
+
 
 ### 3) What is considered a relevant transaction?
 
@@ -711,8 +740,44 @@ Note:
 - If you delete a person and it results in some transactions becoming irrelevant as highlighted
   in the second example of  irrelevant transactions above, **the application will automatically delete
   these irrelevant transactions**.
+
 --------------------------------------------------------------------------------------------------------------------
 
+## **Acknowledgements**
+
+We would like to acknowledge the following third-party libraries, frameworks and sources for their use in Spend N Split:
+
+**Development**
+
+* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for Spend N Split.
+
+* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend N Split.
+
+* **[Apache Common Numbers](https://github.com/apache/commons-numbers/tree/master)**: The Java numbers library that enhance Spend N Split's precision.
+
+**Gradle**
+
+* **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
+
+* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend N Split.
+
+* **[Jacoco](https://github.com/palantir/gradle-jacoco-coverage)**: The Gradle plugin for generating code coverage reports.
+
+**User Interface**
+
+* **[JavaFX](https://openjfx.io/)**: The GUI framework of Spend N Split.
+
+* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The primary font used in Spend N Split.
+
+* **[Tailwind CSS Colors](https://tailwindcss.com/docs/customizing-colors)**: The colour palette that inspired the Spend N Split colour scheme.
+
+**Others**
+
+* **[Address Book 3](https://se-education.org/addressbook-level3/)**: The project Spend N Split is based on.
+
+* **[Jekyll](https://github.com/jekyll/jekyll)**: The static site generator that converts Spend N Split markdown documentation into web pages.
+
+--------------------------------------------------------------------------------------------------------------------
 ## Glossary
 
 ### Address
@@ -780,3 +845,4 @@ An interaction of buying or selling something where the exchange of money occurs
 ### Weight
 A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
 a person should pay for their share of the transaction.
+
