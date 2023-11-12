@@ -21,10 +21,10 @@ activate LogicManager
 
 LogicManager -> Model : getCommandMap()
 activate Model
-Model --> LogicManager : commandMap
+Model --> LogicManager : cm
 deactivate Model
 
-LogicManager -> SpendNSplitParser : parseCommand("addPerson n=name", commandMap)
+LogicManager -> SpendNSplitParser : parseCommand("addPerson n=name", cm)
 activate SpendNSplitParser
 
 create AddPersonCommandParser
@@ -68,7 +68,7 @@ deactivate SpendNSplitParser
 LogicManager -> AddPersonCommand : execute()
 activate AddPersonCommand
 
-AddPersonCommand -> Model : addPerson(newPerson)
+AddPersonCommand -> Model : addPerson(personToAdd)
 'activate Model
 
 'Model --> AddPersonCommand

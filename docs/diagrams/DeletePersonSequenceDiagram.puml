@@ -20,10 +20,10 @@ activate LogicManager
 
 LogicManager -> Model : getCommandMap()
 activate Model
-Model --> LogicManager : commandMap
+Model --> LogicManager : cm
 deactivate Model
 
-LogicManager -> SpendNSplitParser : parseCommand("deletePerson 1", commandMap)
+LogicManager -> SpendNSplitParser : parseCommand("deletePerson 1", cm)
 activate SpendNSplitParser
 
 create DeletePersonCommandParser

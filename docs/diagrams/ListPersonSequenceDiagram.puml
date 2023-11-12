@@ -20,10 +20,10 @@ activate LogicManager
 
 LogicManager -> Model : getCommandMap()
 activate Model
-Model --> LogicManager : commandMap
+Model --> LogicManager : cm
 deactivate Model
 
-LogicManager -> SpendNSplitParser : parseCommand("listPerson keyword", commandMap)
+LogicManager -> SpendNSplitParser : parseCommand("listPerson keyword", cm)
 activate SpendNSplitParser
 
 create ListPersonCommandParser

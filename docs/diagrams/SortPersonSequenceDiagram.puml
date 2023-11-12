@@ -19,10 +19,10 @@ activate LogicManager
 
 LogicManager -> Model : getCommandMap()
 activate Model
-Model --> LogicManager : commandMap
+Model --> LogicManager : cm
 deactivate Model
 
-LogicManager -> SpendNSplitParser : parseCommand("sortPerson +", commandMap)
+LogicManager -> SpendNSplitParser : parseCommand("sortPerson +", cm)
 activate SpendNSplitParser
 
 create SortPersonCommandParser
