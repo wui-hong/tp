@@ -6,6 +6,7 @@ import static seedu.spendnsplit.commons.util.AppUtil.checkArgument;
 import org.apache.commons.numbers.fraction.BigFraction;
 
 import seedu.spendnsplit.commons.util.FractionUtil;
+import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a Weight in an Portion.
@@ -26,7 +27,7 @@ public class Weight {
      *
      * @param weight A valid weight.
      */
-    public Weight(String weight) {
+    public Weight(String weight) throws ParseException {
         requireNonNull(weight);
         checkArgument(isValidWeight(weight), MESSAGE_CONSTRAINTS);
         value = FractionUtil.parseFraction(weight);

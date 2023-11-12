@@ -1,6 +1,7 @@
 package seedu.spendnsplit.testutil;
 
 import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
+import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.transaction.Amount;
 import seedu.spendnsplit.model.transaction.Description;
@@ -46,7 +47,11 @@ public class TransactionDescriptorBuilder {
      * Sets the {@code Amount} of the {@code TransactionDescriptor} that we are building.
      */
     public TransactionDescriptorBuilder withAmount(String amount) {
-        descriptor.setAmount(new Amount(amount));
+        try {
+            descriptor.setAmount(new Amount(amount));
+        } catch (ParseException e) {
+            assert false;
+        }
         return this;
     }
 

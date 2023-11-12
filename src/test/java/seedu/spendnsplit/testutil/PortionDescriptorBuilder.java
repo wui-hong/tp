@@ -1,6 +1,7 @@
 package seedu.spendnsplit.testutil;
 
 import seedu.spendnsplit.logic.descriptors.PortionDescriptor;
+import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.transaction.portion.Portion;
 import seedu.spendnsplit.model.transaction.portion.Weight;
@@ -41,7 +42,11 @@ public class PortionDescriptorBuilder {
      * Sets the {@code Weight} of the {@code PortionDescriptor} that we are building.
      */
     public PortionDescriptorBuilder withWeight(String weight) {
-        descriptor.setWeight(new Weight(weight));
+        try {
+            descriptor.setWeight(new Weight(weight));
+        } catch (ParseException e) {
+            assert false;
+        }
         return this;
     }
 
