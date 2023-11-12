@@ -1,6 +1,7 @@
 @startuml
 !include style.puml
 skinparam ArrowFontStyle plain
+skinparam sequenceReferenceBackgroundColor yellow
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -63,6 +64,7 @@ deactivate Model
 DeletePersonCommand -> Model : deletePerson(personToDelete)
 activate Model
 
+ref over Model : delete person
 Model --> DeletePersonCommand
 deactivate Model
 

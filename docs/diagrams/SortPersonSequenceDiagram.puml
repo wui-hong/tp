@@ -54,13 +54,13 @@ deactivate SpendNSplitParser
 LogicManager -> SortPersonCommand : execute()
 activate SortPersonCommand
 
-alt isDesc
+alt #LightBlue isDesc
     SortPersonCommand -> Model : sortPersonDescending()
     activate Model
 
     Model --> SortPersonCommand
     deactivate Model
-else
+else #Pink
     SortPersonCommand -> Model : sortPersonAscending()
     activate Model
 

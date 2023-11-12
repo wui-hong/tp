@@ -207,13 +207,25 @@ The sequence diagram below shows the interactions within the `Logic` component w
 
 ![Interactions Inside the Logic Component for the `editPerson` Command](images/EditPersonSequenceDiagram.png)
 
+Since the `editPerson` command might affect the `Transaction` objects stored in the model, the sequence diagram below extends the previous sequence diagram to show the interactions within the `Model` component:
+
+![Interactions Inside the Model Component for the `editPerson` Command](images/EditPersonSequenceDiagram2.png)
+
+Key points to note:
+
+- `UniquePersonList::setPerson` updates the `Person` object in the list
+- `UniqueTransactionList::setPerson` changes the `Name` fields of all `Transaction` objects in the list that involve the person to be edited
+- `SpendNSplit::syncNames` ensures the consistency of the casing of all `Name` fields in the model after the command
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command
+
 The overall flow of the `editPerson` command is as follows:
 
 1. The user specifies the index of the person to be edited and the details to be edited.
 2. The parsers check for the presence of the mandatory index field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
 3. Upon successful parsing, the `EditPersonCommand` is created with the index of the person to be edited and the details to be edited expressed as an `PersonDescriptor` object.
 4. The `EditPersonCommand` is executed by the `LogicManager`, which attempts to edit the person in the model through `Model::setPerson(personToEdit, editedPerson)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()` or if the edited person already exists in the model (duplicate name).
-5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user. 
+6. Note that the displayed list of persons will be updated to show all persons in the model after the edit through `Model::updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)`.
 
 #### Deleting a Person
 
@@ -222,6 +234,16 @@ The `deletePerson` command deletes an existing `Person` object.
 The sequence diagram below shows the interactions within the `Logic` component when user runs the `deletePerson` command:
 
 ![Interactions Inside the Logic Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram.png)
+
+Since the `deletePerson` command might affect the `Transaction` objects stored in the model, the sequence diagram below extends the previous sequence diagram to show the interactions within the `Model` component:
+
+![Interactions Inside the Model Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram2.png)
+
+Key points to note:
+
+- `UniquePersonList::remove` removes the `Person` object from the list
+- `UniqueTransactionList::deletePerson` updates the `Name` fields of all `Transaction` objects in the list that involve the person to be deleted to `Name.OTHERS`. If the updated `Transaction` object is not valid (not involving any other known person), it is removed from the list.
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command
 
 The overall flow of the `deletePerson` command is as follows:
 
