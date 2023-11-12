@@ -37,6 +37,26 @@ Given below are my contributions to the project.
 * **Justification**: This feature allows the user to update the portions of a transaction, in case they made a mistake or would like to update the portions of a transaction.
 * **Highlights**: This enhancement affects transaction-related commands. It required an in-depth judgement about the splitting of the commands for editing transactions, and how to allow the user to update the portions of a transaction. It also required the designing of a 3-in-1 command, which is a command that can be used to add, edit, and delete portions.
 
+* **New Feature**: Added hotkeys to navigate through the app.
+* **What it does**: Allows the user to use pre-defined hotkeys to navigate through the app.
+* **Justification**: This feature allows the user to navigate through the app faster using the keyboard only, and is especially useful for users who are familiar with the app.
+* **Highlights**: This enhancement requires the use of JavaFX and keyCombination to implement the hotkeys. It also required an in-depth analysis of design alternatives, whereby we considered the need for hotkeys, and what hotkeys should we implement.
+
+* User Guide:
+* Added documentation for the features `editTransaction` and `updatePortion`
+* Did cosmetic tweaks to include tips and notes for features regarding "relevant" transactions.
+
+* Developer Guide:
+* Added implementation details of the `editTransaction` and `updatePortion` features.
+
+[//]: # (    * Added documentation for the features `delete` and `find` [\#72]&#40;&#41;)
+
+[//]: # (    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]&#40;&#41;)
+
+[//]: # (  * Developer Guide:)
+
+[//]: # (    * Added implementation details of the `delete` feature.)
+
 [//]: # (  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.)
 
 [//]: # (  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.)

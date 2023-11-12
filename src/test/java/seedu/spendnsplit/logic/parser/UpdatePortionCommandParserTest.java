@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand;
-import seedu.spendnsplit.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
-import seedu.spendnsplit.testutil.UpdatePortionDescriptorBuilder;
+import seedu.spendnsplit.logic.descriptors.PortionDescriptor;
+import seedu.spendnsplit.testutil.PortionDescriptorBuilder;
 
 class UpdatePortionCommandParserTest {
 
@@ -46,7 +46,7 @@ class UpdatePortionCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = " " + targetIndex.getOneBased() + " " + NAME_DESC_AMY + WEIGHT_DESC_HALF;
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder()
+        PortionDescriptor descriptor = new PortionDescriptorBuilder()
                 .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
         UpdatePortionCommand expectedCommand = new UpdatePortionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
