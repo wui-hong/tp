@@ -187,6 +187,10 @@ All `Person` objects are stored in `UniquePersonList` in `Model`.
 
 The `addPerson` command creates a new `Person` object with the details provided by the user.
 
+The activity diagram below shows an overview of the `addPerson` command:
+
+![Overview of the `addPerson` Command](images/AddPersonActivityDiagram.png)
+
 The sequence diagram below shows the interactions within the `Logic` component when user runs the `addPerson` command:
 
 ![Interactions Inside the Logic Component for the `addPerson` Command](images/AddPersonSequenceDiagram.png)
@@ -202,6 +206,10 @@ The overall flow of the `addPerson` command is as follows:
 #### Editing a Person
 
 The `editPerson` command edits an existing `Person` object with the details provided by the user.
+
+The activity diagram below shows an overview of the `editPerson` command:
+
+![Overview of the `editPerson` Command](images/EditPersonActivityDiagram.png)
 
 The sequence diagram below shows the interactions within the `Logic` component when user runs the `editPerson` command:
 
@@ -231,6 +239,10 @@ The overall flow of the `editPerson` command is as follows:
 
 The `deletePerson` command deletes an existing `Person` object.
 
+The activity diagram below shows an overview of the `deletePerson` command:
+
+![Overview of the `deletePerson` Command](images/DeletePersonActivityDiagram.png)
+
 The sequence diagram below shows the interactions within the `Logic` component when user runs the `deletePerson` command:
 
 ![Interactions Inside the Logic Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram.png)
@@ -257,6 +269,10 @@ The overall flow of the `deletePerson` command is as follows:
 
 The `listPerson` command lists existing `Person` objects with names matching the keywords provided by the user. If no keywords are provided, all `Person` objects are listed.
 
+The activity diagram below shows an overview of the `listPerson` command:
+
+![Overview of the `listPerson` Command](images/ListPersonActivityDiagram.png)
+
 The sequence diagram below shows the interactions within the `Logic` component when user runs the `listPerson` command:
 
 ![Interactions Inside the Logic Component for the `listPerson` Command](images/ListPersonSequenceDiagram.png)
@@ -272,6 +288,10 @@ The overall flow of the `listPerson` command is as follows:
 #### Sorting Persons
 
 The `sortPerson` command sorts displayed `Person` objects by the specified order.
+
+The activity diagram below shows an overview of the `sortPerson` command:
+
+![Overview of the `sortPerson` Command](images/SortPersonActivityDiagram.png)
 
 The sequence diagram below shows the interactions within the `Logic` component when user runs the `sortPerson` command:
 
