@@ -15,10 +15,10 @@ if () then ([Command format is invalid])
   :Throw exception;
   stop
 endif
-if () then ([Original command has a shorthand])
-  :Replace old shorthand with new shorthand;
-else ([else])
-  :Add new shorthand to original command;
+if () then ([Has existing shorthand])
+  :Delete existing shorthand from original command;
+else
 endif
+  :Add new shorthand to original command;
 stop
 @enduml

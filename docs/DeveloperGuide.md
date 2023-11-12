@@ -228,6 +228,8 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 <img src="images/SetShorthandCommandSequenceDiagram.png" width="550"/>
 
+<img src="images/SetShorthandCommandSequenceDiagram2.png" width="550"/>
+
 ##### Feature Details
 
 1. The user specifies the original command and the new shorthand in the `setShorthand` command.
