@@ -216,6 +216,27 @@ We chose this method of execution instead of directly editing the `Transaction` 
 
 #### Setting Shorthands
 
+##### Overview
+The `setShorthand` command allows users to set a shorthand, or alias for an existing command. This shorthand can then be used in place of the command.
+
+The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
+
+<img src="images/SetShorthandCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the original command and the new shorthand in the `setShorthand` command.
+2. If the original command is invalid or does not exist, the user will be informed of the error.
+3. If the shorthand is already an existing original command, the user will be informed of the error.
+4. If the shorthand is already being used as a shorthand for another command, the user will be informed of the error.
+5. If the original command has an existing shorthand, the new shorthand will replace the existing shorthand.
+
+##### Implementation Considerations
+
+The shorthand allows each original command to have up to one and only one shorthand.
+This is to prevent ambiguity when the user enters a shorthand that is used by multiple original commands, 
+as well as confusion when an original command could have multiple shorthands.
+
 #### Clearing App Data
 
 #### Accessing Help
