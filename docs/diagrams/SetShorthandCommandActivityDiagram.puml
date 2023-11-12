@@ -5,28 +5,22 @@ start
 if () then ([Command format is invalid])
   :Throw exception;
   stop
+([else]) elseif () then ([Original command does not exist])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Shorthand is an original command])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Shorthand already in use by another command])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Original command has a shorthand])
+  :Replace existing shorthand with new shorthand;
+  stop
 else ([else])
-  if () then ([Original command does not exist])
-    :Throw exception;
-    stop
-  else ([else])
-    if () then ([Shorthand is an original command])
-      :Throw exception;
-      stop
-    else ([else])
-      if () then ([Shorthand already in use by another command])
-        :Throw exception;
-        stop
-      else ([else])
-        if () then ([Original command has a shorthand])
-          :Replace existing shorthand with new shorthand;
-          stop
-        else ([else])
-          :Add new shorthand to original command;
-          stop
-        endif
-      endif
-    endif
-  endif
 endif
+  :Add transaction to the transaction list;
+
+
+stop
 @enduml
