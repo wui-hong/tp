@@ -106,7 +106,7 @@ Note: There are 2 special names when adding transactions - "Self" and "Others". 
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
 
-Note: Spend N Split will only keep track of transactions that are considered [relevant](#what-is-considered-a-relevant-transaction).
+Note: Spend N Split will only keep track of transactions that are considered [relevant](#3-what-is-considered-a-relevant-transaction).
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -339,7 +339,7 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 
 **:warning: Note:**<br>
 
-Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
 
 </div>
 
