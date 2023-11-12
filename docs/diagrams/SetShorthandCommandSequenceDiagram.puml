@@ -1,6 +1,7 @@
 @startuml
 !include style.puml
 skinparam ArrowFontStyle plain
+skinparam sequenceReferenceBackgroundColor yellow
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -49,8 +50,10 @@ deactivate SpendNSplitParser
 LogicManager -> SetShorthandCommand : execute()
 activate SetShorthandCommand
 
-SetShorthandCommand -> Model : setCommandAlias()
+SetShorthandCommand -> Model : setCommandAlias(command, alias)
 activate Model
+
+ref over Model: set alias
 
 Model --> SetShorthandCommand
 deactivate Model
