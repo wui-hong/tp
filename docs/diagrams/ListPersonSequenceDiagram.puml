@@ -66,10 +66,10 @@ LogicManager -> ListPersonCommand : execute()
 activate ListPersonCommand
 
 ListPersonCommand -> Model : updateFilteredPersonList(predicate)
-activate Model
+'activate Model
 
-Model --> ListPersonCommand
-deactivate Model
+'Model --> ListPersonCommand
+'deactivate Model
 
 create CommandResult
 ListPersonCommand -> CommandResult

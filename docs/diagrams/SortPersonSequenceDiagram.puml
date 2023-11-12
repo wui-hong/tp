@@ -56,16 +56,16 @@ activate SortPersonCommand
 
 alt #LightBlue isDesc
     SortPersonCommand -> Model : sortPersonDescending()
-    activate Model
+'    activate Model
 
-    Model --> SortPersonCommand
-    deactivate Model
+'    Model --> SortPersonCommand
+'    deactivate Model
 else #Pink
     SortPersonCommand -> Model : sortPersonAscending()
-    activate Model
+'    activate Model
 
-    Model --> SortPersonCommand
-    deactivate Model
+'    Model --> SortPersonCommand
+'    deactivate Model
 end
 
 create CommandResult

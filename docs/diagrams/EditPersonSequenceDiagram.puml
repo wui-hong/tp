@@ -94,10 +94,10 @@ Model --> EditPersonCommand
 deactivate Model
 
 EditPersonCommand -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
-activate Model
+'activate Model
 
-Model --> EditPersonCommand
-deactivate Model
+'Model --> EditPersonCommand
+'deactivate Model
 
 create CommandResult
 EditPersonCommand -> CommandResult

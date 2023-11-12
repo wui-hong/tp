@@ -69,10 +69,10 @@ LogicManager -> AddPersonCommand : execute()
 activate AddPersonCommand
 
 AddPersonCommand -> Model : addPerson(newPerson)
-activate Model
+'activate Model
 
-Model --> AddPersonCommand
-deactivate Model
+'Model --> AddPersonCommand
+'deactivate Model
 
 create CommandResult
 AddPersonCommand -> CommandResult
