@@ -16,17 +16,17 @@ Spend N Split is perfect for **you** if you are
 
 1. [Introduction](#introduction)
 2. [Table of Contents](#table-of-contents)
-2. [How to use the User guide](#how-to-use-the-user-guide)
-3. [Key Terms](#key-terms)
-4. [Quick Start](#quick-start)
-5. [Navigating the App](#navigating-the-app)
+3. [How to use the User guide](#how-to-use-the-user-guide)
+4. [Key Terms](#key-terms)
+5. [Quick Start](#quick-start)
+6. [Navigating the App](#navigating-the-app)
    1. [Navigating the app using only the keyboard](#navigating-the-app-using-only-the-keyboard)
-6. [Parameters](#parameters)
-7. [Features](#features)
-8. [Saving the data file](#saving-the-data)
-9. [Editing the data file](#editing-the-data-file)
-10. [FAQ](#faq)
-11. [Glossary](#glossary)
+7. [Parameters](#parameters)
+8. [Features](#features)
+9. [Saving the data file](#saving-the-data)
+10. [Editing the data file](#editing-the-data-file)
+11. [FAQ](#faq)
+12. [Glossary](#glossary)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -39,6 +39,22 @@ as well as sample commands for you to try.
 
 3. Already an experienced user? Well, head to the [Features](#features) section for a quick
 refresher on what Spend N Split can do for you!
+
+--------------------------------------------------------------------------------------------------------------------
+## Labels
+
+In our user guide, you may find coloured boxes that contain highlighted pieces of text. 
+<div markdown="block" class="alert alert-info">
+    :bulb: Cyan boxes represent helpful tips to enhance your experience.
+</div>
+
+<div markdown="block" class="alert alert-primary">
+    :warning: Blue boxes represent warnings that you should be cautious about.
+</div>
+
+<div markdown="span" class="alert alert-danger">
+    :heavy_exclamation_mark: Yellow boxes represent dangers that you should pay a lot of attention to.
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -65,8 +81,10 @@ A person has the following attributes:
 Every person is identified by their name. Names are case-insensitive and the application does not support
 adding people with the same names. This means that you cannot add two or more people with the same name.
 
-If a positive balance is displayed on a person, it means that they owe you money. Conversely, if the balance displayed is
+<div markdown="block" class="alert alert-info">
+:bulb: If a positive balance is displayed on a person, it means that they owe you money. Conversely, if the balance displayed is
 negative, you owe that person money instead. 
+</div>
 
 ### Transaction
 
@@ -80,7 +98,9 @@ A transaction has the following attributes:
 - Timestamp (Optional. If this is not provided, the application will use the current system time of the computer for the Timestamp) 
 - Portion(s) 
 
+<div markdown="block" class="alert alert-primary">
 Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you, the user, and "Others" refers to anyone not in the app.
+</div>
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
 
@@ -134,8 +154,11 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 ## Parameters
 
 Some of our commands require parameters, which have specific formats and constraints applied on them. Before heading to the features section, we recommend taking a look at the type of parameters required by commands.
-<br> Note: **All inputs** to parameters should not contain the "=" sign.
+<br> 
 
+<div markdown="span" class="alert alert-danger">
+:heavy_exclamation_mark: Note: **All inputs** to parameters should not contain the "=" sign.
+</div>
 The following parameters are used for commands:
 
 | Parameter        | Prefix | Format                                                                                                                                                                                                     | Example |
@@ -150,16 +173,16 @@ The following parameters are used for commands:
 | Tag              | t | Single-word, alphanumeric                                                                                                                                                                                  | `friend`, `colleague` |
 | Description      | d |                                                                                                                                                                                                            | `Lunch`, `Dinner @ UTown` |
 | Amount/ Cost     | c | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                         | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Timestamp        | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:SS. You have the option to include only the date or time, or both. When providing both, ensure the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Timestamp        | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:MM. You have the option to include only the date or time, or both. When providing both, ensure the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
 | Weight           | w | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                         | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
 | Original command | o | One of the original command keywords listed in this user guide                                                                                                                                             | `setShorthand`, `addTransaction` |
 | Shorthand        | s | Single-word, English alphabet characters only                                                                                                                                                              | `s`, `aT` |
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-primary">">
 
-**Notes about the command format:**<br>
+:warning: **Notes about the command format:**<br>
 
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   E.g. in `addPerson n=NAME`, `NAME` is a parameter to be provided by the user. <br>Example usage: `addPerson n=John Doe`.
@@ -182,7 +205,7 @@ The following parameters are used for commands:
 
 #### Adding a person: `addPerson`
 
-Adds a person to the spendnsplit book.
+Adds a person to the application.
 
 Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -196,7 +219,7 @@ Examples:
 Note: Only the name is compulsory when adding a person. More attributes to a person can be added using the `editPerson` command. Once an attribute has been added, it can only be edited and cannot be deleted, except for the tags of a person (as elaborated below).
 #### Editing a person : `editPerson`
 
-Edits an existing person in the spendnsplit book.
+Edits an existing person in the application.
 
 Format: `editPerson INDEX [n=NAME] [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -222,7 +245,7 @@ Examples:
 
 #### Deleting a person : `deletePerson`
 
-Deletes the specified person from the spendnsplit book.
+Deletes the specified person from the application.
 
 Format: `deletePerson INDEX`
 
@@ -235,7 +258,7 @@ Format: `deletePerson INDEX`
 
 Examples:
 
-* `list` followed by `deletePerson 2` deletes the 2nd person in the spendnsplit book.
+* `list` followed by `deletePerson 2` deletes the 2nd person in the application.
 * `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
 ![deletePerson_success](images/user-guide/deletePerson.PNG)
@@ -262,7 +285,7 @@ Examples:
 
 #### Sorting people by balance: `sortPerson`
 
-Sorts the list of people in your spendnsplit book based on their outstanding balances in either ascending or descending
+Sorts the list of people in your application based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
@@ -302,11 +325,13 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - The cost for each person is calculated as follows:
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
-The order of the fields is NOT flexible.
+<div markdown="span" class="alert alert-danger">
+:heavy_exclamation_mark: Note: The order of the fields is NOT flexible.
+</div>
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-primary">
 
-**:information_source: Note:**<br>
+**:warning: Note:**<br>
 
 Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
 
@@ -314,9 +339,9 @@ Transactions added to Spend N Split must be relevant. Refer to the [Relevant Tra
 
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
-    * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
+    * Dinner that cost $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
 * `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
-    * Rent costed $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
+    * Rent that cost $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
 
 Sample execution:
 ```
@@ -356,9 +381,9 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. c
 * If no timestamp is given, the default timestamp is the current system time.
 * If only the date is given, the default time is set as 00:00.
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-primary">
 
-**:information_source: Note:**<br>
+**:warning: Note:**<br>
 
 After editing, the transaction must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
 
@@ -433,7 +458,7 @@ Sample Execution:
 ```
 $ deleteTransaction 4
 
-Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Amount: 60.00; Paid by: Self; Portions: [name: Benson Meier, weight: 4.00][name: Alice Pauline, weight: 2.00]
+Deleted Transaction: bread; Timestamp: 12/11/2023 11:24; Amount: 20.00; Paid by: Alex; Portions: [name: Self, weight: 1.00]
 ```
 
 ![](images/user-guide/deleteTransaction.png)
@@ -549,7 +574,7 @@ Format: `help`
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the spendnsplit book.
+Clears all entries from the application.
 
 Format: `clear`
 
@@ -578,8 +603,11 @@ to save manually.
 
 ## Editing the data file
 
-Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
-
+Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. 
+<br>
+<div markdown="span" class="alert alert-danger">
+:heavy_exclamation_mark: However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
+</div>
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -682,30 +710,63 @@ The particulars of the place where a person lives.
 ### Alphanumeric
 Consisting of only letters (a-z, A-Z) or numbers or both.
 ### Amount
+The total value of the transaction.
 ### Balance
+The amount of money that you owe a person or the amount of money that they owe you. A positive balance under a person
+means that they owe you money, whereas a negative balance means that you owe them money.
 ### Card
+A rectangular area in our application that either describes the full details of a transaction or person.
 ### Command
+To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed. 
 ### Cost
+The total value of the transaction.
 ### Description
+A written account of a transaction, used to provide context and details about the transaction.
 ### Email address
+A unique identifier for an email account. It identifies an email box to which messages and emails are delivered.
 ### Field
+An area where text can be input.
 ### Flag
+Flags are used to modify the operation of a command.
 ### Gui
+Gui stands for graphical user interface. A graphical user interface uses icons and mouse inputs from users to allow them to interact with the application.
 ### Index
+A number representing the position of an item in a list.
 ### Integer
+A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5/
 ### Keyword
+An important word that is used by the application to process various commands.
 ### Name
+A word or set of words that are used to address or refer to a person.
+### Negative
+A numerical value that is less than 0.
 ### Parameter
+An additional input that provides further details on a command that a user is executing.
 ### Payee
+Refers to the person that paid for the transaction.
 ### Payer
+Refers to a person that owes the payee money for the transaction.
 ### Person
+A human being.
 ### Phone number
+A sequence of digits that is dialled on a telephone to contact a person.
 ### Portion
+A subset of a transaction. A transaction is split into multiple portions.
 ### Positive
+A numerical value that is greater than 0.
 ### Settle
+Refers to the act of two people exchanging money, such that their respective balances with each other equal zero after the transaction.
 ### Shorthand
+A shortened version of a command.
 ### Tag
+A label that can be applied to a person to provide additional details about them.
 ### Telegram handle
+A unique identifier for a telegram account. 
 ### Timestamp
+Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
+YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
 ### Transaction
+An interaction of buying or selling something where the exchange of money occurs.
 ### Weight
+A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
+a person should pay for their share of the transaction.
