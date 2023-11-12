@@ -208,7 +208,7 @@ The sequence diagram is as follows:
 
 ![addTransaction Sequence Diagram](images/AddTransactionSequenceDiagram.png)
 
-##### Settling Balances
+#### Settling Balances
 
 The app also provides a way to add a special transaction that settles balances, using the command word `settlePerson`.
 
