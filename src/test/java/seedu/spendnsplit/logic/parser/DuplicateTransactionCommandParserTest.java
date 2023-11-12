@@ -15,12 +15,12 @@ import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.Command;
 import seedu.spendnsplit.logic.commands.DuplicateTransactionCommand;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.transaction.Amount;
 import seedu.spendnsplit.model.transaction.Description;
 import seedu.spendnsplit.model.transaction.Timestamp;
-import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
+import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -97,7 +97,7 @@ public class DuplicateTransactionCommandParserTest {
         Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + "";
         DuplicateTransactionCommand expectedCommand = new DuplicateTransactionCommand(targetIndex,
-            new EditTransactionDescriptor());
+            new TransactionDescriptor());
         try {
             Command command = parser.parse(userInput);
             assertNotNull(command);
@@ -111,8 +111,8 @@ public class DuplicateTransactionCommandParserTest {
         // timestamp
         Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_TIMESTAMP + VALID_TIMESTAMP;
-        EditTransactionDescriptor descriptor =
-            new EditTransactionDescriptorBuilder().withTimestamp(VALID_TIMESTAMP).build();
+        TransactionDescriptor descriptor =
+            new TransactionDescriptorBuilder().withTimestamp(VALID_TIMESTAMP).build();
         DuplicateTransactionCommand expectedCommand = new DuplicateTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -20,14 +20,16 @@ import java.util.List;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.commands.exceptions.CommandException;
+import seedu.spendnsplit.logic.descriptors.PersonDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.person.NameContainsKeywordsPredicate;
 import seedu.spendnsplit.model.person.Person;
 import seedu.spendnsplit.model.transaction.Transaction;
-import seedu.spendnsplit.testutil.EditPersonDescriptorBuilder;
-import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
+import seedu.spendnsplit.testutil.PersonDescriptorBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
+import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -95,25 +97,25 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditPersonCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditPersonCommand.EditPersonDescriptor DESC_BOB;
+    public static final PersonDescriptor DESC_AMY;
+    public static final PersonDescriptor DESC_BOB;
 
-    public static final EditTransactionCommand.EditTransactionDescriptor DESC_LUNCH;
-    public static final EditTransactionCommand.EditTransactionDescriptor DESC_DINNER;
+    public static final TransactionDescriptor DESC_LUNCH;
+    public static final TransactionDescriptor DESC_DINNER;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new PersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new PersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
     static {
-        DESC_LUNCH = new EditTransactionDescriptorBuilder().withAmount(VALID_COST_LUNCH)
+        DESC_LUNCH = new TransactionDescriptorBuilder().withAmount(VALID_COST_LUNCH)
                 .withDescription(VALID_DESCRIPTION_LUNCH).build();
-        DESC_DINNER = new EditTransactionDescriptorBuilder().withAmount(VALID_COST_DINNER)
+        DESC_DINNER = new TransactionDescriptorBuilder().withAmount(VALID_COST_DINNER)
                 .withDescription(VALID_DESCRIPTION_DINNER).build();
     }
 

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
-import seedu.spendnsplit.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
+import seedu.spendnsplit.logic.descriptors.PortionDescriptor;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.ModelManager;
 import seedu.spendnsplit.model.SpendNSplit;
@@ -31,8 +31,8 @@ import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.transaction.Transaction;
 import seedu.spendnsplit.model.transaction.portion.Portion;
 import seedu.spendnsplit.testutil.PortionBuilder;
+import seedu.spendnsplit.testutil.PortionDescriptorBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
-import seedu.spendnsplit.testutil.UpdatePortionDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for UpdatePortionCommand.
@@ -52,7 +52,7 @@ class UpdatePortionCommandTest {
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
                 .withPortions(editedPortions).build();
 
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(originalPortion)
                 .withWeight("1/2").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_SECOND_ELEMENT, descriptor);
 
@@ -69,7 +69,7 @@ class UpdatePortionCommandTest {
         Transaction originalTransaction = model.getFilteredTransactionList().get(0);
         Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
 
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(originalPortion)
                 .withWeight("1/2").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -83,7 +83,7 @@ class UpdatePortionCommandTest {
         Transaction originalTransaction = model.getFilteredTransactionList().get(1);
         Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
 
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(originalPortion)
                 .withWeight("1/3").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_SECOND_ELEMENT, descriptor);
 
@@ -103,7 +103,7 @@ class UpdatePortionCommandTest {
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
                 .withPortions(editedPortions).build();
 
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(originalPortion)
                 .withWeight("0").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_THIRD_ELEMENT, descriptor);
 
@@ -122,7 +122,7 @@ class UpdatePortionCommandTest {
     public void execute_deleteOnlyExistingPortionUnfilteredList_failure() {
         Transaction originalTransaction = model.getFilteredTransactionList().get(0);
         Portion originalPortion = originalTransaction.getPortions().stream().iterator().next();
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(originalPortion)
                 .withWeight("0").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -139,7 +139,7 @@ class UpdatePortionCommandTest {
         Transaction originalTransaction = model.getFilteredTransactionList().get(2);
         Portion originalPortion = originalTransaction.getPortions().stream().filter(portion ->
                 portion.getPersonName().equals(Name.SELF)).iterator().next();
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(originalPortion)
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(originalPortion)
                 .withWeight("0").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_THIRD_ELEMENT, descriptor);
         String expectedMessage = UpdatePortionCommand.MESSAGE_IRRELEVANT_UPDATED_TRANSACTION;
@@ -156,7 +156,7 @@ class UpdatePortionCommandTest {
         Transaction editedTransaction = new TransactionBuilder(originalTransaction)
                 .withPortions(editedPortions).build();
 
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).withWeight("1/3").build();
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(newPortion).withWeight("1/3").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
@@ -171,7 +171,7 @@ class UpdatePortionCommandTest {
     public void execute_unknownName_failure() {
         Portion newPortion = new PortionBuilder().withName(VALID_NAME_AMY).withWeight("1/2").build();
 
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).build();
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(newPortion).build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = UpdatePortionCommand.MESSAGE_UNKNOWN_PARTY;
@@ -180,7 +180,7 @@ class UpdatePortionCommandTest {
 
     public void execute_highWeight_failure() {
         Portion newPortion = new PortionBuilder().withName(CARL.getName().fullName).withWeight("1").build();
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(newPortion).withWeight("1").build();
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(newPortion).withWeight("1").build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
         String expectedMessage = UpdatePortionCommand.MESSAGE_INVALID_PROPORTION;
@@ -201,7 +201,7 @@ class UpdatePortionCommandTest {
                 .withPortions(editedPortions).build();
 
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT,
-                new UpdatePortionDescriptorBuilder(newPortion).withWeight("1/3").build());
+                new PortionDescriptorBuilder(newPortion).withWeight("1/3").build());
 
         String expectedMessage = String.format(UpdatePortionCommand.MESSAGE_UPDATE_PORTION_SUCCESS,
                 Messages.format(editedTransaction));
@@ -215,7 +215,7 @@ class UpdatePortionCommandTest {
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder()
+        PortionDescriptor descriptor = new PortionDescriptorBuilder()
                 .withPersonName(CARL.getName().fullName).withWeight(VALID_WEIGHT_HALF).build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(outOfBoundIndex, descriptor);
 
@@ -226,7 +226,7 @@ class UpdatePortionCommandTest {
     @Test
     public void execute_invalidTransactionIndexFilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder()
+        PortionDescriptor descriptor = new PortionDescriptorBuilder()
                 .withPersonName(CARL.getName().fullName).withWeight(VALID_WEIGHT_HALF).build();
         UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(outOfBoundIndex, descriptor);
 
@@ -236,12 +236,12 @@ class UpdatePortionCommandTest {
 
     @Test
     public void equals() {
-        final UpdatePortionDescriptor standardDescriptor = new UpdatePortionDescriptorBuilder()
+        final PortionDescriptor standardDescriptor = new PortionDescriptorBuilder()
                 .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
         final UpdatePortionCommand standardCommand = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, standardDescriptor);
 
         // same values -> returns true
-        UpdatePortionDescriptor copyDescriptor = new UpdatePortionDescriptorBuilder()
+        PortionDescriptor copyDescriptor = new PortionDescriptorBuilder()
                 .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
         UpdatePortionCommand commandWithSameValues = new UpdatePortionCommand(INDEX_FIRST_ELEMENT, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
@@ -259,7 +259,7 @@ class UpdatePortionCommandTest {
         assertTrue(!standardCommand.equals(new UpdatePortionCommand(INDEX_SECOND_ELEMENT, copyDescriptor)));
 
         // different descriptor -> returns false
-        UpdatePortionDescriptor differentDescriptor = new UpdatePortionDescriptorBuilder()
+        PortionDescriptor differentDescriptor = new PortionDescriptorBuilder()
                 .withPersonName(VALID_NAME_BOB).withWeight("100").build();
         assertFalse(standardCommand.equals(new UpdatePortionCommand(INDEX_FIRST_ELEMENT, differentDescriptor)));
     }
@@ -267,12 +267,12 @@ class UpdatePortionCommandTest {
     @Test
     public void toStringMethod() {
         Index index = INDEX_FIRST_ELEMENT;
-        UpdatePortionDescriptor updatePortionDescriptor = new UpdatePortionDescriptorBuilder()
+        PortionDescriptor portionDescriptor = new PortionDescriptorBuilder()
                 .withPersonName(VALID_NAME_AMY).withWeight(VALID_WEIGHT_HALF).build();
-        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(index, updatePortionDescriptor);
+        UpdatePortionCommand updatePortionCommand = new UpdatePortionCommand(index, portionDescriptor);
         String expectedString = UpdatePortionCommand.class.getCanonicalName()
                 + "{index=" + index
-                + ", updatePortionDescriptor=" + updatePortionDescriptor + "}";
+                + ", portionDescriptor=" + portionDescriptor + "}";
         assertEquals(expectedString, updatePortionCommand.toString());
     }
 }
