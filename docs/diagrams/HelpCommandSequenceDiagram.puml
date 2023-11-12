@@ -49,7 +49,7 @@ deactivate HelpCommand
 MainWindow <-- LogicManager : result
 deactivate LogicManager
 
-MainWindow --> MainWindow : handleHelp()
+MainWindow -> MainWindow : handleHelp()
 activate MainWindow
 deactivate MainWindow
 

@@ -49,7 +49,7 @@ deactivate ExitCommand
 MainWindow <-- LogicManager : result
 deactivate LogicManager
 
-MainWindow --> MainWindow : handleExit()
+MainWindow -> MainWindow : handleExit()
 activate MainWindow
 deactivate MainWindow
 
