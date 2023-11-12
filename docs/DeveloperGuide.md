@@ -490,20 +490,75 @@ Extensions:
 
 **Application**
 
-* **Contact**: A person stored in your application with additional information.
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Transaction**: A monetary transaction that records costs involving a single contact who pays for the whole transaction and other contacts who are involved in the transaction.
-* **Portion**: A breakdown of a transaction into individual portions, each of which involves a single contact and a weightage indicating the proportion of the transaction cost that the contact needs to pay to the person who paid for the transaction.
-* **Balance**: The amount of money either owed to you or owed by you to another person in your contacts.
-  * **Positive Balance**: Indicates that the contact owes you money.
-  * **Negative Balance**: Indicates that you owe the contact money.
-* **Outstanding Balance**: The amount of unsettled money between you and your contact.
-* **Settle**: The action of clearing any outstanding balance between you and another contact via a new portion.
-* **Payee**: The person that paid the bill for that specific transaction
+#### Address
+The particulars of the place where a person lives.
+#### Alphanumeric
+Consisting of only letters (a-z, A-Z) or numbers or both.
+#### Amount
+The total value of the transaction.
+#### Balance
+The amount of money that you owe a person or the amount of money that they owe you. A positive balance under a person
+means that they owe you money, whereas a negative balance means that you owe them money.
+#### Card
+A rectangular area in our application that either describes the full details of a transaction or person.
+#### Command
+To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed.
+#### Cost
+The total value of the transaction.
+#### Description
+A written account of a transaction, used to provide context and details about the transaction.
+#### Email address
+A unique identifier for an email account. It identifies an email box to which messages and emails are delivered.
+#### Field
+An area where text can be input.
+#### Flag
+Flags are used to modify the operation of a command.
+#### Gui
+Gui stands for graphical user interface. A graphical user interface uses icons and mouse inputs from users to allow them to interact with the application.
+#### Index
+A number representing the position of an item in a list.
+#### Integer
+A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5/
+#### Keyword
+An important word that is used by the application to process various commands.
+#### Name
+A word or set of words that are used to address or refer to a person.
+#### Negative
+A numerical value that is less than 0.
+#### Parameter
+An additional input that provides further details on a command that a user is executing.
+#### Payee
+Refers to the person that paid for the transaction.
+#### Payer
+Refers to a person that owes the payee money for the transaction.
+#### Person
+A human being.
+#### Phone number
+A sequence of digits that is dialled on a telephone to contact a person.
+#### Portion
+A subset of a transaction. A transaction is split into multiple portions.
+#### Positive
+A numerical value that is greater than 0.
+#### Settle
+Refers to the act of two people exchanging money, such that their respective balances with each other equal zero after the transaction.
+#### Shorthand
+A shortened version of a command.
+#### Tag
+A label that can be applied to a person to provide additional details about them.
+#### Telegram handle
+A unique identifier for a telegram account.
+#### Timestamp
+Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
+YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
+#### Transaction
+An interaction of buying or selling something where the exchange of money occurs.
+#### Weight
+A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
+a person should pay for their share of the transaction.
 
 **General**
-* **Mainstream OS**: Windows, Linux, Unix, OS-X.
-* **Command**: A text input from the user which tells the application to run a specific action.
+#### Mainstream OS
+Refers to operating systems such as Windows, Linux, Unix, OS-X.
 
 --------------------------------------------------------------------------------------------------------------------
 
