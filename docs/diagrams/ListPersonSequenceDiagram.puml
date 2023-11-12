@@ -43,8 +43,8 @@ activate NameContainsKeywordsPredicate
 NameContainsKeywordsPredicate --> ListPersonCommandParser : predicate
 deactivate NameContainsKeywordsPredicate
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-NameContainsKeywordsPredicate -[hidden]-> ListPersonCommandParser
-destroy NameContainsKeywordsPredicate
+'NameContainsKeywordsPredicate -[hidden]-> ListPersonCommandParser
+'destroy NameContainsKeywordsPredicate
 
 create ListPersonCommand
 ListPersonCommandParser -> ListPersonCommand
@@ -56,8 +56,8 @@ deactivate ListPersonCommand
 ListPersonCommandParser --> SpendNSplitParser : lp
 deactivate ListPersonCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-ListPersonCommandParser -[hidden]-> SpendNSplitParser
-destroy ListPersonCommandParser
+'ListPersonCommandParser -[hidden]-> SpendNSplitParser
+'destroy ListPersonCommandParser
 
 SpendNSplitParser --> LogicManager : lp
 deactivate SpendNSplitParser

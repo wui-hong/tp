@@ -45,8 +45,8 @@ deactivate SortPersonCommand
 SortPersonCommandParser --> SpendNSplitParser : sp
 deactivate SortPersonCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-SortPersonCommandParser -[hidden]-> SpendNSplitParser
-destroy SortPersonCommandParser
+'SortPersonCommandParser -[hidden]-> SpendNSplitParser
+'destroy SortPersonCommandParser
 
 SpendNSplitParser --> LogicManager : sp
 deactivate SpendNSplitParser

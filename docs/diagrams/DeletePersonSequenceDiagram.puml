@@ -45,8 +45,8 @@ deactivate DeletePersonCommand
 DeletePersonCommandParser --> SpendNSplitParser : dp
 deactivate DeletePersonCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeletePersonCommandParser -[hidden]-> SpendNSplitParser
-destroy DeletePersonCommandParser
+'DeletePersonCommandParser -[hidden]-> SpendNSplitParser
+'destroy DeletePersonCommandParser
 
 SpendNSplitParser --> LogicManager : dp
 deactivate SpendNSplitParser

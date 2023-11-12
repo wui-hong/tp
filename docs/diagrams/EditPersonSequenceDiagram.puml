@@ -44,8 +44,8 @@ activate PersonDescriptor
 PersonDescriptor --> EditPersonCommandParser
 deactivate PersonDescriptor
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-PersonDescriptor -[hidden]-> EditPersonCommandParser
-destroy PersonDescriptor
+'PersonDescriptor -[hidden]-> EditPersonCommandParser
+'destroy PersonDescriptor
 
 create EditPersonCommand
 EditPersonCommandParser -> EditPersonCommand
@@ -57,8 +57,8 @@ deactivate EditPersonCommand
 EditPersonCommandParser --> SpendNSplitParser : ep
 deactivate EditPersonCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-EditPersonCommandParser -[hidden]-> SpendNSplitParser
-destroy EditPersonCommandParser
+'EditPersonCommandParser -[hidden]-> SpendNSplitParser
+'destroy EditPersonCommandParser
 
 SpendNSplitParser --> LogicManager : ep
 deactivate SpendNSplitParser
