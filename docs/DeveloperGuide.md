@@ -410,6 +410,7 @@ Use case ends.
 * 1a. Spend n Split detects that the transaction does not exist in the portion list.
     * 1a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
     * Use case ends.
+    
 ---
 
 **Use Case: UC8 - Settle with a person**
