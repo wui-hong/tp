@@ -809,6 +809,78 @@ testers are expected to do more *exploratory* testing.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Appendix: Effort**
+
+### Summary
+
+SpendNSplit is a brownfield software project based on the contacts-management application
+[AddressBook Level-3 (AB3)](https://se-education.org/addressbook-level3/). Our dedicated team
+has spent nearly 2 months evolving AB3 into a complex personal finance-tracking application
+for university Hall students. This section describes some key challenges our team has faced.
+
+### The relationship between transactions and persons
+
+The `Transaction` entity is a core part of SnS, and its implementation was one of our
+teams largest challenges. What's notable about `Transaction` is its relationship to
+the `Person` entity. A person can be the payee of a transaction; the person who
+footed the bill. Additionally, a person can be a payer of the transaction, owing the
+payee a portion of the transaction's bill. A person can also be both the payee and
+the payer of the bill. These entities are closely related via a many-to-many relationship,
+which was incredibly challenging to design, implement and test.
+
+### Synchronisation of our data
+
+The strong coupling of these entities meant that updating a person may affect the
+transactions, and vice-versa. Hence, our team had to think deeper about how to implement
+commands to ensure that the data changes of one entity list appropriate synchronise
+the other entity list. For instance, the deletion of persons was a difficult challenge
+to tackle.
+
+**Deleting a person**
+
+When a person is deleted from SnS, our application needs to check all transactions
+for the person's involvement as a payer or payee. The person would have to be removed
+from the transaction. However, we wanted to preserve as much information in the
+transactions as possible as they may involve other people as well. We didn't want
+the deletion of a person to affect the history and balances of other people who
+may still owe or be owed money. Hence, we have decided to create a special
+`Others` category to represents unknown / deleted parties. Solving this issue was
+a difficult problem from ideation to implementation.
+
+### UI Overhaul
+
+As our application manages both a persons list and transactions list, we had to completely
+overhaul the existing UI to be able to display both lists to users. We faced many issues
+extending the existing observer pattern to fit our needs. Previously, updating one
+list should mean that we only need to update that UI for that particular list. However, as
+mentioned earlier, our persons list and transactions list are closely related, which meant
+that updating one list might require us to update the UI for both lists.
+
+Another challenge with the UI was designing an appropriate transaction card to display
+the data to the user. Each transaction may contain multiple payers. This means that
+within our transactions list, each transaction may need to show a dynamic nested list of
+payers, along with the portion of the bill they owe. We believe that through much trial and
+error, we have designed our application to effectively display the data in a sleek
+and concise manner.
+
+### Precision
+
+Our application values precision given that it manages financial transactions. We
+utilised `BigFraction` as opposed to `Double` in order to combat floating-point
+errors. This posed many challenges in the implementation of `Transaction`. To name some,
+we had to take additional steps in order to handle arithmetic, represent `BigFraction`
+in the UI, and parse in input from commands and storage.
+
+### Overall Effort
+
+SnS required a substantial amount of effort in ideation, design, implementation and
+testing. We challenged ourselves to introduce new functionalities while preserving the
+original features of AB3. We have not only introduced a completely new central `Transaction`
+model, but also extended the existing `Person` model, transforming AB3 into an intricate
+contact and transaction management system.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## **Appendix: Planned Enhancements**
 
 ### Stronger List Command Input Validation
