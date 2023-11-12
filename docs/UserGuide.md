@@ -61,7 +61,7 @@ In our user guide, you may find coloured boxes that contain highlighted pieces o
 
 ## Key Terms
 
-The Spend N Split application links transactions and people. As such, it is important that you familarise yourself
+The Spend N Split application links transactions and people. As such, it is important that you familiarise yourself
 with the structure of each person and each transaction in our application.
 
 ### Person
@@ -196,7 +196,7 @@ The following parameters are used for commands:
   E.g. In `addPerson n=NAME`, `NAME` is a parameter to be provided by the user. <br>Example usage: `addPerson n=John Doe`.
 
 - Items in square brackets are optional.<br>
-  E.g For `n=NAME [t=TAG]`: <br> Example usage `n=John Doe t=friend` or `n=John Doe`.
+  E.g. For `n=NAME [t=TAG]`: <br> Example usage `n=John Doe t=friend` or `n=John Doe`.
 
 - Items followed by `…` are optional and can be listed multiple times.<br>
   E.g. For `[t=TAG]…​`: <br> Example usage: ` ` (0 tags), or `t=friend` (1 tag) or `t=friend t=family` (2 tags).
@@ -240,7 +240,7 @@ The command word (editPerson) and the index has to be at the front of the comman
   The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t=` without
   specifying any tags after it.
 
@@ -282,7 +282,7 @@ Lists every person whose name contain any of the given keywords. If no keywords 
 
 Format: `listPerson [KEYWORD]...`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the entire keyword will be matched e.g. A person named `Han` will not be displayed when `listPerson Hans` is executed.
 * If a person's name matches at least one keyword, they will be displayed.
@@ -352,7 +352,7 @@ Examples:
 * `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
     * A transaction for rent that cost $600 is added. John paid for this transaction at 12 o'clock on 10 October 2020. You (`Self`) and Mary both owe John $200 (1/3 of $600) each.
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
-    * A transaction for Dinner that cost $100 is added. You (`Self`) paid for this transaction. John and Mary both owe you (`Self`) $40 (2/5 of $100) each, while Alice owes you (`Self`) $20 (1/5 of $100.
+    * A transaction for Dinner that cost $100 is added. You (`Self`) paid for this transaction. John and Mary both owe you (`Self`) $40 (2/5 of $100) each, while Alice owes you (`Self`) $20 (1/5 of $100).
 
 Sample execution:
 ```
@@ -403,7 +403,7 @@ After the command has been executed, every transaction in the application will b
 
 **:warning: Note:**<br>
 
-After editing, the transaction must be relevant. The application will not allow you to edit a transaction such that it becomes irrelevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
+After editing, the transaction must be relevant. The application will not allow you to edit a transaction such that it becomes irrelevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
 
 </div>
 
@@ -413,7 +413,7 @@ Examples:
 * `editTransaction 1 c=12.12`
   * Edits the transaction at index 1 to have a new cost of $12.12.
 * `editTransaction 2 d=Potato n=Bob`
-  * Ediits the transaction at index 2 to have a new description of "Potato" and with Bob as the new payee.
+  * Edits the transaction at index 2 to have a new description of "Potato" and with Bob as the new payee.
 
 Sample Execution:
 
@@ -512,7 +512,7 @@ Examples:
 
 #### Listing transactions: `listTransaction`
 
-Shows a list of transactions whose descriptions include any of the keywords and which include any of the specified people. If no keywords are specified, it filters only by names; if no names are specified, it filters only by keywords. If neither are specified, all transactions will be lised.
+Shows a list of transactions whose descriptions include any of the keywords and which include any of the specified people. If no keywords are specified, it filters only by names; if no names are specified, it filters only by keywords. If neither are specified, all transactions will be listed.
 
 Format: `listTransaction [KEYWORD]... [n=NAME]...`
 
@@ -684,7 +684,7 @@ input with the parameters required.
     ```
   
 <div markdown="block" class="alert alert-info">
-:bulb: Note the differences between Execution errors and Input errors. An execution error refers to errors that will occur
+:bulb: Note the differences between Execution errors and Input errors. An execution error refers to an error that will occur
 regardless of the state of the application or its data, whereas input errors are errors that occur when certain conditions in the application
 are met. E.g. Attempting to settle the balance of a person at index 6 when there are only 5 people in the Person List, or attempting
 to add a person that has an identical name to someone that already exists in the Person List are both input errors.
