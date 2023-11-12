@@ -1,7 +1,8 @@
 @startuml
 !pragma useVerticalIf on
 start
-:User enters addTransaction command;
+:Transaction is to be added;
+:Rebase portion weights to add up to 1;
 if () then ([Transaction does not involve self and at least one person in the person list])
   :Reject transaction;
   stop
