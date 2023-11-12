@@ -59,6 +59,18 @@ deactivate SpendNSplitParser
 LogicManager -> EditTransactionCommand : execute()
 activate EditTransactionCommand
 
+EditTransactionCommand -> Model : getFilteredTransactionList()
+activate Model
+
+Model --> EditTransactionCommand
+deactivate Model
+
+EditTransactionCommand -> EditTransactionCommand : createEditedTransaction(originalTransaction, transactionDescriptor)
+activate EditTransactionCommand
+
+EditTransactionCommand --> EditTransactionCommand : editedTransaction
+deactivate EditTransactionCommand
+
 EditTransactionCommand -> Model : setTransaction(originalTransaction, editedTransaction)
 activate Model
 

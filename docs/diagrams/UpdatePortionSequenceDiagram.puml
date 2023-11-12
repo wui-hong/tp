@@ -59,6 +59,18 @@ deactivate SpendNSplitParser
 LogicManager -> UpdatePortionCommand : execute()
 activate UpdatePortionCommand
 
+UpdatePortionCommand -> Model : getFilteredTransactionList()
+activate Model
+
+Model --> UpdatePortionCommand
+deactivate Model
+
+UpdatePortionCommand -> UpdatePortionCommand : createTransactionWithUpdatedPortions(originalTransaction, PortionDescriptor)
+activate UpdatePortionCommand
+
+UpdatePortionCommand --> UpdatePortionCommand : editedTransaction
+deactivate UpdatePortionCommand
+
 UpdatePortionCommand -> Model : setTransaction(originalTransaction, editedTransaction)
 activate Model
 

@@ -1,7 +1,7 @@
 @startuml
 !pragma useVerticalIf on
 start
-:User enters duplicateTransaction command;
+:User enters listTransaction command;
 if () then ([Command format is invalid])
   :Throw exception;
   stop

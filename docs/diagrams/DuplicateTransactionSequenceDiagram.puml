@@ -8,6 +8,7 @@ participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
 participant ":DuplicateTransactionCommandParser" as DuplicateTransactionCommandParser LOGIC_COLOR
 participant ":TransactionDescriptor" as TransactionDescriptor LOGIC_COLOR
 participant "dt:DuplicateTransactionCommand" as DuplicateTransactionCommand LOGIC_COLOR
+participant ":EditTransactionCommand" as EditTransactionCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -58,6 +59,18 @@ deactivate SpendNSplitParser
 
 LogicManager -> DuplicateTransactionCommand : execute()
 activate DuplicateTransactionCommand
+
+DuplicateTransactionCommand -> Model : getFilteredTransactionList()
+activate Model
+
+Model --> DuplicateTransactionCommand
+deactivate Model
+
+DuplicateTransactionCommand -> EditTransactionCommand : createEditedTransaction(originalTransaction, transactionDescriptor)
+activate EditTransactionCommand
+
+EditTransactionCommand --> DuplicateTransactionCommand : transaction
+deactivate EditTransactionCommand
 
 DuplicateTransactionCommand -> Model : addTransaction(transaction)
 activate Model
