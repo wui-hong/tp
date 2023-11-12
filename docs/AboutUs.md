@@ -14,8 +14,8 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](https://github.com/jedkohjk)]
 [[portfolio](team/jedkohjk.md)]
 
-* Role: Software Engineer
-* Responsibilities: Development, Code Reviews, Unit / Integration Testing
+* Role: Frontend Engineer | Testing Engineer
+* Responsibilities: Software Development | UI & UX | Unit & Integration Testing
 
 ### Nguyen Cao Duy
 
@@ -24,8 +24,8 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](https://github.com/ncduy0303)]
 [[portfolio](team/ncduy0303.md)]
 
-* Role: Software Engineer
-* Responsibilities: Development, Code Reviews, Requirements
+* Role: Site Reliability Engineer | DevOps Engineer
+* Responsibilities: Software Development | Build & Deployment | CI / CD 
 
 ### Nathaniel Calimag
 
@@ -34,8 +34,8 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](http://github.com/nathanielcalimag)]
 [[portfolio](team/nathanielcalimag.md)]
 
-* Role: Software Engineer
-* Responsibilities: Development, Project Management, Code Quality
+* Role: Backend Engineer | Quality Assurance
+* Responsibilities: Software Development | Schema Design | Code Quality
 
 ### Khoo Wui Hong
 
@@ -44,8 +44,8 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](http://github.com/wui-hong)]
 [[portfolio](team/wui-hong.md)]
 
-* Role: Software Engineer
-* Responsibilities: Development, Documentation, Project Management
+* Role: Business Analyst | Integration Engineer
+* Responsibilities: Development | Requirements & Documentation | Systems Integration
 
 ### Jeffrey Jian
 
@@ -54,5 +54,5 @@ We are a team based in the [School of Computing, National University of Singapor
 [[github](http://github.com/jeffrey-jian)]
 [[portfolio](team/jeffrey-jian.md)]
 
-* Role: Software Engineer
-* Responsibilities: Development, Code Quality, Scheduling
+* Role: Software Architect | Optimisation
+* Responsibilities: Development | Software Design | Automation
