@@ -8,6 +8,9 @@ if () then ([A non-positive index is provided])
 ([else]) elseif () then ([No edited fields are provided])
   :Throw exception;
   stop
+([else]) elseif () then ([Some fields provided are invalid])
+  :Throw exception;
+  stop
 ([else]) elseif () then ([Updated person name is a reserved keyword])
   :Throw exception;
   stop

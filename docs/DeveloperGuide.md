@@ -172,9 +172,9 @@ This section describes some noteworthy details on how certain features are imple
 
 ![Overview of Person Class](images/PersonClassDiagram.png)
 
-The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the address book and is composed of the following classes:
+The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the application and is composed of the following classes:
 
-* `Name`: The name of the person.
+* `Name`: The name of the person. It must be unique and cannot be null.
 * `Phone`: The phone number of the person.
 * `Email`: The email address of the person.
 * `Address`: The address of the person.
@@ -221,10 +221,10 @@ Since the `editPerson` command might affect the `Transaction` objects stored in 
 
 Key points to note:
 
-- `UniquePersonList::setPerson` updates the `Person` object in the list
-- `UniqueTransactionList::setPerson` changes the `Name` fields of all `Transaction` objects in the list that involve the person to be edited
-- `SpendNSplit::syncNames` ensures the consistency of the casing of all `Name` fields in the model after the command
-- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command
+- `UniquePersonList::setPerson` updates the `Person` object in the list.
+- `UniqueTransactionList::setPerson` changes the `Name` fields of all `Transaction` objects in the list that involve the person to be edited to the new name.
+- `SpendNSplit::syncNames` ensures the consistency of the casing of all `Name` fields in the model after the command.
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command.
 
 The overall flow of the `editPerson` command is as follows:
 
@@ -253,9 +253,9 @@ Since the `deletePerson` command might affect the `Transaction` objects stored i
 
 Key points to note:
 
-- `UniquePersonList::remove` removes the `Person` object from the list
+- `UniquePersonList::remove` removes the `Person` object from the list.
 - `UniqueTransactionList::deletePerson` updates the `Name` fields of all `Transaction` objects in the list that involve the person to be deleted to `Name.OTHERS`. If the updated `Transaction` object is not valid (not involving any other known person), it is removed from the list.
-- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command.
 
 The overall flow of the `deletePerson` command is as follows:
 
