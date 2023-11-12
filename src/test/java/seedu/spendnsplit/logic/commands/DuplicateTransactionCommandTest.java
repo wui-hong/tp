@@ -17,14 +17,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.ModelManager;
 import seedu.spendnsplit.model.SpendNSplit;
 import seedu.spendnsplit.model.UserPrefs;
 import seedu.spendnsplit.model.transaction.Transaction;
-import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
+import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -41,7 +41,7 @@ public class DuplicateTransactionCommandTest {
             .withPayeeName(originalTransaction.getPayeeName().toString())
             .withTimestamp(originalTransaction.getTimestamp().toString())
             .withPortions(originalTransaction.getPortions()).build();
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(duplicateTransaction).build();
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder(duplicateTransaction).build();
         DuplicateTransactionCommand duplicateTransactionCommand =
             new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
 
@@ -62,7 +62,7 @@ public class DuplicateTransactionCommandTest {
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
         Transaction duplicateTransaction = transactionInList.withDescription(descriptionString).build();
 
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
             .withDescription(descriptionString).build();
         DuplicateTransactionCommand duplicateTransactionCommand =
             new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
@@ -84,7 +84,7 @@ public class DuplicateTransactionCommandTest {
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
         Transaction duplicateTransaction = transactionInList.withAmount(costString).build();
 
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
             .withAmount(costString).build();
         DuplicateTransactionCommand duplicateTransactionCommand =
             new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
@@ -106,7 +106,7 @@ public class DuplicateTransactionCommandTest {
         TransactionBuilder transactionInList = new TransactionBuilder(firstTransaction);
         Transaction duplicateTransaction = transactionInList.withTimestamp(timestampString).build();
 
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
             .withTimestamp(timestampString).build();
         DuplicateTransactionCommand duplicateTransactionCommand =
             new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
@@ -123,7 +123,7 @@ public class DuplicateTransactionCommandTest {
     @Test
     public void execute_duplicateTransaction_failure() {
         DuplicateTransactionCommand duplicateTransactionCommand = new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT,
-            new EditTransactionDescriptor());
+            new TransactionDescriptor());
 
         String expectedMessage = DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION;
 
@@ -132,7 +132,7 @@ public class DuplicateTransactionCommandTest {
 
     @Test
     public void execute_invalidTransactionUnfilteredList_failure() {
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
             .withPayeeName("Alice").build();
         DuplicateTransactionCommand duplicateTransactionCommand =
             new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT, descriptor);
@@ -153,7 +153,7 @@ public class DuplicateTransactionCommandTest {
         Transaction duplicateTransaction = new TransactionBuilder(transactionInFilteredList)
             .withAmount("123.21").build();
         DuplicateTransactionCommand duplicateTransactionCommand = new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT,
-            new EditTransactionDescriptorBuilder().withAmount("123.21").build());
+            new TransactionDescriptorBuilder().withAmount("123.21").build());
 
         String expectedMessage = String.format(
             DuplicateTransactionCommand.MESSAGE_DUPLICATE_TRANSACTION_SUCCESS, Messages.format(duplicateTransaction));
@@ -167,7 +167,7 @@ public class DuplicateTransactionCommandTest {
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder()
             .withAmount("123.21").build();
         DuplicateTransactionCommand duplicateTransactionCommand =
             new DuplicateTransactionCommand(outOfBoundIndex, descriptor);
@@ -177,17 +177,17 @@ public class DuplicateTransactionCommandTest {
 
     /**
      * Duplicate filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of spendnsplit book
      */
     @Test
     public void execute_invalidTransactionIndexFilteredList_failure() {
         showTransactionAtIndex(model, INDEX_FIRST_ELEMENT);
         Index outOfBoundIndex = INDEX_SECOND_ELEMENT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of spendnsplit list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getSpendNSplitBook().getTransactionList().size());
 
         DuplicateTransactionCommand duplicateTransactionCommand = new DuplicateTransactionCommand(outOfBoundIndex,
-            new EditTransactionDescriptorBuilder().withAmount("123.21").build());
+            new TransactionDescriptorBuilder().withAmount("123.21").build());
 
         assertCommandFailure(duplicateTransactionCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
@@ -198,7 +198,7 @@ public class DuplicateTransactionCommandTest {
             INDEX_FIRST_ELEMENT, DESC_LUNCH);
 
         // same values -> returns true
-        EditTransactionDescriptor copyDescriptor = new EditTransactionDescriptor(DESC_LUNCH);
+        TransactionDescriptor copyDescriptor = new TransactionDescriptor(DESC_LUNCH);
         DuplicateTransactionCommand commandWithSameValues = new DuplicateTransactionCommand(INDEX_FIRST_ELEMENT,
             copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
@@ -222,11 +222,11 @@ public class DuplicateTransactionCommandTest {
     @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
-        EditTransactionDescriptor duplicateTransactionDescriptor = new EditTransactionDescriptor();
+        TransactionDescriptor duplicateTransactionDescriptor = new TransactionDescriptor();
         DuplicateTransactionCommand duplicateCommand =
             new DuplicateTransactionCommand(targetIndex, duplicateTransactionDescriptor);
         String expected = DuplicateTransactionCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + ", "
-            + "duplicateTransactionDescriptor=" + duplicateTransactionDescriptor + "}";
+            + "transactionDescriptor=" + duplicateTransactionDescriptor + "}";
         assertEquals(expected, duplicateCommand.toString());
     }
 }

@@ -6,7 +6,6 @@ import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.numbers.fraction.BigFraction;
@@ -15,6 +14,7 @@ import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.commons.util.ToStringBuilder;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.exceptions.CommandException;
+import seedu.spendnsplit.logic.descriptors.PortionDescriptor;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.transaction.Amount;
@@ -44,9 +44,8 @@ public class UpdatePortionCommand extends Command {
             + PREFIX_WEIGHT + "1 / 2";
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION =
-            "The updated transaction already exists in the address book";
+            "The updated transaction already exists in the app";
 
-    // TODO: Message should also include details about the transaction
     public static final String MESSAGE_UPDATE_PORTION_SUCCESS = "Updated Portion: %1$s";
 
     public static final String MESSAGE_DELETE_ONLY_PORTION_FAILURE = "Cannot delete the only portion in a transaction.";
@@ -63,21 +62,19 @@ public class UpdatePortionCommand extends Command {
     public static final String MESSAGE_ONLY_PORTION =
             "There is only one portion; its weight can only be 1 and cannot be updated.";
 
-    // TODO: add message for invalid pair of name and weight
-
     private final Index index;
 
-    private final UpdatePortionDescriptor updatePortionDescriptor;
+    private final PortionDescriptor portionDescriptor;
 
     /**
      * Edits the portion details of an existing transaction in the transaction list.
      */
-    public UpdatePortionCommand(Index index, UpdatePortionDescriptor updatePortionDescriptor) {
+    public UpdatePortionCommand(Index index, PortionDescriptor portionDescriptor) {
         requireNonNull(index);
-        requireAllNonNull(updatePortionDescriptor);
+        requireAllNonNull(portionDescriptor);
 
         this.index = index;
-        this.updatePortionDescriptor = new UpdatePortionDescriptor(updatePortionDescriptor);
+        this.portionDescriptor = new PortionDescriptor(portionDescriptor);
     }
 
     @Override
@@ -91,7 +88,7 @@ public class UpdatePortionCommand extends Command {
 
         Transaction transactionToEdit = lastShownTransactionList.get(index.getZeroBased());
         Transaction transactionWithUpdatedPortions =
-                createTransactionWithUpdatedPortions(transactionToEdit, updatePortionDescriptor);
+                createTransactionWithUpdatedPortions(transactionToEdit, portionDescriptor);
 
         if (!transactionWithUpdatedPortions.isKnown(model.getAllNames())) {
             throw new CommandException(MESSAGE_UNKNOWN_PARTY);
@@ -113,10 +110,10 @@ public class UpdatePortionCommand extends Command {
 
     /**
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
-     * edited with {@code updatePortionDescriptor}.
+     * edited with {@code portionDescriptor}.
      */
     private static Transaction createTransactionWithUpdatedPortions(Transaction transactionToEdit,
-                                                                    UpdatePortionDescriptor updatePortionDescriptor)
+                                                                    PortionDescriptor portionDescriptor)
             throws CommandException {
         assert transactionToEdit != null;
 
@@ -126,8 +123,8 @@ public class UpdatePortionCommand extends Command {
         Timestamp existingTimestamp = transactionToEdit.getTimestamp();
 
         Set<Portion> newPortions = transactionToEdit.getPortionsCopy();
-        Name personName = updatePortionDescriptor.getPersonName();
-        Weight updatedWeight = updatePortionDescriptor.getWeight();
+        Name personName = portionDescriptor.getPersonName();
+        Weight updatedWeight = portionDescriptor.getWeight();
 
         if (updatedWeight.value.compareTo(BigFraction.ONE) >= 0) {
             throw new CommandException(MESSAGE_INVALID_PROPORTION);
@@ -167,74 +164,14 @@ public class UpdatePortionCommand extends Command {
 
         UpdatePortionCommand otherUpdatePortionCommand = (UpdatePortionCommand) other;
         return index.equals(otherUpdatePortionCommand.index)
-                && updatePortionDescriptor.equals(otherUpdatePortionCommand.updatePortionDescriptor);
+                && portionDescriptor.equals(otherUpdatePortionCommand.portionDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("updatePortionDescriptor", updatePortionDescriptor)
+                .add("portionDescriptor", portionDescriptor)
                 .toString();
-    }
-
-    /**
-     * Stores the details to update the portion with.
-     * All fields are mandatory.
-     */
-    public static class UpdatePortionDescriptor {
-        private Name personName;
-        private Weight weight;
-
-        public UpdatePortionDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code UpdatePortionDescriptor} is used internally.
-         */
-        public UpdatePortionDescriptor(UpdatePortionDescriptor toCopy) {
-            setPersonName(toCopy.personName);
-            setWeight(toCopy.weight);
-        }
-
-        public void setPersonName(Name personName) {
-            this.personName = personName;
-        }
-
-        public Name getPersonName() {
-            return personName;
-        }
-
-        public void setWeight(Weight weight) {
-            this.weight = weight;
-        }
-
-        public Weight getWeight() {
-            return weight;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof UpdatePortionDescriptor)) {
-                return false;
-            }
-
-            UpdatePortionDescriptor otherUpdatePortionDescriptor = (UpdatePortionDescriptor) other;
-            return Objects.equals(personName, otherUpdatePortionDescriptor.personName)
-                    && Objects.equals(weight, otherUpdatePortionDescriptor.weight);
-        }
-
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .add("personName", personName)
-                    .add("weight", weight)
-                    .toString();
-        }
     }
 }

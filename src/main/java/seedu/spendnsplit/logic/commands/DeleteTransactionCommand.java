@@ -12,7 +12,7 @@ import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.transaction.Transaction;
 
 /**
- * Deletes a transaction identified using it's displayed index from the address book.
+ * Deletes a transaction identified using it's displayed index from the app.
  */
 public class DeleteTransactionCommand extends Command {
 

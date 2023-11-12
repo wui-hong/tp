@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.EditTransactionCommand;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.model.transaction.Amount;
 import seedu.spendnsplit.model.transaction.Description;
 import seedu.spendnsplit.model.transaction.Timestamp;
-import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
+import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
 
 class EditTransactionCommandParserTest {
 
@@ -93,26 +93,26 @@ class EditTransactionCommandParserTest {
         // description
         Index targetIndex = INDEX_FIRST_ELEMENT;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION;
-        EditTransactionDescriptor descriptor =
-                new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION).build();
+        TransactionDescriptor descriptor =
+                new TransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION).build();
         EditTransactionCommand expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // cost
         userInput = targetIndex.getOneBased() + " " + PREFIX_COST + VALID_COST;
-        descriptor = new EditTransactionDescriptorBuilder().withAmount(VALID_COST).build();
+        descriptor = new TransactionDescriptorBuilder().withAmount(VALID_COST).build();
         expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // payeeName
         userInput = targetIndex.getOneBased() + " " + PREFIX_NAME + VALID_NAME_AMY;
-        descriptor = new EditTransactionDescriptorBuilder().withPayeeName(VALID_NAME_AMY).build();
+        descriptor = new TransactionDescriptorBuilder().withPayeeName(VALID_NAME_AMY).build();
         expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // timestamp
         userInput = targetIndex.getOneBased() + " " + PREFIX_TIMESTAMP + VALID_TIMESTAMP;
-        descriptor = new EditTransactionDescriptorBuilder().withTimestamp(VALID_TIMESTAMP).build();
+        descriptor = new TransactionDescriptorBuilder().withTimestamp(VALID_TIMESTAMP).build();
         expectedCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

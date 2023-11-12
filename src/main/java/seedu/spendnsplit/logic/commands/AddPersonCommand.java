@@ -15,7 +15,7 @@ import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.person.Person;
 
 /**
- * Adds a person to the address book.
+ * Adds a person to the spendnsplit book.
  */
 public class AddPersonCommand extends Command {
 
@@ -39,7 +39,7 @@ public class AddPersonCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the app";
     public static final String MESSAGE_RESERVED_PERSON = "'Self' and 'Others' are reserved names";
 
     private final Person toAdd;

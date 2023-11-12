@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.spendnsplit.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Person's address.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
@@ -12,11 +12,12 @@ public class Address {
     public static final String MESSAGE_CONSTRAINTS =
             "Addresses should not be blank and should not contain the equal sign";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * There must not be any equal sign "=" in the address.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^[^ =][^=]*$";
 
     public final String value;
 

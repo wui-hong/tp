@@ -9,18 +9,14 @@ import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_TELEGRAM_HANDLE;
 import static seedu.spendnsplit.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.spendnsplit.commons.core.index.Index;
-import seedu.spendnsplit.commons.util.CollectionUtil;
 import seedu.spendnsplit.commons.util.ToStringBuilder;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.exceptions.CommandException;
+import seedu.spendnsplit.logic.descriptors.PersonDescriptor;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.person.Address;
 import seedu.spendnsplit.model.person.Email;
@@ -31,7 +27,7 @@ import seedu.spendnsplit.model.person.TelegramHandle;
 import seedu.spendnsplit.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the app.
  */
 public class EditPersonCommand extends Command {
 
@@ -56,18 +52,18 @@ public class EditPersonCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final PersonDescriptor personDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param personDescriptor details to edit the person with
      */
-    public EditPersonCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditPersonCommand(Index index, PersonDescriptor personDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(personDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.personDescriptor = new PersonDescriptor(personDescriptor);
     }
 
     @Override
@@ -82,7 +78,7 @@ public class EditPersonCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson;
         try {
-            editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+            editedPerson = createEditedPerson(personToEdit, personDescriptor);
         } catch (IllegalArgumentException e) {
             throw new CommandException(e.getMessage());
         }
@@ -100,7 +96,7 @@ public class EditPersonCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Person createEditedPerson(Person personToEdit, PersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
@@ -127,138 +123,14 @@ public class EditPersonCommand extends Command {
 
         EditPersonCommand otherEditPersonCommand = (EditPersonCommand) other;
         return index.equals(otherEditPersonCommand.index)
-                && editPersonDescriptor.equals(otherEditPersonCommand.editPersonDescriptor);
+                && personDescriptor.equals(otherEditPersonCommand.personDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("editPersonDescriptor", editPersonDescriptor)
+                .add("editPersonDescriptor", personDescriptor)
                 .toString();
-    }
-
-    /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
-     */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private TelegramHandle telegramHandle;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
-
-        public EditPersonDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setTelegramHandle(toCopy.telegramHandle);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, telegramHandle, email, address, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setTelegramHandle(TelegramHandle telegramHandle) {
-            this.telegramHandle = telegramHandle;
-        }
-
-        public Optional<TelegramHandle> getTelegramHandle() {
-            return Optional.ofNullable(telegramHandle);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
-                return false;
-            }
-
-            EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            return Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(telegramHandle, otherEditPersonDescriptor.telegramHandle)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
-        }
-
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .add("name", name)
-                    .add("phone", phone)
-                    .add("telegramHandle", telegramHandle)
-                    .add("email", email)
-                    .add("address", address)
-                    .add("tags", tags)
-                    .toString();
-        }
     }
 }

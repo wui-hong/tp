@@ -9,7 +9,7 @@ import seedu.spendnsplit.commons.util.FractionUtil;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 
 /**
- * Represents a Transaction's amount in the address book.
+ * Represents a Transaction's amount.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class Amount {
