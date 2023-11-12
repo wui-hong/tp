@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":ListTransactionCommandParser" as ListTransactionCommandParser LOGIC_COLOR
+participant ":TransactionContainsKeywordsAndPersonNamesPredicate" as TransactionContainsKeywordsAndPersonNamesPredicate LOGIC_COLOR
+participant "lt:ListTransactionCommand" as ListTransactionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("listTransaction ...")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("listTransaction ...", commandMap)
+activate SpendNSplitParser
+
+create ListTransactionCommandParser
+SpendNSplitParser -> ListTransactionCommandParser
+activate ListTransactionCommandParser
+
+ListTransactionCommandParser --> SpendNSplitParser
+deactivate ListTransactionCommandParser
+
+SpendNSplitParser -> ListTransactionCommandParser : parse("...")
+activate ListTransactionCommandParser
+
+create TransactionContainsKeywordsAndPersonNamesPredicate
+ListTransactionCommandParser -> TransactionContainsKeywordsAndPersonNamesPredicate
+activate TransactionContainsKeywordsAndPersonNamesPredicate
+
+TransactionContainsKeywordsAndPersonNamesPredicate --> ListTransactionCommandParser
+deactivate TransactionContainsKeywordsAndPersonNamesPredicate
+
+create ListTransactionCommand
+ListTransactionCommandParser -> ListTransactionCommand
+activate ListTransactionCommand
+
+ListTransactionCommand --> ListTransactionCommandParser : lt
+deactivate ListTransactionCommand
+
+ListTransactionCommandParser --> SpendNSplitParser : lt
+deactivate ListTransactionCommandParser
+
+SpendNSplitParser --> LogicManager : lt
+deactivate SpendNSplitParser
+
+LogicManager -> ListTransactionCommand : execute()
+activate ListTransactionCommand
+
+ListTransactionCommand -> Model : updateFilteredTransactionList(predicate)
+activate Model
+
+Model --> ListTransactionCommand
+deactivate Model
+
+create CommandResult
+ListTransactionCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ListTransactionCommand
+deactivate CommandResult
+
+ListTransactionCommand --> LogicManager : result
+deactivate ListTransactionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

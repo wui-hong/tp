@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":DeleteTransactionCommandParser" as DeleteTransactionCommandParser LOGIC_COLOR
+participant "dt:DeleteTransactionCommand" as DeleteTransactionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deleteTransaction ...")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("deleteTransaction ...", commandMap)
+activate SpendNSplitParser
+
+create DeleteTransactionCommandParser
+SpendNSplitParser -> DeleteTransactionCommandParser
+activate DeleteTransactionCommandParser
+
+DeleteTransactionCommandParser --> SpendNSplitParser
+deactivate DeleteTransactionCommandParser
+
+SpendNSplitParser -> DeleteTransactionCommandParser : parse("...")
+activate DeleteTransactionCommandParser
+
+create DeleteTransactionCommand
+DeleteTransactionCommandParser -> DeleteTransactionCommand
+activate DeleteTransactionCommand
+
+DeleteTransactionCommand --> DeleteTransactionCommandParser : dt
+deactivate DeleteTransactionCommand
+
+DeleteTransactionCommandParser --> SpendNSplitParser : dt
+deactivate DeleteTransactionCommandParser
+
+SpendNSplitParser --> LogicManager : dt
+deactivate SpendNSplitParser
+
+LogicManager -> DeleteTransactionCommand : execute()
+activate DeleteTransactionCommand
+
+DeleteTransactionCommand -> Model : deleteTransaction(transaction)
+activate Model
+
+Model --> DeleteTransactionCommand
+deactivate Model
+
+create CommandResult
+DeleteTransactionCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteTransactionCommand
+deactivate CommandResult
+
+DeleteTransactionCommand --> LogicManager : result
+deactivate DeleteTransactionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -1,0 +1,78 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":SettlePersonCommandParser" as SettlePersonCommandParser LOGIC_COLOR
+participant "sp:SettlePersonCommand" as SettlePersonCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("settlePerson ...")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("settlePerson ...", commandMap)
+activate SpendNSplitParser
+
+create SettlePersonCommandParser
+SpendNSplitParser -> SettlePersonCommandParser
+activate SettlePersonCommandParser
+
+SettlePersonCommandParser --> SpendNSplitParser
+deactivate SettlePersonCommandParser
+
+SpendNSplitParser -> SettlePersonCommandParser : parse("...")
+activate SettlePersonCommandParser
+
+create SettlePersonCommand
+SettlePersonCommandParser -> SettlePersonCommand
+activate SettlePersonCommand
+
+SettlePersonCommand --> SettlePersonCommandParser : sp
+deactivate SettlePersonCommand
+
+SettlePersonCommandParser --> SpendNSplitParser : sp
+deactivate SettlePersonCommandParser
+
+SpendNSplitParser --> LogicManager : sp
+deactivate SpendNSplitParser
+
+LogicManager -> SettlePersonCommand : execute()
+activate SettlePersonCommand
+
+SettlePersonCommand -> Model : getBalance(name, time)
+activate Model
+
+Model --> SettlePersonCommand
+deactivate Model
+
+SettlePersonCommand -> Model : addTransaction(transaction)
+activate Model
+
+Model --> SettlePersonCommand
+deactivate Model
+
+create CommandResult
+SettlePersonCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SettlePersonCommand
+deactivate CommandResult
+
+SettlePersonCommand --> LogicManager : result
+deactivate SettlePersonCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

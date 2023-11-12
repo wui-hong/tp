@@ -1,0 +1,25 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters addTransaction command;
+if () then ([Transaction does not involve self and at least one person in the person list])
+  :Reject transaction;
+  stop
+([else]) elseif () then ([Not all persons involved are either self, others or someone in the person list])
+  :Reject transaction;
+  stop
+([else]) elseif () then ([Transaction has any non-positive amount or weights])
+  :Reject transaction;
+  stop
+([else]) elseif () then ([Transaction contains portions with duplicate names])
+  :Reject transaction;
+  stop
+([else]) elseif () then ([Transaction already exists in the transaction list])
+  :Reject transaction;
+  stop
+else ([else])
+endif
+:Sync capitalisation of names in the transaction with names in the person list;
+:Add transaction to the transaction list;
+stop
+@enduml

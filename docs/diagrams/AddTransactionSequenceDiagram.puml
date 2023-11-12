@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":AddTransactionCommandParser" as AddTransactionCommandParser LOGIC_COLOR
+participant "at:AddTransactionCommand" as AddTransactionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addTransaction ...")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("addTransaction ...", commandMap)
+activate SpendNSplitParser
+
+create AddTransactionCommandParser
+SpendNSplitParser -> AddTransactionCommandParser
+activate AddTransactionCommandParser
+
+AddTransactionCommandParser --> SpendNSplitParser
+deactivate AddTransactionCommandParser
+
+SpendNSplitParser -> AddTransactionCommandParser : parse("...")
+activate AddTransactionCommandParser
+
+create AddTransactionCommand
+AddTransactionCommandParser -> AddTransactionCommand
+activate AddTransactionCommand
+
+AddTransactionCommand --> AddTransactionCommandParser : at
+deactivate AddTransactionCommand
+
+AddTransactionCommandParser --> SpendNSplitParser : at
+deactivate AddTransactionCommandParser
+
+SpendNSplitParser --> LogicManager : at
+deactivate SpendNSplitParser
+
+LogicManager -> AddTransactionCommand : execute()
+activate AddTransactionCommand
+
+AddTransactionCommand -> Model : addTransaction(transaction)
+activate Model
+
+Model --> AddTransactionCommand
+deactivate Model
+
+create CommandResult
+AddTransactionCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTransactionCommand
+deactivate CommandResult
+
+AddTransactionCommand --> LogicManager : result
+deactivate AddTransactionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
