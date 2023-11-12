@@ -682,8 +682,9 @@ input with the parameters required.
     Parameters: INDEX (must be a positive integer)
     Example: settlePerson 1
     ```
+  
 <div markdown="block" class="alert alert-info">
-    :bulb: Note the differences between Execution errors and Input errors. An execution error refers to errors that will occur
+:bulb: Note the differences between Execution errors and Input errors. An execution error refers to errors that will occur
 regardless of the state of the application or its data, whereas input errors are errors that occur when certain conditions in the application
 are met. E.g. Attempting to settle the balance of a person at index 6 when there are only 5 people in the Person List, or attempting
 to add a person that has an identical name to someone that already exists in the Person List are both input errors.
