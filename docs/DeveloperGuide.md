@@ -200,15 +200,140 @@ The [`focusedUiPart`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/s
 
 ### Person-related Features
 
-#### Adding Persons
+![Overview of Person Class](images/PersonClassDiagram.png)
 
-#### Editing Persons
+The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the application and is composed of the following classes:
 
-#### Deleting Persons
+* `Name`: The name of the person. It must be unique and cannot be null.
+* `Phone`: The phone number of the person.
+* `Email`: The email address of the person.
+* `Address`: The address of the person.
+* `TelegramHandle`: The telegram handle of the person.
+* `Tags`: The tags associated with the person.
 
-#### Filtering Persons
+All `Person` objects are stored in `UniquePersonList` in `Model`.
+
+#### Adding a Person
+
+The `addPerson` command creates a new `Person` object with the details provided by the user.
+
+The activity diagram below shows an overview of the `addPerson` command:
+
+![Overview of the `addPerson` Command](images/AddPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `addPerson` command:
+
+![Interactions Inside the Logic Component for the `addPerson` Command](images/AddPersonSequenceDiagram.png)
+
+The overall flow of the `addPerson` command is as follows:
+
+1. The user specifies the details of the person to be added. Note that name is the only mandatory field.
+2. The parsers check for the presence of the mandatory name field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
+3. Upon successful parsing, the `AddPersonCommand` is created with the person object to be added to the model.
+4. The `AddPersonCommand` is executed by the `LogicManager`, which attempts to add the person to the model through `Model::addPerson(newPerson)`. Errors are raised if the person already exists in the model (duplicate name).
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
+
+#### Editing a Person
+
+The `editPerson` command edits an existing `Person` object with the details provided by the user.
+
+The activity diagram below shows an overview of the `editPerson` command:
+
+![Overview of the `editPerson` Command](images/EditPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `editPerson` command:
+
+![Interactions Inside the Logic Component for the `editPerson` Command](images/EditPersonSequenceDiagram.png)
+
+Since the `editPerson` command might affect the `Transaction` objects stored in the model, the sequence diagram below extends the previous sequence diagram to show the interactions within the `Model` component:
+
+![Interactions Inside the Model Component for the `editPerson` Command](images/EditPersonSequenceDiagram2.png)
+
+Key points to note:
+
+- `UniquePersonList::setPerson` updates the `Person` object in the list.
+- `UniqueTransactionList::setPerson` changes the `Name` fields of all `Transaction` objects in the list that involve the person to be edited to the new name.
+- `SpendNSplit::syncNames` ensures the consistency of the casing of all `Name` fields in the model after the command.
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command.
+
+The overall flow of the `editPerson` command is as follows:
+
+1. The user specifies the index of the person to be edited and the details to be edited.
+2. The parsers check for the presence of the mandatory index field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
+3. Upon successful parsing, the `EditPersonCommand` is created with the index of the person to be edited and the details to be edited expressed as an `PersonDescriptor` object.
+4. The `EditPersonCommand` is executed by the `LogicManager`, which attempts to edit the person in the model through `Model::setPerson(personToEdit, editedPerson)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()` or if the edited person already exists in the model (duplicate name).
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user. 
+6. Note that the displayed list of persons will be updated to show all persons in the model after the edit through `Model::updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)`.
+
+#### Deleting a Person
+
+The `deletePerson` command deletes an existing `Person` object.
+
+The activity diagram below shows an overview of the `deletePerson` command:
+
+![Overview of the `deletePerson` Command](images/DeletePersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `deletePerson` command:
+
+![Interactions Inside the Logic Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram.png)
+
+Since the `deletePerson` command might affect the `Transaction` objects stored in the model, the sequence diagram below extends the previous sequence diagram to show the interactions within the `Model` component:
+
+![Interactions Inside the Model Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram2.png)
+
+Key points to note:
+
+- `UniquePersonList::remove` removes the `Person` object from the list.
+- `UniqueTransactionList::deletePerson` updates the `Name` fields of all `Transaction` objects in the list that involve the person to be deleted to `Name.OTHERS`. If the updated `Transaction` object is not valid (not involving any other known person), it is removed from the list.
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command.
+
+The overall flow of the `deletePerson` command is as follows:
+
+1. The user specifies the index of the person to be deleted.
+2. The parsers check for the presence of the mandatory index field. Errors are raised if the index is invalid.
+3. Upon successful parsing, the `DeletePersonCommand` is created with the index of the person to be deleted.
+4. The `DeletePersonCommand` is executed by the `LogicManager`, which attempts to delete the person from the model through `Model::deletePerson(personToDelete)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
+
+#### Listing Persons
+
+The `listPerson` command lists existing `Person` objects with names matching the keywords provided by the user. If no keywords are provided, all `Person` objects are listed.
+
+The activity diagram below shows an overview of the `listPerson` command:
+
+![Overview of the `listPerson` Command](images/ListPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `listPerson` command:
+
+![Interactions Inside the Logic Component for the `listPerson` Command](images/ListPersonSequenceDiagram.png)
+
+The overall flow of the `listPerson` command is as follows:
+
+1. The user specifies the keywords to be matched.
+2. The parsers check for the validity of the provided keywords. Errors are raised if the keywords are invalid.
+3. Upon successful parsing, the `ListPersonCommand` is created with the keywords to be matched expressed as a `NameContainsKeywordsPredicate` object which implements the `Predicate<Person>` interface.
+4. The `ListPersonCommand` is executed by the `LogicManager`, which attempts to update the displayed list of persons through `Model::updateFilteredPersonList(predicate)`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 #### Sorting Persons
+
+The `sortPerson` command sorts displayed `Person` objects by the specified order.
+
+The activity diagram below shows an overview of the `sortPerson` command:
+
+![Overview of the `sortPerson` Command](images/SortPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `sortPerson` command:
+
+![Interactions Inside the Logic Component for the `sortPerson` Command](images/SortPersonSequenceDiagram.png)
+
+The overall flow of the `sortPerson` command is as follows:
+
+1. The user specifies the order to be sorted by. It is the only mandatory field and must be `+` (ascending) or `-` (descending).
+2. The parsers check for the validity of the provided order. Errors are raised if the order is invalid.
+3. Upon successful parsing, the `SortPersonCommand` is created with the order to be sorted by expressed as a boolean value.
+4. The `SortPersonCommand` is executed by the `LogicManager`, which attempts to update the displayed list of persons through `Model::sortPersonAscending()` or `Model::sortPersonDescending()`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 ### Transaction-related Features
 

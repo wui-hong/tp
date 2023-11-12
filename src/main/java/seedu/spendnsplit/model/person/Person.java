@@ -17,12 +17,12 @@ import seedu.spendnsplit.model.tag.Tag;
  */
 public class Person {
 
-    // Identity fields
+    // Identity field
     private final Name name;
-    private final Phone phone;
-    private final Email email;
 
     // Data fields
+    private final Phone phone;
+    private final Email email;
     private final Address address;
     private final TelegramHandle telegramHandle;
     private final Set<Tag> tags = new HashSet<>();
