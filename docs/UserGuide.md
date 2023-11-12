@@ -678,6 +678,7 @@ valid command word.
   The person index provided is invalid
   ```
 
+
 ### 3) What is considered a relevant transaction?
 
 A transaction is only considered **relevant** if it involves you owing or being owed money
@@ -711,8 +712,44 @@ Note:
 - If you delete a person and it results in some transactions becoming irrelevant as highlighted
   in the second example of  irrelevant transactions above, **the application will automatically delete
   these irrelevant transactions**.
+
 --------------------------------------------------------------------------------------------------------------------
 
+## **Acknowledgements**
+
+We would like to acknowledge the following third-party libraries, frameworks and sources for their use in Spend N Split:
+
+**Development**
+
+* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for Spend N Split.
+
+* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend N Split.
+
+* **[Apache Common Numbers](https://github.com/apache/commons-numbers/tree/master)**: The Java numbers library that enhance Spend N Split's precision.
+
+**Gradle**
+
+* **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
+
+* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend N Split.
+
+* **[Jacoco](https://github.com/palantir/gradle-jacoco-coverage)**: The Gradle plugin for generating code coverage reports.
+
+**User Interface**
+
+* **[JavaFX](https://openjfx.io/)**: The GUI framework of Spend N Split.
+
+* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The primary font used in Spend N Split.
+
+* **[Tailwind CSS Colors](https://tailwindcss.com/docs/customizing-colors)**: The colour palette that inspired the Spend N Split colour scheme.
+
+**Others**
+
+* **[Address Book 3](https://se-education.org/addressbook-level3/)**: The project Spend N Split is based on.
+
+* **[Jekyll](https://github.com/jekyll/jekyll)**: The static site generator that converts Spend N Split markdown documentation into web pages.
+
+--------------------------------------------------------------------------------------------------------------------
 ## Glossary
 
 ### Address
@@ -780,3 +817,4 @@ An interaction of buying or selling something where the exchange of money occurs
 ### Weight
 A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
 a person should pay for their share of the transaction.
+
