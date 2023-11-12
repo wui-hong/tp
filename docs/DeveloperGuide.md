@@ -246,11 +246,88 @@ We chose this method of execution instead of directly editing the `Transaction` 
 
 #### Setting Shorthands
 
+##### Overview
+
+The `setShorthand` command allows users to set a shorthand, or alias for an existing command. This shorthand can then be used in place of the command.
+
+The activity diagram is as follows:
+
+<img src="images/SetShorthandCommandActivityDiagram.png" width="550"/>
+
+The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
+
+<img src="images/SetShorthandCommandSequenceDiagram.png" width="550"/>
+
+<img src="images/SetShorthandCommandSequenceDiagram2.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the original command and the new shorthand in the `setShorthand` command.
+2. If the original command is invalid or does not exist, the user will be informed of the error.
+3. If the shorthand is already an existing original command, the user will be informed of the error.
+4. If the shorthand is already being used as a shorthand for another command, the user will be informed of the error.
+5. If the original command has an existing shorthand, the new shorthand will replace the existing shorthand.
+
+##### Implementation Considerations
+
+All existing commands are stored in a hashset. Newly created shorthands are stored in a hashmap. 
+Upon executing a new command, the parser looks up the command word in the existing commands hashset first.
+If the command word does not exist within the hashset, the parser then looks up the command word in the shorthands hashmap.
+
+The shorthand allows each original command to have up to one and only one shorthand.
+This is to prevent ambiguity when the user enters a shorthand that is used by multiple original commands, 
+as well as confusion when an original command could have multiple shorthands.
+
 #### Clearing App Data
+
+##### Overview
+
+The `clear` command allows users to clear all data stored in the app.
+This includes all persons and transactions in the `spendnsplitbook.json` file,
+as well as all shorthands in the `preferences.json` file.
+
+This command is irreversible, and should be used with caution. This command is introduced for new users to be able to quickly
+clear the sample data and start using the app with their own data. 
+Should the user ever wish to clear the data and start afresh again in the future, they can also use this command.
+
+The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
+
+<img src="images/ClearCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `clear` command.
+2. The app clears all data from its Storage, and displays empty person and transaction lists.
 
 #### Accessing Help
 
+##### Overview
+
+The `help` command brings up the help window, which contains a URL link to the online user guide.
+
+The sequence diagram below illustrates the interactions within the `Ui`, `Logic` and `Model` component:
+
+<img src="images/HelpCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `help` command.
+2. The app opens the help window and centers it on the screen.
+
 #### Exiting the App
+
+##### Overview
+
+The `exit` command exits the app. This closes the app window (including the help window if opened) and terminates the app.
+
+The sequence diagram below illustrates the interactions within the `Ui`, `Logic` and `Model` component:
+
+<img src="images/ExitCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `exit` command.
+2. The app closes the app window and terminates the app.
 
 --------------------------------------------------------------------------------------------------------------------
 
