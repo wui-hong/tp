@@ -2,106 +2,107 @@
 layout: page
 title: User Guide
 ---
-
+## Introduction
 ***Taking care of your finances has never been easier!***
 
-Spend n Split (SnS) is an application for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend n Split.
+Spend N Split (SnS) is an application meant for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend n Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend N Split.
 
-* Table of Contents
-{:toc}
+Spend N Split is perfect for **you** if you are
+1. A university student staying on campus
+2. A fast typist
+3. Comfortable using a keyboard to make full use of the application
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Table of Contents](#table-of-contents)
+3. [How to use the User guide](#how-to-use-the-user-guide)
+4. [Key Terms](#key-terms)
+5. [Quick Start](#quick-start)
+6. [Navigating the App](#navigating-the-app)
+   1. [Navigating the app using only the keyboard](#navigating-the-app-using-only-the-keyboard)
+7. [Parameters](#parameters)
+8. [Features](#features)
+9. [Saving the data file](#saving-the-data)
+10. [Editing the data file](#editing-the-data-file)
+11. [FAQ](#faq)
+12. [Glossary](#glossary)
+
+
+--------------------------------------------------------------------------------------------------------------------
+## How to use the User Guide
+
+1. If Spend N Split is not yet installed, kindly navigate to the [Quick Start](#quick-start) section, which includes steps for installation
+as well as sample commands for you to try.
+
+2. If you are not yet familiar with Spend N Split and want a refresher, we highly recommend heading to the [Navigating the App](#navigating-the-app) section.
+
+3. Already an experienced user? Well, head to the [Features](#features) section for a quick
+refresher on what Spend N Split can do for you!
+
+--------------------------------------------------------------------------------------------------------------------
+## Labels
+
+In our user guide, you may find coloured boxes that contain highlighted pieces of text. 
+<div markdown="block" class="alert alert-info">
+    :bulb: Cyan boxes represent helpful tips to enhance your experience.
+</div>
+
+<div markdown="block" class="alert alert-primary">
+    :warning: Blue boxes represent warnings that you should be cautious about.
+</div>
+
+<div markdown="span" class="alert alert-danger">
+    :heavy_exclamation_mark: Yellow boxes represent dangers that you should pay a lot of attention to.
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Glossary
+## Key Terms
+
+The Spend N Split application links transactions and people. As such, it is important that you familarise yourself
+with the structure of each person and each transaction in our application.
 
 ### Person
 
-Persons are the people with whom you track your balances against. To create a transaction with a person, they must first have been added to the app.
+A person is someone that you track your balance against. Before creating a transaction involving a specific
+person, that person has to exist in the application. If not, the person has to be added to the application before the transaction
+is created.
 
 A person has the following attributes:
-- Name
-- Balance (calculated by the app)
-- Tag(s)
-- Phone number
-- Telegram handle
-- Email Address
-- Address
+- Name (Compulsory)
+- Balance (Calculated by the application)
+- Tag(s) (Optional)
+- Phone number (Optional)
+- Telegram handle (Optional)
+- Email Address (Optional)
+- Address (Optional)
 
-Persons are uniquely identified by their names. No two persons can have the same name and names are case-insensitive.
+Every person is identified by their name. Names are case-insensitive and the application does not support
+adding people with the same names. This means that you cannot add two or more people with the same name.
 
-Having a positive balance against a person means that they owe you money, conversely having a negative balance against a person means that you owe them money.
+<div markdown="block" class="alert alert-info">
+:bulb: If a positive balance is displayed on a person, it means that they owe you money. Conversely, if the balance displayed is
+negative, you owe that person money instead. 
+</div>
 
 ### Transaction
 
 Transactions are events in which money is exchanged.
 
 A transaction has the following attributes:
-- Description
-- Payee
-- Amount
-- Timestamp
-- Portion(s)
+- Description (Compulsory)
+- Payee (Compulsory)
+- Payer (Compulsory) 
+- Amount (Compulsory)
+- Timestamp (Optional. If this is not provided, the application will use the current system time of the computer for the Timestamp) 
+- Portion(s) 
 
-Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you, the user, and others refers to anyone not in the app.
+<div markdown="block" class="alert alert-primary">
+Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you, the user, and "Others" refers to anyone not in the app.
+</div>
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
-
-#### Relevant Transactions
-
-A transaction is only considered **relevant** if it involves you owing or being owed money
-by someone from your contacts list. In a relevant transaction:
-1. "Self" must be either the payee, a payer, or both: you must be involved in the transaction.
-2. Include at least one person stored in the app (not "Self" or "Others") as either
-the payee, a payer, or both: someone else in your contacts list must be involved in the transaction.
-
-If these conditions are not met, it means that the transaction does not affect your balance
-with anyone on your contract list, and hence is considered **irrelevant**.
-
-Examples of relevant transactions:
-- You are the payee for dinner. The payers are you, Alice and Bob.
-- Bob pays for transport. You and Alice are riders, and hence are the payers.
-
-In both these cases, you were involved as the payee or payer of the transaction,
-and so was another person in your contacts.
-
-Examples of irrelevant transactions:
-- Bob was the payee for dinner. The payers are Alice and Bob. You are not involved
-and hence, this transaction is irrelevant.
-- You pay for transport for Zack. Zack is the only payer. Zack was then deleted
-contacts list afterwards, resulting in him being considered as "Others" in the transaction.
-This transaction becomes irrelevant and is automatically deleted from the transactions
-list when Zack is deleted.
-
-Note:
-- If you delete payers such that no one else from your contacts are involved in the
-transaction, **SnS will block this**. You are advised to delete the transaction if
-it no longer concerns you or anyone from your contacts list.
-- If you delete a person, some transactions may be considered irrelevant as highlighted
-in the second example of an irrelevant transaction. **SnS will automatically delete
-these irrelevant transactions**.
-
-### Fields
-
-Inputs to fields should not contain the "=" sign.
-
-The following fields are used for commands:
-
-| Field | Prefix | Format | Example |
-| --- | --- | --- | --- |
-| Index | - | Positive integers only | `1`, `2`, `3` |
-| Keyword | - | No `=` sign allowed | `Bob`, `Lunch` |
-| Name | n | Alphanumeric, can contain multiple words | `Bob`, `Alex Yeoh` |
-| Phone number | p | Numeric, minimum length of 3 digits | `99999999`, `88888888` |
-| Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores | `@nus_cs2103` , `@spend_n_split` |
-| Email address | e | Valid email format required | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
-| Address | a | No `=` sign allowed | `Kent Ridge Hall`, `RC4` |
-| Tag | t | Single-word, alphanumeric | `friend`, `colleague` |
-| Description | d | No `=` sign allowed | `Lunch`, `Dinner @ UTown` |
-| Amount/ Cost | c | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Timestamp | ts | Dates in DD/MM/YYYY format, time in HH:SS format; provide date, time, or both; if both, date must come first, separated by a space | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
-| Weight | w | Positive rational numbers; can be a decimal or a fraction; spaces allowed | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Original command | o | Use one of the original command keywords listed in this user guide | `setShorthand`, `addTransaction` |
-| Shorthand | s | Single-word, English alphabet characters only | `s`, `aT` |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -109,7 +110,7 @@ The following fields are used for commands:
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `spendnsplit.jar` from [here](https://github.com). (Coming soon)
+2. Download the latest `spendnsplit.jar` from [here](https://github.com/AY2324S1-CS2103T-W17-3/tp/releases/tag/v1.4).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your Spend N Split.
 
@@ -150,30 +151,53 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Parameters
+
+Some of our commands require parameters, which have specific formats and constraints applied on them. Before heading to the features section, we recommend taking a look at the type of parameters required by commands.
+<br> 
+
+<div markdown="span" class="alert alert-danger">
+:heavy_exclamation_mark: Note: **All inputs** to parameters should not contain the "=" sign.
+</div>
+The following parameters are used for commands:
+
+| Parameter        | Prefix | Format                                                                                                                                                                                                     | Example |
+|------------------| --- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| Index            | - | Positive integers only                                                                                                                                                                                     | `1`, `2`, `3` |
+| Keyword          | - |                                                                                                                                                                                                            | `Bob`, `Lunch` |
+| Name             | n | Alphanumeric, can contain multiple words                                                                                                                                                                   | `Bob`, `Alex Yeoh` |
+| Phone number     | p | Numeric, minimum length of 3 digits                                                                                                                                                                        | `99999999`, `88888888` |
+| Telegram handle  | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores                                                                                                                           | `@nus_cs2103` , `@spend_n_split` |
+| Email address    | e | Valid email format required                                                                                                                                                                                | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address          | a |                                                                                                                                                                                                            | `Kent Ridge Hall`, `RC4` |
+| Tag              | t | Single-word, alphanumeric                                                                                                                                                                                  | `friend`, `colleague` |
+| Description      | d |                                                                                                                                                                                                            | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost     | c | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                         | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp        | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:MM. You have the option to include only the date or time, or both. When providing both, ensure the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight           | w | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                         | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | One of the original command keywords listed in this user guide                                                                                                                                             | `setShorthand`, `addTransaction` |
+| Shorthand        | s | Single-word, English alphabet characters only                                                                                                                                                              | `s`, `aT` |
+
 ## Features
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-primary">">
 
-**:information_source: Notes about the command format:**<br>
+:warning: **Notes about the command format:**<br>
 
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `addPerson n=NAME`, `NAME` is a parameter which can be used as `addPerson n=John Doe`.
+  E.g. in `addPerson n=NAME`, `NAME` is a parameter to be provided by the user. <br>Example usage: `addPerson n=John Doe`.
 
 - Items in square brackets are optional.<br>
-  e.g `n=NAME [t=TAG]` can be used as `n=John Doe t=friend` or as `n=John Doe`.
+  E.g for `n=NAME [t=TAG]`: <br> Example usage `n=John Doe t=friend` or `n=John Doe`.
 
-- Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t=TAG]…​` can be used as ` ` (i.e. 0 times), `t=friend`, `t=friend t=family` etc.
+- Items followed by `…` are optional and can be listed multiple times.<br>
+  E.g. for `[t=TAG]…​`: <br> Example usage:` ` (0 tags), or `t=friend` (1 tag) or `t=friend t=family` (2 tags).
 
 - Parameters can be in any order.<br>
-  e.g. if the command specifies `n=NAME p=PHONE_NUMBER`, `p=PHONE_NUMBER n=NAME` is also acceptable.
+  E.g. for `n=NAME p=PHONE_NUMBER` <br> Example usage: `n=Bob p=91722828` or `p=91722828 n=Bob` are both accepted and will be treated as equivalent inputs by the application.
+- Unnecessary parameters provided for commands (such as `help`, `clear`, `exit`) that do not accept them will be disregarded. <br> E.g. for the command `help` which does not accept any parameters, entering the command `help 123` will be interpreted by the application as `help`.
 
-- Extraneous parameters for commands that do not take in parameters (such as `listPerson`, `listTransaction`, `help`, `clear`, `exit`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-- Commands are case-sensitive. `addPerson` is a valid command, while `ADDPERSON` or `addperson` are not.
-
-- If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+- If you are using a PDF version of this document, be careful when copying and pasting commands. Space characters such as ` ` may result in errors. It is recommended that commands are manually copied and typed into the application.
 
 </div>
 
@@ -181,7 +205,7 @@ Spend n Split has an intuitive Graphical User Interface (GUI) that allows you to
 
 #### Adding a person: `addPerson`
 
-Adds a person to the spendnsplit book.
+Adds a person to the application.
 
 Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -192,11 +216,10 @@ Examples:
 * `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
 * `addPerson  n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
 
-Note: Contact details are optional to add. They can also be added later using the editPerson command. However, once they are added, they cannot be removed through the app.
-
+Note: Only the name is compulsory when adding a person. More attributes to a person can be added using the `editPerson` command. Once an attribute has been added, it can only be edited and cannot be deleted, except for the tags of a person (as elaborated below).
 #### Editing a person : `editPerson`
 
-Edits an existing person in the spendnsplit book.
+Edits an existing person in the application.
 
 Format: `editPerson INDEX [n=NAME] [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
@@ -222,7 +245,7 @@ Examples:
 
 #### Deleting a person : `deletePerson`
 
-Deletes the specified person from the spendnsplit book.
+Deletes the specified person from the application.
 
 Format: `deletePerson INDEX`
 
@@ -235,7 +258,7 @@ Format: `deletePerson INDEX`
 
 Examples:
 
-* `list` followed by `deletePerson 2` deletes the 2nd person in the spendnsplit book.
+* `list` followed by `deletePerson 2` deletes the 2nd person in the application.
 * `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find` command.
 
 ![deletePerson_success](images/user-guide/deletePerson.PNG)
@@ -262,7 +285,7 @@ Examples:
 
 #### Sorting people by balance: `sortPerson`
 
-Sorts the list of people in your spendnsplit book based on their outstanding balances in either ascending or descending
+Sorts the list of people in your application based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Negative balance means you
 own them money.
 
@@ -302,11 +325,13 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - The cost for each person is calculated as follows:
     - Individual cost = Total Cost * (Individual Weight / Total Weight)
 
-The order of the fields is NOT flexible.
+<div markdown="span" class="alert alert-danger">
+:heavy_exclamation_mark: Note: The order of the fields is NOT flexible.
+</div>
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-primary">
 
-**:information_source: Note:**<br>
+**:warning: Note:**<br>
 
 Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
 
@@ -314,9 +339,9 @@ Transactions added to Spend N Split must be relevant. Refer to the [Relevant Tra
 
 Examples:
 * `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
-    * Dinner costed $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
+    * Dinner that cost $100 was first paid by self; now John and Mary each owe self $40 (2/5 of $100 each), Alice owes self $20 (1/5 of $100)
 * `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
-    * Rent costed $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
+    * Rent that cost $600 and was first paid by John at 12 o'clock on 10 October 2020; now self owes John $200 (1/3 of $600)
 
 Sample execution:
 ```
@@ -356,9 +381,9 @@ The order of the flagged fields (i.e. those with the = sign) is flexible (e.g. c
 * If no timestamp is given, the default timestamp is the current system time.
 * If only the date is given, the default time is set as 00:00.
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-primary">
 
-**:information_source: Note:**<br>
+**:warning: Note:**<br>
 
 After editing, the transaction must be relevant. Refer to the [Relevant Transactions](#relevant-transactions) section for more details.
 
@@ -433,7 +458,7 @@ Sample Execution:
 ```
 $ deleteTransaction 4
 
-Deleted Transaction: Group Project Lunch; Timestamp: 2023-10-13T12:34:56.789; Amount: 60.00; Paid by: Self; Portions: [name: Benson Meier, weight: 4.00][name: Alice Pauline, weight: 2.00]
+Deleted Transaction: bread; Timestamp: 12/11/2023 11:24; Amount: 20.00; Paid by: Alex; Portions: [name: Self, weight: 1.00]
 ```
 
 ![](images/user-guide/deleteTransaction.png)
@@ -549,7 +574,7 @@ Format: `help`
 
 #### Clearing all entries : `clear`
 
-Clears all entries from the spendnsplit book.
+Clears all entries from the application.
 
 Format: `clear`
 
@@ -570,15 +595,19 @@ You can use the following shortcuts to navigate our application:
 
 For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
-#### Saving the data
+
+## Saving the data
 
 Data is saved in the hard disk automatically after any command that changes the data. There is no need
 to save manually.
 
-#### Editing the data file
+## Editing the data file
 
-Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
-
+Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. 
+<br>
+<div markdown="span" class="alert alert-danger">
+:heavy_exclamation_mark: However, be warned that the app may wipe the data or behave unexpectedly if the data is not edited correctly.
+</div>
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -638,3 +667,106 @@ valid command word.
   ```
   The person index provided is invalid
   ```
+
+### What is considered a relevant transaction?
+
+A transaction is only considered **relevant** if it involves you owing or being owed money
+by someone from your contacts list. In a relevant transaction:
+1. "Self" must be either the payee, a payer, or both: you must be involved in the transaction.
+2. Include at least one person stored in the app (not "Self" or "Others") as either
+   the payee, a payer, or both: someone else in your contacts list must be involved in the transaction.
+
+If these conditions are not met, it means that the transaction does not affect your balance
+with anyone on your contract list, and hence is considered **irrelevant**.
+
+Examples of relevant transactions:
+- You are the payee for dinner. The payers are you, Alice and Bob.
+- Bob pays for transport. You and Alice are riders, and hence are the payers.
+
+In both these cases, you were involved as the payee or payer of the transaction,
+and so was another person in your contacts.
+
+Examples of irrelevant transactions:
+- Bob was the payee for dinner. The payers are Alice and Bob. You are not involved
+  and hence, this transaction is irrelevant.
+- You pay for transport for Zack. Zack is the only payer. Zack was then deleted
+  contacts list afterwards, resulting in him being considered as "Others" in the transaction.
+  This transaction becomes irrelevant and is automatically deleted from the transactions
+  list when Zack is deleted.
+
+Note:
+- If you delete payers such that no one else from your contacts are involved in the
+  transaction, **SnS will block this**. You are advised to delete the transaction if
+  it no longer concerns you or anyone from your contacts list.
+- If you delete a person, some transactions may be considered irrelevant as highlighted
+  in the second example of an irrelevant transaction. **SnS will automatically delete
+  these irrelevant transactions**.
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+### Address
+The particulars of the place where a person lives.
+### Alphanumeric
+Consisting of only letters (a-z, A-Z) or numbers or both.
+### Amount
+The total value of the transaction.
+### Balance
+The amount of money that you owe a person or the amount of money that they owe you. A positive balance under a person
+means that they owe you money, whereas a negative balance means that you owe them money.
+### Card
+A rectangular area in our application that either describes the full details of a transaction or person.
+### Command
+To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed. 
+### Cost
+The total value of the transaction.
+### Description
+A written account of a transaction, used to provide context and details about the transaction.
+### Email address
+A unique identifier for an email account. It identifies an email box to which messages and emails are delivered.
+### Field
+An area where text can be input.
+### Flag
+Flags are used to modify the operation of a command.
+### Gui
+Gui stands for graphical user interface. A graphical user interface uses icons and mouse inputs from users to allow them to interact with the application.
+### Index
+A number representing the position of an item in a list.
+### Integer
+A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5/
+### Keyword
+An important word that is used by the application to process various commands.
+### Name
+A word or set of words that are used to address or refer to a person.
+### Negative
+A numerical value that is less than 0.
+### Parameter
+An additional input that provides further details on a command that a user is executing.
+### Payee
+Refers to the person that paid for the transaction.
+### Payer
+Refers to a person that owes the payee money for the transaction.
+### Person
+A human being.
+### Phone number
+A sequence of digits that is dialled on a telephone to contact a person.
+### Portion
+A subset of a transaction. A transaction is split into multiple portions.
+### Positive
+A numerical value that is greater than 0.
+### Settle
+Refers to the act of two people exchanging money, such that their respective balances with each other equal zero after the transaction.
+### Shorthand
+A shortened version of a command.
+### Tag
+A label that can be applied to a person to provide additional details about them.
+### Telegram handle
+A unique identifier for a telegram account. 
+### Timestamp
+Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
+YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
+### Transaction
+An interaction of buying or selling something where the exchange of money occurs.
+### Weight
+A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
+a person should pay for their share of the transaction.
