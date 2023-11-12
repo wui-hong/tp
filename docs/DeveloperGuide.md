@@ -278,43 +278,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use Case: UC1 - Listing all Persons**
-
-**MSS**
-
-1. User requests to view all contacts in the contact list.
-2. Spend n Split shows a list of contacts.
-
-Use case ends.
-
-Extensions:
-* 1a. The user can include a flag to sort the list by name.
-  * 1a1. Spend n Split shows the list of contacts now sorted by name.
-  * 1a2. Use case resumes at step 4.
-
----
-
-**Use Case: UC2 - Adding a New Person**
+**Use Case: UC1 - Adding a New Person**
 
 **MSS**
 
 1. User requests to add a new person.
 2. Spend n Split informs the user that the new person has been added.
-3. Spend n Split shows the updated contact list.
+3. Spend n Split shows the updated contacts list.
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Spend n Split detects that the person already exists in the contact list.
-  * 1a1. Spend n Split informs the user that the person already exists in the contact list.
-  * 1a2. Use case resumes at step 1.
+    * 1a1. Spend n Split informs the user that the person already exists in the contact list.
+    * Use case ends.
 * 1b. Spend n Split detects an error in the entered data for the new person.
-  * 1b1. Spend n Split informs the user that the data entered is invalid.
-  * 1b2. Use case resumes at step 1.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+    * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC3 - Editing a Person**
+**Use Case: UC2 - Editing a Person**
 
 **MSS**
 
@@ -324,17 +310,19 @@ Extensions:
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Spend n Split detects that the person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
+    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+    * Use case ends.
 * 1b. Spend n Split detects an error in the entered data for the person.
-  * 1b1. Spend n Split informs the user that the data entered is invalid.
-  * 1b2. Use case resumes at step 1.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct
+    * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC4 - Deleting a Person**
+**Use Case: UC3 - Deleting a Person**
 
 **MSS**
 
@@ -344,49 +332,25 @@ Extensions:
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Spend n Split detects that the person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
+    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+    * Use case ends.
 
 ---
 
-**Use Case: UC5 - Finding a Person**
+**Use Case: UC4 - Listing all Persons**
 
 **MSS**
 
-1. User requests to find a person.
-2. Spend n Split shows the list of persons that match the search query.
+1. User requests to view all contacts in the contact list with optional keywords to filter by names.
+2. Spend n Split shows a list of contacts, filtered by names if optional keywords were included.
 
 Use case ends.
 
-**Use Case: UC# - Clear All Persons**
-
-TODO: Internal note: let's remove / amend this feature, this command is too powerful and destructive.
-
 ---
 
-**Use Case: UC6 - Listing all Transactions with a Person**
-
-Preconditions: Person exists in the contact list.
-
-**MSS**
-
-1. User requests to view the transaction list involving a person.
-2. Spend n Split shows the list of transactions involving that person.
-
-Use case ends.
-
-Extensions:
-* 1a. Person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
-
----
-
-**Use Case: UC7 - Add a New Transaction**
-
-Preconditions: Person exists in the contact list.
+**Use Case: UC5 - Add a New Transaction**
 
 **MSS**
 
@@ -396,45 +360,59 @@ Preconditions: Person exists in the contact list.
 
 Use case ends.
 
-Extensions:
-* 1a. Person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
+**Extensions**
+* 1a. At least one person in the transaction does not exist in the contact list.
+    * 1a1. Spend n Split informs the user that there are persons that do not exist in the contact list.
+    * Use case ends
 
-* 1b. Spend n Split detects an error in the request for the new person.
-  * 1b1. Spend n Split informs the user that the request is invalid.
-  * 1b2. Use case resumes at step 1.
+* 1b. Spend n Split detects an error in the entered data for the new transaction.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for the correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+    * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC8 - Edit a Transaction**
-
-Preconditions: Transaction exists in the transaction list.
+**Use Case: UC6 - Edit a Transaction**
 
 **MSS**
 
-1. User requests to view the transaction list.
-2. Spend n Split shows a list of transaction.
-3. User requests to edit a transaction.
-4. Spend n Split informs the user that the transaction has been edited.
-5. Spend n Split shows the updated transaction list.
+1. User requests to edit a transaction.
+2. Spend n Split informs the user that the transaction has been edited.
+3. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
-Extensions:
-* 4a. Transaction does not exist in the portion list.
-  * 4a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
-  * 4a2. Use case resumes at step 3.
+**Extensions**
+* 1a. Transaction does not exist in the transactions list.
+  * 1a1. Spend n Split informs the user that the transaction does not exist in the transactions list.
+  * Use case ends.
 
-* 4b. Spend n Split detects an error in the request.
-  * 4b1. Spend n Split informs the user that request is invalid.
-  * 4b2. Use case resumes at step 3.
+* 1b. Spend n Split detects an error in the entered data for the transaction.
+  * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+  * 1b2. User enters new data.
+  * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+  * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC9 - Settle with a person**
+**Use Case: UC7 - Delete a Transaction**
 
-Preconditions: Person exists in the contact list.
+**MSS**
+
+1. User requests to delete a transaction.
+2. Spend n Split informs the user that the transaction has been deleted.
+3. Spend n Split shows the updated transaction list.
+
+Use case ends.
+
+**Extensions**
+* 1a. Spend n Split detects that the transaction does not exist in the portion list.
+    * 1a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
+    * Use case ends.
+---
+
+**Use Case: UC8 - Settle with a person**
 
 **MSS**
 
@@ -444,35 +422,55 @@ Preconditions: Person exists in the contact list.
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Person does not exist in the contact list.
   * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 2.
+  * Use case ends.
+
 * 1b. User does not have an outstanding balance with the person.
   * 1b1. Spend n Split informs the user that there is no outstanding balance with that person.
-  * 1b2. Use case resumes at step 3.
+  * Use case ends.
+
 ---
 
-**Use Case: UC10 - Delete a Transaction**
-
-Preconditions: Transaction exists in the transaction list.
+**Use Case: UC9 - Duplicate a Transaction**
 
 **MSS**
 
-1. User requests to view the transaction list.
-2. Spend n Split shows a list of transactions.
-3. User requests to delete a transaction.
-4. Spend n Split informs the user that the transaction has been deleted.
-5. Spend n Split shows the updated transaction list.
+1. User requests to duplicate a transaction.
+2. Spend n Split informs the user that all the new duplicated transaction has been added.
+3. Spend n Split shows the updated list of transactions.
 
 Use case ends.
 
-Extensions:
-* 3a. Transaction does not exist in the portion list.
-    * 3a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
-    * 3a2. Use case resumes at step 2.
+**Extensions**
+* 1a. Spend n Split detects that the transaction does not exist in the portion list.
+    * 1a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
+    * Use case ends.
+
+* 1b. Spend n Split detects an error in the entered data for the duplicated transaction.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+    * Use case resumes at step 2.
+
+* 1c. Spend n Split detects that the duplicated transaction already exists in the transactions list.
+    * 1c1. Spend n Split informs the user that the duplicated transaction already exists in the transactions list.
+    * Use case ends.
 
 ---
+
+**Use Case: UC10 - Listing Transactions**
+
+**MSS**
+
+1. User requests to view the transaction list with optional keywords and names to filter the list.
+2. Spend n Split shows the list of transactions, which is filtered if optional keywords and / or names were included.
+
+Use case ends.
+
+---
+
 
 ### Non-Functional Requirements
 
