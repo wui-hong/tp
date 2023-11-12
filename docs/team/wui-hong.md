@@ -26,9 +26,12 @@ Given below are my contributions to the project.
 
 * **Documentation**:
     * User Guide:
-        * To be added soon
+        * Contributed to the adding of labels
+        * Added glossary
+        * Refactoring and cleaning up the User Guide
+        * Pull requests: [[PR#326]], [[PR#325]]
     * Developer Guide:
-        * To be added soon
+        * Added glossary
 
 * **Community**:
     * PRs reviewed:
