@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":SortPersonCommandParser" as SortPersonCommandParser LOGIC_COLOR
+participant "sp:SortPersonCommand" as SortPersonCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("sortPerson +")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("sortPerson +", commandMap)
+activate SpendNSplitParser
+
+create SortPersonCommandParser
+SpendNSplitParser -> SortPersonCommandParser
+activate SortPersonCommandParser
+
+SortPersonCommandParser --> SpendNSplitParser
+deactivate SortPersonCommandParser
+
+SpendNSplitParser -> SortPersonCommandParser : parse("+")
+activate SortPersonCommandParser
+
+create SortPersonCommand
+SortPersonCommandParser -> SortPersonCommand : new SortPersonCommand(isDesc)
+activate SortPersonCommand
+
+SortPersonCommand --> SortPersonCommandParser : sp
+deactivate SortPersonCommand
+
+SortPersonCommandParser --> SpendNSplitParser : sp
+deactivate SortPersonCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SortPersonCommandParser -[hidden]-> SpendNSplitParser
+destroy SortPersonCommandParser
+
+SpendNSplitParser --> LogicManager : sp
+deactivate SpendNSplitParser
+
+LogicManager -> SortPersonCommand : execute()
+activate SortPersonCommand
+
+alt isDesc
+    SortPersonCommand -> Model : sortPersonDescending()
+    activate Model
+
+    Model --> SortPersonCommand
+    deactivate Model
+else
+    SortPersonCommand -> Model : sortPersonAscending()
+    activate Model
+
+    Model --> SortPersonCommand
+    deactivate Model
+end
+
+create CommandResult
+SortPersonCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SortPersonCommand
+deactivate CommandResult
+
+SortPersonCommand --> LogicManager : result
+deactivate SortPersonCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

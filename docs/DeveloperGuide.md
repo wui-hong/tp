@@ -249,6 +249,20 @@ The overall flow of the `listPerson` command is as follows:
 
 #### Sorting Persons
 
+The `sortPerson` command sorts displayed `Person` objects by the specified order.
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `sortPerson` command:
+
+![Interactions Inside the Logic Component for the `sortPerson` Command](images/SortPersonSequenceDiagram.png)
+
+The overall flow of the `sortPerson` command is as follows:
+
+1. The user specifies the order to be sorted by. It is the only mandatory field and must be `+` (ascending) or `-` (descending).
+2. The parsers check for the validity of the provided order. Errors are raised if the order is invalid.
+3. Upon successful parsing, the `SortPersonCommand` is created with the order to be sorted by expressed as a boolean value.
+4. The `SortPersonCommand` is executed by the `LogicManager`, which attempts to update the displayed list of persons through `Model::sortPersonAscending()` or `Model::sortPersonDescending()`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
+
 ### Transaction-related Features
 
 #### Adding Transactions
