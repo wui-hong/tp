@@ -220,6 +220,10 @@ We chose this method of execution instead of directly editing the `Transaction` 
 
 The `setShorthand` command allows users to set a shorthand, or alias for an existing command. This shorthand can then be used in place of the command.
 
+The activity diagram is as follows:
+
+<img src="images/SetShorthandCommandActivityDiagram.png" width="550"/>
+
 The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
 
 <img src="images/SetShorthandCommandSequenceDiagram.png" width="550"/>
