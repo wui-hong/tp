@@ -217,6 +217,7 @@ We chose this method of execution instead of directly editing the `Transaction` 
 #### Setting Shorthands
 
 ##### Overview
+
 The `setShorthand` command allows users to set a shorthand, or alias for an existing command. This shorthand can then be used in place of the command.
 
 The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
@@ -233,15 +234,64 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 ##### Implementation Considerations
 
+All existing commands are stored in a hashset. Newly created shorthands are stored in a hashmap. 
+Upon executing a new command, the parser looks up the command word in the existing commands hashset first.
+If the command word does not exist within the hashset, the parser then looks up the command word in the shorthands hashmap.
+
 The shorthand allows each original command to have up to one and only one shorthand.
 This is to prevent ambiguity when the user enters a shorthand that is used by multiple original commands, 
 as well as confusion when an original command could have multiple shorthands.
 
 #### Clearing App Data
 
+##### Overview
+
+The `clear` command allows users to clear all data stored in the app.
+This includes all persons and transactions in the `spendnsplitbook.json` file,
+as well as all shorthands in the `preferences.json` file.
+
+This command is irreversible, and should be used with caution. This command is introduced for new users to be able to quickly
+clear the sample data and start using the app with their own data. 
+Should the user ever wish to clear the data and start afresh again in the future, they can also use this command.
+
+The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
+
+<img src="images/ClearCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `clear` command.
+2. The app clears all data from its Storage, and displays empty person and transaction lists.
+
 #### Accessing Help
 
+##### Overview
+
+The `help` command brings up the help window, which contains a URL link to the online user guide.
+
+The sequence diagram below illustrates the interactions within the `Ui`, `Logic` and `Model` component:
+
+<img src="images/HelpCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `help` command.
+2. The app opens the help window and centers it on the screen.
+
 #### Exiting the App
+
+##### Overview
+
+The `exit` command exits the app. This closes the app window (including the help window if opened) and terminates the app.
+
+The sequence diagram below illustrates the interactions within the `Ui`, `Logic` and `Model` component:
+
+<img src="images/ExitCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `exit` command.
+2. The app closes the app window and terminates the app.
 
 --------------------------------------------------------------------------------------------------------------------
 
