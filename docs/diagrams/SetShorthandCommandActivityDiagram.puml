@@ -14,13 +14,11 @@ if () then ([Command format is invalid])
 ([else]) elseif () then ([Shorthand already in use by another command])
   :Throw exception;
   stop
-([else]) elseif () then ([Original command has a shorthand])
-  :Replace existing shorthand with new shorthand;
-  stop
-else ([else])
 endif
-  :Add transaction to the transaction list;
-
-
+if () then ([Original command has a shorthand])
+  :Replace old shorthand with new shorthand;
+else ([else])
+  :Add new shorthand to original command;
+endif
 stop
 @enduml
