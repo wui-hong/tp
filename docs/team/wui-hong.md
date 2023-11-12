@@ -23,6 +23,7 @@ Given below are my contributions to the project.
 
 * **Project management**:
     * Helped add labels to some issues and pull requests.
+    * Reviewed and approved PRs with non-trivial comments.
 
 * **Documentation**:
     * User Guide:
@@ -31,8 +32,6 @@ Given below are my contributions to the project.
         * Refactoring and cleaning up the User Guide
         * Pull requests: PR#326, PR#325
     * Developer Guide:
-        * Added glossary
+        * Added glossary: PR#331
 
-* **Community**:
-    * PRs reviewed:
-      * 
+
