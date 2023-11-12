@@ -674,7 +674,7 @@ with IETF standards and the following (non-exhaustive) list of RFCs:
 to more accurately detect invalid email addresses and support more domains' formats.
 
 ### Stronger Telegram Handle Input Validation
-- **Background**: Currently, the `TelegramHandle` of our `Person` is currently validated.
+- **Background**: Currently, the `TelegramHandle` of our `Person` is validated.
 A Telegram Handle in our application must:
     - begin with `@`.
     - be at least 5-characters long (exclusive of `@`).
@@ -701,7 +701,7 @@ A Telegram Handle in our application must:
   SnS can correctly reject invalid input such that the examples above.
 
 ### Improved Space Sensitivity in Names
-- **Background**: Currently, the `Name` of our `Person` is currently able to trim
+- **Background**: Currently, the `Name` of our `Person` is able to trim
 leading and trailing spaces, allowing us to treat `Alex Yeoh` and `&nbsp;&nbsp;Alex Yeoh&nbsp;&nbsp;`
 as the same `Name`. However, the `Name` is sensitive to spaces in between. This results
 in `Alex Yeoh` and `Alex&nbsp;&nbsp;&nbsp;Yeoh` being treated as different names.
