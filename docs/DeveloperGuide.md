@@ -178,35 +178,9 @@ The keyboard navigation feature allows users to navigate between different UI co
 
 #### Implementation
 
-The implementation of this feature is centered in the `MainWindow` class, which acts as the primary UI container for the application. Within `MainWindow`, two key methods are used: `setKeyNavigation` and `setKeyNavigations`. The `setKeyNavigations` utilizes `setKeyNavigation` to assign specific keyboard events to different UI parts.
+The implementation of this feature is centered in the `MainWindow` class, which acts as the primary UI container for the application. Within `MainWindow`, two key methods are used: [`setKeyNavigation`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/MainWindow.java#L148) and [`setKeyNavigations`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/MainWindow.java#L115). The `setKeyNavigations` utilizes `setKeyNavigation` to assign specific keyboard events to different UI parts.
 
-Here's the implementation of those method:
-
-```java
-private void setKeyNavigation(UiPartFocusable<?> uiPartFocusable, KeyCombination keyCombination) {
-    getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-        if (keyCombination.match(event)) {
-            if (focusedUiPart != null) {
-                focusedUiPart.unFocus();
-            }
-            uiPartFocusable.focus();
-            focusedUiPart = uiPartFocusable;
-            event.consume();
-        }
-    });
-}
-```
-
-```java
-void setKeyNavigations() {
-    setKeyNavigation(personListPanel, KeyCombination.keyCombination("Alt+LEFT"));
-    setKeyNavigation(transactionListPanel, KeyCombination.keyCombination("Alt+RIGHT"));
-    setKeyNavigation(resultDisplay, KeyCombination.keyCombination("Alt+UP"));
-    setKeyNavigation(commandBox, KeyCombination.keyCombination("Alt+DOWN"));
-}
-```
-
-When the user presses a key combination that matches the one assigned to a UI part, the UI part will be focused. The previously focused UI part will be unfocused and then assigned to the newly focused UI part. The `focusedUiPart` field in `MainWindow` keeps track of the currently focused UI part.
+The [`focusedUiPart`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/MainWindow.java#L34) field in `MainWindow` keeps track of the currently focused UI part. When the user presses a key combination that matches the one assigned to a UI part, the currently focused UI part (if existed) will be unfocused and then assigned to the newly focused UI part. The newly focused UI part will then be focused.
 
 ### Person-related Features
 
