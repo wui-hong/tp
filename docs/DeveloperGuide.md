@@ -704,7 +704,7 @@ Expected Output in the Command Output Panel: Error message stating that there is
 
 ### Listing multiple transactions with matching payers and payees.
 
-Prerequisite: There is only 1 transaction stored in Spend N Split. The payer is "Roy".
+Prerequisite: There is only 1 transaction stored in Spend N Split. The payer is "Roy". The description is "bread".
 
 `listTransaction n=Roy`
 
