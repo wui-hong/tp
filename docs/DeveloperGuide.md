@@ -72,7 +72,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -518,9 +518,11 @@ Gui stands for graphical user interface. A graphical user interface uses icons a
 #### Index
 A number representing the position of an item in a list.
 #### Integer
-A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5/
+A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5.
 #### Keyword
 An important word that is used by the application to process various commands.
+#### Mainstream OS
+Refers to operating systems such as Windows, Linux, Unix, OS-X.
 #### Name
 A word or set of words that are used to address or refer to a person.
 #### Negative
@@ -546,7 +548,7 @@ A shortened version of a command.
 #### Tag
 A label that can be applied to a person to provide additional details about them.
 #### Telegram handle
-A unique identifier for a telegram account.
+A unique identifier for a Telegram account. E.g. @ryanlim123
 #### Timestamp
 Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
 YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
@@ -555,10 +557,6 @@ An interaction of buying or selling something where the exchange of money occurs
 #### Weight
 A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
 a person should pay for their share of the transaction.
-
-**General**
-#### Mainstream OS
-Refers to operating systems such as Windows, Linux, Unix, OS-X.
 
 --------------------------------------------------------------------------------------------------------------------
 
