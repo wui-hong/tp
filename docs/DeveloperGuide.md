@@ -1059,7 +1059,7 @@ for commands as it refers to the user typing the command, but it will be labelle
 `You` when referred to in the UI as it is more user-friendly. `You` is currently not a
 reserved name.
 
-- **Issue**: Users can use `You` as a `Name`, potentially making it confusing whether
+- **Issue**: Users can name a `Person` in the person list `You`, potentially making it confusing whether
 it would refer to a person, or the user.
 
 - **Enhancement**: We plan on making `You` a part of our reserved names to prevent
