@@ -186,7 +186,7 @@ The following parameters are used for commands:
 | Original command     | o | An original command keyword listed in this user guide                                                                                                                                                          | `setShorthand`, `addTransaction` |
 | Shorthand            | s | Single-word, English alphabet characters only                                                                                                                                                                  | `s`, `aT` |
 
-&ast; SnS checks the validity of Telegram handles and email addresses using general formats.
+SnS checks the validity of Telegram handles and email addresses using general formats.
 SnS is able to reject any Telegram handles or email addresses it detects as invalid.
 However, it is not able to detect *all* invalid Telegram handles or email addresses as
 format does not strictly enforce that a Telegram handle or email address is valid.
