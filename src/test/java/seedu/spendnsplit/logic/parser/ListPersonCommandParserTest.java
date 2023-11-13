@@ -1,5 +1,6 @@
 package seedu.spendnsplit.logic.parser;
 
+import static seedu.spendnsplit.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.spendnsplit.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
@@ -19,6 +20,11 @@ public class ListPersonCommandParserTest {
         ListPersonCommand expectedFindPersonCommand =
             new ListPersonCommand(new NameContainsKeywordsPredicate(List.of()));
         assertParseSuccess(parser, "     ", expectedFindPersonCommand);
+    }
+
+    @Test
+    public void parse_keywordEqual_commandFailure() {
+        assertParseFailure(parser, "=", ListPersonCommand.MESSAGE_USAGE);
     }
 
     @Test
