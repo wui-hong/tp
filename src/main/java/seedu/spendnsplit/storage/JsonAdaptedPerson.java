@@ -88,7 +88,9 @@ class JsonAdaptedPerson {
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
-            personTags.add(tag.toModelType());
+            if (tag != null) {
+                personTags.add(tag.toModelType());
+            }
         }
         final Phone modelPhone;
         final TelegramHandle modelTelegramHandle;
