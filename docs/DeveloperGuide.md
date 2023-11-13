@@ -1278,3 +1278,20 @@ with an `Email`.
 - **Enhancement**: In the person UI card, we plan on including the field names
 on each line so that the user can better associate each of the person's detail with
 the appropriate field to prevent confusion in cases such as the one mentioned above.
+
+### Better Handling of Screen Resolution Changes
+
+**Background**: As our application displays a person list and transaction list
+with many details, we dynamically fix the minimum window size based on the user's
+screen resolution.
+
+**Issue**: It is possible for the user to decrease the screen resolution, making
+the window size of their screen smaller than the initially set minimum window size
+of our application. This makes the application unusable. The current workaround
+would be to quit the application and relaunch again.
+
+**Enhancement**: We plan on adding event listeners and triggers to our application
+to detect changes in screen resolution, and dynamically adjust the minimum window size
+of our application. Hence, users need not restart the application anymore should they
+change the screen resolution.
+
