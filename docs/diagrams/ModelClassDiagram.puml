@@ -73,9 +73,6 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-Portion -[hidden]right-> Description
-Portion -[hidden]right-> Amount
-
 ModelManager --> "~* filtered" Person
-ModelManager --> "~* filtered" Transaction
+ModelManager -----> "~* filtered" Transaction
 @enduml
