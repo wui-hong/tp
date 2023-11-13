@@ -1262,3 +1262,19 @@ it would refer to a person, or the user.
 
 - **Enhancement**: We plan on making `You` a part of our reserved names to prevent
 this issue, and disallow users from creating `Name` with that value.
+
+### More Descriptive `Person` UI Card
+
+- **Background**: Currently, when displaying a `Person` in the person UI card, person fields
+like `Address`, `Email`, etc are displayed as is, separated by line. However, there
+are no labels for the field names
+
+- **Issue**: This can be potentially confusing as users would not know which line
+represents a certain field. For example, if a user had an `Address` with the value
+of `DaCondo@changi.sg`, it will be displayed in the UI card as is with no label
+to let the user know that it represents an `Address`. Hence, this could be confused
+with an `Email`.
+
+- **Enhancement**: In the person UI card, we plan on including the field names
+on each line so that the user can better associate each of the person's detail with
+the appropriate field to prevent confusion in cases such as the one mentioned above.
