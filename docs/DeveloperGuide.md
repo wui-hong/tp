@@ -202,7 +202,7 @@ The [`focusedUiPart`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/s
 
 ![Overview of Person Class](images/PersonClassDiagram.png)
 
-The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the application and is composed of the following classes:
+The `Person` class is the main class in the `seedu.spendnsplit.model.person` package. It represents a person in the application and is composed of the following classes:
 
 * `Name`: The name of the person. It must be unique and cannot be null.
 * `Phone`: The phone number of the person.
