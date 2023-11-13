@@ -100,7 +100,7 @@ A transaction has the following attributes:
 - Portion(s) 
 
 <div markdown="block" class="alert alert-primary">
-:warning: Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
+:warning: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
 </div>
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
@@ -165,7 +165,7 @@ Some of our commands require parameters, which have specific formats and constra
 <br> 
 
 <div markdown="span" class="alert alert-danger">
-:heavy_exclamation_mark: Note: **All inputs** to parameters should not contain the "=" sign.
+:heavy_exclamation_mark: All inputs to parameters should not contain the "=" sign.
 </div>
 The following parameters are used for commands:
 
@@ -195,7 +195,7 @@ format does not strictly enforce that a Telegram handle or email address is vali
 
 <div markdown="block" class="alert alert-primary">
 
-:warning: **Notes about the command format:**<br>
+:warning: Notes about the command format:<br>
 
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   E.g. In `addPerson n=NAME`, `NAME` is a parameter to be provided by the user. <br>Example usage: `addPerson n=John Doe`.
@@ -346,14 +346,12 @@ After the command has been executed, every transaction in the application will b
 
 
 <div markdown="span" class="alert alert-danger">
-:heavy_exclamation_mark: Note: The order of the parameters is NOT flexible.
+:heavy_exclamation_mark: The order of the parameters is NOT flexible.
 </div>
 
 <div markdown="block" class="alert alert-primary">
 
-**:warning: Note:**<br>
-
-Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
+:warning: Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
 
 </div>
 
@@ -408,9 +406,7 @@ After the command has been executed, every transaction in the application will b
 
 <div markdown="block" class="alert alert-primary">
 
-**:warning: Note:**<br>
-
-After editing, the transaction must be relevant. The application will not allow you to edit a transaction such that it becomes irrelevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
+:warning: After editing, the transaction must be relevant. The application will not allow you to edit a transaction such that it becomes irrelevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
 
 </div>
 
@@ -452,6 +448,13 @@ Examples:
 
 * To remove an existing person (e.g. Bernice Yu) from the transaction, set the weight to 0:
     * `updatePortion 3 n=Bernice Yu w=0`
+
+
+The calculation of subtotals for people involved in the affected transaction (excluding the person specified in the command) follows these steps:
+1) Take the number 1 and subtract the weight that was given in the `updatePortion` command.
+2) Take the resulting number from Step 1 and multiply it by the Total of the transaction to give a value `remainingTotal`.
+3) Let the total summed-up weights of all the people in the affected transaction (excluding the person mentioned in the command) be `remainingWeights`.
+4) For each of the people in the affected transaction (excluding the person mentioned in the command), their new subtotal will be their (existing `weight` / `remainingWeights`) * `remainingTotal`.
 
 Sample Execution:
 
@@ -525,7 +528,7 @@ Format: `listTransaction [KEYWORD]... [n=NAME]...`
 * The name must contain only alphabets, numbers, and spaces. It cannot be empty and is case-insensitive.
 
 <div markdown="span" class="alert alert-danger">
-:heavy_exclamation_mark: Note: The order of the parameters is NOT flexible.
+:heavy_exclamation_mark: The order of the parameters is NOT flexible.
 </div>
 
 Examples:
@@ -794,70 +797,68 @@ We would like to acknowledge the following third-party libraries, frameworks and
 
 --------------------------------------------------------------------------------------------------------------------
 ## Glossary
-
-### Address
+#### Address
 The particulars of the place where a person lives.
-### Alphanumeric
+#### Alphanumeric
 Consisting of only letters (a-z, A-Z) or numbers or both.
-### Amount
+#### Amount
 The total value of the transaction.
-### Balance
+#### Balance
 The amount of money that you owe a person or the amount of money that they owe you. A positive balance under a person
 means that they owe you money, whereas a negative balance means that you owe them money.
-### Card
+#### Card
 A rectangular area in our application that either describes the full details of a transaction or person.
-### Command
-To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed. 
-### Cost
+#### Command
+To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed.
+#### Cost
 The total value of the transaction.
-### Description
+#### Description
 A written account of a transaction, used to provide context and details about the transaction.
-### Email address
+#### Email address
 A unique identifier for an email account. It identifies an email box to which messages and emails are delivered.
-### Field
+#### Field
 An area where text can be input.
-### Flag
+#### Flag
 Flags are used to modify the operation of a command.
-### Gui
-Gui stands for graphical user interface. A graphical user interface uses icons and mouse inputs from users to allow them to interact with the application.
-### Index
+#### GUI
+GUI stands for Graphical User Interface. A Graphical User Interface uses icons and mouse inputs from users to allow them to interact with the application.
+#### Index
 A number representing the position of an item in a list.
-### Integer
-A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5/
-### Keyword
+#### Integer
+A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5.
+#### Keyword
 An important word that is used by the application to process various commands.
-### Name
+#### Name
 A word or set of words that are used to address or refer to a person.
-### Negative
+#### Negative
 A numerical value that is less than 0.
-### Parameter
+#### Parameter
 An additional input that provides further details on a command that a user is executing.
-### Payee
+#### Payee
 Refers to the person that paid for the transaction.
-### Payer
+#### Payer
 Refers to a person that owes the payee money for the transaction.
-### Person
-A human being.
-### Phone number
+#### Person
+An individual that can be associated with various information in our application, such as contact information and balances.
+#### Phone number
 A sequence of digits that is dialled on a telephone to contact a person.
-### Portion
+#### Portion
 A subset of a transaction. A transaction is split into multiple portions.
-### Positive
+#### Positive
 A numerical value that is greater than 0.
-### Settle
+#### Settle
 Refers to the act of two people exchanging money, such that their respective balances with each other equal zero after the transaction.
-### Shorthand
+#### Shorthand
 A shortened version of a command.
-### Tag
+#### Tag
 A label that can be applied to a person to provide additional details about them.
-### Telegram handle
-A unique identifier for a telegram account. 
-### Timestamp
+#### Telegram handle
+A unique identifier for a Telegram account. E.g. @ryanlim123
+#### Timestamp
 Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
 YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
-### Transaction
+#### Transaction
 An interaction of buying or selling something where the exchange of money occurs.
-### Weight
+#### Weight
 A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
 a person should pay for their share of the transaction.
-
