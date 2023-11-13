@@ -129,7 +129,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `SpendNSplitParser` object together with a `CommandAliasMap`map.
+1. When `Logic` is called upon to execute a command, it is passed to an `SpendNSplitParser` object together with a `CommandAliasMap` map.
 2. The `SpendNSplitParser` in turn creates a parser that matches the command (e.g., `DeletePersonCommandParser`) and uses it to parse the command.
 3. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeletePersonCommand`) which is executed by the `LogicManager`.
 4. The command can communicate with the `Model` when it is executed (e.g. to delete a person).
