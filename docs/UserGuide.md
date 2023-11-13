@@ -126,7 +126,7 @@ Note: Spend N Split will only keep track of transactions that are considered [re
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar spendnsplit.jar`
    command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the application contains some sample data.<br>
+   A GUI similar to the one shown below should appear in a few seconds. Note how the application contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the Command Input Field and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
@@ -254,7 +254,7 @@ The command word (editPerson) and the index has to be at the front of the comman
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t=` without
-  specifying any tags after it.
+  specifying any tags after it. However, this will only work if there is a single tag parameter. `t=` will work, but `t=Friend t=soccer` will result in an input error.
 
 After the command has been executed, every person in the application will be displayed in the Person List.
 
@@ -608,7 +608,7 @@ Balance settled: Alex Yeoh
 
 Sets a shorthand for the original command. In the future, this shorthand can be used in place of the original command.
 
-Format: `setShorthand o=[ORIGINAL_COMMAND] s=[SHORTHAND]`
+Format: `setShorthand o=ORIGINAL_COMMAND s=SHORTHAND`
 
 The command word (setShorthand) has to be at the front of the command. The order of the remaining parameters is flexible.
 Commands and shorthands are case-sensitive.
@@ -765,9 +765,9 @@ Examples of irrelevant transactions:
   list when Zack is deleted.
 
 Note:
-- If you attempt to delete payers such that no one else from your contacts are involved in the
+- If you attempt to delete payers such that nobody from your Person List is involved in the
   transaction, **the application will not execute your command**. You are advised to delete the transaction if
-  it no longer concerns you or anyone from your contacts list.
+  it no longer concerns you or anyone from your Person List.
 - If you delete a person and it results in some transactions becoming irrelevant as highlighted
   in the second example of  irrelevant transactions above, **the application will automatically delete
   these irrelevant transactions**.
