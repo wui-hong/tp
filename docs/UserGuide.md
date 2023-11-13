@@ -254,7 +254,7 @@ The command word (editPerson) and the index has to be at the front of the comman
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t=` without
-  specifying any tags after it. However, this will only work if there is a single tag parameter. `t=` will work, but `t=Friend t=soccer` will result in an input error.
+  specifying any tags after it. However, this will only work if there is a single tag parameter. `t=` will work, but `t=Friend t=` will result in an input error.
 
 After the command has been executed, every person in the application will be displayed in the Person List.
 
@@ -307,9 +307,9 @@ Examples:
 
 ![listPersonFiltered_success](images/user-guide/listPersonFilteredSuccess.png)
 
-#### Sorting people by balance: `sortPerson`
+#### Sorting persons by balance: `sortPerson`
 
-Sorts the list of people in the application based on their outstanding balances in either ascending or descending
+Sorts the list of persons in the application based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Having a negative balance with someone means you
 own them money.
 
@@ -331,7 +331,7 @@ Examples:
 
 #### Adding a transaction: `addTransaction`
 
-Adds a transaction for multiple people with customised split ratios.
+Adds a transaction for multiple persons with customised split ratios.
 
 Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - Cost and weights have to be decimal numbers or fractions, and they must be positive.
@@ -717,8 +717,13 @@ input with the parameters required.
 <div markdown="block" class="alert alert-info">
 :bulb: Note the differences between Execution errors and Input errors. An execution error refers to an error that will occur
 regardless of the state of the application or its data, whereas input errors are errors that occur when certain conditions in the application
-are met. E.g. Attempting to settle the balance of a person at index 6 when there are only 5 people in the Person List, or attempting
+are met. 
+
+Attempting to settle the balance of a person at index 6 when there are only 5 people in the Person List, or attempting
 to add a person that has an identical name to someone that already exists in the Person List are both input errors.
+
+Meanwhile, attempting to settle the balance of a person at index -1 will result in an execution error, as it will occur for every
+form of data in the application.
 </div>
 
 * Unknown command. This occurs when the command word is not recognised.
@@ -852,6 +857,8 @@ An additional input that provides further details on a command that a user is ex
 Refers to the person that paid for the transaction.
 #### Payer
 Refers to a person that owes the payee money for the transaction.
+#### People
+Used to refer to multiple persons. Can be used interchangeably with "persons".
 #### Person
 An individual that can be associated with various information in our application, such as contact information and balances.
 #### Phone number
