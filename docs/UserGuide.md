@@ -100,7 +100,7 @@ A transaction has the following attributes:
 - Portion(s) 
 
 <div markdown="block" class="alert alert-primary">
-:warning: Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
+:warning: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
 </div>
 
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
@@ -165,7 +165,7 @@ Some of our commands require parameters, which have specific formats and constra
 <br> 
 
 <div markdown="span" class="alert alert-danger">
-:heavy_exclamation_mark: Note: **All inputs** to parameters should not contain the "=" sign.
+:heavy_exclamation_mark: All inputs to parameters should not contain the "=" sign.
 </div>
 The following parameters are used for commands:
 
@@ -190,7 +190,7 @@ The following parameters are used for commands:
 
 <div markdown="block" class="alert alert-primary">
 
-:warning: **Notes about the command format:**<br>
+:warning: Notes about the command format:<br>
 
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   E.g. In `addPerson n=NAME`, `NAME` is a parameter to be provided by the user. <br>Example usage: `addPerson n=John Doe`.
@@ -337,14 +337,12 @@ After the command has been executed, every transaction in the application will b
 
 
 <div markdown="span" class="alert alert-danger">
-:heavy_exclamation_mark: Note: The order of the parameters is NOT flexible.
+:heavy_exclamation_mark: The order of the parameters is NOT flexible.
 </div>
 
 <div markdown="block" class="alert alert-primary">
 
-**:warning: Note:**<br>
-
-Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
+:warning: Transactions added to Spend N Split must be relevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
 
 </div>
 
@@ -401,9 +399,7 @@ After the command has been executed, every transaction in the application will b
 
 <div markdown="block" class="alert alert-primary">
 
-**:warning: Note:**<br>
-
-After editing, the transaction must be relevant. The application will not allow you to edit a transaction such that it becomes irrelevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
+:warning: After editing, the transaction must be relevant. The application will not allow you to edit a transaction such that it becomes irrelevant. Refer to the [Relevant Transactions](#3-what-is-considered-a-relevant-transaction) section for more details.
 
 </div>
 
@@ -449,6 +445,13 @@ Examples:
 
 * To remove an existing person (e.g. Bob) from the transaction, set the weight to 0:
     * `updatePortion 1 n=Bob w=0`
+
+
+The calculation of subtotals for people involved in the affected transaction (excluding the person specified in the command) follows these steps:
+1) Take the number 1 and subtract the weight that was given in the `updatePortion` command.
+2) Take the resulting number from Step 1 and multiply it by the Total of the transaction to give a value `remainingTotal`.
+3) Let the total summed-up weights of all the people in the affected transaction (excluding the person mentioned in the command) be `remainingWeights`.
+4) For each of the people in the affected transaction (excluding the person mentioned in the command), their new subtotal will be their (existing `weight` / `remainingWeights`) * `remainingTotal`.
 
 Sample Execution:
 
@@ -520,7 +523,7 @@ Format: `listTransaction [KEYWORD]... [n=NAME]...`
 * The name must contain only alphabets, numbers, and spaces. It cannot be empty and is case-insensitive.
 
 <div markdown="span" class="alert alert-danger">
-:heavy_exclamation_mark: Note: The order of the parameters is NOT flexible.
+:heavy_exclamation_mark: The order of the parameters is NOT flexible.
 </div>
 
 Examples:
