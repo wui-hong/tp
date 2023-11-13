@@ -169,27 +169,26 @@ Some of our commands require parameters, which have specific formats and constra
 </div>
 The following parameters are used for commands:
 
-| Parameter            | Prefix | Format                                                                                                                                                                                                         | Example |
-|----------------------| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
-| Index                | - | Positive integers only                                                                                                                                                                                         | `1`, `2`, `3` |
-| Keyword              | - |                                                                                                                                                                                                                | `Bob`, `Lunch` |
-| Name                 | n | Alphanumeric, can contain multiple words                                                                                                                                                                       | `Bob`, `Alex Yeoh` |
-| Phone number         | p | Numeric, minimum length of 3 digits                                                                                                                                                                            | `99999999`, `88888888` |
-| Telegram handle&ast; | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores                                                                                                                               | `@nus_cs2103` , `@spend_n_split` |
-| Email address&ast;   | e | Valid email format only                                                                                                                                                                                        | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
-| Address              | a |                                                                                                                                                                                                                | `Kent Ridge Hall`, `RC4` |
-| Tag                  | t | Single-word, alphanumeric                                                                                                                                                                                      | `friend`, `colleague` |
-| Description          | d |                                                                                                                                                                                                                | `Lunch`, `Dinner @ UTown` |
-| Amount/ Cost         | c | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Timestamp            | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:MM. You have the option to include only the date or time, or both. When providing both, ensure that the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
-| Weight               | w | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Original command     | o | An original command keyword listed in this user guide                                                                                                                                                          | `setShorthand`, `addTransaction` |
-| Shorthand            | s | Single-word, English alphabet characters only                                                                                                                                                                  | `s`, `aT` |
+| Parameter     | Prefix | Format                                                                                                                                                                                                         | Example |
+|---------------| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| Index         | - | Positive integers only                                                                                                                                                                                         | `1`, `2`, `3` |
+| Keyword       | - | Should not contain the "=" sign as mentioned above. No other restrictions                                                                                                                                      | `Bob`, `Lunch` |
+| Name          | n | Alphanumeric, can contain multiple words                                                                                                                                                                       | `Bob`, `Alex Yeoh` |
+| Phone number  | p | Numeric, minimum length of 3 digits                                                                                                                                                                            | `99999999`, `88888888` |
+| Telegram handle | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores                                                                                                                               | `@nus_cs2103` , `@spend_n_split` |
+| Email address | e | Valid email format only                                                                                                                                                                                        | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address       | a |  Should not contain the "=" sign as mentioned above. No other restrictions                                                                                                                                                                                                             | `Kent Ridge Hall`, `RC4` |
+| Tag           | t | Single-word, alphanumeric                                                                                                                                                                                      | `friend`, `colleague` |
+| Description   | d |  Should not contain the "=" sign as mentioned above. No other restrictions                                                                                                                                                                                                             | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost  | c | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp     | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:MM. You have the option to include only the date or time, or both. When providing both, ensure that the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight        | w | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Original command | o | An original command keyword listed in this user guide                                                                                                                                                          | `setShorthand`, `addTransaction` |
+| Shorthand     | s | Single-word, English alphabet characters only                                                                                                                                                                  | `s`, `aT` |
 
-SnS checks the validity of Telegram handles and email addresses using general formats.
-SnS is able to reject any Telegram handles or email addresses it detects as invalid.
-However, it is not able to detect *all* invalid Telegram handles or email addresses as
-format does not strictly enforce that a Telegram handle or email address is valid.
+Spend N Split checks the validity of Telegram handles and email addresses according to the formats defined in the table above. It will
+reject all Telegram handles and email addresses that do not follow the format.
+
 
 ## Features
 
@@ -204,7 +203,7 @@ format does not strictly enforce that a Telegram handle or email address is vali
   E.g. For `n=NAME [t=TAG]`: <br> Example usage `n=John Doe t=friend` or `n=John Doe`.
 
 - Items followed by `…` are optional and can be listed multiple times.<br>
-  E.g. For `[t=TAG]…​`: <br> Example usage: ` ` (0 tags), or `t=friend` (1 tag) or `t=friend t=family` (2 tags).
+  E.g. For `[t=TAG]…​`: <br> Example usage: " " (0 tags), or `t=friend` (1 tag) or `t=friend t=family` (2 tags).
 
 - If it is mentioned that the order of the parameters is flexible, it means that parameters can be in any order.<br>
   E.g. For `n=NAME p=PHONE` <br> Example usage: `n=Bob p=91722828` or `p=91722828 n=Bob` are both accepted and will be treated as equivalent inputs by the application.
@@ -281,8 +280,8 @@ Format: `deletePerson INDEX`
 
 Examples:
 
-* `listPerson` followed by `deletePerson 6` deletes the 6th person in the application
-* `listPerson alex` followed by `deletePerson 1` deletes the 1st person in the results of the `listPerson alex` command
+* `listPerson` followed by `deletePerson 6` deletes the 6th person in the application.
+* `listPerson alex` followed by `deletePerson 1` deletes the 1st person in the results of the `listPerson alex` command.
 
 ![deletePerson_success](images/user-guide/deletePersonSuccess.png)
 
@@ -300,8 +299,8 @@ Format: `listPerson [KEYWORD]...`
 
 Examples:
 
-* `listPerson` shows every person in the application
-* `listPerson alex david` shows `Alex Yeoh` and `David Li`
+* `listPerson` shows every person in the application.
+* `listPerson alex david` shows `Alex Yeoh` and `David Li`.
 
 ![listPersonFiltered_success](images/user-guide/listPersonFilteredSuccess.png)
 
@@ -451,9 +450,13 @@ Examples:
 
 
 The calculation of subtotals for people involved in the affected transaction (excluding the person specified in the command) follows these steps:
+
 1) Take the number 1 and subtract the weight that was given in the `updatePortion` command.
+
 2) Take the resulting number from Step 1 and multiply it by the Total of the transaction to give a value `remainingTotal`.
+
 3) Let the total summed-up weights of all the people in the affected transaction (excluding the person mentioned in the command) be `remainingWeights`.
+
 4) For each of the people in the affected transaction (excluding the person mentioned in the command), their new subtotal will be their (existing `weight` / `remainingWeights`) * `remainingTotal`.
 
 Sample Execution:
@@ -679,8 +682,8 @@ Tan:     -10.223231
 
 
 This is displayed instead in the application due to rounding off to 2 decimal places:
-A:      12.12
-B:     -10.22
+Roy:      12.12
+Tan:     -10.22
 
 ```
 ### 2) What happens when I enter an invalid command?
@@ -688,7 +691,7 @@ B:     -10.22
 When an invalid command is input, an error message will be reflected at the
 output panel at the top of Spend N Split. The error message will vary depending on the type of error.
 
-* Execution error caused by invalid command format. This occurs when the command word
+* Execution errors caused by invalid command format. This occurs when the command word
 is recognised but there are missing parameters or parameters are
 not supported.
 The error message reflected
