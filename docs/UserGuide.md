@@ -5,7 +5,7 @@ title: User Guide
 ## Introduction
 ***Taking care of your finances has never been easier!***
 
-Spend N Split (SnS) is an application meant for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend N Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend N Split.
+Spend N Split (SNS) is an application meant for managing transactions from your contacts list. Built for university students that reside on campus, it utilises your fast typing skills to help you maintain financial accountability between yourself and your peers. All you need to do, is to record your transactions in Spend N Split. Filtering, sorting, as well as the calculations of balances owed will be automatically handled by Spend N Split.
 
 Spend N Split is perfect for **you** if you are
 1. A university student staying on campus.
