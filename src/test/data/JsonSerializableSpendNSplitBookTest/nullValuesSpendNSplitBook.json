@@ -1,0 +1,13 @@
+{
+  "persons" : [
+    null,
+  {
+    "name" : "Bob",
+    "phone" : "",
+    "telegramHandle" : "",
+    "email" : "",
+    "address" : "",
+    "tags" : [ null ]
+  } ],
+  "transactions" : [ null ]
+}

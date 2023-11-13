@@ -88,7 +88,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -149,20 +149,21 @@ How the parsing works:
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
-
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object) and all `Transaction` objects (which are contained in a `UniqueTransactionList` object).
-* stores the currently 'selected' `Person` and `Transaction` objects (e.g., results of a search query) as separate _filtered_ lists which are exposed to outsiders as unmodifiable `ObservableList<Person>` and `ObservableList<Transaction>` lists that can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the lists change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
+* stores the Spend N Split data i.e., all `Person` objects (which are contained
+in a `UniquePersonList` object) and all `Transaction` objects (which are contained
+in a `UniqueTransactionList` object).
+* stores the currently 'selected' `Person` and `Transaction` objects (e.g., results
+of a search query) as separate _filtered_ lists which are exposed to outsiders as
+unmodifiable `ObservableList<Person>` and `ObservableList<Transaction>` lists that
+can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically
+updates when the data in the lists change.
+* stores a `UserPref` object that represents the user’s preferences. This is exposed
+to the outside as a `ReadOnlyUserPref` objects.
+* does not depend on any of the other three components (as the `Model` represents
+data entities of the domain, they should make sense on their own without depending
+on other components)
 
 ### Storage component
 
@@ -171,8 +172,8 @@ The `Model` component,
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both Spend N Split data and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from both `SpendNSplitBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -201,7 +202,7 @@ The [`focusedUiPart`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/s
 
 ![Overview of Person Class](images/PersonClassDiagram.png)
 
-The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the application and is composed of the following classes:
+The `Person` class is the main class in the `seedu.spendnsplit.model.person` package. It represents a person in the application and is composed of the following classes:
 
 * `Name`: The name of the person. It must be unique and cannot be null.
 * `Phone`: The phone number of the person.
@@ -516,23 +517,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use Case: UC1 - Listing all Persons**
-
-**MSS**
-
-1. User requests to view all contacts in the contact list.
-2. Spend n Split shows a list of contacts.
-
-Use case ends.
-
-Extensions:
-* 1a. The user can include a flag to sort the list by name.
-  * 1a1. Spend n Split shows the list of contacts now sorted by name.
-  * 1a2. Use case resumes at step 4.
-
----
-
-**Use Case: UC2 - Adding a New Person**
+**Use Case: UC1 - Adding a New Person**
 
 **MSS**
 
@@ -542,17 +527,19 @@ Extensions:
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Spend n Split detects that the person already exists in the contact list.
-  * 1a1. Spend n Split informs the user that the person already exists in the contact list.
-  * 1a2. Use case resumes at step 1.
+    * 1a1. Spend n Split informs the user that the person already exists in the contact list.
+    * Use case ends.
 * 1b. Spend n Split detects an error in the entered data for the new person.
-  * 1b1. Spend n Split informs the user that the data entered is invalid.
-  * 1b2. Use case resumes at step 1.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+    * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC3 - Editing a Person**
+**Use Case: UC2 - Editing a Person**
 
 **MSS**
 
@@ -562,17 +549,19 @@ Extensions:
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Spend n Split detects that the person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
+    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+    * Use case ends.
 * 1b. Spend n Split detects an error in the entered data for the person.
-  * 1b1. Spend n Split informs the user that the data entered is invalid.
-  * 1b2. Use case resumes at step 1.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct
+    * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC4 - Deleting a Person**
+**Use Case: UC3 - Deleting a Person**
 
 **MSS**
 
@@ -582,49 +571,25 @@ Extensions:
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Spend n Split detects that the person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
+    * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
+    * Use case ends.
 
 ---
 
-**Use Case: UC5 - Finding a Person**
+**Use Case: UC4 - Listing all Persons**
 
 **MSS**
 
-1. User requests to find a person.
-2. Spend n Split shows the list of persons that match the search query.
+1. User requests to view all contacts in the contact list with optional keywords to filter by names.
+2. Spend n Split shows a list of contacts, filtered by names if optional keywords were included.
 
 Use case ends.
 
-**Use Case: UC# - Clear All Persons**
-
-TODO: Internal note: let's remove / amend this feature, this command is too powerful and destructive.
-
 ---
 
-**Use Case: UC6 - Listing all Transactions with a Person**
-
-Preconditions: Person exists in the contact list.
-
-**MSS**
-
-1. User requests to view the transaction list involving a person.
-2. Spend n Split shows the list of transactions involving that person.
-
-Use case ends.
-
-Extensions:
-* 1a. Person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
-
----
-
-**Use Case: UC7 - Add a New Transaction**
-
-Preconditions: Person exists in the contact list.
+**Use Case: UC5 - Add a New Transaction**
 
 **MSS**
 
@@ -634,45 +599,60 @@ Preconditions: Person exists in the contact list.
 
 Use case ends.
 
-Extensions:
-* 1a. Person does not exist in the contact list.
-  * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 1.
+**Extensions**
+* 1a. At least one person in the transaction does not exist in the contact list.
+    * 1a1. Spend n Split informs the user that there are persons that do not exist in the contact list.
+    * Use case ends
 
-* 1b. Spend n Split detects an error in the request for the new person.
-  * 1b1. Spend n Split informs the user that the request is invalid.
-  * 1b2. Use case resumes at step 1.
+* 1b. Spend n Split detects an error in the entered data for the new transaction.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for the correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+    * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC8 - Edit a Transaction**
-
-Preconditions: Transaction exists in the transaction list.
+**Use Case: UC6 - Edit a Transaction**
 
 **MSS**
 
-1. User requests to view the transaction list.
-2. Spend n Split shows a list of transaction.
-3. User requests to edit a transaction.
-4. Spend n Split informs the user that the transaction has been edited.
-5. Spend n Split shows the updated transaction list.
+1. User requests to edit a transaction.
+2. Spend n Split informs the user that the transaction has been edited.
+3. Spend n Split shows the updated transaction list.
 
 Use case ends.
 
-Extensions:
-* 4a. Transaction does not exist in the portion list.
-  * 4a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
-  * 4a2. Use case resumes at step 3.
+**Extensions**
+* 1a. Transaction does not exist in the transactions list.
+  * 1a1. Spend n Split informs the user that the transaction does not exist in the transactions list.
+  * Use case ends.
 
-* 4b. Spend n Split detects an error in the request.
-  * 4b1. Spend n Split informs the user that request is invalid.
-  * 4b2. Use case resumes at step 3.
+* 1b. Spend n Split detects an error in the entered data for the transaction.
+  * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+  * 1b2. User enters new data.
+  * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+  * Use case resumes at step 2.
 
 ---
 
-**Use Case: UC9 - Settle with a person**
+**Use Case: UC7 - Delete a Transaction**
 
-Preconditions: Person exists in the contact list.
+**MSS**
+
+1. User requests to delete a transaction.
+2. Spend n Split informs the user that the transaction has been deleted.
+3. Spend n Split shows the updated transaction list.
+
+Use case ends.
+
+**Extensions**
+* 1a. Spend n Split detects that the transaction does not exist in the portion list.
+    * 1a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
+    * Use case ends.
+    
+---
+
+**Use Case: UC8 - Settle with a person**
 
 **MSS**
 
@@ -682,35 +662,55 @@ Preconditions: Person exists in the contact list.
 
 Use case ends.
 
-Extensions:
+**Extensions**
 * 1a. Person does not exist in the contact list.
   * 1a1. Spend n Split informs the user that the person does not exist in the contact list.
-  * 1a2. Use case resumes at step 2.
+  * Use case ends.
+
 * 1b. User does not have an outstanding balance with the person.
   * 1b1. Spend n Split informs the user that there is no outstanding balance with that person.
-  * 1b2. Use case resumes at step 3.
+  * Use case ends.
+
 ---
 
-**Use Case: UC10 - Delete a Transaction**
-
-Preconditions: Transaction exists in the transaction list.
+**Use Case: UC9 - Duplicate a Transaction**
 
 **MSS**
 
-1. User requests to view the transaction list.
-2. Spend n Split shows a list of transactions.
-3. User requests to delete a transaction.
-4. Spend n Split informs the user that the transaction has been deleted.
-5. Spend n Split shows the updated transaction list.
+1. User requests to duplicate a transaction.
+2. Spend n Split informs the user that all the new duplicated transaction has been added.
+3. Spend n Split shows the updated list of transactions.
 
 Use case ends.
 
-Extensions:
-* 3a. Transaction does not exist in the portion list.
-    * 3a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
-    * 3a2. Use case resumes at step 2.
+**Extensions**
+* 1a. Spend n Split detects that the transaction does not exist in the portion list.
+    * 1a1. Spend n Split informs the user that the transaction does not exist in the transaction list.
+    * Use case ends.
+
+* 1b. Spend n Split detects an error in the entered data for the duplicated transaction.
+    * 1b1. Spend n Split informs the user that the data entered is invalid and requests for correct data.
+    * 1b2. User enters new data.
+    * Steps 1b1 - 1b2 are repeated until the data entered is correct.
+    * Use case resumes at step 2.
+
+* 1c. Spend n Split detects that the duplicated transaction already exists in the transactions list.
+    * 1c1. Spend n Split informs the user that the duplicated transaction already exists in the transactions list.
+    * Use case ends.
 
 ---
+
+**Use Case: UC10 - Listing Transactions**
+
+**MSS**
+
+1. User requests to view the transaction list with optional keywords and names to filter the list.
+2. Spend n Split shows the list of transactions, which is filtered if optional keywords and / or names were included.
+
+Use case ends.
+
+---
+
 
 ### Non-Functional Requirements
 
@@ -725,23 +725,73 @@ Extensions:
 9.  The GUI should organise and present data clearly so that users are able to read application details easily.
 
 ### Glossary
-
-**Application**
-
-* **Contact**: A person stored in your application with additional information.
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-* **Transaction**: A monetary transaction that records costs involving a single contact who pays for the whole transaction and other contacts who are involved in the transaction.
-* **Portion**: A breakdown of a transaction into individual portions, each of which involves a single contact and a weightage indicating the proportion of the transaction cost that the contact needs to pay to the person who paid for the transaction.
-* **Balance**: The amount of money either owed to you or owed by you to another person in your contacts.
-  * **Positive Balance**: Indicates that the contact owes you money.
-  * **Negative Balance**: Indicates that you owe the contact money.
-* **Outstanding Balance**: The amount of unsettled money between you and your contact.
-* **Settle**: The action of clearing any outstanding balance between you and another contact via a new portion.
-* **Payee**: The person that paid the bill for that specific transaction
-
-**General**
-* **Mainstream OS**: Windows, Linux, Unix, OS-X.
-* **Command**: A text input from the user which tells the application to run a specific action.
+#### Address
+The particulars of the place where a person lives.
+#### Alphanumeric
+Consisting of only letters (a-z, A-Z) or numbers or both.
+#### Amount
+The total value of the transaction.
+#### Balance
+The amount of money that you owe a person or the amount of money that they owe you. A positive balance under a person
+means that they owe you money, whereas a negative balance means that you owe them money.
+#### Card
+A rectangular area in our application that either describes the full details of a transaction or person.
+#### Command
+To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed.
+#### Cost
+The total value of the transaction.
+#### Description
+A written account of a transaction, used to provide context and details about the transaction.
+#### Email address
+A unique identifier for an email account. It identifies an email box to which messages and emails are delivered.
+#### Field
+An area where text can be input.
+#### Flag
+Flags are used to modify the operation of a command.
+#### GUI
+GUI stands for Graphical User Interface. A Graphical User Interface uses icons and mouse inputs from users to allow them to interact with the application.
+#### Index
+A number representing the position of an item in a list.
+#### Integer
+A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5.
+#### Keyword
+An important word that is used by the application to process various commands.
+#### Mainstream OS
+Refers to operating systems such as Windows, Linux, Unix, MacOS.
+#### Name
+A word or set of words that are used to address or refer to a person.
+#### Negative
+A numerical value that is less than 0.
+#### Parameter
+An additional input that provides further details on a command that a user is executing.
+#### Payee
+Refers to the person that paid for the transaction.
+#### Payer
+Refers to a person that owes the payee money for the transaction.
+#### Person
+An individual that can be associated with various information in our application, such as contact information and balances.
+#### Phone number
+A sequence of digits that is dialled on a telephone to contact a person.
+#### Portion
+A subset of a transaction. A transaction is split into multiple portions.
+#### Positive
+A numerical value that is greater than 0.
+#### Settle
+Refers to the act of two people exchanging money, such that their respective balances with each other equal zero after the transaction.
+#### Shorthand
+A shortened version of a command.
+#### Tag
+A label that can be applied to a person to provide additional details about them.
+#### Telegram handle
+A unique identifier for a Telegram account. E.g. @ryanlim123
+#### Timestamp
+Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
+YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
+#### Transaction
+An interaction of buying or selling something where the exchange of money occurs.
+#### Weight
+A numerical value assigned to each person that is involved in a transaction. It is used to calculate the amount of money that
+a person should pay for their share of the transaction.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -754,64 +804,212 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
-### Launch and shutdown
+### Launch
 
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file 
+      * Expected output: Shows the GUI with a set of sample contacts and transactions. The window size may not be optimum.
 
-1. Saving window preferences
+### Adding a Person
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+`addPerson n=John Doe p=98765432 tg=@asdad123 e=johnd@example.com a=Sentosa Cove t=friends t=owesMoney`
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+Expected Output in the Person List Panel: New person is added into the list.
 
-1. _{ more test cases …​ }_
+Expected Output in the Command Output Panel: New person added message is shown along with the person's details.
 
-### Deleting a person
+`addPerson`
 
-1. Deleting a person while all persons are being shown
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+### Deleting a Person
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+Prerequisite: There is at least 1 person in the Person List Panel.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+`deletePerson 1`
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+Expected Output in the Person List Panel: The first person in the list is deleted.
 
-1. _{ more test cases …​ }_
+Expected Output in the Command Output Panel: Deleted person message is shown along with the person's details.
 
-### Deleting a transaction
+`deletePerson 0`
 
-1. Deleting a transaction while all transactions are being shown
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+### Editing a Person's details
 
-    1. Prerequisites: There already exist some transactions in the application.
+Prerequisite: There is at least 1 person in the Person List Panel.
 
-    1. Test case: `deleteTransaction 1`<br>
-       Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+`editPerson 1 n=Ryan`
 
-    1. Test case: `delete 0`<br>
-       Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+Expected Output in the Person List Panel: The first person in the list has their name changed to "Ryan", and retains
+ the rest of their details.
 
-    1. Other incorrect delete commands to try: `deleteTransaction`, `deleteTransaction x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+Expected Output in the Command Output Panel: Edit person message is shown along with the person's details.
 
-1. _{ more test cases …​ }_
+`editPerson 0`
 
-### Saving data
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
 
-1. Dealing with missing/corrupted data files
+### Listing multiple people with matching names
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+Prerequisite: There is only 1 person stored in Spend N Split. Their name is
+ "Roy Tan".
 
-1. _{ more test cases …​ }_
+`listPerson Roy`
+
+Expected Output in the Person List Panel: The person Roy Tan is displayed.
+
+Expected Output in the Command Output Panel: List person message is shown and states "1 person(s) listed".
+
+`listPerson Lim`
+
+Expected Output in the Person List Panel: Nothing is displayed.
+
+Expected Output in the Command Output Panel: List person message is shown and states "0 person(s) listed".
+
+### Settling an outstanding balance with a Person
+
+Prerequisite: There is only 1 person stored in Spend N Split. Their name is "Alex" and their balance shown is +20.00.
+
+`settlePerson 1`
+
+Expected Output in the Transaction List Panel: A new transaction is created that is named "Settle balance with Alex".
+
+Expected Output in the Person List Panel: The balance of Alex is now "0.00"
+
+Expected Output in the Command Output Panel: Balance settled message is shown along with the name of Alex.
+
+### Sorting people by their balances
+
+Prerequisite: There are a few people stored in Spend N Split with varying balances.
+
+`sortPerson +`
+
+Expected Output in the Person List Panel: The people displayed are sorted in descending order of balance.
+
+Expected Output in the Command Output Panel: A message stating that the Person list is sorted in descending order of 
+balance is shown.
+
+`sortPerson -`
+
+Expected Output in the Person List Panel: The people displayed are sorted in ascending order of balance.
+
+Expected Output in the Command Output Panel: A message stating that the Person list is sorted in ascending order of
+balance is shown.
+
+### Adding a transaction
+
+Prerequisite: There is only 1 person stored in Spend N Split. Their name is "Alex Yeoh".
+
+`addTransaction d=bread n=Alex Yeoh c=25.00 n=Self w=1 n=Alex Yeoh w=1`
+
+Expected Output in the Transaction List Panel: New transaction is added into the list.
+
+Expected Output in the Command Output Panel: New transaction added message is shown along with the transaction's details.
+
+
+### Deleting a Transaction
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+
+`deleteTransaction 1`
+
+Expected Output in the Transaction List Panel: The first transaction in the list is deleted.
+
+Expected Output in the Command Output Panel: Delete transaction message is shown along with the transaction's details.
+
+`deleteTransaction 0`
+
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+### Editing a Transaction's details
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+
+`editTransaction 1 c=20`
+
+Expected Output in the Transaction List Panel: The first transaction in the list has their cost changed to 20.00, and retains
+the rest of their details.
+
+Expected Output in the Command Output Panel: Edit transaction message is shown along with the transaction's details.
+
+`editTransaction 0`
+
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+
+### Listing multiple transactions with matching payers and payees.
+
+Prerequisite: There is only 1 transaction stored in Spend N Split. The payer is "Roy". The description is "bread".
+
+`listTransaction n=Roy`
+
+Expected Output in the Transaction List Panel: The transaction is displayed.
+
+Expected Output in the Command Output Panel: List transaction message is shown and states "1 transaction(s) listed".
+
+`listTransaction Lim`
+
+Expected Output in the Transaction List Panel: Nothing is displayed.
+
+Expected Output in the Command Output Panel: List transaction message is shown and states "0 transaction(s) listed".
+
+### Duplicating a Transaction
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel.
+
+`duplicateTransaction 1 c=20`
+
+Expected Output in the Transaction List Panel: A new transaction is created with identical details to the transaction
+ at index 1, with the only difference being that the new transaction's cost is 20.00.
+
+Expected Output in the Command Output Panel: Duplicate transaction message is shown along with the transaction's details.
+
+`duplicateTransaction 0`
+
+Expected Output in the Command Output Panel: Error message stating that there is an invalid command format.
+
+### Updating a Portion of a Transaction
+
+Prerequisite: There is at least 1 transaction in the Transaction List Panel. A person named "David" is stored in Spend N Split.
+David is not part of the transaction at index 1 of the Transaction List Panel.
+
+`updatePortion 1 n=David w=0.5`
+
+Expected Output in the Transaction List Panel: A new payer (David) is added to the transaction at index 1. David's 
+subtotal will be half of the cost of the transaction.
+
+Expected Output in the Command Output Panel: Update portion message is shown along with the transaction's details.
+
+### Setting a Shorthand command
+
+`setShorthand o=addTransaction s=ad`
+
+Expected Output in the Command Output Panel: A message stating that a shorthand has been set for the command
+with the shorthand specified by the user.
+
+### Clearing the application data
+
+`clear`
+
+Expected Output in the Transaction List Panel: Nothing is displayed.
+
+Expected Output in the Person List Panel: Nothing is displayed.
+
+Expected Output in the Command Output Panel: A message stating that app data has been cleared is shown.
+
+### Help
+
+`help`
+
+Expected Output: A window shows up and provides the link to the User Guide.
+
+### Exit
+
+`exit`
+
+Expected Output: The Spend N Split application closes.
 
 --------------------------------------------------------------------------------------------------------------------
 

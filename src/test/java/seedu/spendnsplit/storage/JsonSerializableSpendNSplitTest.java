@@ -1,5 +1,6 @@
 package seedu.spendnsplit.storage;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.spendnsplit.testutil.Assert.assertThrows;
 
@@ -25,6 +26,8 @@ public class JsonSerializableSpendNSplitTest {
             .resolve("invalidTransactionSpendNSplitBook.json");
     private static final Path DUPLICATE_TRANSACTION_FILE =
             TEST_DATA_FOLDER.resolve("duplicateTransactionSpendNSplitBook.json");
+    private static final Path NULL_VALUE_FILE =
+            TEST_DATA_FOLDER.resolve("nullValuesSpendNSplitBook.json");
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
@@ -33,6 +36,13 @@ public class JsonSerializableSpendNSplitTest {
         SpendNSplit spendNSplitFromFile = dataFromFile.toModelType();
         SpendNSplit typicalSpendNSplit = TypicalSpendNSplitBook.getTypicalSpendNSplitBook();
         assertEquals(spendNSplitFromFile, typicalSpendNSplit);
+    }
+
+    @Test
+    public void toModelType_nullValues_success() throws Exception {
+        JsonSerializableSpendNSplitBook dataFromFile = JsonUtil.readJsonFile(NULL_VALUE_FILE,
+                JsonSerializableSpendNSplitBook.class).get();
+        assertDoesNotThrow(() -> dataFromFile.toModelType());
     }
 
     @Test

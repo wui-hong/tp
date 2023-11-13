@@ -56,6 +56,9 @@ class JsonSerializableSpendNSplitBook {
     public SpendNSplit toModelType() throws IllegalValueException {
         SpendNSplit spendNSplit = new SpendNSplit();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
+            if (jsonAdaptedPerson == null) {
+                continue;
+            }
             Person person = jsonAdaptedPerson.toModelType();
             if (spendNSplit.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
@@ -63,6 +66,9 @@ class JsonSerializableSpendNSplitBook {
             spendNSplit.addPerson(person);
         }
         for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
+            if (jsonAdaptedTransaction == null) {
+                continue;
+            }
             Transaction transaction = jsonAdaptedTransaction.toModelType();
             if (!transaction.isValid(spendNSplit.getAllNames())) {
                 throw new IllegalValueException(MESSAGE_INVALID_TRANSACTION);
