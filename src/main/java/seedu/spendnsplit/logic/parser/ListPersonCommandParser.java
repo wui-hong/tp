@@ -25,6 +25,12 @@ public class ListPersonCommandParser implements Parser<ListPersonCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
+        for (String nameKeyword : nameKeywords) {
+            if (nameKeyword.contains("=")) {
+                throw new ParseException(ListPersonCommand.MESSAGE_USAGE);
+            }
+        }
+
         return new ListPersonCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 

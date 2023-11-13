@@ -102,7 +102,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel` etc. Some parts are made up of even smaller parts. All of these parts, including the `MainWindow`, are subclasses of the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI. 
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel` etc. Some parts are made up of even smaller parts. All of these parts, including the `MainWindow`, are subclasses of the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 Some parts (`PersonListPanel`, `TransactionListPanel`, `PersonCard`, `CommandBox`, `ResultDisplay`, `HelpWindow`) inherit from `UiPartFocusable` (a subclass of `UiPart`) which enables the to be focused on. This is used for the keyboard navigation feature as `MainWindow` keeps track of the currently focused part and can switch focus to another part when certain keyboard shortcuts are pressed.
 
@@ -262,7 +262,7 @@ The overall flow of the `editPerson` command is as follows:
 2. The parsers check for the presence of the mandatory index field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
 3. Upon successful parsing, the `EditPersonCommand` is created with the index of the person to be edited and the details to be edited expressed as an `PersonDescriptor` object.
 4. The `EditPersonCommand` is executed by the `LogicManager`, which attempts to edit the person in the model through `Model::setPerson(personToEdit, editedPerson)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()` or if the edited person already exists in the model (duplicate name).
-5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user. 
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 6. Note that the displayed list of persons will be updated to show all persons in the model after the edit through `Model::updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)`.
 
 #### Deleting a Person
@@ -395,12 +395,12 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 ##### Implementation Considerations
 
-All existing commands are stored in a hashset. Newly created shorthands are stored in a hashmap. 
+All existing commands are stored in a hashset. Newly created shorthands are stored in a hashmap.
 Upon executing a new command, the parser looks up the command word in the existing commands hashset first.
 If the command word does not exist within the hashset, the parser then looks up the command word in the shorthands hashmap.
 
 The shorthand allows each original command to have up to one and only one shorthand.
-This is to prevent ambiguity when the user enters a shorthand that is used by multiple original commands, 
+This is to prevent ambiguity when the user enters a shorthand that is used by multiple original commands,
 as well as confusion when an original command could have multiple shorthands.
 
 #### Clearing App Data
@@ -412,7 +412,7 @@ This includes all persons and transactions in the `spendnsplitbook.json` file,
 as well as all shorthands in the `preferences.json` file.
 
 This command is irreversible, and should be used with caution. This command is introduced for new users to be able to quickly
-clear the sample data and start using the app with their own data. 
+clear the sample data and start using the app with their own data.
 Should the user ever wish to clear the data and start afresh again in the future, they can also use this command.
 
 The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
@@ -1246,6 +1246,78 @@ $ addTransaction d=Bread n=John c=10 ts=25/06/2023 25:61 n=Self w=1
 The time you entered does not exist. Please use a valid time in HH:MM format between
 00:00 to 23:59.
 Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
+```
+
+### Extending Reserved Names
+
+- **Background**: Currently, we have reserved some values for `Name` as they have
+semantic meaning to our application. Specifically, we have 2 reserved names: `Self`
+representing the user, and `Others` representing unknown parties. `Self` is appropriate
+for commands as it refers to the user typing the command, but it will be labelled as
+`You` when referred to in the UI as it is more user-friendly. `You` is currently not a
+reserved name.
+
+- **Issue**: Users can name a `Person` in the person list `You`, potentially making it confusing whether
+it would refer to a person, or the user.
+
+- **Enhancement**: We plan on making `You` a part of our reserved names to prevent
+this issue, and disallow users from creating `Name` with that value.
+
+### More Descriptive `Person` UI Card
+
+- **Background**: Currently, when displaying a `Person` in the person UI card, person fields
+like `Address`, `Email`, etc are displayed as is, separated by line. However, there
+are no labels for the field names
+
+- **Issue**: This can be potentially confusing as users would not know which line
+represents a certain field. For example, if a user had an `Address` with the value
+of `DaCondo@changi.sg`, it will be displayed in the UI card as is with no label
+to let the user know that it represents an `Address`. Hence, this could be confused
+with an `Email`.
+
+- **Enhancement**: In the person UI card, we plan on including the field names
+on each line so that the user can better associate each of the person's detail with
+the appropriate field to prevent confusion in cases such as the one mentioned above.
+
+### Better Handling of Screen Resolution Changes
+
+**Background**: As our application displays a person list and transaction list
+with many details, we dynamically fix the minimum window size based on the user's
+screen resolution.
+
+**Issue**: It is possible for the user to decrease the screen resolution, making
+the window size of their screen smaller than the initially set minimum window size
+of our application. This makes the application unusable. The current workaround
+would be to quit the application and relaunch again.
+
+**Enhancement**: We plan on adding event listeners and triggers to our application
+to detect changes in screen resolution, and dynamically adjust the minimum window size
+of our application. Hence, users need not restart the application anymore should they
+change the screen resolution.
+
+
+### Allow the deletion of optional `Person` fields
+
+- **Background**: Currently, the only mandatory field in `Person` is `Name`.
+This means that user can choose to exclude fields like `Phone`, `Email`, etc.
+While the `editPerson` command allows users to update fields, or add in optional fields
+that were previously not included for the person. However, there is no means to
+remove an optional field from the person.
+
+- **Issue**: In order for the user to remove an optional field for the person, the
+currently only way to is to delete the person, then add him again without the optional
+field. Subsequently, this affects the transaction history which the user would need
+to update as well. This is a cumbersome process.
+
+- **Enhancement**: We plan on allowing the `editPerson` to take in an empty parameter
+to represent that the user wants to remove an optional field.
+
+Example: Removing the Telegram Handle via `tg` parameter
+
+```
+$ editPerson 1 tg=
+
+Edited Person: Alex Yeoh;
 ```
 
 ### Better UI Representation for Long Fields
