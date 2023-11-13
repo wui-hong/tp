@@ -12,6 +12,8 @@ Spend N Split is perfect for **you** if you are
 2. A fast typist.
 3. Comfortable using a keyboard to make full use of the application.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Table of Contents
 
 1. [Introduction](#introduction)
@@ -189,6 +191,7 @@ The following parameters are used for commands:
 Spend N Split checks the validity of Telegram handles and email addresses according to the formats defined in the table above. It will
 reject all Telegram handles and email addresses that do not follow the format.
 
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -648,6 +651,8 @@ You can use the following shortcuts to navigate our application:
 
 For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Data
 
 ### Saving the data
@@ -662,6 +667,7 @@ Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplit
 <div markdown="span" class="alert alert-danger">
 :heavy_exclamation_mark: However, be warned that the application may wipe the data or behave unexpectedly if the data is not edited correctly.
 </div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -768,7 +774,7 @@ Note:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
+## Acknowledgements
 
 We would like to acknowledge the following third-party libraries, frameworks and sources for their use in Spend N Split:
 
@@ -803,6 +809,7 @@ We would like to acknowledge the following third-party libraries, frameworks and
 * **[Jekyll](https://github.com/jekyll/jekyll)**: The static site generator that converts Spend N Split markdown documentation into web pages.
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## Glossary
 #### Address
 The particulars of the place where a person lives.
