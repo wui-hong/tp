@@ -1049,3 +1049,18 @@ The time you entered does not exist. Please use a valid time in HH:MM format bet
 00:00 to 23:59.
 Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
 ```
+
+### Extending Reserved Names
+
+- **Background**: Currently, we have reserved some values for `Name` as they have
+semantic meaning to our application. Specifically, we have 2 reserved names: `Self`
+representing the user, and `Others` representing unknown parties. `Self` is appropriate
+for commands as it refers to the user typing the command, but it will be labelled as
+`You` when referred to in the UI as it is more user-friendly. `You` is currently not a
+reserved name.
+
+- **Issue**: Users can use `You` as a `Name`, potentially making it confusing whether
+it would refer to a person, or the user.
+
+- **Enhancement**: We plan on making `You` a part of our reserved names to prevent
+this issue, and disallow users from creating `Name` with that value.
