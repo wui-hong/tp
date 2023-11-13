@@ -852,6 +852,8 @@ An additional input that provides further details on a command that a user is ex
 Refers to the person that paid for the transaction.
 #### Payer
 Refers to a person that owes the payee money for the transaction.
+#### People
+Used to refer to multiple persons. Can be used interchangeably with "persons".
 #### Person
 An individual that can be associated with various information in our application, such as contact information and balances.
 #### Phone number
