@@ -1247,3 +1247,20 @@ The time you entered does not exist. Please use a valid time in HH:MM format bet
 00:00 to 23:59.
 Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
 ```
+
+### Better Handling of Screen Resolution Changes
+
+**Background**: As our application displays a person list and transaction list
+with many details, we dynamically fix the minimum window size based on the user's
+screen resolution.
+
+**Issue**: It is possible for the user to decrease the screen resolution, making
+the window size of their screen smaller than the initially set minimum window size
+of our application. This makes the application unusable. The current workaround
+would be to quit the application and relaunch again.
+
+**Enhancement**: We plan on adding event listeners and triggers to our application
+to detect changes in screen resolution, and dynamically adjust the minimum window size
+of our application. Hence, users need not restart the application anymore should they
+change the screen resolution.
+
