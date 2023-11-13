@@ -717,8 +717,13 @@ input with the parameters required.
 <div markdown="block" class="alert alert-info">
 :bulb: Note the differences between Execution errors and Input errors. An execution error refers to an error that will occur
 regardless of the state of the application or its data, whereas input errors are errors that occur when certain conditions in the application
-are met. E.g. Attempting to settle the balance of a person at index 6 when there are only 5 people in the Person List, or attempting
+are met. 
+
+Attempting to settle the balance of a person at index 6 when there are only 5 people in the Person List, or attempting
 to add a person that has an identical name to someone that already exists in the Person List are both input errors.
+
+Meanwhile, attempting to settle the balance of a person at index -1 will result in an execution error, as it will occur for every
+form of data in the application.
 </div>
 
 * Unknown command. This occurs when the command word is not recognised.
