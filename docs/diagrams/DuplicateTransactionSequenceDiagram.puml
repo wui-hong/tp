@@ -8,8 +8,8 @@ participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
 participant ":DuplicateTransactionCommandParser" as DuplicateTransactionCommandParser LOGIC_COLOR
 participant ":TransactionDescriptor" as TransactionDescriptor LOGIC_COLOR
 participant "dt:DuplicateTransactionCommand" as DuplicateTransactionCommand LOGIC_COLOR
-participant ":EditTransactionCommand" as EditTransactionCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":EditTransactionCommand" as EditTransactionCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
