@@ -1,0 +1,15 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters deletePerson command;
+if () then ([A non-positive index is provided])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Index is out of range of the person list])
+  :Throw exception;
+  stop
+else ([else])
+  :Delete person in the person list;
+endif
+stop
+@enduml

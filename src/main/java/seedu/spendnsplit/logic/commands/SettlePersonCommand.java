@@ -12,6 +12,7 @@ import seedu.spendnsplit.commons.core.index.Index;
 import seedu.spendnsplit.commons.util.ToStringBuilder;
 import seedu.spendnsplit.logic.Messages;
 import seedu.spendnsplit.logic.commands.exceptions.CommandException;
+import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.Model;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.person.Person;
@@ -74,7 +75,12 @@ public class SettlePersonCommand extends Command {
 
         Description description = new Description(String.format(
                 SETTLE_TRANSACTION_DESCRIPTION, personToSettle.getName()));
-        Weight weight = new Weight(BigFraction.ONE.toString());
+        Weight weight = null;
+        try {
+            weight = new Weight(BigFraction.ONE.toString());
+        } catch (ParseException e) {
+            assert false;
+        }
         Name name;
         Set<Portion> portions;
 
@@ -90,8 +96,16 @@ public class SettlePersonCommand extends Command {
             portions = Set.of(new Portion(personToSettle.getName(), weight));
         }
 
+        Amount total = null;
+
+        try {
+            total = new Amount(balance.abs().toString());
+        } catch (ParseException e) {
+            assert false;
+        }
+
         Transaction settleTransaction = new Transaction(
-                new Amount(balance.abs().toString()), description, name, portions, time);
+                total, description, name, portions, time);
 
         if (model.hasTransaction(settleTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);

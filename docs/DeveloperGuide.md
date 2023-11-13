@@ -9,21 +9,37 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-We would like to acknowledge the following libraries for use in Spend n Split:
+We would like to acknowledge the following third-party libraries, frameworks and sources for their use in Spend n Split:
 
-* **[JavaFX](https://openjfx.io/)**: The GUI framework of Spend n Split.
+**Development**
 
-* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for Spend n Split.
+* **[Jackson](https://github.com/FasterXML/jackson)**: The Java JSON library for parsing and creating JSON for SnS.
 
-* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of Spend n Split.
+* **[JUnit 5](https://junit.org/junit5/)**: The Java testing framework of SnS.
+
+* **[Apache Common Numbers](https://github.com/apache/commons-numbers/tree/master)**: The Java numbers library that enhance SnS' precision.
+
+**Gradle**
 
 * **[Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)**: The Gradle plugin that ensures consistent and appropriate code style.
 
-* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for Spend n Split.
+* **[Shadow](https://github.com/johnrengelman/shadow)**: The Gradle plugin for creating fat JARs for SnS.
 
-* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The font used in Spend n Split.
+* **[Jacoco](https://github.com/palantir/gradle-jacoco-coverage)**: The Gradle plugin for generating code coverage reports.
 
+**User Interface**
 
+* **[JavaFX](https://openjfx.io/)**: The GUI framework of SnS.
+
+* **[Poppins Font](https://fonts.google.com/specimen/Poppins)**: The primary font used in SnS.
+
+* **[Tailwind CSS Colors](https://tailwindcss.com/docs/customizing-colors)**: The colour palette that inspired the SnS colour scheme.
+
+**Others**
+
+* **[Address Book 3](https://se-education.org/addressbook-level3/)**: The project SnS is based on.
+
+* **[Jekyll](https://github.com/jekyll/jekyll)**: The static site generator that converts SnS markdown documentation into web pages.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -82,20 +98,22 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel` etc. Some parts are made up of even smaller parts. All of these parts, including the `MainWindow`, are subclasses of the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI. 
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+Some parts (`PersonListPanel`, `TransactionListPanel`, `PersonCard`, `CommandBox`, `ResultDisplay`, `HelpWindow`) inherit from `UiPartFocusable` (a subclass of `UiPart`) which enables the to be focused on. This is used for the keyboard navigation feature as `MainWindow` keeps track of the currently focused part and can switch focus to another part when certain keyboard shortcuts are pressed.
+
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `Transaction` objects residing in the `Model`.
 
 ### Logic component
 
@@ -168,17 +186,154 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Keyboard Navigation Feature
+
+#### Overview
+
+The keyboard navigation feature allows users to navigate between different UI components using predefined keyboard shortcuts. This feature enhances fast-typing users' experience by allowing them to navigate the UI without having to use the mouse.
+
+#### Implementation
+
+The implementation of this feature is centered in the `MainWindow` class, which acts as the primary UI container for the application. Within `MainWindow`, two key methods are used: [`setKeyNavigation`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/MainWindow.java#L148) and [`setKeyNavigations`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/MainWindow.java#L115). The `setKeyNavigations` utilizes `setKeyNavigation` to assign specific keyboard events to different UI parts.
+
+The [`focusedUiPart`](https://github.com/AY2324S1-CS2103T-W17-3/tp/blob/master/src/main/java/seedu/spendnsplit/ui/MainWindow.java#L34) field in `MainWindow` keeps track of the currently focused UI part. When the user presses a key combination that matches the one assigned to a UI part, the currently focused UI part (if existed) will be unfocused and then assigned to the newly focused UI part. The newly focused UI part will then be focused.
+
 ### Person-related Features
 
-#### Adding Persons
+![Overview of Person Class](images/PersonClassDiagram.png)
 
-#### Editing Persons
+The `Person` class is the main class in the `seedu.addressbook.person` package. It represents a person in the application and is composed of the following classes:
 
-#### Deleting Persons
+* `Name`: The name of the person. It must be unique and cannot be null.
+* `Phone`: The phone number of the person.
+* `Email`: The email address of the person.
+* `Address`: The address of the person.
+* `TelegramHandle`: The telegram handle of the person.
+* `Tags`: The tags associated with the person.
 
-#### Filtering Persons
+All `Person` objects are stored in `UniquePersonList` in `Model`.
+
+#### Adding a Person
+
+The `addPerson` command creates a new `Person` object with the details provided by the user.
+
+The activity diagram below shows an overview of the `addPerson` command:
+
+![Overview of the `addPerson` Command](images/AddPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `addPerson` command:
+
+![Interactions Inside the Logic Component for the `addPerson` Command](images/AddPersonSequenceDiagram.png)
+
+The overall flow of the `addPerson` command is as follows:
+
+1. The user specifies the details of the person to be added. Note that name is the only mandatory field.
+2. The parsers check for the presence of the mandatory name field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
+3. Upon successful parsing, the `AddPersonCommand` is created with the person object to be added to the model.
+4. The `AddPersonCommand` is executed by the `LogicManager`, which attempts to add the person to the model through `Model::addPerson(newPerson)`. Errors are raised if the person already exists in the model (duplicate name).
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
+
+#### Editing a Person
+
+The `editPerson` command edits an existing `Person` object with the details provided by the user.
+
+The activity diagram below shows an overview of the `editPerson` command:
+
+![Overview of the `editPerson` Command](images/EditPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `editPerson` command:
+
+![Interactions Inside the Logic Component for the `editPerson` Command](images/EditPersonSequenceDiagram.png)
+
+Since the `editPerson` command might affect the `Transaction` objects stored in the model, the sequence diagram below extends the previous sequence diagram to show the interactions within the `Model` component:
+
+![Interactions Inside the Model Component for the `editPerson` Command](images/EditPersonSequenceDiagram2.png)
+
+Key points to note:
+
+- `UniquePersonList::setPerson` updates the `Person` object in the list.
+- `UniqueTransactionList::setPerson` changes the `Name` fields of all `Transaction` objects in the list that involve the person to be edited to the new name.
+- `SpendNSplit::syncNames` ensures the consistency of the casing of all `Name` fields in the model after the command.
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command.
+
+The overall flow of the `editPerson` command is as follows:
+
+1. The user specifies the index of the person to be edited and the details to be edited.
+2. The parsers check for the presence of the mandatory index field as well as the validity of all provided fields. Errors are raised if any of the fields are invalid.
+3. Upon successful parsing, the `EditPersonCommand` is created with the index of the person to be edited and the details to be edited expressed as an `PersonDescriptor` object.
+4. The `EditPersonCommand` is executed by the `LogicManager`, which attempts to edit the person in the model through `Model::setPerson(personToEdit, editedPerson)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()` or if the edited person already exists in the model (duplicate name).
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user. 
+6. Note that the displayed list of persons will be updated to show all persons in the model after the edit through `Model::updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)`.
+
+#### Deleting a Person
+
+The `deletePerson` command deletes an existing `Person` object.
+
+The activity diagram below shows an overview of the `deletePerson` command:
+
+![Overview of the `deletePerson` Command](images/DeletePersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `deletePerson` command:
+
+![Interactions Inside the Logic Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram.png)
+
+Since the `deletePerson` command might affect the `Transaction` objects stored in the model, the sequence diagram below extends the previous sequence diagram to show the interactions within the `Model` component:
+
+![Interactions Inside the Model Component for the `deletePerson` Command](images/DeletePersonSequenceDiagram2.png)
+
+Key points to note:
+
+- `UniquePersonList::remove` removes the `Person` object from the list.
+- `UniqueTransactionList::deletePerson` updates the `Name` fields of all `Transaction` objects in the list that involve the person to be deleted to `Name.OTHERS`. If the updated `Transaction` object is not valid (not involving any other known person), it is removed from the list.
+- `SpendNSplit::sortPersons` ensures the consistency of the ordering of all `Person` objects in the model after the command.
+
+The overall flow of the `deletePerson` command is as follows:
+
+1. The user specifies the index of the person to be deleted.
+2. The parsers check for the presence of the mandatory index field. Errors are raised if the index is invalid.
+3. Upon successful parsing, the `DeletePersonCommand` is created with the index of the person to be deleted.
+4. The `DeletePersonCommand` is executed by the `LogicManager`, which attempts to delete the person from the model through `Model::deletePerson(personToDelete)`. Errors are raised if the index exceeds the number of persons currently displayed in `Model::getFilteredPersonList()`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
+
+#### Listing Persons
+
+The `listPerson` command lists existing `Person` objects with names matching the keywords provided by the user. If no keywords are provided, all `Person` objects are listed.
+
+The activity diagram below shows an overview of the `listPerson` command:
+
+![Overview of the `listPerson` Command](images/ListPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `listPerson` command:
+
+![Interactions Inside the Logic Component for the `listPerson` Command](images/ListPersonSequenceDiagram.png)
+
+The overall flow of the `listPerson` command is as follows:
+
+1. The user specifies the keywords to be matched.
+2. The parsers check for the validity of the provided keywords. Errors are raised if the keywords are invalid.
+3. Upon successful parsing, the `ListPersonCommand` is created with the keywords to be matched expressed as a `NameContainsKeywordsPredicate` object which implements the `Predicate<Person>` interface.
+4. The `ListPersonCommand` is executed by the `LogicManager`, which attempts to update the displayed list of persons through `Model::updateFilteredPersonList(predicate)`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 #### Sorting Persons
+
+The `sortPerson` command sorts displayed `Person` objects by the specified order.
+
+The activity diagram below shows an overview of the `sortPerson` command:
+
+![Overview of the `sortPerson` Command](images/SortPersonActivityDiagram.png)
+
+The sequence diagram below shows the interactions within the `Logic` component when user runs the `sortPerson` command:
+
+![Interactions Inside the Logic Component for the `sortPerson` Command](images/SortPersonSequenceDiagram.png)
+
+The overall flow of the `sortPerson` command is as follows:
+
+1. The user specifies the order to be sorted by. It is the only mandatory field and must be `+` (ascending) or `-` (descending).
+2. The parsers check for the validity of the provided order. Errors are raised if the order is invalid.
+3. Upon successful parsing, the `SortPersonCommand` is created with the order to be sorted by expressed as a boolean value.
+4. The `SortPersonCommand` is executed by the `LogicManager`, which attempts to update the displayed list of persons through `Model::sortPersonAscending()` or `Model::sortPersonDescending()`.
+5. Upon successful execution, a `CommandResult` object is returned which contains the success message to be displayed to the user.
 
 ### Transaction-related Features
 
@@ -302,11 +457,88 @@ The sequence diagram is as follows:
 
 #### Setting Shorthands
 
+##### Overview
+
+The `setShorthand` command allows users to set a shorthand, or alias for an existing command. This shorthand can then be used in place of the command.
+
+The activity diagram is as follows:
+
+<img src="images/SetShorthandCommandActivityDiagram.png" width="550"/>
+
+The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
+
+<img src="images/SetShorthandCommandSequenceDiagram.png" width="550"/>
+
+<img src="images/SetShorthandCommandSequenceDiagram2.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the original command and the new shorthand in the `setShorthand` command.
+2. If the original command is invalid or does not exist, the user will be informed of the error.
+3. If the shorthand is already an existing original command, the user will be informed of the error.
+4. If the shorthand is already being used as a shorthand for another command, the user will be informed of the error.
+5. If the original command has an existing shorthand, the new shorthand will replace the existing shorthand.
+
+##### Implementation Considerations
+
+All existing commands are stored in a hashset. Newly created shorthands are stored in a hashmap. 
+Upon executing a new command, the parser looks up the command word in the existing commands hashset first.
+If the command word does not exist within the hashset, the parser then looks up the command word in the shorthands hashmap.
+
+The shorthand allows each original command to have up to one and only one shorthand.
+This is to prevent ambiguity when the user enters a shorthand that is used by multiple original commands, 
+as well as confusion when an original command could have multiple shorthands.
+
 #### Clearing App Data
+
+##### Overview
+
+The `clear` command allows users to clear all data stored in the app.
+This includes all persons and transactions in the `spendnsplitbook.json` file,
+as well as all shorthands in the `preferences.json` file.
+
+This command is irreversible, and should be used with caution. This command is introduced for new users to be able to quickly
+clear the sample data and start using the app with their own data. 
+Should the user ever wish to clear the data and start afresh again in the future, they can also use this command.
+
+The sequence diagram below illustrates the interactions within the `Logic` component and `Model` component:
+
+<img src="images/ClearCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `clear` command.
+2. The app clears all data from its Storage, and displays empty person and transaction lists.
 
 #### Accessing Help
 
+##### Overview
+
+The `help` command brings up the help window, which contains a URL link to the online user guide.
+
+The sequence diagram below illustrates the interactions within the `Ui`, `Logic` and `Model` component:
+
+<img src="images/HelpCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `help` command.
+2. The app opens the help window and centers it on the screen.
+
 #### Exiting the App
+
+##### Overview
+
+The `exit` command exits the app. This closes the app window (including the help window if opened) and terminates the app.
+
+The sequence diagram below illustrates the interactions within the `Ui`, `Logic` and `Model` component:
+
+<img src="images/ExitCommandSequenceDiagram.png" width="550"/>
+
+##### Feature Details
+
+1. The user specifies the `exit` command.
+2. The app closes the app window and terminates the app.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -324,37 +556,44 @@ The sequence diagram is as follows:
 
 ### Product scope
 
-
 **Target User Profile**: University students who live in hall
-* Needs to manage a significant number of contacts
-* Often splits expenses with other hallmates (for groceries, meals etc.)
-* Have friend groups with whom they hang out more frequently
-* Often has their laptop on hand and prefer desktop apps
-* Used to typing fast on their laptop
-* Is reasonably comfortable using CLI apps
+* needs to manage a significant number of contacts and transactions
+* often splits expenses with other hallmates (for groceries, meals, events etc.)
+* often has their laptop on hand and prefer desktop apps
+* used to typing fast on their laptop
+* is reasonably comfortable using CLI apps
 
-**Value Proposition**: The app will allow users to seamlessly keep track of the money they owe/are owed, with regards to borrowers/lenders and their expenses. It is CLI-based and manages contacts faster than a typical mouse/GUI driven app.
-
+**Value Proposition**: The app will allow users to seamlessly keep track of the
+money they owe/are owed across their contacts, in regard to borrowers/lenders and
+their expenses. It is CLI-based and manages contacts faster than a typical mouse/GUI driven app.
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                    | So that I can…​                                                        |
-|----------|--------------------------------------------|-------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions                          | refer to instructions when I forget how to use the app                 |
-| `* * *`  | user                                       | add a new person                                |                                                                        |
-| `* * *`  | user                                       | delete a person                                 | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name                           | locate details of persons without having to go through the entire list |
-| `* * *`  | user                                       | add transactions under a specific person        |                                                                        |
-| `* * *`  | user                                       | add group transactions                          | easily add transactions that are split among a group                   |
-| `* *`    | user                                       | edit transactions                               | change incorrectly added entries                                       |
-| `* * *`  | user                                       | delete transactions                             | remove incorrectly added entries                                       |
-| `* * *`  | user                                       | view balance with each person                   | know how much they owe me                                              |
-| `* *`    | user                                       | settle balances                                 | simulate clearing of debt                                              |
-| `* * *`  | user                                       | list all my transactions with a specific person | remind myself of why a specific person's balance is the way it is      |
-| `* *`    | user with many persons in the address book | sort persons by balance                         | know from whom I should collect money                                  |
-| `*`      | user                                       | hide private contact details                    | minimise chance of someone else seeing them by accident                |
+| Priority | As a …​       | I want to …​                            | So that I can…​                                                         |
+|----------|---------------|-----------------------------------------|-------------------------------------------------------------------------|
+| `* * *`  | new user      | see usage instructions                  | learn how to use the application easily                                 |
+| `* * *`  | new user      | view sample contacts and transactions   | familiarise myself with the application's data                          |
+| `* * *`  | user          | add a new person                        | save new contacts for expense tracking                                  |
+| `* * *`  | user          | delete a person                         | remove contacts that I no longer need to track                          |
+| `* * *`  | user          | edit a person                           | update the details of a contact                                         |
+| `* *`    | user          | find a person by name                   | locate contact details quickly without searching through all contacts   |
+| `* * *`  | user          | add a transaction involving my contacts | track shared expenses with my contacts                                  |
+| `* * *`  | user          | delete a transaction                    | remove transactions that I no longer need to track                      |
+| `* * *`  | user          | edit a transaction                      | update the details of a transaction                                     |
+| `* *`    | user          | duplicate a transaction                 | recreate similar transactions easily                                    |
+| `* *`    | user          | add recurring transactions              | automatically create regular transactions                               |
+| `* * *`  | user          | view balances with a person             | track how much I owe or am owed from a person                           |
+| `* * *`  | user          | settle my balance with a person         | clear any outstanding debts with a person from all transactions at once |
+| `* * *`  | user          | find transactions by a person's name    | view transactions that involve a specific person                        |
+| `* *`    | user          | sort my contacts by balance             | view the largest outstanding balances within my contacts                |
+| `*`      | advanced user | add a command alias                     | type common commands quickly through shorthands                         |
+| `*`      | advanced user | delete a command alias                  | remove shorthands that I no longer need                                 |
+| `*`      | advanced user | edit a command alias                    | update shorthands                                                       |
+| `*`      | user          | add attachments to transactions         | verify my transactions using receipts that I can refer to               |
+| `*`      | user          | undo my last command                    | recover from a command I have ran by mistake                            |
+| `*`      | user          | redo my last undo                       | reverse an undo command I ran by mistake                                |
 
 *{More to be added}*
 
@@ -660,6 +899,78 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+### Summary
+
+SpendNSplit is a brownfield software project based on the contacts-management application
+[AddressBook Level-3 (AB3)](https://se-education.org/addressbook-level3/). Our dedicated team
+has spent nearly 2 months evolving AB3 into a complex personal finance-tracking application
+for university Hall students. This section describes some key challenges our team has faced.
+
+### The relationship between transactions and persons
+
+The `Transaction` entity is a core part of SnS, and its implementation was one of our
+teams largest challenges. What's notable about `Transaction` is its relationship to
+the `Person` entity. A person can be the payee of a transaction; the person who
+footed the bill. Additionally, a person can be a payer of the transaction, owing the
+payee a portion of the transaction's bill. A person can also be both the payee and
+the payer of the bill. These entities are closely related via a many-to-many relationship,
+which was incredibly challenging to design, implement and test.
+
+### Synchronisation of our data
+
+The strong coupling of these entities meant that updating a person may affect the
+transactions, and vice-versa. Hence, our team had to think deeper about how to implement
+commands to ensure that the data changes of one entity list appropriate synchronise
+the other entity list. For instance, the deletion of persons was a difficult challenge
+to tackle.
+
+**Deleting a person**
+
+When a person is deleted from SnS, our application needs to check all transactions
+for the person's involvement as a payer or payee. The person would have to be removed
+from the transaction. However, we wanted to preserve as much information in the
+transactions as possible as they may involve other people as well. We didn't want
+the deletion of a person to affect the history and balances of other people who
+may still owe or be owed money. Hence, we have decided to create a special
+`Others` category to represents unknown / deleted parties. Solving this issue was
+a difficult problem from ideation to implementation.
+
+### UI Overhaul
+
+As our application manages both a persons list and transactions list, we had to completely
+overhaul the existing UI to be able to display both lists to users. We faced many issues
+extending the existing observer pattern to fit our needs. Previously, updating one
+list should mean that we only need to update that UI for that particular list. However, as
+mentioned earlier, our persons list and transactions list are closely related, which meant
+that updating one list might require us to update the UI for both lists.
+
+Another challenge with the UI was designing an appropriate transaction card to display
+the data to the user. Each transaction may contain multiple payers. This means that
+within our transactions list, each transaction may need to show a dynamic nested list of
+payers, along with the portion of the bill they owe. We believe that through much trial and
+error, we have designed our application to effectively display the data in a sleek
+and concise manner.
+
+### Precision
+
+Our application values precision given that it manages financial transactions. We
+utilised `BigFraction` as opposed to `Double` in order to combat floating-point
+errors. This posed many challenges in the implementation of `Transaction`. To name some,
+we had to take additional steps in order to handle arithmetic, represent `BigFraction`
+in the UI, and parse in input from commands and storage.
+
+### Overall Effort
+
+SnS required a substantial amount of effort in ideation, design, implementation and
+testing. We challenged ourselves to introduce new functionalities while preserving the
+original features of AB3. We have not only introduced a completely new central `Transaction`
+model, but also extended the existing `Person` model, transforming AB3 into an intricate
+contact and transaction management system.
 
 --------------------------------------------------------------------------------------------------------------------
 

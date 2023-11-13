@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.spendnsplit.commons.exceptions.IllegalValueException;
+import seedu.spendnsplit.commons.util.FractionUtil;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.transaction.Amount;
 import seedu.spendnsplit.model.transaction.Description;
@@ -71,6 +72,7 @@ public class JsonAdaptedTransactionTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
+
     @Test
     public void toModelType_invalidPayeeName_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(
@@ -78,6 +80,15 @@ public class JsonAdaptedTransactionTest {
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
+
+    @Test
+    public void toModelType_zeroDivAmount_throwsIllegalValueException() {
+        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(
+                "1/0", VALID_DESCRIPTION, VALID_PAYEE_NAME, VALID_PORTIONS, VALID_TIMESTAMP);
+        String expectedMessage = FractionUtil.ZERO_DIVISION;
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
+    }
+
     @Test
     public void toModelType_nullPayeeName_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction =
@@ -93,6 +104,7 @@ public class JsonAdaptedTransactionTest {
         String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
+
     @Test
     public void toModelType_nullTimestamp_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(
@@ -108,6 +120,7 @@ public class JsonAdaptedTransactionTest {
         String expectedMessage = "Collection should not be empty";
         assertThrows(IllegalArgumentException.class, expectedMessage, transaction::toModelType);
     }
+
     @Test
     public void toModelType_nullPortion_throwsIllegalValueException() {
         JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(

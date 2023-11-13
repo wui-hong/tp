@@ -1,0 +1,24 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters setShorthand command;
+if () then ([Command format is invalid])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Original command does not exist])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Shorthand is an original command])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Shorthand already in use by another command])
+  :Throw exception;
+  stop
+endif
+if () then ([Has existing shorthand])
+  :Delete existing shorthand from original command;
+else
+endif
+  :Add new shorthand to original command;
+stop
+@enduml

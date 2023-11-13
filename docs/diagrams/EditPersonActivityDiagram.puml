@@ -1,0 +1,27 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters editPerson command;
+if () then ([A non-positive index is provided])
+  :Throw exception;
+  stop
+([else]) elseif () then ([No edited fields are provided])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Some fields provided are invalid])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Updated person name is a reserved keyword])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Index is out of range of the person list])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Updated person already exists in the person list])
+  :Throw exception;
+  stop
+else ([else])
+  :Edit person in the person list;
+endif
+stop
+@enduml
