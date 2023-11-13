@@ -487,9 +487,6 @@ Extensions:
 9.  The GUI should organise and present data clearly so that users are able to read application details easily.
 
 ### Glossary
-
-**Application**
-
 #### Address
 The particulars of the place where a person lives.
 #### Alphanumeric
