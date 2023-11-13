@@ -513,6 +513,7 @@ Transaction details that can be changed when duplicating:
 * Description
 * Cost
 * Payee
+* Timestamp
 
 Format: `duplicateTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 
@@ -878,7 +879,7 @@ A label that can be applied to a person to provide additional details about them
 A unique identifier for a Telegram account. E.g. @ryanlim123
 #### Timestamp
 Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
-YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
+YYYY refers to Year, HH refers to the 24-hour notation for Hour, and MM refers to Minute.
 #### Transaction
 An interaction of buying or selling something where the exchange of money occurs.
 #### Weight
