@@ -254,7 +254,7 @@ The command word (editPerson) and the index has to be at the front of the comman
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t=` without
-  specifying any tags after it. However, this will only work if there is a single tag parameter. `t=` will work, but `t=Friend t=soccer` will result in an input error.
+  specifying any tags after it. However, this will only work if there is a single tag parameter. `t=` will work, but `t=Friend t=` will result in an input error.
 
 After the command has been executed, every person in the application will be displayed in the Person List.
 
