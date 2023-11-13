@@ -12,6 +12,8 @@ Spend N Split is perfect for **you** if you are
 2. A fast typist.
 3. Comfortable using a keyboard to make full use of the application.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Table of Contents
 
 1. [Introduction](#introduction)
@@ -43,7 +45,7 @@ refresher on what Spend N Split can do for you!
 --------------------------------------------------------------------------------------------------------------------
 ## Labels
 
-In our user guide, you may find coloured boxes that contain highlighted pieces of text. 
+In our user guide, you may find coloured boxes that contain highlighted pieces of text.
 
 <div markdown="block" class="alert alert-info">
 :bulb: Cyan boxes represent helpful tips to enhance your experience.
@@ -84,7 +86,7 @@ adding people with the same names. This means that you cannot add two or more pe
 
 <div markdown="block" class="alert alert-info">
 :bulb: If a positive balance is displayed on a person, it means that they owe you money. Conversely, if the balance displayed is
-negative, you owe that person money instead. 
+negative, you owe that person money instead.
 </div>
 
 ### Transaction
@@ -94,10 +96,10 @@ Transactions are events in which money is exchanged.
 A transaction has the following attributes:
 - Description (Compulsory)
 - Payee (Compulsory)
-- Payer (Compulsory) 
+- Payer (Compulsory)
 - Amount (Compulsory)
-- Timestamp (Optional. If this is not provided, the application will use the current system time of the computer for the Timestamp) 
-- Portion(s) 
+- Timestamp (Optional. If this is not provided, the application will use the current system time of the computer for the Timestamp)
+- Portion(s)
 
 <div markdown="block" class="alert alert-primary">
 :warning: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
@@ -115,7 +117,7 @@ Note: Spend N Split will only keep track of transactions that are considered [re
 1. Ensure you have Java `11` or above installed in your computer.
 
     To check the version of Java installed on your computer, click [here](https://www.java.com/en/download/help/version_manual.html) if you are using a Windows or Mac computer, and click [here](https://phoenixnap.com/kb/check-java-version-linux)
-   if your computer is running Linux. 
+   if your computer is running Linux.
 
 
 2. Download the latest `spendnsplit.jar` from [here](https://github.com/AY2324S1-CS2103T-W17-3/tp/releases/tag/v1.4).
@@ -124,7 +126,7 @@ Note: Spend N Split will only keep track of transactions that are considered [re
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar spendnsplit.jar`
    command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the application contains some sample data.<br>
+   A GUI similar to the one shown below should appear in a few seconds. Note how the application contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the Command Input Field and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
@@ -162,7 +164,7 @@ Spend N Split has an intuitive Graphical User Interface (GUI) that allows you to
 ## Parameters
 
 Some of our commands require parameters, which have specific formats and constraints applied on them. Before heading to the [Features](#features) section, we recommend taking a look at the type of parameters required by commands.
-<br> 
+<br>
 
 <div markdown="span" class="alert alert-danger">
 :heavy_exclamation_mark: All inputs to parameters should not contain the "=" sign.
@@ -189,6 +191,7 @@ The following parameters are used for commands:
 Spend N Split checks the validity of Telegram handles and email addresses according to the formats defined in the table above. It will
 reject all Telegram handles and email addresses that do not follow the format.
 
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -251,7 +254,7 @@ The command word (editPerson) and the index has to be at the front of the comman
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t=` without
-  specifying any tags after it.
+  specifying any tags after it. However, this will only work if there is a single tag parameter. `t=` will work, but `t=Friend t=soccer` will result in an input error.
 
 After the command has been executed, every person in the application will be displayed in the Person List.
 
@@ -365,7 +368,7 @@ Sample execution:
 ```
 $ addTransaction c=200 d=Textbooks
 
-Invalid command format! 
+Invalid command format!
 addTransaction: Adds a transaction.
 Parameters: d=DESCRIPTION n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...
 Example: addTransaction d=bread n=John Doe c=25.00 ts=10/10/2020 12:00
@@ -582,10 +585,10 @@ Sample Execution:
 ```
 $ settlePerson
 
-Invalid command format! 
+Invalid command format!
 settlePerson: Settle any outstanding balance with another person.
-If a timestamp is provided, the balance at the instant before 
-the timestamp is used. Else, the balance at the instant before 
+If a timestamp is provided, the balance at the instant before
+the timestamp is used. Else, the balance at the instant before
 the current system time is used.
 Parameters: INDEX (must be a positive integer) [ts=TIME]
 Example: settlePerson 2 ts=13/10/2020 12:00
@@ -605,7 +608,7 @@ Balance settled: Alex Yeoh
 
 Sets a shorthand for the original command. In the future, this shorthand can be used in place of the original command.
 
-Format: `setShorthand o=[ORIGINAL_COMMAND] s=[SHORTHAND]`
+Format: `setShorthand o=ORIGINAL_COMMAND s=SHORTHAND`
 
 The command word (setShorthand) has to be at the front of the command. The order of the remaining parameters is flexible.
 Commands and shorthands are case-sensitive.
@@ -648,6 +651,8 @@ You can use the following shortcuts to navigate our application:
 
 For our result display, persons list and transaction list, once selected, you can use the <kbd>UP ARROW KEY</kbd> or <kbd>DOWN ARROW KEY</kbd> for scrolling.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Data
 
 ### Saving the data
@@ -657,11 +662,12 @@ to save manually.
 
 ### Editing the data file
 
-Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. 
+Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable.
 <br>
 <div markdown="span" class="alert alert-danger">
 :heavy_exclamation_mark: However, be warned that the application may wipe the data or behave unexpectedly if the data is not edited correctly.
 </div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -707,7 +713,7 @@ input with the parameters required.
     Parameters: INDEX (must be a positive integer)
     Example: settlePerson 1
     ```
-  
+
 <div markdown="block" class="alert alert-info">
 :bulb: Note the differences between Execution errors and Input errors. An execution error refers to an error that will occur
 regardless of the state of the application or its data, whereas input errors are errors that occur when certain conditions in the application
@@ -759,16 +765,16 @@ Examples of irrelevant transactions:
   list when Zack is deleted.
 
 Note:
-- If you attempt to delete payers such that no one else from your contacts are involved in the
+- If you attempt to delete payers such that nobody from your Person List is involved in the
   transaction, **the application will not execute your command**. You are advised to delete the transaction if
-  it no longer concerns you or anyone from your contacts list.
+  it no longer concerns you or anyone from your Person List.
 - If you delete a person and it results in some transactions becoming irrelevant as highlighted
   in the second example of  irrelevant transactions above, **the application will automatically delete
   these irrelevant transactions**.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
+## Acknowledgements
 
 We would like to acknowledge the following third-party libraries, frameworks and sources for their use in Spend N Split:
 
@@ -803,6 +809,7 @@ We would like to acknowledge the following third-party libraries, frameworks and
 * **[Jekyll](https://github.com/jekyll/jekyll)**: The static site generator that converts Spend N Split markdown documentation into web pages.
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## Glossary
 #### Address
 The particulars of the place where a person lives.

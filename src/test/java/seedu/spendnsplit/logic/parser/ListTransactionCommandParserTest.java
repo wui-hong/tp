@@ -4,6 +4,7 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.spendnsplit.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.spendnsplit.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.List;
@@ -70,6 +71,11 @@ public class ListTransactionCommandParserTest {
                 new ListTransactionCommand(new TransactionContainsKeywordsAndPersonNamesPredicate(List.of("Lunch"),
                 List.of()));
         assertParseSuccess(parser, "Lunch Lunch", expectedListTransactionCommand);
+    }
+
+    @Test
+    public void parse_keywordEqual_commandFailure() {
+        assertParseFailure(parser, "=", ListTransactionCommand.MESSAGE_USAGE);
     }
 
     @Test

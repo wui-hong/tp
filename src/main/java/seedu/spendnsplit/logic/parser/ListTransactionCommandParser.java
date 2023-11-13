@@ -27,6 +27,11 @@ public class ListTransactionCommandParser implements Parser<ListTransactionComma
         Set<Name> nameList = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
         List<String> keywords = argMultimap.getPreamble().trim().isEmpty() ? List.of()
                 : Arrays.asList(argMultimap.getPreamble().trim().split("\\s+"));
+        for (String keyword : keywords) {
+            if (keyword.contains("=")) {
+                throw new ParseException(ListTransactionCommand.MESSAGE_USAGE);
+            }
+        }
         return new ListTransactionCommand(new TransactionContainsKeywordsAndPersonNamesPredicate(
                 keywords, new ArrayList<>(nameList)));
     }
