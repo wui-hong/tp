@@ -202,7 +202,7 @@ The following parameters are used for commands:
   E.g. For `[t=TAG]…​`: <br> Example usage: ` ` (0 tags), or `t=friend` (1 tag) or `t=friend t=family` (2 tags).
 
 - If it is mentioned that the order of the parameters is flexible, it means that parameters can be in any order.<br>
-  E.g. For `n=NAME p=PHONE_NUMBER` <br> Example usage: `n=Bob p=91722828` or `p=91722828 n=Bob` are both accepted and will be treated as equivalent inputs by the application.
+  E.g. For `n=NAME p=PHONE` <br> Example usage: `n=Bob p=91722828` or `p=91722828 n=Bob` are both accepted and will be treated as equivalent inputs by the application.
 - Unnecessary parameters provided for commands (such as `help`, `clear`, `exit`) that do not accept them will be disregarded. <br> E.g. for the command `help` which does not accept any parameters, entering the command `help 123` will be interpreted by the application as `help`.
 
 - If you are using a PDF version of this document, be careful when copying and pasting commands. Space characters such as " " may result in errors. It is recommended that commands are manually copied and typed into the application.
@@ -215,7 +215,7 @@ The following parameters are used for commands:
 
 Adds a person to the application.
 
-Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
+Format: `addPerson n=NAME [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
 The command word (addPerson) has to be at the front of the command. The order of the remaining parameters is flexible.
 
