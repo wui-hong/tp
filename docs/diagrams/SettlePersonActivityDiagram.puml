@@ -1,0 +1,21 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters settlePerson command;
+if () then ([Command format is invalid])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Index is out of range])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Balance with person is 0])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Transaction already exists in the transaction list])
+  :Throw exception;
+  stop
+else ([else])
+  :Add settle transaction to the transaction list;
+endif
+stop
+@enduml

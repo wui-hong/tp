@@ -337,35 +337,121 @@ The overall flow of the `sortPerson` command is as follows:
 
 ### Transaction-related Features
 
+#### General Implementation Details
+
+The class diagram for transactions is represented below:
+
+![Transaction Class Diagram](images/TransactionClassDiagram.png)
+
+Transactions are immutable. Hence, editing a transaction invloves removing the original transaction and adding the edited transaction.
+
+The activity diagram below descibes the validation steps taken when adding a `Transaction` to the `UniqueTransactionList` to ensure the validity of the data stored:
+
+![Transaction List Activity Diagram](images/TransactionListActivityDiagram.png)
+
 #### Adding Transactions
 
-##### Settling Balances
+In general, transactions are added using the `addTransaction` command.
+
+Users key in the description of the transaction, the payee, the cost, and a list of payers and weights. Additionally, users may key in an optional timestamp.
+
+The activity diagram is as follows:
+
+![addTransaction Activity Diagram](images/AddTransactionActivityDiagram.png)
+
+The sequence diagram is as follows:
+
+![addTransaction Sequence Diagram](images/AddTransactionSequenceDiagram.png)
+
+#### Settling Balances
+
+The app also provides a way to add a special transaction that settles balances, using the command word `settlePerson`.
+
+Users key in the index of the person with whom they want to settle their balance, and an optional timestamp.
+
+The amount of the settled balance would be equal to the negative of the sum of all transactions with that person before or at the timestamp.
+
+The activity diagram is as follows:
+
+![settlePerson Activity Diagram](images/settlePersonActivityDiagram.png)
+
+The sequence diagram is as follows:
+
+![settlePerson Sequence Diagram](images/settlePersonSequenceDiagram.png)
 
 #### Editing Transactions
 
-Editing transactions mechanism is facilitated by `EditTransactionCommand`. It extends `Command` with the ability to edit a transaction.
+Two commands are responsible for editing transactions, namely `editTransaction` and `updatePortion`.
 
-It consists of the following classes:
+##### Editing description, payee, amount or timestamp: `editTransaction`
 
-* `EditTransactionCommand`— Represents a command to edit a transaction.
-* `EditTransactionCommandParser`— Parses user input into a `EditTransactionCommand`.
-* `EditTransactionDescriptor`— Stores the details to edit the transaction with. Each non-empty field value will replace the corresponding field value of the transaction.
+Users key in the index of the transaction they want to edit, along with the optional fields for description, payee, amount and/or timestamp.
 
-<img src="images/EditTransactionCommandDiagram.png" width="550" />
+At least one of these fields has to be edited.
 
-**Note**: The above class diagram is to be updated to reflect the new implementation, with the addition of `UpdateExpenseCommand`.
+The activity diagram is as follows:
 
-Upon execution, `EditTransactionCommand` will retrieve the transaction to be edited from `filteredTransactionList` from `Model`, create a copy of the `Transaction` object with the new details, then replace the old `Transaction` object with the new one in `filteredTransactionList`.
+![editTransaction Activity Diagram](images/editTransactionActivityDiagram.png)
 
-We chose this method of execution instead of directly editing the `Transaction` object in `filteredTransactionList` because `Model` re-renders the UI only when `filteredTransactionList` is updated. If we were to edit the `Transaction` object directly, `Model` would not be able to detect the change and re-render the UI.
+The sequence diagram is as follows:
 
-##### Updating Portions
+![editTransaction Sequence Diagram](images/editTransactionSequenceDiagram.png)
+
+##### Updating weights and payers: `updatePortion`
+
+Users key in the index of the transaction they want to edit, the payer and a weight.
+
+Given that the stored weights are not displayed to users, the weight entered is as a proportion of the total amount.
+
+The activity diagram is as follows:
+
+![updatePortion Activity Diagram](images/updatePortionActivityDiagram.png)
+
+The sequence diagram is as follows:
+
+![updatePortion Sequence Diagram](images/updatePortionSequenceDiagram.png)
 
 #### Deleting Transactions
 
+Users key in the index of the transaction they want to delete.
+
+The activity diagram is as follows:
+
+![deleteTransaction Activity Diagram](images/deleteTransactionActivityDiagram.png)
+
+The sequence diagram is as follows:
+
+![deleteTransaction Sequence Diagram](images/deleteTransactionSequenceDiagram.png)
+
 #### Duplicating Transactions
 
+Users key in the index of the transaction they want to duplicate, along with the optional fields for description, payee, amount and/or timestamp.
+
+This feature is made to support recurring shared transactions, such as rental.
+
+If no timestamp is keyed in, the current system time will be used. For other fields, the default values are that of the transaction being duplicated.
+
+The activity diagram is as follows:
+
+![editTransaction Activity Diagram](images/editTransactionActivityDiagram.png)
+
+The sequence diagram is as follows:
+
+![editTransaction Sequence Diagram](images/editTransactionSequenceDiagram.png)
+
 #### Filtering Transactions
+
+Transactions displayed are filtered based on keywords in the description, or by the people involved, using the `listTransaction` command.
+
+Users key in a list of keywords and names. If none are provided, all transactions are displayed.
+
+The activity diagram is as follows:
+
+![listTransaction Activity Diagram](images/listTransactionActivityDiagram.png)
+
+The sequence diagram is as follows:
+
+![listTransaction Sequence Diagram](images/listTransactionSequenceDiagram.png)
 
 ### Other Features
 

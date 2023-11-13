@@ -1,0 +1,24 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters updatePortion command;
+if () then ([Command format is invalid])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Index is out of range])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Updated transaction does not involve self and at least one person in the person list])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Not all persons involved in the updated transaction are either self, others or someone in the person list])
+  :Throw exception;
+  stop
+([else]) elseif () then ([The updated transaction already exists in the transaction list])
+  :Throw exception;
+  stop
+else ([else])
+  :Replace transaction with the updated one in the transaction list;
+endif
+stop
+@enduml

@@ -1,0 +1,93 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":DuplicateTransactionCommandParser" as DuplicateTransactionCommandParser LOGIC_COLOR
+participant ":TransactionDescriptor" as TransactionDescriptor LOGIC_COLOR
+participant "dt:DuplicateTransactionCommand" as DuplicateTransactionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":EditTransactionCommand" as EditTransactionCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("duplicateTransaction ...")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("duplicateTransaction ...", commandMap)
+activate SpendNSplitParser
+
+create DuplicateTransactionCommandParser
+SpendNSplitParser -> DuplicateTransactionCommandParser
+activate DuplicateTransactionCommandParser
+
+DuplicateTransactionCommandParser --> SpendNSplitParser
+deactivate DuplicateTransactionCommandParser
+
+SpendNSplitParser -> DuplicateTransactionCommandParser : parse("...")
+activate DuplicateTransactionCommandParser
+
+create TransactionDescriptor
+DuplicateTransactionCommandParser -> TransactionDescriptor
+activate TransactionDescriptor
+
+TransactionDescriptor --> DuplicateTransactionCommandParser
+deactivate TransactionDescriptor
+
+create DuplicateTransactionCommand
+DuplicateTransactionCommandParser -> DuplicateTransactionCommand
+activate DuplicateTransactionCommand
+
+DuplicateTransactionCommand --> DuplicateTransactionCommandParser : dt
+deactivate DuplicateTransactionCommand
+
+DuplicateTransactionCommandParser --> SpendNSplitParser : dt
+deactivate DuplicateTransactionCommandParser
+
+SpendNSplitParser --> LogicManager : dt
+deactivate SpendNSplitParser
+
+LogicManager -> DuplicateTransactionCommand : execute()
+activate DuplicateTransactionCommand
+
+DuplicateTransactionCommand -> Model : getFilteredTransactionList()
+activate Model
+
+Model --> DuplicateTransactionCommand
+deactivate Model
+
+DuplicateTransactionCommand -> EditTransactionCommand : createEditedTransaction(originalTransaction, transactionDescriptor)
+activate EditTransactionCommand
+
+EditTransactionCommand --> DuplicateTransactionCommand : transaction
+deactivate EditTransactionCommand
+
+DuplicateTransactionCommand -> Model : addTransaction(transaction)
+activate Model
+
+Model --> DuplicateTransactionCommand
+deactivate Model
+
+create CommandResult
+DuplicateTransactionCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DuplicateTransactionCommand
+deactivate CommandResult
+
+DuplicateTransactionCommand --> LogicManager : result
+deactivate DuplicateTransactionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

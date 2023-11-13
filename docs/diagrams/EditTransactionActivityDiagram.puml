@@ -1,0 +1,27 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters editTransaction command;
+if () then ([Command format is invalid])
+  :Throw exception;
+  stop
+([else]) elseif () then ([None of the fields are edited])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Index is out of range])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Edited transaction does not involve self and at least one person in the person list])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Not all persons involved in the edited transaction are either self, others or someone in the person list])
+  :Throw exception;
+  stop
+([else]) elseif () then ([The edited transaction already exists in the transaction list])
+  :Throw exception;
+  stop
+else ([else])
+  :Replace transaction with the edited one in the transaction list;
+endif
+stop
+@enduml

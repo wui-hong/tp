@@ -1,0 +1,24 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters addTransaction command;
+if () then ([Command format is invalid])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Transaction has duplicate names in portions])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Transaction does not involve self and at least one person in the person list])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Not all persons involved are either self, others or someone in the person list])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Transaction already exists in the transaction list])
+  :Throw exception;
+  stop
+else ([else])
+  :Add transaction to the transaction list;
+endif
+stop
+@enduml

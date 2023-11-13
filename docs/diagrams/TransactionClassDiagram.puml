@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+top to bottom direction
+skinparam linetype ortho
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+UniqueTransactionList -down-> "0..*" Transaction
+
+Transaction -down-> "1" Description
+Transaction -left-> "1" Amount
+Transaction -right-> "1..*" Portion
+Transaction -right-> "1" Name : Payee
+Portion -left-> "1" Name : Payer
+Portion -down-> "1" Weight
+@enduml

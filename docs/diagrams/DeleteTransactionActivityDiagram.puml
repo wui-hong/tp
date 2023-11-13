@@ -1,0 +1,15 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters deleteTransaction command;
+if () then ([Command format is invalid])
+  :Throw exception;
+  stop
+([else]) elseif () then ([Index is out of range])
+  :Throw exception;
+  stop
+else ([else])
+  :Delete transaction;
+endif
+stop
+@enduml

@@ -1,0 +1,92 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":UpdatePortionCommandParser" as UpdatePortionCommandParser LOGIC_COLOR
+participant ":PortionDescriptor" as PortionDescriptor LOGIC_COLOR
+participant "up:UpdatePortionCommand" as UpdatePortionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("updatePortion ...")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : commandMap
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("updatePortion ...", commandMap)
+activate SpendNSplitParser
+
+create UpdatePortionCommandParser
+SpendNSplitParser -> UpdatePortionCommandParser
+activate UpdatePortionCommandParser
+
+UpdatePortionCommandParser --> SpendNSplitParser
+deactivate UpdatePortionCommandParser
+
+SpendNSplitParser -> UpdatePortionCommandParser : parse("...")
+activate UpdatePortionCommandParser
+
+create PortionDescriptor
+UpdatePortionCommandParser -> PortionDescriptor
+activate PortionDescriptor
+
+PortionDescriptor --> UpdatePortionCommandParser
+deactivate PortionDescriptor
+
+create UpdatePortionCommand
+UpdatePortionCommandParser -> UpdatePortionCommand
+activate UpdatePortionCommand
+
+UpdatePortionCommand --> UpdatePortionCommandParser : up
+deactivate UpdatePortionCommand
+
+UpdatePortionCommandParser --> SpendNSplitParser : up
+deactivate UpdatePortionCommandParser
+
+SpendNSplitParser --> LogicManager : up
+deactivate SpendNSplitParser
+
+LogicManager -> UpdatePortionCommand : execute()
+activate UpdatePortionCommand
+
+UpdatePortionCommand -> Model : getFilteredTransactionList()
+activate Model
+
+Model --> UpdatePortionCommand
+deactivate Model
+
+UpdatePortionCommand -> UpdatePortionCommand : createTransactionWithUpdatedPortions(originalTransaction, PortionDescriptor)
+activate UpdatePortionCommand
+
+UpdatePortionCommand --> UpdatePortionCommand : editedTransaction
+deactivate UpdatePortionCommand
+
+UpdatePortionCommand -> Model : setTransaction(originalTransaction, editedTransaction)
+activate Model
+
+Model --> UpdatePortionCommand
+deactivate Model
+
+create CommandResult
+UpdatePortionCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UpdatePortionCommand
+deactivate CommandResult
+
+UpdatePortionCommand --> LogicManager : result
+deactivate UpdatePortionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
