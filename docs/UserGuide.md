@@ -307,9 +307,9 @@ Examples:
 
 ![listPersonFiltered_success](images/user-guide/listPersonFilteredSuccess.png)
 
-#### Sorting people by balance: `sortPerson`
+#### Sorting persons by balance: `sortPerson`
 
-Sorts the list of people in the application based on their outstanding balances in either ascending or descending
+Sorts the list of persons in the application based on their outstanding balances in either ascending or descending
 order. This allows you to quickly identify who owes the most or the least amount of money. Having a negative balance with someone means you
 own them money.
 
@@ -331,7 +331,7 @@ Examples:
 
 #### Adding a transaction: `addTransaction`
 
-Adds a transaction for multiple people with customised split ratios.
+Adds a transaction for multiple persons with customised split ratios.
 
 Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - Cost and weights have to be decimal numbers or fractions, and they must be positive.
