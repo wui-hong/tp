@@ -9,10 +9,10 @@ import static seedu.spendnsplit.commons.util.AppUtil.checkArgument;
  */
 public class TelegramHandle {
 
-    public static final String MESSAGE_CONSTRAINTS = "Telegram Handles should be of the format @123han_dle123"
-            + "and adhere to the following constraints:\n"
-            + "1. Begin with a @ and be of minimum length 5 characters, exclusive of @ symbol."
-            + " The characters after @ can only be alphanumeric or underscores.";
+    public static final String MESSAGE_CONSTRAINTS = "Telegram Handles adhere to the following constraints:\n"
+            + "Begin with a @ and be of minimum length 5 characters, exclusive of @ symbol.\n"
+            + "The characters after @ can only be alphanumeric or underscores.\n"
+            + "Example: @han_dle123";
 
     // begins with @, and only contains at least 5 alphanumeric and underscores after
     private static final String VALIDATION_REGEX = "^@[a-zA-Z0-9_]{5,}$";
