@@ -463,7 +463,9 @@ updatePortion 3 n=David Li w=0.5
 
 Updated Portion: Group Project Lunch; Timestamp: 13/10/2023 12:00; 
 Amount: 60.00; Paid by: Self; 
-Portions: [name: Bernice Yu, weight: 0.33][name: David Li, weight: 0.50][name: Alex Yeoh, weight: 0.17]
+Portions: [name: Bernice Yu, weight: 0.33]
+[name: David Li, weight: 0.50]
+[name: Alex Yeoh, weight: 0.17]
 ```
 
 ![updatePortion_success](images/user-guide/updatePortionSuccess.png)
@@ -579,7 +581,9 @@ $ settlePerson
 
 Invalid command format! 
 settlePerson: Settle any outstanding balance with another person.
-If a timestamp is provided, the balance at the instant before the timestamp is used. Else, the balance at the instant before the current system time is used.
+If a timestamp is provided, the balance at the instant before 
+the timestamp is used. Else, the balance at the instant before 
+the current system time is used.
 Parameters: INDEX (must be a positive integer) [ts=TIME]
 Example: settlePerson 2 ts=13/10/2020 12:00
 ```
