@@ -43,7 +43,7 @@ refresher on what Spend N Split can do for you!
 --------------------------------------------------------------------------------------------------------------------
 ## Labels
 
-In our user guide, you may find coloured boxes that contain highlighted pieces of text. 
+In our user guide, you may find coloured boxes that contain highlighted pieces of text.
 
 <div markdown="block" class="alert alert-info">
 :bulb: Cyan boxes represent helpful tips to enhance your experience.
@@ -84,7 +84,7 @@ adding people with the same names. This means that you cannot add two or more pe
 
 <div markdown="block" class="alert alert-info">
 :bulb: If a positive balance is displayed on a person, it means that they owe you money. Conversely, if the balance displayed is
-negative, you owe that person money instead. 
+negative, you owe that person money instead.
 </div>
 
 ### Transaction
@@ -94,10 +94,10 @@ Transactions are events in which money is exchanged.
 A transaction has the following attributes:
 - Description (Compulsory)
 - Payee (Compulsory)
-- Payer (Compulsory) 
+- Payer (Compulsory)
 - Amount (Compulsory)
-- Timestamp (Optional. If this is not provided, the application will use the current system time of the computer for the Timestamp) 
-- Portion(s) 
+- Timestamp (Optional. If this is not provided, the application will use the current system time of the computer for the Timestamp)
+- Portion(s)
 
 <div markdown="block" class="alert alert-primary">
 :warning: Note: There are 2 special names when adding transactions - "Self" and "Others". "Self" refers to you (the user of this application) and "Others" refers to people that have not been added to the application.
@@ -115,7 +115,7 @@ Note: Spend N Split will only keep track of transactions that are considered [re
 1. Ensure you have Java `11` or above installed in your computer.
 
     To check the version of Java installed on your computer, click [here](https://www.java.com/en/download/help/version_manual.html) if you are using a Windows or Mac computer, and click [here](https://phoenixnap.com/kb/check-java-version-linux)
-   if your computer is running Linux. 
+   if your computer is running Linux.
 
 
 2. Download the latest `spendnsplit.jar` from [here](https://github.com/AY2324S1-CS2103T-W17-3/tp/releases/tag/v1.4).
@@ -162,7 +162,7 @@ Spend N Split has an intuitive Graphical User Interface (GUI) that allows you to
 ## Parameters
 
 Some of our commands require parameters, which have specific formats and constraints applied on them. Before heading to the [Features](#features) section, we recommend taking a look at the type of parameters required by commands.
-<br> 
+<br>
 
 <div markdown="span" class="alert alert-danger">
 :heavy_exclamation_mark: Note: **All inputs** to parameters should not contain the "=" sign.
@@ -375,8 +375,8 @@ $ addTransaction c=200 d=Textbooks
 Invalid command format!
 addTransaction: Adds a transaction to the spendnsplit book.
 Parameters: d=DESCRIPTION n=NAME c=COST
-[n=NAME w=WEIGHT] Example: addTransaction 
-d=bread n=John Doe c=25.00 n=Self w=1.5 
+[n=NAME w=WEIGHT] Example: addTransaction
+d=bread n=John Doe c=25.00 n=Self w=1.5
 n=John Doe w=1
 ```
 
@@ -481,8 +481,8 @@ Sample Execution:
 ```
 $ deleteTransaction 4
 
-Deleted Transaction: bread; Timestamp: 12/11/2023 11:24; 
-Amount: 20.00; Paid by: Alex; 
+Deleted Transaction: bread; Timestamp: 12/11/2023 11:24;
+Amount: 20.00; Paid by: Alex;
 Portions: [name: Self, weight: 1.00]
 ```
 
@@ -575,7 +575,7 @@ Sample Execution:
 $ settlePerson
 
 Invalid command format!
-settlePerson: Settle any outstanding balance with another person. 
+settlePerson: Settle any outstanding balance with another person.
 Parameters: INDEX (must be a positive integer)
 Example: settlePerson 1
 
@@ -637,7 +637,7 @@ to save manually.
 
 ### Editing the data file
 
-Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable. 
+Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplitbook.json`. The data is human-readable.
 <br>
 <div markdown="span" class="alert alert-danger">
 :heavy_exclamation_mark: However, be warned that the application may wipe the data or behave unexpectedly if the data is not edited correctly.
@@ -687,7 +687,7 @@ input with the parameters required.
     Parameters: INDEX (must be a positive integer)
     Example: settlePerson 1
     ```
-  
+
 <div markdown="block" class="alert alert-info">
 :bulb: Note the differences between Execution errors and Input errors. An execution error refers to an error that will occur
 regardless of the state of the application or its data, whereas input errors are errors that occur when certain conditions in the application
@@ -797,7 +797,7 @@ means that they owe you money, whereas a negative balance means that you owe the
 ### Card
 A rectangular area in our application that either describes the full details of a transaction or person.
 ### Command
-To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed. 
+To use and control the application, commands are necessary. To utilise a feature, a command has to be typed into the Command Input Field and executed.
 ### Cost
 The total value of the transaction.
 ### Description
@@ -841,7 +841,7 @@ A shortened version of a command.
 ### Tag
 A label that can be applied to a person to provide additional details about them.
 ### Telegram handle
-A unique identifier for a telegram account. 
+A unique identifier for a telegram account.
 ### Timestamp
 Refers to the time the transaction occurred. Timestamps in our application are displayed in the "DD/MM/YYYY HH:MM" format. DD refers to Day, MM refers to Month,
 YYYY refers to Year, HH refers to Hour, and MM refers to Minute.
