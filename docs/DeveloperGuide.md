@@ -284,7 +284,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to add a new person.
 2. Spend n Split informs the user that the new person has been added.
-3. Spend n Split shows the updated contacts list.
+3. Spend n Split shows the updated contact list.
 
 Use case ends.
 
