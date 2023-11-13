@@ -271,8 +271,8 @@ Format: `deletePerson INDEX`
 
 Examples:
 
-* `list` followed by `deletePerson 2` deletes the 2nd person in the application.
-* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find Betsy` command.
+* `listPerson` followed by `deletePerson 6` deletes the 6th person in the application
+* `listPerson alex` followed by `deletePerson 1` deletes the 1st person in the results of the `listPerson alex` command
 
 ![deletePerson_success](images/user-guide/deletePerson.PNG)
 
