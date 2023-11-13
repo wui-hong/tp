@@ -510,8 +510,8 @@ A unique identifier for an email account. It identifies an email box to which me
 An area where text can be input.
 #### Flag
 Flags are used to modify the operation of a command.
-#### Gui
-Gui stands for graphical user interface. A graphical user interface uses icons and mouse inputs from users to allow them to interact with the application.
+#### GUI
+GUI stands for Graphical User Interface. A Graphical User Interface uses icons and mouse inputs from users to allow them to interact with the application.
 #### Index
 A number representing the position of an item in a list.
 #### Integer
@@ -519,7 +519,7 @@ A number that is a not a fraction. E.g. whole numbers such as -10, 0, 1, 5.
 #### Keyword
 An important word that is used by the application to process various commands.
 #### Mainstream OS
-Refers to operating systems such as Windows, Linux, Unix, OS-X.
+Refers to operating systems such as Windows, Linux, Unix, MacOS.
 #### Name
 A word or set of words that are used to address or refer to a person.
 #### Negative
@@ -531,7 +531,7 @@ Refers to the person that paid for the transaction.
 #### Payer
 Refers to a person that owes the payee money for the transaction.
 #### Person
-A human being.
+An individual that can be associated with various information in our application, such as contact information and balances.
 #### Phone number
 A sequence of digits that is dialled on a telephone to contact a person.
 #### Portion
