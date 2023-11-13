@@ -391,6 +391,7 @@ Transaction details that can be edited:
 * Description
 * Cost
 * Payee
+* Timestamp
 
 Format: `editTransaction INDEX [d=DESCRIPTION] [c=COST] [n=PAYEE] [ts=TIME]`
 
