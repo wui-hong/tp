@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":UserPrefs" as UserPrefs MODEL_COLOR
+participant ":CommandAliasMap" as CommandAliasMap MODEL_COLOR
+end box
+
+mainframe sd set alias
+
+Model -> UserPrefs : setCommandAlias(command, alias)
+activate UserPrefs
+
+UserPrefs -> CommandAliasMap : putAlias(command, alias)
+activate CommandAliasMap
+
+CommandAliasMap --> UserPrefs
+deactivate CommandAliasMap
+
+UserPrefs --> Model
+deactivate UserPrefs
+@enduml

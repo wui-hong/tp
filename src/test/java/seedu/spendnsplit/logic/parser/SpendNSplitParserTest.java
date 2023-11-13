@@ -11,8 +11,8 @@ import static seedu.spendnsplit.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_ORIGINAL_COMMAND;
 import static seedu.spendnsplit.logic.parser.CliSyntax.PREFIX_SHORTHAND;
 import static seedu.spendnsplit.testutil.Assert.assertThrows;
-import static seedu.spendnsplit.testutil.PortionUtil.getUpdatePortionDescriptorDetails;
-import static seedu.spendnsplit.testutil.TransactionUtil.getEditTransactionDescriptorDetails;
+import static seedu.spendnsplit.testutil.PortionUtil.getPortionDescriptorDetails;
+import static seedu.spendnsplit.testutil.TransactionUtil.getTransactionDescriptorDetails;
 import static seedu.spendnsplit.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import java.util.Arrays;
@@ -27,9 +27,7 @@ import seedu.spendnsplit.logic.commands.ClearCommand;
 import seedu.spendnsplit.logic.commands.DeletePersonCommand;
 import seedu.spendnsplit.logic.commands.DeleteTransactionCommand;
 import seedu.spendnsplit.logic.commands.EditPersonCommand;
-import seedu.spendnsplit.logic.commands.EditPersonCommand.EditPersonDescriptor;
 import seedu.spendnsplit.logic.commands.EditTransactionCommand;
-import seedu.spendnsplit.logic.commands.EditTransactionCommand.EditTransactionDescriptor;
 import seedu.spendnsplit.logic.commands.ExitCommand;
 import seedu.spendnsplit.logic.commands.HelpCommand;
 import seedu.spendnsplit.logic.commands.ListPersonCommand;
@@ -37,7 +35,9 @@ import seedu.spendnsplit.logic.commands.ListTransactionCommand;
 import seedu.spendnsplit.logic.commands.SetShorthandCommand;
 import seedu.spendnsplit.logic.commands.SortPersonCommand;
 import seedu.spendnsplit.logic.commands.UpdatePortionCommand;
-import seedu.spendnsplit.logic.commands.UpdatePortionCommand.UpdatePortionDescriptor;
+import seedu.spendnsplit.logic.descriptors.PersonDescriptor;
+import seedu.spendnsplit.logic.descriptors.PortionDescriptor;
+import seedu.spendnsplit.logic.descriptors.TransactionDescriptor;
 import seedu.spendnsplit.logic.parser.exceptions.ParseException;
 import seedu.spendnsplit.model.person.Name;
 import seedu.spendnsplit.model.person.NameContainsKeywordsPredicate;
@@ -45,13 +45,13 @@ import seedu.spendnsplit.model.person.Person;
 import seedu.spendnsplit.model.transaction.Transaction;
 import seedu.spendnsplit.model.transaction.TransactionContainsKeywordsAndPersonNamesPredicate;
 import seedu.spendnsplit.model.transaction.portion.Portion;
-import seedu.spendnsplit.testutil.EditPersonDescriptorBuilder;
-import seedu.spendnsplit.testutil.EditTransactionDescriptorBuilder;
 import seedu.spendnsplit.testutil.PersonBuilder;
+import seedu.spendnsplit.testutil.PersonDescriptorBuilder;
 import seedu.spendnsplit.testutil.PersonUtil;
 import seedu.spendnsplit.testutil.PortionBuilder;
+import seedu.spendnsplit.testutil.PortionDescriptorBuilder;
 import seedu.spendnsplit.testutil.TransactionBuilder;
-import seedu.spendnsplit.testutil.UpdatePortionDescriptorBuilder;
+import seedu.spendnsplit.testutil.TransactionDescriptorBuilder;
 
 public class SpendNSplitParserTest {
 
@@ -82,10 +82,10 @@ public class SpendNSplitParserTest {
     @Test
     public void parseCommand_editPerson() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        PersonDescriptor descriptor = new PersonDescriptorBuilder(person).build();
         EditPersonCommand command = (EditPersonCommand) parser.parseCommand(EditPersonCommand.COMMAND_WORD + " "
             + INDEX_FIRST_ELEMENT.getOneBased() + " "
-            + PersonUtil.getEditPersonDescriptorDetails(descriptor), new CommandAliasMap());
+            + PersonUtil.getPersonDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new EditPersonCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
@@ -144,11 +144,11 @@ public class SpendNSplitParserTest {
     @Test
     public void parseCommand_editTransaction() throws Exception {
         Transaction transaction = new TransactionBuilder().build();
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction)
+        TransactionDescriptor descriptor = new TransactionDescriptorBuilder(transaction)
             .withoutTimestamp().build();
         EditTransactionCommand command = (EditTransactionCommand) parser.parseCommand(
             EditTransactionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
-                + getEditTransactionDescriptorDetails(descriptor), new CommandAliasMap());
+                + getTransactionDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new EditTransactionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
@@ -171,10 +171,10 @@ public class SpendNSplitParserTest {
     @Test
     public void parseCommand_updatePortion() throws Exception {
         Portion portion = new PortionBuilder().build();
-        UpdatePortionDescriptor descriptor = new UpdatePortionDescriptorBuilder(portion).build();
+        PortionDescriptor descriptor = new PortionDescriptorBuilder(portion).build();
         UpdatePortionCommand command = (UpdatePortionCommand) parser.parseCommand(
             UpdatePortionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + " "
-                + getUpdatePortionDescriptorDetails(descriptor), new CommandAliasMap());
+                + getPortionDescriptorDetails(descriptor), new CommandAliasMap());
         assertEquals(new UpdatePortionCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 

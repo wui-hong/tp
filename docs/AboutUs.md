@@ -5,8 +5,6 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
-
 ## Project team
 
 ### Jed
@@ -14,8 +12,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/jedkohjk.png" width="200px">
 
 [[github](https://github.com/jedkohjk)]
+[[portfolio](team/jedkohjk.md)]
 
-* Role: Developer
+* Role: Frontend Engineer | Testing Engineer
+* Responsibilities: Software Development | UI & UX | Unit & Integration Testing
 
 ### Nguyen Cao Duy
 
@@ -24,26 +24,28 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/ncduy0303)]
 [[portfolio](team/ncduy0303.md)]
 
-* Role: Developer
-* Responsibilities: Full Stack
+* Role: Site Reliability Engineer | DevOps Engineer
+* Responsibilities: Software Development | Build & Deployment | CI / CD 
 
 ### Nathaniel Calimag
 
 <img src="images/nathanielcalimag.png" width="200px">
 
-[[github](http://github.com/nathanielcalimag)] [[portfolio](team/nathanielcalimag.md)]
+[[github](http://github.com/nathanielcalimag)]
+[[portfolio](team/nathanielcalimag.md)]
 
-* Role: Software Engineer
-* Responsibilities: Full Stack
+* Role: Backend Engineer | Quality Assurance
+* Responsibilities: Software Development | Schema Design | Code Quality
 
 ### Khoo Wui Hong
 
 <img src="images/wui-hong.png" width="200px">
 
 [[github](http://github.com/wui-hong)]
+[[portfolio](team/wui-hong.md)]
 
-* Role: Developer
-* Responsibilities:
+* Role: Business Analyst | Integration Engineer
+* Responsibilities: Development | Requirements & Documentation | Systems Integration
 
 ### Jeffrey Jian
 
@@ -52,5 +54,5 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/jeffrey-jian)]
 [[portfolio](team/jeffrey-jian.md)]
 
-* Role: Developer
-* Responsibilities: Full Stack
+* Role: Software Architect | Optimisation
+* Responsibilities: Development | Software Design | Automation

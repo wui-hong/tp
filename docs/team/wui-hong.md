@@ -9,28 +9,29 @@ Spend n Split (SnS) is a **desktop app for managing expense from contacts, optim
 
 Given below are my contributions to the project.
 
-* **New Feature**: To be added soon
-* **New Feature**: To be added soon
+* **New Feature**: Added the ability to add a transaction
+  * This allows the user to add a transaction in the application.
+  * Pull requests: Add addTransaction command PR#82
+* **New Feature**: Added the telegramHandle attribute for the Person class.
+  * This allows the user to provide a telegram handle for each person in the application.
+  * Pull requests: Add telegramHandle to Person class PR#156
+* **Refactoring**: Change all occurrences of address book to spendNSplit book.
+  * This provided the foundation for future extensions, and helped to improve code quality.
+  * Pull requests: Refactoring from addressBook to spendNSplitBook PR#223
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=wui-hong&)
 
 * **Project management**:
-    * To be added soon
-
-* **Enhancements to existing features**:
-    * To be added soon
+    * Helped add labels to some issues and pull requests.
+    * Reviewed and approved PRs with non-trivial comments.
 
 * **Documentation**:
     * User Guide:
-        * To be added soon
+        * Contributed to the adding of labels
+        * Added glossary
+        * Refactoring and cleaning up the User Guide
+        * Pull requests: PR#326, PR#325
     * Developer Guide:
-        * To be added soon
+        * Added glossary: PR#331
 
-* **Community**:
-    * PRs reviewed (with non-trivial review comments): To be added soon
-    * Contributed to forum discussions (examples: To be added soon
-    * Reported bugs and suggestions for other teams in the class (examples: To be added soon)
-    * Some parts of the history feature I added was adopted by several other class mates (To be added soon)
 
-* **Tools**:
-    * To be added soon

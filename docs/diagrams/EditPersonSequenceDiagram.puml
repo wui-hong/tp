@@ -1,0 +1,114 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+skinparam sequenceReferenceBackgroundColor yellow
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendNSplitParser" as SpendNSplitParser LOGIC_COLOR
+participant ":EditPersonCommandParser" as EditPersonCommandParser LOGIC_COLOR
+participant ":PersonDescriptor" as PersonDescriptor LOGIC_COLOR
+participant "ep:EditPersonCommand" as EditPersonCommand LOGIC_COLOR
+participant ":Person" as Person LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editPerson 1 ...")
+activate LogicManager
+
+LogicManager -> Model : getCommandMap()
+activate Model
+Model --> LogicManager : cm
+deactivate Model
+
+LogicManager -> SpendNSplitParser : parseCommand("editPerson 1 ...", cm)
+activate SpendNSplitParser
+
+create EditPersonCommandParser
+SpendNSplitParser -> EditPersonCommandParser
+activate EditPersonCommandParser
+
+EditPersonCommandParser --> SpendNSplitParser
+deactivate EditPersonCommandParser
+
+SpendNSplitParser -> EditPersonCommandParser : parse("1 ...")
+activate EditPersonCommandParser
+
+create PersonDescriptor
+EditPersonCommandParser -> PersonDescriptor
+activate PersonDescriptor
+
+PersonDescriptor --> EditPersonCommandParser
+deactivate PersonDescriptor
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+'PersonDescriptor -[hidden]-> EditPersonCommandParser
+'destroy PersonDescriptor
+
+create EditPersonCommand
+EditPersonCommandParser -> EditPersonCommand
+activate EditPersonCommand
+
+EditPersonCommand --> EditPersonCommandParser : ep
+deactivate EditPersonCommand
+
+EditPersonCommandParser --> SpendNSplitParser : ep
+deactivate EditPersonCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+'EditPersonCommandParser -[hidden]-> SpendNSplitParser
+'destroy EditPersonCommandParser
+
+SpendNSplitParser --> LogicManager : ep
+deactivate SpendNSplitParser
+
+LogicManager -> EditPersonCommand : execute()
+activate EditPersonCommand
+
+EditPersonCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> EditPersonCommand
+deactivate Model
+
+EditPersonCommand -> EditPersonCommand : createEditedPerson(personToEdit, personDescriptor)
+activate EditPersonCommand
+
+create Person
+EditPersonCommand -> Person
+activate Person
+
+Person --> EditPersonCommand
+deactivate Person
+
+EditPersonCommand --> EditPersonCommand
+deactivate EditPersonCommand
+
+EditPersonCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+
+ref over Model : update person
+Model --> EditPersonCommand
+deactivate Model
+
+EditPersonCommand -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
+'activate Model
+
+'Model --> EditPersonCommand
+'deactivate Model
+
+create CommandResult
+EditPersonCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditPersonCommand
+deactivate CommandResult
+
+EditPersonCommand --> LogicManager : result
+deactivate EditPersonCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

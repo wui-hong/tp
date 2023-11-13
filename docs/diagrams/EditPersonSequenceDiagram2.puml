@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":SpendNSplit" as SpendNSplit MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":UniqueTransactionList" as UniqueTransactionList MODEL_COLOR
+participant ":Transaction" as Transaction MODEL_COLOR
+end box
+
+mainframe sd update person
+
+Model -> SpendNSplit : setPerson(personToEdit, editedPerson)
+activate SpendNSplit
+
+SpendNSplit -> UniquePersonList : setPerson(personToEdit, editedPerson)
+
+SpendNSplit -> UniqueTransactionList : setPerson(personToEditName, editedPersonName)
+activate UniqueTransactionList
+
+loop for each transaction
+    UniqueTransactionList -> Transaction : setPerson(personToEditName, editedPersonName)
+    activate Transaction
+
+    Transaction --> UniqueTransactionList : updatedTransaction
+    deactivate Transaction
+
+    UniqueTransactionList -> UniqueTransactionList : set transaction to updatedTransaction
+end
+
+UniqueTransactionList --> SpendNSplit
+deactivate UniqueTransactionList
+
+SpendNSplit -> SpendNSplit : syncNames()
+
+SpendNSplit -> SpendNSplit : sortPersons()
+
+SpendNSplit --> Model
+deactivate SpendNSplit
+@enduml

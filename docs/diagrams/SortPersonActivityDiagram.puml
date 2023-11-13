@@ -1,0 +1,11 @@
+@startuml
+!pragma useVerticalIf on
+start
+:User enters sortPerson command;
+if () then ([A valid order is provided])
+  :Sort the displayed list of persons by the given order;
+else ([else])
+  :Throw exception;
+endif
+stop
+@enduml

@@ -7,13 +7,15 @@ skinparam classBackgroundColor UI_COLOR
 package UI <<Rectangle>>{
 Class "<<interface>>\nUi" as Ui
 Class "{abstract}\nUiPart" as UiPart
+Class "{abstract}\nUiPartFocusable" as UiPartFocusable
 Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
 Class PersonListPanel
 Class PersonCard
-Class StatusBarFooter
+Class TransactionListPanel
+Class TransactionCard
 Class CommandBox
 }
 
@@ -33,28 +35,34 @@ UiManager -down-> "1" MainWindow
 MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PersonListPanel
-MainWindow *-down-> "1" StatusBarFooter
+MainWindow *-down-> "1" TransactionListPanel
 MainWindow --> "0..1" HelpWindow
+MainWindow --> "0..1" UiPartFocusable
 
 PersonListPanel -down-> "*" PersonCard
+TransactionListPanel -down-> "*" TransactionCard
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
+ResultDisplay --|> UiPartFocusable
+CommandBox --|> UiPartFocusable
+PersonListPanel --|> UiPartFocusable
 PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
+TransactionListPanel --|> UiPartFocusable
+TransactionCard --|> UiPart
+HelpWindow --|> UiPartFocusable
+
+UiPartFocusable --|> UiPart
 
 PersonCard ..> Model
+TransactionCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
 PersonListPanel -[hidden]left- HelpWindow
+TransactionListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
 @enduml
