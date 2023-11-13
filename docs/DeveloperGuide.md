@@ -1247,3 +1247,44 @@ The time you entered does not exist. Please use a valid time in HH:MM format bet
 00:00 to 23:59.
 Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
 ```
+
+### Better UI Representation for Long Fields
+
+- **Background**: Currently, we have `String` and `BigFraction` fields on our
+`Person`, `Transaction` and `Portion`. Some `String` fields do not necessarily
+maximum length limit. Similarly, the size of `BigFraction` is only limited
+by the system memory constraints and Java Virtual Machine.
+
+- **Issue**: For `String`, any long input in `Name`, `Description`, etc. will
+be truncated by our UI. Similarly, for `BigFraction` like `Amount` or `Weight`,
+large numbers can also be truncated by our UI. While this issue is primarily
+cosmetic, it can result in important information being cut off. For example,
+some `Transaction` may require long `Description`.
+
+- **Enhancement**: We plan on updating our UI to better handle cases of truncation with
+long fields. Specifically, we want to impose a 3-line limit where long inputs will
+be wrapped for up to 3 lines in our UI lists before being truncated. While this 3
+line limit should handle most ordinary cases, some long input may still need more
+than 3 lines. In such cases, we plan on implementing a `displayPerson INDEX` and
+`displayTransaction INDEX` to fully display the details in the command output,
+where long details will be wrapped with no line limit.
+
+
+Example: Person with long name and address (output shown in command output box)
+```
+$ displayPerson 1
+
+Name: Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in
+culpa qui officia deserunt mollit anim id est laborumz;
+
+Address: Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in
+culpa qui officia deserunt mollit anim id est laborumz;
+```
