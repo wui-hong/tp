@@ -28,27 +28,29 @@ Given below are my contributions to the project.
 #### Added New Command `editTransaction`
 * **What it does**: Allows the user to edit an existing transaction in the transaction list.
 * **Justification**: This feature allows the user to edit the transactions they have made, in case they made a mistake or would like to update the transaction.
-* **Highlights**: This enhancement affects transaction-related commands. It required an in-depth analysis of design alternatives, whereby we considered what should we allow the user to edit, and how should we allow the user to edit.
+* **Highlights**: This enhancement affects transaction-related commands. It required an in-depth analysis of design alternatives, whereby we considered what fields should we allow the user to edit, and how should we allow the user to edit.
+Complications included the need to make sure edited transactions stay "relevant". We also necessitated the need for `Transaction` objects to remain unique, and thus we had to design a way to ensure that the user can edit the transaction in a way that is intuitive and easy to use.
 
 #### Added New Command `updatePortion`
 * **What it does**: Allows the user to update the portions of a transaction.
 * **Justification**: This feature allows the user to update the portions of a transaction, in case they made a mistake or would like to update the portions of a transaction.
-* **Highlights**: This enhancement affects transaction-related commands. It required an in-depth judgement about the splitting of the commands for editing transactions, and how to allow the user to update the portions of a transaction. It also required the designing of a 3-in-1 command, which is a command that can be used to add, edit, and delete portions.
-
+* **Highlights**: This enhancement affects transaction-related commands. It required an in-depth judgement about the splitting of the commands for editing transactions, and how to allow the user to update the portions of a transaction. 
+It also required the designing of a 3-in-1 command, which is a command that can be used to add, edit, and delete portions. Similar to `editTransaction`, we had to ensure transactions of updated portions remained "relevant".
 #### Added Navigation Hotkeys
 * **What it does**: Allows the user to use pre-defined hotkeys to navigate through the app.
 * **Justification**: This feature allows the user to navigate through the app faster using the keyboard only, and is especially useful for users who are familiar with the app.
-* **Highlights**: This enhancement requires the use of JavaFX and keyCombination to implement the hotkeys. It also required an in-depth analysis of design alternatives, whereby we considered the need for hotkeys, and what hotkeys should we implement.
+* **Highlights**: This enhancement requires the use of JavaFX and keyCombination to implement the hotkeys. It also required an in-depth analysis of design alternatives, whereby we considered the need for hotkeys, and what hotkeys should we implement. Added a new interface `UiPartFocusable` that extends `UiPart`, 
+which supports the `focus()` method and allows the user to focus on a specific UiPart.
 
 
 ### Documentation 
 
-* User Guide:
+#### User Guide
 * Worked on the "Navigating the App" section.
 * Added documentation for the features `editTransaction` and `updatePortion`.
 * Did cosmetic tweaks to include tips and notes for features regarding "relevant" transactions.
 
-* Developer Guide:
+#### Developer Guide
 * Added command implementation details for:
   1. `setShorthand`
   2. `clear`
