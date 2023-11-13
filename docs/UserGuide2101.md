@@ -503,6 +503,8 @@ $ listTransaction Dinner n=Bernice Yu
 
 ![listTransactionFiltered_success](images/user-guide/listTransactionFilteredSuccess.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Settling transactions: `settlePerson`
 
 Settles the outstanding balance with a person at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list.
