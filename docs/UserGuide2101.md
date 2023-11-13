@@ -129,7 +129,7 @@ After a transaction, each payer in the list of portions owes the payee a fractio
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar spendnsplit.jar`
    command to run the application.<br>
-   A GUI similar to the one shown below should appear in a few seconds. Note how the application contains some sample data.<br>
+   An interface similar to the one shown below should appear in a few seconds. Note how the application contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the Command Input Field and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
