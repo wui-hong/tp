@@ -61,6 +61,8 @@ In our user guide, you may find coloured boxes that contain highlighted pieces o
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Key Terms
 
 The Spend N Split application links transactions and people. As such, it is important that you familiarise yourself
@@ -89,6 +91,8 @@ adding people with the same names. This means that you cannot add two or more pe
 negative, you owe that person money instead.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### Transaction
 
 Transactions are events in which money is exchanged.
@@ -108,6 +112,8 @@ A transaction has the following attributes:
 After a transaction, each payer in the list of portions owes the payee a fraction of the amount, based on their weights in the list of portions.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Quick Start
 
@@ -189,6 +195,8 @@ Spend N Split checks the validity of Telegram handles and email addresses accord
 reject all Telegram handles and email addresses that do not follow the format.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Features
 
@@ -584,6 +592,8 @@ For our result display, persons list and transaction list, once selected, you ca
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Data
 
 ### Saving the data
@@ -600,6 +610,8 @@ Data is saved automatically as a JSON file `[JAR file location]/data/spendnsplit
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -675,6 +687,8 @@ valid command word.
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Acknowledgements
 
 We would like to acknowledge the following third-party libraries, frameworks and sources for their use in Spend N Split:
@@ -710,6 +724,8 @@ We would like to acknowledge the following third-party libraries, frameworks and
 * **[Jekyll](https://github.com/jekyll/jekyll)**: The static site generator that converts Spend N Split markdown documentation into web pages.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Glossary
 #### Address
