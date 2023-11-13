@@ -1247,3 +1247,27 @@ The time you entered does not exist. Please use a valid time in HH:MM format bet
 00:00 to 23:59.
 Example: addTransaction d=Bread n=John c=10 ts=25/06/2020 09:05 n=Self w=1
 ```
+
+### Allow the deletion of optional `Person` fields
+
+- **Background**: Currently, the only mandatory field in `Person` is `Name`.
+This means that user can choose to exclude fields like `Phone`, `Email`, etc.
+While the `editPerson` command allows users to update fields, or add in optional fields
+that were previously not included for the person. However, there is no means to
+remove an optional field from the person.
+
+- **Issue**: In order for the user to remove an optional field for the person, the
+currently only way to is to delete the person, then add him again without the optional
+field. Subsequently, this affects the transaction history which the user would need
+to update as well. This is a cumbersome process.
+
+- **Enhancement**: We plan on allowing the `editPerson` to take in an empty parameter
+to represent that the user wants to remove an optional field.
+
+Example: Removing the Telegram Handle via `tg` parameter
+
+```
+$ editPerson 1 tg=
+
+Edited Person: Alex Yeoh;
+```
