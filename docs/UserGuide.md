@@ -169,22 +169,27 @@ Some of our commands require parameters, which have specific formats and constra
 </div>
 The following parameters are used for commands:
 
-| Parameter        | Prefix | Format                                                                                                                                                                                                         | Example |
-|------------------| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
-| Index            | - | Positive integers only                                                                                                                                                                                         | `1`, `2`, `3` |
-| Keyword          | - |                                                                                                                                                                                                                | `Bob`, `Lunch` |
-| Name             | n | Alphanumeric, can contain multiple words                                                                                                                                                                       | `Bob`, `Alex Yeoh` |
-| Phone number     | p | Numeric, minimum length of 3 digits                                                                                                                                                                            | `99999999`, `88888888` |
-| Telegram handle  | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores                                                                                                                               | `@nus_cs2103` , `@spend_n_split` |
-| Email address    | e | Valid email format only                                                                                                                                                                                        | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
-| Address          | a |                                                                                                                                                                                                                | `Kent Ridge Hall`, `RC4` |
-| Tag              | t | Single-word, alphanumeric                                                                                                                                                                                      | `friend`, `colleague` |
-| Description      | d |                                                                                                                                                                                                                | `Lunch`, `Dinner @ UTown` |
-| Amount/ Cost     | c | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Timestamp        | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:MM. You have the option to include only the date or time, or both. When providing both, ensure that the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
-| Weight           | w | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
-| Original command | o | An original command keyword listed in this user guide                                                                                                                                                          | `setShorthand`, `addTransaction` |
-| Shorthand        | s | Single-word, English alphabet characters only                                                                                                                                                                  | `s`, `aT` |
+| Parameter            | Prefix | Format                                                                                                                                                                                                         | Example |
+|----------------------| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| Index                | - | Positive integers only                                                                                                                                                                                         | `1`, `2`, `3` |
+| Keyword              | - |                                                                                                                                                                                                                | `Bob`, `Lunch` |
+| Name                 | n | Alphanumeric, can contain multiple words                                                                                                                                                                       | `Bob`, `Alex Yeoh` |
+| Phone number         | p | Numeric, minimum length of 3 digits                                                                                                                                                                            | `99999999`, `88888888` |
+| Telegram handle&ast; | tg | Starts with @, followed by a minimum of 5 alphanumeric characters or underscores                                                                                                                               | `@nus_cs2103` , `@spend_n_split` |
+| Email address&ast;   | e | Valid email format only                                                                                                                                                                                        | `damithch@comp.nus.edu.sg`, `dcsdcr@nus.edu.sg` |
+| Address              | a |                                                                                                                                                                                                                | `Kent Ridge Hall`, `RC4` |
+| Tag                  | t | Single-word, alphanumeric                                                                                                                                                                                      | `friend`, `colleague` |
+| Description          | d |                                                                                                                                                                                                                | `Lunch`, `Dinner @ UTown` |
+| Amount/ Cost         | c | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Timestamp            | ts | Dates should be formatted as DD/MM/YYYY, and time as HH:MM. You have the option to include only the date or time, or both. When providing both, ensure that the date precedes the time, with a space in between | `12:12`, `31/12/2020`, `28/02/2021 00:00` |
+| Weight               | w | Positive rational numbers either in decimal or fraction format. Spaces are allowed                                                                                                                             | `12`, `.5`, `0.5/3`, `1.25 / 1.56`, `12 000 000` |
+| Original command     | o | An original command keyword listed in this user guide                                                                                                                                                          | `setShorthand`, `addTransaction` |
+| Shorthand            | s | Single-word, English alphabet characters only                                                                                                                                                                  | `s`, `aT` |
+
+&ast; SnS checks the validity of Telegram handles and email addresses using general formats.
+SnS is able to reject any Telegram handles or email addresses it detects as invalid.
+However, it is not able to detect *all* invalid Telegram handles or email addresses as
+format does not strictly enforce that a Telegram handle or email address is valid.
 
 ## Features
 
@@ -202,7 +207,8 @@ The following parameters are used for commands:
   E.g. For `[t=TAG]…​`: <br> Example usage: ` ` (0 tags), or `t=friend` (1 tag) or `t=friend t=family` (2 tags).
 
 - If it is mentioned that the order of the parameters is flexible, it means that parameters can be in any order.<br>
-  E.g. For `n=NAME p=PHONE_NUMBER` <br> Example usage: `n=Bob p=91722828` or `p=91722828 n=Bob` are both accepted and will be treated as equivalent inputs by the application.
+  E.g. For `n=NAME p=PHONE` <br> Example usage: `n=Bob p=91722828` or `p=91722828 n=Bob` are both accepted and will be treated as equivalent inputs by the application.
+
 - Unnecessary parameters provided for commands (such as `help`, `clear`, `exit`) that do not accept them will be disregarded. <br> E.g. for the command `help` which does not accept any parameters, entering the command `help 123` will be interpreted by the application as `help`.
 
 - If you are using a PDF version of this document, be careful when copying and pasting commands. Space characters such as " " may result in errors. It is recommended that commands are manually copied and typed into the application.
@@ -215,19 +221,23 @@ The following parameters are used for commands:
 
 Adds a person to the application.
 
-Format: `addPerson n=NAME [p=PHONE_NUMBER] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
+Format: `addPerson n=NAME [p=PHONE] [tg=TELEGRAM_HANDLE] [e=EMAIL] [a=ADDRESS] [t=TAG]…​`
 
 The command word (addPerson) has to be at the front of the command. The order of the remaining parameters is flexible.
 
 After the command has been executed, every person in the application will be displayed in the Person List.
+
 Examples:
 
-* `addPerson  n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
-* `addPerson  n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
+* `addPerson n=John Doe p=98765432 e=johnd@example.com a=John street, block 123, #01-01`
+* `addPerson n=Betsy Crowe t=friend e=betsycrowe@example.com a=London Block 55 p=1234567 t=London`
 
 Note: Only the name is compulsory when adding a person. After a person has been added to the application, more attributes to that person can be added using the `editPerson` command.
 
 Once an attribute has been added to a person, it can only be edited and cannot be deleted, except for the tags of a person (as elaborated below under [Editing a person](#editing-a-person--editperson)).
+
+![addPerson_success](images/user-guide/addPersonSuccess.png)
+
 #### Editing a person : `editPerson`
 
 Edits an existing person in the application.
@@ -254,7 +264,7 @@ Examples:
 * `editPerson 2 n=Betsy Crower t=`
     * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-  ![editPerson_success](images/user-guide/editPerson.PNG)
+![editPerson_success](images/user-guide/editPersonSuccess.png)
 
 #### Deleting a person : `deletePerson`
 
@@ -271,10 +281,10 @@ Format: `deletePerson INDEX`
 
 Examples:
 
-* `list` followed by `deletePerson 2` deletes the 2nd person in the application.
-* `find Betsy` followed by `deletePerson 1` deletes the 1st person in the results of the `find Betsy` command.
+* `listPerson` followed by `deletePerson 6` deletes the 6th person in the application
+* `listPerson alex` followed by `deletePerson 1` deletes the 1st person in the results of the `listPerson alex` command
 
-![deletePerson_success](images/user-guide/deletePerson.PNG)
+![deletePerson_success](images/user-guide/deletePersonSuccess.png)
 
 #### Locating persons by name: `listPerson`
 
@@ -290,10 +300,10 @@ Format: `listPerson [KEYWORD]...`
 
 Examples:
 
-* `listPerson John` returns `john` and `John Doe`
-* `listPerson alex david` returns `Alex Yeoh`, `David Li`
-![listPerson success](images/user-guide/listPerson.png)
+* `listPerson` shows every person in the application
+* `listPerson alex david` shows `Alex Yeoh` and `David Li`
 
+![listPersonFiltered_success](images/user-guide/listPersonFilteredSuccess.png)
 
 #### Sorting people by balance: `sortPerson`
 
@@ -312,9 +322,8 @@ Examples:
 * `sortPerson +`
     * This command will rearrange the Person List in descending order.
 
-
-![sortPersonDescending success](images/user-guide/sortPersonDescending.png)
-![sortPersonAscending success](images/user-guide/sortPersonAscending.png)
+![sortPersonDescending_success](images/user-guide/sortPersonDescendingSuccess.png)
+![sortPersonAscending_success](images/user-guide/sortPersonAscendingSuccess.png)
 
 ### Transaction-related features
 
@@ -326,12 +335,12 @@ Format: `addTransaction d=DETAILS n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...`
 - Cost and weights have to be decimal numbers or fractions, and they must be positive.
 - The first name refers to the payee (that is the person whom everyone else now owes money).
 - If the timestamp is not provided, the default time is the current system time.
-- If only the date is given, the default time is set as 00:00.
+- If only the date is given, the default time is set as `00:00`.
 - If you want to reference yourself, use `n=Self`.
 - At least one pair of name and weight must be provided.
 - Payer names should not repeat.  E.g. `n=Bob w=1.0 n=Bob w=2.0` will be invalid. However, you are allowed to key in multiple portions for "Others" - the final weight for "Others" will be the sum of all the weights of the "Others" portions keyed in.
 - The cost for each person is calculated as follows:
-    - Individual cost = Total Cost * (Individual Weight / Total Weight)
+    - `Individual Cost = Total Cost * (Individual Weight / Total Weight)`
 
 After the command has been executed, every transaction in the application will be displayed in the transaction list.
 
@@ -347,33 +356,31 @@ After the command has been executed, every transaction in the application will b
 </div>
 
 Examples:
-* `addTransaction d=Rent n=John c=600 ts=2020-10-10T12:00 n=Self w=1 n=John w=1 n=Mary w=1`
-    * A transaction for rent that cost $600 is added. John paid for this transaction at 12 o'clock on 10 October 2020. You (`Self`) and Mary both owe John $200 (1/3 of $600) each.
-* `addTransaction d=Dinner n=Self c=100 n=John w=2 n=Mary w=2 n=Alice w=1`
-    * A transaction for Dinner that cost $100 is added. You (`Self`) paid for this transaction. John and Mary both owe you (`Self`) $40 (2/5 of $100) each, while Alice owes you (`Self`) $20 (1/5 of $100).
+* `addTransaction d=Rent n=David Li c=600 ts=10/10/2020 12:00 n=Self w=1 n=David Li w=1 n=Alex Yeoh w=1`
+    * A transaction for rent that cost $600 is added. David Li paid for this transaction at 12pm on 10 October 2020. You (`Self`) and Alex Yeoh both owe David Li $200 (1/3 of $600) each.
+* `addTransaction d=Dinner n=Self c=100 n=David Li w=2 n=Bernice Yu w=2 n=Alex Yeoh w=1`
+    * A transaction for dinner that cost $100 is added. You (`Self`) paid for this transaction. David Li and Bernice Yu both owe you (`Self`) $40 (2/5 of $100) each, while Alex Yeoh owes you (`Self`) $20 (1/5 of $100).
 
 Sample execution:
-```
-$ addTransaction d=Dinner n=self c=100
-  n=John w=2 n=Mary w=2 n=Alice w=1
-
-```
-![addTransaction success](images/user-guide/addTransaction1.png)
-
 
 ```
 $ addTransaction c=200 d=Textbooks
 
-
-Invalid command format!
-addTransaction: Adds a transaction to the spendnsplit book.
-Parameters: d=DESCRIPTION n=NAME c=COST
-[n=NAME w=WEIGHT] Example: addTransaction 
-d=bread n=John Doe c=25.00 n=Self w=1.5 
-n=John Doe w=1
+Invalid command format! 
+addTransaction: Adds a transaction.
+Parameters: d=DESCRIPTION n=NAME c=COST [ts=TIME] [n=NAME w=WEIGHT]...
+Example: addTransaction d=bread n=John Doe c=25.00 ts=10/10/2020 12:00
+ n=Self w=1.5 n=John Doe w=1
 ```
 
-#### Editing a Transaction: `editTransaction`
+```
+$ addTransaction d=Rent n=David Li c=600 ts=10/10/2020 12:00 
+  n=Self w=1 n=David Li w=1 n=Alex Yeoh w=1
+```
+
+![addTransaction_success](images/user-guide/addTransactionSuccess.png)
+
+#### Editing a transaction: `editTransaction`
 
 Edits the transaction at the specified `INDEX`.
 
@@ -406,26 +413,24 @@ After the command has been executed, every transaction in the application will b
 
 Examples:
 
-* `editTransaction 1 c=12.12`
-  * Edits the transaction at index 1 to have a new cost of $12.12.
-* `editTransaction 2 d=Potato n=Bob`
-  * Edits the transaction at index 2 to have a new description of "Potato" and with Bob as the new payee.
+* `editTransaction 1 c=100 ts=14/10/2023 17:00`
+  * Edits the 1st transaction in the displayed list to have a cost of $100 and a timestamp of 14 October 2023, 5pm.
 
 Sample Execution:
 
 ```
-editTransaction 1 n=Bob c=12.12
+editTransaction 1 c=100 ts=14/10/2023 17:00
 ```
 
-![editTransaction success](images/user-guide/editTransactionSuccess.png)
+![editTransaction_success](images/user-guide/editTransactionSuccess.png)
 
-#### Updating a Portion of a Transaction: `updatePortion`
+#### Updating the portion of a transaction: `updatePortion`
 
 Updates the portion of a transaction at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list. The index **must be a positive integer** 1, 2, 3, ...
 
 Portion refers to the amount of money that a payer owes the payee for a transaction. \
 The portion is calculated based on the cost of the transaction and the proportion of the transaction that the person has
-to pay for, which is determined by the `WEIGHT` of the person. Hence the `WEIGHT` must be between 0 (inclusive) and 1 (exclusive).
+to pay for, which is determined by the `WEIGHT` of the person. Hence, the `WEIGHT` must be between 0 (inclusive) and 1 (exclusive).
 
 After the command has been executed, every transaction in the application will be displayed in the transaction list.
 
@@ -435,16 +440,14 @@ Format: `updatePortion INDEX n=NAME w=WEIGHT`
 The command word (updatePortion) and the index has to be at the front of the command. The order of the remaining parameters is flexible.
 Examples:
 
-* To add a new person (e.g. Alice) to the transaction:
-    * `updatePortion 1 n=Alice w=0.5`
+* To add a new person (e.g. David Li) to the transaction:
+    * `updatePortion 3 n=David Li w=0.5`
 
+* To edit the weight of an existing person (e.g. Bernice Yu) in the transaction:
+    * `updatePortion 3 n=Bernice Yu w=0.5`
 
-* To edit the weight of an existing person (e.g. Bob) in the transaction:
-    * `updatePortion 1 n=Bob w=0.5`
-
-
-* To remove an existing person (e.g. Bob) from the transaction, set the weight to 0:
-    * `updatePortion 1 n=Bob w=0`
+* To remove an existing person (e.g. Bernice Yu) from the transaction, set the weight to 0:
+    * `updatePortion 3 n=Bernice Yu w=0`
 
 
 The calculation of subtotals for people involved in the affected transaction (excluding the person specified in the command) follows these steps:
@@ -456,10 +459,14 @@ The calculation of subtotals for people involved in the affected transaction (ex
 Sample Execution:
 
 ```
-updatePortion 1 n=Alice w=0.5
+updatePortion 3 n=David Li w=0.5
+
+Updated Portion: Group Project Lunch; Timestamp: 13/10/2023 12:00; 
+Amount: 60.00; Paid by: Self; 
+Portions: [name: Bernice Yu, weight: 0.33][name: David Li, weight: 0.50][name: Alex Yeoh, weight: 0.17]
 ```
 
-![](images/user-guide/updatePortionSuccess.png)
+![updatePortion_success](images/user-guide/updatePortionSuccess.png)
 
 #### Deleting a transaction: `deleteTransaction`
 
@@ -472,19 +479,19 @@ Format: `deleteTransaction INDEX`
 Examples:
 
 * `deleteTransaction 1`
-    * Deletes the first transaction in the list.
+    * Deletes the 1st transaction in the displayed list.
 
 Sample Execution:
 
 ```
-$ deleteTransaction 4
+$ deleteTransaction 1
 
-Deleted Transaction: bread; Timestamp: 12/11/2023 11:24; 
-Amount: 20.00; Paid by: Alex; 
-Portions: [name: Self, weight: 1.00]
+Deleted Transaction: Hall Dinner; Timestamp: 13/10/2023 16:00; 
+Amount: 90.00; Paid by: Bernice Yu; 
+Portions: [name: Bernice Yu, weight: 0.33][name: Self, weight: 0.67]
 ```
 
-![](images/user-guide/deleteTransaction.png)
+![deleteTransaction_success](images/user-guide/deleteTransactionSuccess.png)
 
 #### Duplicating a Transaction: `duplicateTransaction`
 
@@ -504,14 +511,12 @@ The command word (duplicateTransaction) and the index has to be at the front of 
 
 Examples:
 
-* `duplicateTransaction 1 c=12.12`
-  * Creates a new transaction that is identical to the current transaction at index one in the Transaction panel,
-  except for the timestamp of the new transaction being the time at which this command was executed
-  and the cost being 12.12 instead.
-* `duplicateTransaction 2 d=Potato n=Bob`
-  * Creates a new transaction that is identical to the current transaction at index two in the Transaction panel,
-    except for the timestamp of the new transaction being the time at which this command was executed, the
-    description of the new transaction being "Potato" and the payee of the new transaction being Bob.
+* `duplicateTransaction 1`
+  * Creates a new transaction that is identical to the 1st transaction in the displayed list, except for the timestamp of the new transaction being the time at which this command was executed.
+* `duplicateTransaction 2 c=20.5 d=Shared Lunch`
+  * Creates a new transaction that is identical to the 2nd transaction in the displayed list, except for the timestamp of the new transaction being the time at which this command was executed, the cost of the new transaction being $20.50, and the description of the new transaction being "Shared Lunch".
+
+![duplicateTransaction_success](images/user-guide/duplicateTransactionSuccess.png)
 
 #### Listing transactions: `listTransaction`
 
@@ -530,26 +535,26 @@ Examples:
 
 * `listTransaction`
     * Shows all transactions.
-* `listTransaction n=Alice Pauline n=Carl Kurz`
-    * Shows all transactions that include Alice Pauline or Carl Kurz.
+* `listTransaction Lunch n=Alice Pauline n=Carl Kurz`
+    * Shows all transactions that include Alice Pauline or Carl Kurz as a payee or payer, and whose descriptions include the keyword "Lunch".
 
 Sample Execution:
 
 ```
 $ listTransaction
 
-5 transactions listed!
+4 transaction(s) listed!
 ```
 
-![listTransaction1 success](images/user-guide/listTransaction1.png)
+![listTransactionAll_success](images/user-guide/listTransactionAllSuccess.png)
 
 ```
-$ listTransaction n=Alice Pauline n=Carl Kurz
+$ listTransaction Dinner n=Bernice Yu
 
-2 transactions listed!
+1 transaction(s) listed!
 ```
 
-![listTransaction2 success](images/user-guide/listTransaction2.png)
+![listTransactionFiltered_success](images/user-guide/listTransactionFilteredSuccess.png)
 
 ### Settling transactions: `settlePerson`
 
@@ -572,19 +577,20 @@ Sample Execution:
 ```
 $ settlePerson
 
-Invalid command format!
-settlePerson: Settle any outstanding balance with another person. 
-Parameters: INDEX (must be a positive integer)
-Example: settlePerson 1
+Invalid command format! 
+settlePerson: Settle any outstanding balance with another person.
+If a timestamp is provided, the balance at the instant before the timestamp is used. Else, the balance at the instant before the current system time is used.
+Parameters: INDEX (must be a positive integer) [ts=TIME]
+Example: settlePerson 2 ts=13/10/2020 12:00
+```
 
-$ settlePerson 1
+```
+$ settlePerson 2 ts=13/10/2020 12:00
 
 Balance settled: Alex Yeoh
 ```
 
-![settle error](images/user-guide/settle1.jpeg)
-
-![settle success](images/user-guide/settle2.jpeg)
+![settlePerson_success](images/user-guide/settlePersonSuccess.png)
 
 ### Other features
 
@@ -597,11 +603,20 @@ Format: `setShorthand o=[ORIGINAL_COMMAND] s=[SHORTHAND]`
 The command word (setShorthand) has to be at the front of the command. The order of the remaining parameters is flexible.
 Commands and shorthands are case-sensitive.
 
+Example:
+
+* `setShorthand o=addTransaction s=at`
+    * Sets the shorthand `at` for the command `addTransaction`.
+
+![setShorthand_success](images/user-guide/setShorthandSuccess.png)
+
 #### Getting help : `help`
 
 Displays a URL that contains a link to this user guide.
 
 Format: `help`
+
+![help_success](images/user-guide/helpSuccess.png)
 
 #### Clearing all entries : `clear`
 
@@ -609,7 +624,7 @@ Clears all entries from the application.
 
 Format: `clear`
 
-![clear success](images/user-guide/clear.png)
+![clear_success](images/user-guide/clearSuccess.png)
 
 #### Exiting the program : `exit`
 
